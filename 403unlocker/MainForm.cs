@@ -62,7 +62,7 @@ namespace _403unlocker
             AppendDataTo(dnsTable, await Data.DnsScrapAsync());
         }
 
-        private void dnsTable_RowValidated(object sender, DataGridViewCellEventArgs e)
+        private void dnsTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
         }

@@ -88,7 +88,7 @@
             this.dnsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dnsTable.Size = new System.Drawing.Size(789, 214);
             this.dnsTable.TabIndex = 3;
-            this.dnsTable.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dnsTable_RowValidated);
+            this.dnsTable.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dnsTable_DataBindingComplete);
             // 
             // label1
             // 
