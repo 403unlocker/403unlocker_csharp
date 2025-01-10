@@ -42,13 +42,13 @@ namespace _403unlocker
             if (dataGridView.DataSource != null)
             {
                 var dnsTable = new List<DnsConfig>((IEnumerable<DnsConfig>)dataGridView.DataSource);
-                var newDns = dnsConfigs.Where(x => !dnsTable.Contains(x)).ToList();
+                var newDns = dnsConfigs.Where(dns => !dnsTable.Contains(dns)).ToList();
                 dnsTable.AddRange(newDns);
                 dataGridView.DataSource = dnsTable;
             }
             else
             {
-                dataGridView.DataSource = Data.DefaultDnsList;
+                dataGridView.DataSource = dnsConfigs;
             }
             dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
         }
@@ -61,6 +61,11 @@ namespace _403unlocker
         private async void scrapDnsButton_Click(object sender, EventArgs e)
         {
             AppendDataTo(dataGridView1, await Data.DnsScrapAsync());
+        }
+
+        private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

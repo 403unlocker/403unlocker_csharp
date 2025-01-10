@@ -133,7 +133,6 @@ namespace _403unlocker
             }
         }
 
-        
         public async static Task<List<DnsConfig>> DnsScrapAsync()
         {
             try
