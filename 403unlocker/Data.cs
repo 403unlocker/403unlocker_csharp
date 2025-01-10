@@ -6,7 +6,9 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -129,6 +131,78 @@ namespace _403unlocker
 
                 return list;
             }
+        }
+
+        
+        public async static Task<List<DnsConfig>> DnsScrapAsync()
+        {
+            try
+            {
+                List<DnsConfig> dnsFound = new List<DnsConfig>();
+
+                using (var handler = new HttpClientHandler())
+                {
+                    handler.UseCookies = true;
+                    using (HttpClient client = new HttpClient(handler))
+                    {
+                        client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+
+                        //string htmlString = await client.GetStringAsync("https://publicdns.xyz");
+                        string htmlString = "";
+                        using (StreamReader sr = new StreamReader("htmlSample.txt"))
+                        {
+                            htmlString = sr.ReadToEnd();
+                        }
+
+                        var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+                        htmlDocument.LoadHtml(htmlString);
+
+                        var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
+
+                        var rows = table.SelectNodes(".//tr").ToList();
+                        var values = rows.Select(row =>
+                        {
+                            return row.ChildNodes.Where(value => value.Name == "td" || value.Name == "th");
+                        }).Where(row => row.Count() == 3).ToList();
+
+                        values = values.Where(value => value.ElementAt(0).Name == "th" &&
+                                                value.ElementAt(1).Name == "td" &&
+                                                value.ElementAt(2).Name == "td").ToList();
+
+                       
+                        dnsFound = values.SelectMany(x => new DnsConfig[]
+                        {
+                            new DnsConfig()
+                            {
+                                Provider = Regex.Replace(x.ElementAt(0).InnerText, @"\\[nt]", ""),
+                                DNS = Regex.Replace(x.ElementAt(1).InnerText, @"\\[nt]", "")
+                            },
+                            new DnsConfig()
+                            {
+                                Provider = Regex.Replace(x.ElementAt(0).InnerText, @"\\[nt]", ""),
+                                DNS = Regex.Replace(x.ElementAt(2).InnerText, @"\\[nt]", "")
+                            }
+                        }
+                        ).ToList();
+                    }
+                }
+
+                return dnsFound;
+            }
+            catch (HttpRequestException error)
+            {
+                MessageBox.Show(error.Message, "Access Denied!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (TaskCanceledException error)
+            {
+                MessageBox.Show(error.Message, "Request Timeout!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Something Went Wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
         }
     }
 }

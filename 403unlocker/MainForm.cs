@@ -57,5 +57,10 @@ namespace _403unlocker
         {
             AppendDataTo(dataGridView1, Data.DefaultDnsList);
         }
+
+        private async void scrapDnsButton_Click(object sender, EventArgs e)
+        {
+            AppendDataTo(dataGridView1, await Data.DnsScrapAsync());
+        }
     }
 }

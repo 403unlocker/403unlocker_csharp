@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.defaultDnsButton = new System.Windows.Forms.Button();
             this.clearDnsButton = new System.Windows.Forms.Button();
+            this.scrapDnsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,7 +106,7 @@
             this.defaultDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.defaultDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.defaultDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.defaultDnsButton.Location = new System.Drawing.Point(16, 248);
+            this.defaultDnsButton.Location = new System.Drawing.Point(101, 248);
             this.defaultDnsButton.Name = "defaultDnsButton";
             this.defaultDnsButton.Size = new System.Drawing.Size(79, 35);
             this.defaultDnsButton.TabIndex = 6;
@@ -118,7 +119,7 @@
             this.clearDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.clearDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.clearDnsButton.Location = new System.Drawing.Point(101, 248);
+            this.clearDnsButton.Location = new System.Drawing.Point(16, 248);
             this.clearDnsButton.Name = "clearDnsButton";
             this.clearDnsButton.Size = new System.Drawing.Size(79, 35);
             this.clearDnsButton.TabIndex = 7;
@@ -126,12 +127,26 @@
             this.clearDnsButton.UseVisualStyleBackColor = false;
             this.clearDnsButton.Click += new System.EventHandler(this.clearDnsButton_Click);
             // 
-            // Form1
+            // scrapDnsButton
+            // 
+            this.scrapDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.scrapDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.scrapDnsButton.ForeColor = System.Drawing.Color.Black;
+            this.scrapDnsButton.Location = new System.Drawing.Point(186, 248);
+            this.scrapDnsButton.Name = "scrapDnsButton";
+            this.scrapDnsButton.Size = new System.Drawing.Size(79, 35);
+            this.scrapDnsButton.TabIndex = 8;
+            this.scrapDnsButton.Text = "Scrap Public DNS";
+            this.scrapDnsButton.UseVisualStyleBackColor = false;
+            this.scrapDnsButton.Click += new System.EventHandler(this.scrapDnsButton_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(815, 450);
+            this.Controls.Add(this.scrapDnsButton);
             this.Controls.Add(this.clearDnsButton);
             this.Controls.Add(this.defaultDnsButton);
             this.Controls.Add(this.label1);
@@ -142,7 +157,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -156,6 +171,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button defaultDnsButton;
         private System.Windows.Forms.Button clearDnsButton;
+        private System.Windows.Forms.Button scrapDnsButton;
     }
 }
 
