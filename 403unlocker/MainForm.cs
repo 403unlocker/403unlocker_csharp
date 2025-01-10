@@ -25,11 +25,11 @@ namespace _403unlocker
 {
     public partial class MainForm : Form
     {
-        // 0x2CD4BF
+        // Theme Color 0x2CD4BF
         public MainForm()
         {
             InitializeComponent();
-
+           
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
@@ -59,12 +59,37 @@ namespace _403unlocker
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataTo(dnsTable, await Data.DnsScrapAsync());
+            if (string.IsNullOrEmpty(timerLabel.Text))
+            {
+                AppendDataTo(dnsTable, await Data.DnsScrapAsync());
+
+                timerLabel.Text = "60s";
+                publicDnsTimer.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("You have time to wait, be patient", "Hold Your Horses🐎!", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
         }
 
         private void dnsTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
+        }
+
+        private void publicDnsTimer_Tick(object sender, EventArgs e)
+        {
+            ushort secondLeft = ushort.Parse(timerLabel.Text.Remove(timerLabel.Text.Length - 1));
+            secondLeft--;
+            if (secondLeft == 0)
+            {
+                timerLabel.Text = "";
+                publicDnsTimer.Enabled = false;
+            }
+            else
+            {
+                timerLabel.Text = $"{secondLeft}s";
+            }
         }
     }
 }

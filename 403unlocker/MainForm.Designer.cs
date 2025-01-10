@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -37,6 +38,8 @@
             this.defaultDnsButton = new System.Windows.Forms.Button();
             this.clearDnsButton = new System.Windows.Forms.Button();
             this.scrapDnsButton = new System.Windows.Forms.Button();
+            this.timerLabel = new System.Windows.Forms.Label();
+            this.publicDnsTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dnsTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,12 +144,26 @@
             this.scrapDnsButton.UseVisualStyleBackColor = false;
             this.scrapDnsButton.Click += new System.EventHandler(this.scrapDnsButton_Click);
             // 
+            // timerLabel
+            // 
+            this.timerLabel.AutoSize = true;
+            this.timerLabel.Location = new System.Drawing.Point(13, 286);
+            this.timerLabel.Name = "timerLabel";
+            this.timerLabel.Size = new System.Drawing.Size(0, 13);
+            this.timerLabel.TabIndex = 9;
+            // 
+            // publicDnsTimer
+            // 
+            this.publicDnsTimer.Interval = 1000;
+            this.publicDnsTimer.Tick += new System.EventHandler(this.publicDnsTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(815, 450);
+            this.Controls.Add(this.timerLabel);
             this.Controls.Add(this.scrapDnsButton);
             this.Controls.Add(this.clearDnsButton);
             this.Controls.Add(this.defaultDnsButton);
@@ -173,6 +190,8 @@
         private System.Windows.Forms.Button defaultDnsButton;
         private System.Windows.Forms.Button clearDnsButton;
         private System.Windows.Forms.Button scrapDnsButton;
+        private System.Windows.Forms.Label timerLabel;
+        private System.Windows.Forms.Timer publicDnsTimer;
     }
 }
 
