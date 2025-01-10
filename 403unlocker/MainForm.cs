@@ -34,7 +34,7 @@ namespace _403unlocker
 
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
+            dnsTable.DataSource = null;
         }
 
         private static void AppendDataTo(DataGridView dataGridView, List<DnsConfig> dnsConfigs)
@@ -50,22 +50,21 @@ namespace _403unlocker
             {
                 dataGridView.DataSource = dnsConfigs;
             }
-            dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
         }
 
         private void defaultDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataTo(dataGridView1, Data.DefaultDnsList);
+            AppendDataTo(dnsTable, Data.DefaultDnsList);
         }
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataTo(dataGridView1, await Data.DnsScrapAsync());
+            AppendDataTo(dnsTable, await Data.DnsScrapAsync());
         }
 
-        private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
+        private void dnsTable_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
-
+            dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
         }
     }
 }
