@@ -37,18 +37,37 @@ namespace _403unlocker
             dnsTable.DataSource = null;
         }
 
-        private static void AppendDataTo(DataGridView dataGridView, List<DnsConfig> dnsConfigs)
+        private static void AppendDataTo(DataGridView dataGridView, List<DnsConfig> dnsList)
         {
-            if (dataGridView.DataSource != null)
+            int dnsAddedCount = 0;
+            if (dataGridView.DataSource == null)
             {
-                var dnsTable = new List<DnsConfig>((IEnumerable<DnsConfig>)dataGridView.DataSource);
-                var newDns = dnsConfigs.Where(dns => !dnsTable.Contains(dns)).ToList();
-                dnsTable.AddRange(newDns);
-                dataGridView.DataSource = dnsTable;
+                dataGridView.DataSource = dnsList;
+                dnsAddedCount = dnsList.Count;
             }
             else
             {
-                dataGridView.DataSource = dnsConfigs;
+                var dnsTable = new List<DnsConfig>((IEnumerable<DnsConfig>)dataGridView.DataSource);
+                
+                var newDns = dnsList.Where(dns => !dnsTable.Contains(dns)).ToList();
+                dnsTable.AddRange(newDns);
+                
+                dataGridView.DataSource = dnsTable;
+                dnsAddedCount = newDns.Count;
+            }
+
+            string text, caption;
+            if (dnsAddedCount > 0)
+            {
+                text = $"New DNS(s) has been successfully added!\nAdded DNS Count: {dnsAddedCount}";
+                caption = "Successfully Updated 🎉";
+                MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                text = "DNSs already exists in table";
+                caption = "No Duplicates Allowed 🛑";
+                MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

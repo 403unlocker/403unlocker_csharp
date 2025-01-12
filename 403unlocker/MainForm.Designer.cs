@@ -114,7 +114,7 @@
             this.defaultDnsButton.Name = "defaultDnsButton";
             this.defaultDnsButton.Size = new System.Drawing.Size(79, 35);
             this.defaultDnsButton.TabIndex = 6;
-            this.defaultDnsButton.Text = "Inject Default DNS";
+            this.defaultDnsButton.Text = "Add Default DNS";
             this.defaultDnsButton.UseVisualStyleBackColor = false;
             this.defaultDnsButton.Click += new System.EventHandler(this.defaultDnsButton_Click);
             // 
@@ -127,7 +127,7 @@
             this.clearDnsButton.Name = "clearDnsButton";
             this.clearDnsButton.Size = new System.Drawing.Size(79, 35);
             this.clearDnsButton.TabIndex = 7;
-            this.clearDnsButton.Text = "Clear DNS Table";
+            this.clearDnsButton.Text = "Clear Table";
             this.clearDnsButton.UseVisualStyleBackColor = false;
             this.clearDnsButton.Click += new System.EventHandler(this.clearDnsButton_Click);
             // 
@@ -140,7 +140,7 @@
             this.scrapDnsButton.Name = "scrapDnsButton";
             this.scrapDnsButton.Size = new System.Drawing.Size(79, 35);
             this.scrapDnsButton.TabIndex = 8;
-            this.scrapDnsButton.Text = "Scrap Public DNS";
+            this.scrapDnsButton.Text = "Add Public DNS";
             this.scrapDnsButton.UseVisualStyleBackColor = false;
             this.scrapDnsButton.Click += new System.EventHandler(this.scrapDnsButton_Click);
             // 
