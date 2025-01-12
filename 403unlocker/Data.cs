@@ -216,13 +216,11 @@ namespace _403unlocker
                                 Provider = dnsConfig.ElementAt(0),
                                 DNS = dnsConfig.ElementAt(2)
                             }
-                        }
-                        );
-
+                        })
                         // removes empty secondary DNS
-                        dnsList = dnsList.Where(dnsConfig => dnsConfig.DNS != "");
+                        .Where(dnsConfig => dnsConfig.DNS != "").ToList();
 
-                        return (List<DnsConfig>)dnsList;
+                        return dnsList;
                     }
                 }
             }
@@ -230,10 +228,11 @@ namespace _403unlocker
             {
                 string errorText = error.Message;
                 string errorCaption = "Access Denied! - Server Blocked us";
+
                 if (error.InnerException != null)
                 {
-                    errorText = error.Message;
-                    errorCaption = "Access Denied! - There is No Internet";
+                    errorText = error.InnerException.Message;
+                    errorCaption = "Access Denied! - There is No Internet 🌐";
                 }
                 MessageBox.Show(errorText, errorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
