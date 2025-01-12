@@ -209,7 +209,14 @@ namespace _403unlocker
             }
             catch (HttpRequestException error)
             {
-                MessageBox.Show(error.Message, "Access Denied!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string errorText = error.Message;
+                string errorCaption = "Access Denied! - Server Blocked us";
+                if (error.InnerException != null)
+                {
+                    errorText = error.Message;
+                    errorCaption = "Access Denied! - There is No Internet";
+                }
+                MessageBox.Show(errorText, errorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (TaskCanceledException error)
             {
