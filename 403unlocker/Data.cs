@@ -118,12 +118,36 @@ namespace _403unlocker
                         DNS = "94.103.125.158"
                     },
                     new DnsConfig{
-                        Provider = "shatel.ir",
+                        Provider = "shatel.ir(rsana)",
                         DNS = "85.15.1.15"
                     },
                     new DnsConfig{
-                        Provider = "shatel.ir",
+                        Provider = "shatel.ir(rsana)",
                         DNS = "85.15.1.14",
+                    },
+                    new DnsConfig{
+                        Provider = "Cisco Umbrella",
+                        DNS = "208.67.222.222",
+                    },
+                    new DnsConfig{
+                        Provider = "Cisco Umbrella",
+                        DNS = "208.67.220.220",
+                    },
+                    new DnsConfig{
+                        Provider = "cleanbrowsing.org/filters",
+                        DNS = "185.228.168.168",
+                    },
+                    new DnsConfig{
+                        Provider = "cleanbrowsing.org/filters",
+                        DNS = "185.228.169.168",
+                    },
+                    new DnsConfig{
+                        Provider = "alternate-dns.com",
+                        DNS = "76.76.19.19",
+                    },
+                    new DnsConfig{
+                        Provider = "alternate-dns.com",
+                        DNS = "76.223.122.150",
                     }
                 };
                 //server.ir/dns-proxy/
