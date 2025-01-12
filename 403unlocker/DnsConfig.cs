@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,6 +33,11 @@ namespace _403unlocker
                 return dns == (obj as DnsConfig).dns;
             }
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+           return dns.GetHashCode();
         }
     }
 }

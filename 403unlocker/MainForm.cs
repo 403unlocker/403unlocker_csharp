@@ -39,22 +39,16 @@ namespace _403unlocker
 
         private static void AppendDataTo(DataGridView dataGridView, List<DnsConfig> dnsList)
         {
-            int dnsAddedCount = 0;
-            if (dataGridView.DataSource == null)
-            {
-                dataGridView.DataSource = dnsList;
-                dnsAddedCount = dnsList.Count;
-            }
-            else
-            {
-                var dnsTable = new List<DnsConfig>((IEnumerable<DnsConfig>)dataGridView.DataSource);
-                
-                var newDns = dnsList.Where(dns => !dnsTable.Contains(dns)).ToList();
-                dnsTable.AddRange(newDns);
-                
-                dataGridView.DataSource = dnsTable;
-                dnsAddedCount = newDns.Count;
-            }
+            // converts dnsTable to list
+            var dnsTable = dataGridView.DataSource == null ? new List<DnsConfig>() : new List<DnsConfig>((IEnumerable<DnsConfig>)dataGridView.DataSource);
+            // finds new DNSs
+            var newDns = dnsList.Except(dnsTable);
+            // counts new DNSs
+            int dnsAddedCount = newDns.Count();
+            // add new DNSs to list
+            dnsTable.AddRange(newDns);
+            // import it to dnsTable
+            dataGridView.DataSource = dnsTable;
 
             string text, caption;
             if (dnsAddedCount > 0)
