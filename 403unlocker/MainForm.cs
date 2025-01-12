@@ -61,7 +61,17 @@ namespace _403unlocker
         {
             if (string.IsNullOrEmpty(timerLabel.Text))
             {
-                AppendDataTo(dnsTable, await Data.DnsScrapAsync());
+                dnsTable.Cursor = Cursors.WaitCursor;
+
+                var publicDnS = await Data.DnsScrapAsync();
+                if (publicDnS == null)
+                {
+                    dnsTable.Cursor = Cursors.Default;
+                    return;
+                }
+                AppendDataTo(dnsTable, publicDnS);
+
+                dnsTable.Cursor = Cursors.Default;
 
                 timerLabel.Text = "60s";
                 publicDnsTimer.Enabled = true;

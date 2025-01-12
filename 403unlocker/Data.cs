@@ -147,12 +147,7 @@ namespace _403unlocker
                         client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
                         client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
 
-                        //string htmlString = await client.GetStringAsync("https://publicdns.xyz");
-                        string htmlString = "";
-                        using (StreamReader sr = new StreamReader("htmlSample.txt"))
-                        {
-                            htmlString = sr.ReadToEnd();
-                        }
+                        string htmlString = await client.GetStringAsync("https://publicdns.xyz");
 
                         var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                         htmlDocument.LoadHtml(htmlString);
@@ -169,7 +164,6 @@ namespace _403unlocker
                                                 value.ElementAt(1).Name == "td" &&
                                                 value.ElementAt(2).Name == "td").ToList();
 
-                       
                         dnsFound = values.SelectMany(x => new DnsConfig[]
                         {
                             new DnsConfig()

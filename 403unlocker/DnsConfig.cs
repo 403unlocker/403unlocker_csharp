@@ -15,7 +15,7 @@ namespace _403unlocker
 {
     internal class DnsConfig
     {
-        string provider = "", dns = "";
+        private string provider = "", dns = "";
         public string Provider { get => provider; set => provider = value; }
         public string DNS { get => dns; set => dns = value; }
 
