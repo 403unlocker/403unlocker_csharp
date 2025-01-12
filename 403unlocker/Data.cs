@@ -161,51 +161,70 @@ namespace _403unlocker
         {
             try
             {
-                List<DnsConfig> dnsFound = new List<DnsConfig>();
-
                 using (var handler = new HttpClientHandler())
                 {
                     handler.UseCookies = true;
                     using (HttpClient client = new HttpClient(handler))
                     {
+                        // content to accept in response
                         client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+
+                        // OS, browser version, html layout rendering engine
                         client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
 
+                        // get html as string
                         string htmlString = await client.GetStringAsync("https://publicdns.xyz");
 
                         var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+
+                        // make html to tree
                         htmlDocument.LoadHtml(htmlString);
 
+                        // get DNS table
                         var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
 
-                        var rows = table.SelectNodes(".//tr").ToList();
-                        var values = rows.Select(row =>
-                        {
-                            return row.ChildNodes.Where(value => value.Name == "td" || value.Name == "th");
-                        }).Where(row => row.Count() == 3).ToList();
+                        // get rows of table
+                        var rows = table.SelectNodes(".//tr");
 
-                        values = values.Where(value => value.ElementAt(0).Name == "th" &&
-                                                value.ElementAt(1).Name == "td" &&
-                                                value.ElementAt(2).Name == "td").ToList();
+                        // data preprocessing rows
+                        var customizedRows = rows.Select(row => row.ChildNodes.Where(cell => cell.Name != "#text"));
 
-                        dnsFound = values.SelectMany(x => new DnsConfig[]
+                        // removes IPv6 DNSs
+                        customizedRows = customizedRows.Where(x => x.Count() == 3);
+
+                        // removes table title
+                        customizedRows = customizedRows.Skip(1);
+
+                        // removes non-letter in cells e.g. \n \t
+                        var minedDns = customizedRows.Select(row => row
+                                                   .Select(cell => string.Concat(
+                                                           cell.InnerText.Where(character => !char.IsControl(character))
+                                                                                 )
+                                                          )
+                                                            );
+
+                        // convert it to usable list for app
+                        var dnsList = minedDns.SelectMany(dnsConfig => new DnsConfig[]
                         {
                             new DnsConfig()
                             {
-                                Provider = Regex.Replace(x.ElementAt(0).InnerText, @"\\[nt]", ""),
-                                DNS = Regex.Replace(x.ElementAt(1).InnerText, @"\\[nt]", "")
+                                Provider = dnsConfig.ElementAt(0),
+                                DNS = dnsConfig.ElementAt(1)
                             },
                             new DnsConfig()
                             {
-                                Provider = Regex.Replace(x.ElementAt(0).InnerText, @"\\[nt]", ""),
-                                DNS = Regex.Replace(x.ElementAt(2).InnerText, @"\\[nt]", "")
+                                Provider = dnsConfig.ElementAt(0),
+                                DNS = dnsConfig.ElementAt(2)
                             }
                         }
-                        ).ToList();
+                        );
+
+                        // removes empty secondary DNS
+                        dnsList = dnsList.Where(dnsConfig => dnsConfig.DNS != "");
+
+                        return (List<DnsConfig>)dnsList;
                     }
                 }
-
-                return dnsFound;
             }
             catch (HttpRequestException error)
             {
