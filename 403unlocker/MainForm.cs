@@ -19,60 +19,99 @@ using System.Data.Common;
 using System.Net;
 using Newtonsoft.Json;
 using System.Xml.Linq;
+using System.Runtime.Remoting.Messaging;
 
 
 namespace _403unlocker
 {
     public partial class MainForm : Form
     {
+        private string jsonAddress = "DNSs.json";
         // Theme Color 0x2CD4BF
         public MainForm()
         {
             InitializeComponent();
             timerLabel.Text = "";
+            dnsCountLabel.Text = "DNS Count: 0";
+        }
+
+        private async void MainForm_Load(object sender, EventArgs e)
+        {
+            if (File.Exists(jsonAddress))
+            {
+                using (StreamReader streamReader = new StreamReader(jsonAddress))
+                {
+                    string jsonText = await streamReader.ReadToEndAsync();
+                    if (!string.IsNullOrEmpty(jsonText))
+                    {
+                        List<DnsConfig> previousList = JsonConvert.DeserializeObject<List<DnsConfig>>(jsonText);
+                        AppendDataToDnsTable(previousList, false);
+
+                        dnsTable.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                        dnsTable.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    }
+                }
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string jsontext = dnsTable.DataSource == null ? "" : JsonConvert.SerializeObject(dnsTable.DataSource, Formatting.Indented);
+            File.WriteAllText(jsonAddress, jsontext);
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
             dnsTable.DataSource = null;
+            dnsCountLabel.Text = "DNS Count: 0";
         }
 
-        private static void AppendDataTo(DataGridView dataGridView, DnsConfig additionDns)
+        private void ScrollDownToEnd()
         {
-            AppendDataTo(dataGridView, new List<DnsConfig> { additionDns });
+            if (dnsTable.RowCount > 0) dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
         }
 
-        private static void AppendDataTo(DataGridView dataGridView, List<DnsConfig> additionDnsList)
+        private void AppendDataToDnsTable(DnsConfig additionDns ,bool statusMessages = true)
+        {
+            List<DnsConfig> dnsList = new List<DnsConfig> { additionDns };
+            AppendDataToDnsTable(dnsList, statusMessages);
+        }
+
+        private void AppendDataToDnsTable(List<DnsConfig> additionDnsList ,bool statusMessages = true)
         {
             // converts dnsTable to list
-            List<DnsConfig> dnsTable = dataGridView.DataSource == null ? new List<DnsConfig>() : (dataGridView.DataSource as List<DnsConfig>).ToList();
+            List<DnsConfig> dnsList = dnsTable.DataSource == null ? new List<DnsConfig>() : (dnsTable.DataSource as List<DnsConfig>).ToList();
             // finds new DNSs
-            var newDns = additionDnsList.Except(dnsTable);
-            // counts new DNSs
-            int dnsAddedCount = newDns.Count();
+            var newDns = additionDnsList.Except(dnsList);
             // add new DNSs to list
-            dnsTable.AddRange(newDns);
+            dnsList.AddRange(newDns);
             // import it to dnsTable
-            dataGridView.DataSource = dnsTable;
+            dnsTable.DataSource = dnsList;
 
-            string text, caption;
-            if (dnsAddedCount > 0)
+            if (statusMessages)
             {
-                text = $"New DNS(s) has been successfully added!\nAdded DNS Count: {dnsAddedCount}";
-                caption = "Successfully Updated 🎉";
-                MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                text = "DNSs already exists in table";
-                caption = "No Duplicates Allowed 🛑";
-                MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // counts new DNSs
+                int dnsAddedCount = newDns.Count();
+                string text, caption;
+                if (dnsAddedCount > 0)
+                {
+                    text = $"New DNS(s) has been successfully added!\nAdded DNS Count: {dnsAddedCount}";
+                    caption = "Successfully Updated 🎉";
+                    ScrollDownToEnd();
+                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    text = "DNSs already exists in table";
+                    caption = "No Duplicates Allowed 🛑";
+                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
 
         private void defaultDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataTo(dnsTable, Data.DefaultDnsList);
+            AppendDataToDnsTable(Data.DefaultDnsList);
         }
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
@@ -87,7 +126,7 @@ namespace _403unlocker
                     dnsTable.Cursor = Cursors.Default;
                     return;
                 }
-                AppendDataTo(dnsTable, publicDnS);
+                AppendDataToDnsTable(publicDnS);
 
                 dnsTable.Cursor = Cursors.Default;
 
@@ -102,7 +141,6 @@ namespace _403unlocker
 
         private void dnsTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            if (dnsTable.RowCount > 0) dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
             dnsCountLabel.Text = "DNS Count: " + dnsTable.RowCount;
         }
 

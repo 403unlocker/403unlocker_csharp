@@ -91,7 +91,6 @@
             this.dnsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dnsTable.Size = new System.Drawing.Size(242, 214);
             this.dnsTable.TabIndex = 3;
-            this.dnsTable.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dnsTable_DataBindingComplete);
             // 
             // label1
             // 
@@ -176,9 +175,9 @@
             this.dnsCountLabel.AutoSize = true;
             this.dnsCountLabel.Location = new System.Drawing.Point(12, 245);
             this.dnsCountLabel.Name = "dnsCountLabel";
-            this.dnsCountLabel.Size = new System.Drawing.Size(64, 13);
+            this.dnsCountLabel.Size = new System.Drawing.Size(67, 13);
             this.dnsCountLabel.TabIndex = 11;
-            this.dnsCountLabel.Text = "DNS Count:";
+            this.dnsCountLabel.Text = "DNS Count: ";
             // 
             // MainForm
             // 
@@ -203,6 +202,8 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dnsTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
