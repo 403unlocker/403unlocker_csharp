@@ -29,7 +29,7 @@ namespace _403unlocker
         public MainForm()
         {
             InitializeComponent();
-           
+            timerLabel.Text = "";
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
@@ -37,12 +37,17 @@ namespace _403unlocker
             dnsTable.DataSource = null;
         }
 
-        private static void AppendDataTo(DataGridView dataGridView, List<DnsConfig> dnsList)
+        private static void AppendDataTo(DataGridView dataGridView, DnsConfig additionDns)
+        {
+            AppendDataTo(dataGridView, new List<DnsConfig> { additionDns });
+        }
+
+        private static void AppendDataTo(DataGridView dataGridView, List<DnsConfig> additionDnsList)
         {
             // converts dnsTable to list
-            var dnsTable = dataGridView.DataSource == null ? new List<DnsConfig>() : new List<DnsConfig>((IEnumerable<DnsConfig>)dataGridView.DataSource);
+            List<DnsConfig> dnsTable = dataGridView.DataSource == null ? new List<DnsConfig>() : (dataGridView.DataSource as List<DnsConfig>).ToList();
             // finds new DNSs
-            var newDns = dnsList.Except(dnsTable);
+            var newDns = additionDnsList.Except(dnsTable);
             // counts new DNSs
             int dnsAddedCount = newDns.Count();
             // add new DNSs to list
@@ -86,7 +91,7 @@ namespace _403unlocker
 
                 dnsTable.Cursor = Cursors.Default;
 
-                timerLabel.Text = "60s";
+                timerLabel.Text = "Seconds Left: 60s";
                 publicDnsTimer.Enabled = true;
             }
             else
@@ -97,21 +102,23 @@ namespace _403unlocker
 
         private void dnsTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
+            if (dnsTable.RowCount > 0) dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
+            dnsCountLabel.Text = "DNS Count: " + dnsTable.RowCount;
         }
 
         private void publicDnsTimer_Tick(object sender, EventArgs e)
         {
-            ushort secondLeft = ushort.Parse(timerLabel.Text.Remove(timerLabel.Text.Length - 1));
-            secondLeft--;
-            if (secondLeft == 0)
+            string s = timerLabel.Text;
+            s = s.Replace("Seconds Left: ", "");
+            ushort secondLeft = ushort.Parse(s.Remove(s.Length - 1));
+            if (--secondLeft == 0)
             {
                 timerLabel.Text = "";
                 publicDnsTimer.Enabled = false;
             }
             else
             {
-                timerLabel.Text = $"{secondLeft}s";
+                timerLabel.Text = $"Seconds Left: {secondLeft}s";
             }
         }
     }
