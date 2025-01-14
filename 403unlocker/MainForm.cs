@@ -92,7 +92,9 @@ namespace _403unlocker
             // finds new DNSs
             var newDns = additionDnsList.Except(dnsList);
             // counts new DNSs
-            int dnsAddedCount = newDns.Count();
+            int newDnsCount = newDns.Count();
+            // counts duplicate DNSs
+            int existingDnsCount = additionDnsList.Count() - newDnsCount;
             // add new DNSs to list
             dnsList.AddRange(newDns);
             // import it to dnsTable
@@ -101,16 +103,16 @@ namespace _403unlocker
             if (statusMessages)
             {
                 string text, caption;
-                if (dnsAddedCount > 0)
+                if (newDnsCount > 0)
                 {
-                    text = $"New DNS(s) has been successfully added!\nAdded DNS Count: {dnsAddedCount}";
+                    text = $"New DNS(s) has been successfully added!\n\nNew DNSs: {newDnsCount}\nExisting DNSs: {existingDnsCount}";
                     caption = "Successfully Updated 🎉";
                     ScrollDownToEnd();
                     MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    text = "DNSs already exists in table";
+                    text = "DNS(s) already exist in table";
                     caption = "No Duplicates Allowed 🛑";
                     MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }

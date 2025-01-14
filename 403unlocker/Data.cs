@@ -126,14 +126,6 @@ namespace _403unlocker
                         DNS = "85.15.1.14",
                     },
                     new DnsConfig{
-                        Provider = "Cisco Umbrella",
-                        DNS = "208.67.222.222",
-                    },
-                    new DnsConfig{
-                        Provider = "Cisco Umbrella",
-                        DNS = "208.67.220.220",
-                    },
-                    new DnsConfig{
                         Provider = "cleanbrowsing.org/filters",
                         DNS = "185.228.168.168",
                     },
