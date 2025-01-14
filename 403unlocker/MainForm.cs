@@ -46,7 +46,7 @@ namespace _403unlocker
                     {
                         try
                         {
-                            List<DnsConfig> previousList = JsonConvert.DeserializeObject<List<DnsConfig>>(jsonText);
+                            List<DnsRecord> previousList = JsonConvert.DeserializeObject<List<DnsRecord>>(jsonText);
                             AppendDataToDnsTable(previousList, false);
 
                             dnsTable.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -79,16 +79,16 @@ namespace _403unlocker
             if (dnsTable.RowCount > 0) dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
         }
 
-        private void AppendDataToDnsTable(DnsConfig additionDns ,bool statusMessages = true)
+        private void AppendDataToDnsTable(DnsRecord additionDns ,bool statusMessages = true)
         {
-            List<DnsConfig> dnsList = new List<DnsConfig> { additionDns };
+            List<DnsRecord> dnsList = new List<DnsRecord> { additionDns };
             AppendDataToDnsTable(dnsList, statusMessages);
         }
 
-        private void AppendDataToDnsTable(List<DnsConfig> additionDnsList ,bool statusMessages = true)
+        private void AppendDataToDnsTable(List<DnsRecord> additionDnsList ,bool statusMessages = true)
         {
             // converts dnsTable to list
-            List<DnsConfig> dnsList = dnsTable.DataSource == null ? new List<DnsConfig>() : (dnsTable.DataSource as List<DnsConfig>).ToList();
+            List<DnsRecord> dnsList = dnsTable.DataSource == null ? new List<DnsRecord>() : (dnsTable.DataSource as List<DnsRecord>).ToList();
             // finds new DNSs
             var newDns = additionDnsList.Except(dnsList);
             // counts new DNSs
@@ -121,7 +121,7 @@ namespace _403unlocker
 
         private void defaultDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataToDnsTable(Data.DefaultDnsList);
+            AppendDataToDnsTable(DnsRecord.DefaultDnsList);
         }
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
@@ -130,7 +130,7 @@ namespace _403unlocker
             {
                 dnsTable.Cursor = Cursors.WaitCursor;
 
-                var publicDnS = await Data.DnsScrapAsync();
+                var publicDnS = await DnsRecord.DnsScrapAsync();
                 if (publicDnS == null)
                 {
                     dnsTable.Cursor = Cursors.Default;
@@ -178,14 +178,14 @@ namespace _403unlocker
                 
                 if (!form.isFormClosePressed && form.isAddButtonPressed)
                 {
-                    List<DnsConfig> customeDnsList = new List<DnsConfig>
+                    List<DnsRecord> customeDnsList = new List<DnsRecord>
                     {
-                        new DnsConfig
+                        new DnsRecord
                         {
                             Provider= form.providerTextBox.Text,
                             DNS = form.primaryDnsTextBox.Text,
                         },
-                        new DnsConfig
+                        new DnsRecord
                         {
                             Provider = form.providerTextBox.Text,
                             DNS = form.secondaryDnsTextBox.Text

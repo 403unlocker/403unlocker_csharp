@@ -1,143 +1,158 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace _403unlocker
 {
-    internal class Data
+    internal class DnsRecord
     {
-        public static List<DnsConfig> DefaultDnsList
+        private string provider = "", dns = "";
+        public string Provider { get => provider; set => provider = value; }
+        public string DNS { get => dns; set => dns = value; }
+
+        public static bool IsValid(string dns)
+        {
+            var octets = dns.Split(new char[] { '.' });
+            if (octets.Length == 4)
+            {
+                // converts octets string to int
+                bool isOctetsValid = octets.Select(x => int.Parse(x))
+                                     // checks are all between 0 to 255
+                                     .All(x => 0 <= x && x <= 255); ;
+                return isOctetsValid;
+            }
+            return false;
+        }
+
+        public static List<DnsRecord> DefaultDnsList
         {
             get
             {
-                List<DnsConfig> list = new List<DnsConfig>
+                List<DnsRecord> list = new List<DnsRecord>
                 {
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "shecan.ir",
                         DNS = "178.22.122.100",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "shecan.ir",
                         DNS = "185.51.200.2"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "server.ir/dns-proxy",
                         DNS = "192.104.158.78",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "server.ir/dns-proxy",
                         DNS =  "194.104.158.48"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "hostiran.net/landing/proxy",
                         DNS = "172.29.0.100",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "hostiran.net/landing/proxy",
                         DNS = "172.29.2.100"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "electrotm.org",
                         DNS = "78.157.42.101",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "electrotm.org",
                         DNS = "78.157.42.100"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "403.online/download",
                         DNS = "10.202.10.202",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "403.online/download",
                         DNS = "10.202.10.102"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "begzar.ir",
                         DNS = "185.55.226.26",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "begzar.ir",
                         DNS = "185.55.225.25"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "radar.game/#/dns",
                         DNS = "10.202.10.10",
                     },
-                     new DnsConfig{
+                     new DnsRecord{
                         Provider = "radar.game/#/dns",
                         DNS = "10.202.10.11"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "dnspro.ir",
                         DNS = "87.107.110.109",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "dnspro.ir",
                         DNS = "87.107.110.110"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "LinkedIn Suggested",
                         DNS = "87.107.52.11",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "LinkedIn Suggested",
                         DNS = "87.107.52.13"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "pishgaman",
                         DNS = "5.202.100.100",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "pishgaman",
                         DNS = "5.202.100.101"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "darzg.ir",
                         DNS = "37.27.41.228",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "sheltertm.com",
                         DNS = "94.103.125.157",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "sheltertm.com",
                         DNS = "94.103.125.158"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "shatel.ir(rsana)",
                         DNS = "85.15.1.15"
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "shatel.ir(rsana)",
                         DNS = "85.15.1.14",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "cleanbrowsing.org/filters",
                         DNS = "185.228.168.168",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "cleanbrowsing.org/filters",
                         DNS = "185.228.169.168",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "alternate-dns.com",
                         DNS = "76.76.19.19",
                     },
-                    new DnsConfig{
+                    new DnsRecord{
                         Provider = "alternate-dns.com",
                         DNS = "76.223.122.150",
                     }
@@ -149,7 +164,7 @@ namespace _403unlocker
             }
         }
 
-        public async static Task<List<DnsConfig>> DnsScrapAsync()
+        public async static Task<List<DnsRecord>> DnsScrapAsync()
         {
             try
             {
@@ -196,14 +211,14 @@ namespace _403unlocker
                                                             );
 
                         // convert it to usable list for app
-                        var dnsList = minedDns.SelectMany(dnsConfig => new DnsConfig[]
+                        var dnsList = minedDns.SelectMany(dnsConfig => new DnsRecord[]
                         {
-                            new DnsConfig()
+                            new DnsRecord()
                             {
                                 Provider = dnsConfig.ElementAt(0),
                                 DNS = dnsConfig.ElementAt(1)
                             },
-                            new DnsConfig()
+                            new DnsRecord()
                             {
                                 Provider = dnsConfig.ElementAt(0),
                                 DNS = dnsConfig.ElementAt(2)
@@ -237,6 +252,26 @@ namespace _403unlocker
                 MessageBox.Show(error.Message, "Something Went Wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return null;
+        }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrEmpty(Provider)) return "";
+            return Provider;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is DnsRecord)
+            {
+                return dns == (obj as DnsRecord).dns;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+           return dns.GetHashCode();
         }
     }
 }

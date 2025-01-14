@@ -34,20 +34,6 @@ namespace _403unlocker
             return true;
         }
 
-        public static bool IsDNSValid(string dns)
-        {
-            var octets = dns.Split(new char[] { '.' });
-            if (octets.Length == 4)
-            {
-                // converts octets string to int
-                bool isOctetsValid = octets.Select(x => int.Parse(x))
-                                     // checks are all between 0 to 255
-                                     .All(x => 0 <= x && x <= 255); ;
-                return isOctetsValid;
-            }
-            return false;
-        }
-
         private void providerTextBox_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(providerTextBox.Text))
@@ -63,7 +49,7 @@ namespace _403unlocker
         private void primaryDnsTextBox_Validated(object sender, EventArgs e)
         {
             string primaryDns = primaryDnsTextBox.Text;
-            if ((string.IsNullOrEmpty(primaryDns) ^ IsDNSValid(primaryDns)) && primaryDns.Count(c => c == '.') < 4)
+            if ((string.IsNullOrEmpty(primaryDns) ^ DnsRecord.IsValid(primaryDns)) && primaryDns.Count(c => c == '.') < 4)
             {
                 primaryDnsTextBox.BackColor = themeColor;
             }
@@ -76,7 +62,7 @@ namespace _403unlocker
         private void secondaryDnsTextBox_Validated(object sender, EventArgs e)
         {
             string secondaryDns = secondaryDnsTextBox.Text;
-            if ((string.IsNullOrEmpty(secondaryDns) ^ IsDNSValid(secondaryDns)) && secondaryDns.Count(c => c == '.') < 4)
+            if ((string.IsNullOrEmpty(secondaryDns) ^ DnsRecord.IsValid(secondaryDns)) && secondaryDns.Count(c => c == '.') < 4)
             {
                 secondaryDnsTextBox.BackColor = themeColor;
             }
@@ -105,14 +91,14 @@ namespace _403unlocker
                 if (!(string.IsNullOrEmpty(primaryDnsTextBox.Text) && string.IsNullOrEmpty(secondaryDnsTextBox.Text)))
                 {
                     // checks one of DNSs valid => true (both valid => true, both not valid => fasle)
-                    if (IsDNSValid(primaryDnsTextBox.Text) || IsDNSValid(secondaryDnsTextBox.Text))
+                    if (DnsRecord.IsValid(primaryDnsTextBox.Text) || DnsRecord.IsValid(secondaryDnsTextBox.Text))
                     {
                         // checks one of DNSs valid => true (both valid => false, both not valid => false)
-                        if (IsDNSValid(primaryDnsTextBox.Text) ^ IsDNSValid(secondaryDnsTextBox.Text))
+                        if (DnsRecord.IsValid(primaryDnsTextBox.Text) ^ DnsRecord.IsValid(secondaryDnsTextBox.Text))
                         {
                             List<TextBox> textBox = new List<TextBox>() { primaryDnsTextBox, secondaryDnsTextBox };
                             // one of DNSs is valid, then empty one of DNSs which is not valid
-                            textBox.Where(x => !IsDNSValid(x.Text)).First().Text = "";
+                            textBox.Where(x => !DnsRecord.IsValid(x.Text)).First().Text = "";
                         }
                         isFormClosePressed = false;
                         isAddButtonPressed = true;
