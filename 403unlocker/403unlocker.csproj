@@ -58,11 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomeDNSForm.cs">
+    <Compile Include="CustomeDnsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomeDNSForm.Designer.cs">
-      <DependentUpon>CustomeDNSForm.cs</DependentUpon>
+    <Compile Include="CustomeDnsForm.Designer.cs">
+      <DependentUpon>CustomeDnsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DnsRecord.cs" />
     <Compile Include="MainForm.cs">
@@ -78,8 +78,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CustomeDNSForm.resx">
-      <DependentUpon>CustomeDNSForm.cs</DependentUpon>
+    <EmbeddedResource Include="CustomeDnsForm.resx">
+      <DependentUpon>CustomeDnsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

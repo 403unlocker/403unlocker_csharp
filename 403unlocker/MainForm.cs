@@ -172,26 +172,26 @@ namespace _403unlocker
 
         private void customeDnsButton_Click(object sender, EventArgs e)
         {
-            using (CustomeDNSForm form = new CustomeDNSForm())
+            using (CustomeDnsForm customeform = new CustomeDnsForm())
             {
-                form.ShowDialog();
+                customeform.ShowDialog();
                 
-                if (!form.isFormClosePressed && form.isAddButtonPressed)
+                if (!customeform.isFormClosePressed && customeform.isAddButtonPressed)
                 {
                     List<DnsRecord> customeDnsList = new List<DnsRecord>
                     {
                         new DnsRecord
                         {
-                            Provider= form.providerTextBox.Text,
-                            DNS = form.primaryDnsTextBox.Text,
+                            Provider= customeform.providerTextBox.Text,
+                            DNS = customeform.primaryDnsTextBox.Text,
                         },
                         new DnsRecord
                         {
-                            Provider = form.providerTextBox.Text,
-                            DNS = form.secondaryDnsTextBox.Text
+                            Provider = customeform.providerTextBox.Text,
+                            DNS = customeform.secondaryDnsTextBox.Text
                         }
                     }
-                    // Removes null DNSs
+                    // removes null DNS
                     .Where(dns => !string.IsNullOrEmpty(dns.DNS)).ToList();
 
                     AppendDataToDnsTable(customeDnsList);
