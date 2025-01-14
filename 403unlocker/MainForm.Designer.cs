@@ -72,7 +72,7 @@
             this.dnsTable.DefaultCellStyle = dataGridViewCellStyle2;
             this.dnsTable.EnableHeadersVisualStyles = false;
             this.dnsTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.dnsTable.Location = new System.Drawing.Point(16, 28);
+            this.dnsTable.Location = new System.Drawing.Point(16, 44);
             this.dnsTable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dnsTable.MultiSelect = false;
             this.dnsTable.Name = "dnsTable";
@@ -89,7 +89,7 @@
             this.dnsTable.RowHeadersVisible = false;
             this.dnsTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dnsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dnsTable.Size = new System.Drawing.Size(242, 214);
+            this.dnsTable.Size = new System.Drawing.Size(242, 288);
             this.dnsTable.TabIndex = 3;
             this.dnsTable.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dnsTable_DataBindingComplete);
             // 
@@ -110,7 +110,7 @@
             this.defaultDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.defaultDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.defaultDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.defaultDnsButton.Location = new System.Drawing.Point(97, 261);
+            this.defaultDnsButton.Location = new System.Drawing.Point(265, 85);
             this.defaultDnsButton.Name = "defaultDnsButton";
             this.defaultDnsButton.Size = new System.Drawing.Size(79, 35);
             this.defaultDnsButton.TabIndex = 6;
@@ -123,7 +123,7 @@
             this.clearDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.clearDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.clearDnsButton.Location = new System.Drawing.Point(12, 261);
+            this.clearDnsButton.Location = new System.Drawing.Point(265, 44);
             this.clearDnsButton.Name = "clearDnsButton";
             this.clearDnsButton.Size = new System.Drawing.Size(79, 35);
             this.clearDnsButton.TabIndex = 7;
@@ -136,7 +136,7 @@
             this.scrapDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.scrapDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.scrapDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.scrapDnsButton.Location = new System.Drawing.Point(182, 261);
+            this.scrapDnsButton.Location = new System.Drawing.Point(350, 85);
             this.scrapDnsButton.Name = "scrapDnsButton";
             this.scrapDnsButton.Size = new System.Drawing.Size(79, 35);
             this.scrapDnsButton.TabIndex = 8;
@@ -147,7 +147,7 @@
             // timerLabel
             // 
             this.timerLabel.AutoSize = true;
-            this.timerLabel.Location = new System.Drawing.Point(179, 245);
+            this.timerLabel.Location = new System.Drawing.Point(350, 66);
             this.timerLabel.Name = "timerLabel";
             this.timerLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.timerLabel.Size = new System.Drawing.Size(76, 13);
@@ -164,7 +164,7 @@
             this.customeDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.customeDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.customeDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.customeDnsButton.Location = new System.Drawing.Point(97, 302);
+            this.customeDnsButton.Location = new System.Drawing.Point(435, 85);
             this.customeDnsButton.Name = "customeDnsButton";
             this.customeDnsButton.Size = new System.Drawing.Size(79, 35);
             this.customeDnsButton.TabIndex = 10;
@@ -175,7 +175,7 @@
             // dnsCountLabel
             // 
             this.dnsCountLabel.AutoSize = true;
-            this.dnsCountLabel.Location = new System.Drawing.Point(12, 245);
+            this.dnsCountLabel.Location = new System.Drawing.Point(12, 28);
             this.dnsCountLabel.Name = "dnsCountLabel";
             this.dnsCountLabel.Size = new System.Drawing.Size(67, 13);
             this.dnsCountLabel.TabIndex = 11;
@@ -186,7 +186,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(273, 344);
+            this.ClientSize = new System.Drawing.Size(526, 344);
             this.Controls.Add(this.scrapDnsButton);
             this.Controls.Add(this.dnsCountLabel);
             this.Controls.Add(this.customeDnsButton);
@@ -203,7 +203,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "403Unlocker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dnsTable)).EndInit();
