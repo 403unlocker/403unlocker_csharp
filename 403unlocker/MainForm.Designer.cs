@@ -91,6 +91,7 @@
             this.dnsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dnsTable.Size = new System.Drawing.Size(242, 214);
             this.dnsTable.TabIndex = 3;
+            this.dnsTable.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dnsTable_DataBindingComplete);
             // 
             // label1
             // 
@@ -169,6 +170,7 @@
             this.customeDnsButton.TabIndex = 10;
             this.customeDnsButton.Text = "Add Custome DNS";
             this.customeDnsButton.UseVisualStyleBackColor = false;
+            this.customeDnsButton.Click += new System.EventHandler(this.customeDnsButton_Click);
             // 
             // dnsCountLabel
             // 

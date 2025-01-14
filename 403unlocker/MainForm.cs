@@ -44,11 +44,19 @@ namespace _403unlocker
                     string jsonText = await streamReader.ReadToEndAsync();
                     if (!string.IsNullOrEmpty(jsonText))
                     {
-                        List<DnsConfig> previousList = JsonConvert.DeserializeObject<List<DnsConfig>>(jsonText);
-                        AppendDataToDnsTable(previousList, false);
+                        try
+                        {
+                            List<DnsConfig> previousList = JsonConvert.DeserializeObject<List<DnsConfig>>(jsonText);
+                            AppendDataToDnsTable(previousList, false);
 
-                        dnsTable.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                        dnsTable.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            dnsTable.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                            dnsTable.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        }
+                        catch (Exception)
+                        {
+                            // When json text is not valid to json
+                            // Do Nothing
+                        }
                     }
                 }
             }
@@ -83,6 +91,8 @@ namespace _403unlocker
             List<DnsConfig> dnsList = dnsTable.DataSource == null ? new List<DnsConfig>() : (dnsTable.DataSource as List<DnsConfig>).ToList();
             // finds new DNSs
             var newDns = additionDnsList.Except(dnsList);
+            // counts new DNSs
+            int dnsAddedCount = newDns.Count();
             // add new DNSs to list
             dnsList.AddRange(newDns);
             // import it to dnsTable
@@ -90,8 +100,6 @@ namespace _403unlocker
 
             if (statusMessages)
             {
-                // counts new DNSs
-                int dnsAddedCount = newDns.Count();
                 string text, caption;
                 if (dnsAddedCount > 0)
                 {
@@ -157,6 +165,35 @@ namespace _403unlocker
             else
             {
                 timerLabel.Text = $"Seconds Left: {secondLeft}s";
+            }
+        }
+
+        private void customeDnsButton_Click(object sender, EventArgs e)
+        {
+            using (CustomeDNSForm form = new CustomeDNSForm())
+            {
+                form.ShowDialog();
+                
+                if (!form.isFormClosePressed && form.isAddButtonPressed)
+                {
+                    List<DnsConfig> customeDnsList = new List<DnsConfig>
+                    {
+                        new DnsConfig
+                        {
+                            Provider= form.providerTextBox.Text,
+                            DNS = form.primaryDnsTextBox.Text,
+                        },
+                        new DnsConfig
+                        {
+                            Provider = form.providerTextBox.Text,
+                            DNS = form.secondaryDnsTextBox.Text
+                        }
+                    }
+                    // Removes null DNSs
+                    .Where(dns => !string.IsNullOrEmpty(dns.DNS)).ToList();
+
+                    AppendDataToDnsTable(customeDnsList);
+                }
             }
         }
     }
