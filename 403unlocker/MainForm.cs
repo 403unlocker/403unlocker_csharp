@@ -27,12 +27,15 @@ namespace _403unlocker
     public partial class MainForm : Form
     {
         private string jsonAddress = "DNSs.json";
-        // Theme Color 0x2CD4BF
+        private BindingList<DnsRecord> dnsRecordsBindingList = new BindingList<DnsRecord> ();
         public MainForm()
         {
             InitializeComponent();
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
+            dataGridView1.DataSource = dnsRecordsBindingList; // Links dataGridView to BindingList variable
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -48,9 +51,6 @@ namespace _403unlocker
                         {
                             List<DnsRecord> previousList = JsonConvert.DeserializeObject<List<DnsRecord>>(jsonText);
                             AppendDataToDnsTable(previousList, false);
-
-                            dnsTable.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                            dnsTable.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                         }
                         catch (Exception)
                         {
@@ -64,41 +64,44 @@ namespace _403unlocker
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string jsontext = dnsTable.DataSource == null ? "" : JsonConvert.SerializeObject(dnsTable.DataSource, Formatting.Indented);
+            string jsontext = dnsRecordsBindingList.Count == 0 ? "" : JsonConvert.SerializeObject(dnsRecordsBindingList, Formatting.Indented);
             File.WriteAllText(jsonAddress, jsontext);
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
-            dnsTable.DataSource = null;
+            dnsRecordsBindingList.Clear();
             dnsCountLabel.Text = "DNS Count: 0";
         }
 
         private void ScrollDownToEnd()
         {
-            if (dnsTable.RowCount > 0) dnsTable.FirstDisplayedScrollingRowIndex = dnsTable.RowCount - 1;
+            if (dataGridView1.RowCount > 0)
+            {
+                int lastRowIndex = dataGridView1.RowCount - 1;
+                dataGridView1.FirstDisplayedScrollingRowIndex = lastRowIndex;
+                dataGridView1.Rows[lastRowIndex].Selected = true;
+            }
         }
 
         private void AppendDataToDnsTable(DnsRecord additionDns ,bool statusMessages = true)
         {
-            List<DnsRecord> dnsList = new List<DnsRecord> { additionDns };
-            AppendDataToDnsTable(dnsList, statusMessages);
+            AppendDataToDnsTable(new List<DnsRecord> { additionDns }, statusMessages);
         }
 
         private void AppendDataToDnsTable(List<DnsRecord> additionDnsList ,bool statusMessages = true)
         {
-            // converts dnsTable to list
-            List<DnsRecord> dnsList = dnsTable.DataSource == null ? new List<DnsRecord>() : (dnsTable.DataSource as List<DnsRecord>).ToList();
             // finds new DNSs
-            var newDns = additionDnsList.Except(dnsList);
+            List<DnsRecord> newDns = additionDnsList.Except(dnsRecordsBindingList).ToList();
             // counts new DNSs
             int newDnsCount = newDns.Count();
             // counts duplicate DNSs
             int existingDnsCount = additionDnsList.Count() - newDnsCount;
-            // add new DNSs to list
-            dnsList.AddRange(newDns);
-            // import it to dnsTable
-            dnsTable.DataSource = dnsList;
+
+            foreach (DnsRecord dns in newDns)
+            {
+                dnsRecordsBindingList.Add(dns);
+            }
 
             if (statusMessages)
             {
@@ -114,7 +117,7 @@ namespace _403unlocker
                 {
                     text = "DNS(s) already exist in table";
                     caption = "No Duplicates Allowed 🛑";
-                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -128,17 +131,17 @@ namespace _403unlocker
         {
             if (string.IsNullOrEmpty(timerLabel.Text))
             {
-                dnsTable.Cursor = Cursors.WaitCursor;
+                dataGridView1.Cursor = Cursors.WaitCursor;
 
                 var publicDnS = await DnsRecord.DnsScrapAsync();
                 if (publicDnS == null)
                 {
-                    dnsTable.Cursor = Cursors.Default;
+                    dataGridView1.Cursor = Cursors.Default;
                     return;
                 }
                 AppendDataToDnsTable(publicDnS);
 
-                dnsTable.Cursor = Cursors.Default;
+                dataGridView1.Cursor = Cursors.Default;
 
                 timerLabel.Text = "Seconds Left: 60s";
                 publicDnsTimer.Enabled = true;
@@ -151,7 +154,7 @@ namespace _403unlocker
 
         private void dnsTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            dnsCountLabel.Text = "DNS Count: " + dnsTable.RowCount;
+            dnsCountLabel.Text = "DNS Count: " + dataGridView1.RowCount;
         }
 
         private void publicDnsTimer_Tick(object sender, EventArgs e)
@@ -196,6 +199,30 @@ namespace _403unlocker
 
                     AppendDataToDnsTable(customeDnsList);
                 }
+            }
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0) 
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+
+                DialogResult confirmResult = MessageBox.Show($"Are you sure you want to delete \"{selectedRowDns}\" DNS?",
+                                                             "Confirm Delete",
+                                                             MessageBoxButtons.YesNo,
+                                                             MessageBoxIcon.Question,
+                                                             MessageBoxDefaultButton.Button2);
+
+                if (confirmResult == DialogResult.Yes) 
+                {
+                    int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                    dnsRecordsBindingList.RemoveAt(selectedRowIndex); 
+                } 
+            }
+            else
+            {
+                MessageBox.Show("Please select a DNS row before deleting it.", "Can't Delete!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
     }
