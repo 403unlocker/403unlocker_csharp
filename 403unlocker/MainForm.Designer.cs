@@ -42,12 +42,12 @@
             this.publicDnsTimer = new System.Windows.Forms.Timer(this.components);
             this.customeDnsButton = new System.Windows.Forms.Button();
             this.dnsCountLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.getPingButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // dnsTable
+            // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
@@ -77,7 +77,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(16, 44);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dnsTable";
+            this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -183,17 +183,18 @@
             this.dnsCountLabel.TabIndex = 11;
             this.dnsCountLabel.Text = "DNS Count: ";
             // 
-            // button1
+            // getPingButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(265, 164);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Ping";
-            this.button1.UseVisualStyleBackColor = false;
+            this.getPingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.getPingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.getPingButton.ForeColor = System.Drawing.Color.Black;
+            this.getPingButton.Location = new System.Drawing.Point(265, 164);
+            this.getPingButton.Name = "getPingButton";
+            this.getPingButton.Size = new System.Drawing.Size(79, 23);
+            this.getPingButton.TabIndex = 12;
+            this.getPingButton.Text = "Get Ping";
+            this.getPingButton.UseVisualStyleBackColor = false;
+            this.getPingButton.Click += new System.EventHandler(this.getPingButton_Click);
             // 
             // deleteButton
             // 
@@ -215,7 +216,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(526, 344);
             this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.getPingButton);
             this.Controls.Add(this.scrapDnsButton);
             this.Controls.Add(this.dnsCountLabel);
             this.Controls.Add(this.customeDnsButton);
@@ -251,7 +252,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button customeDnsButton;
         private System.Windows.Forms.Label dnsCountLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button getPingButton;
         private System.Windows.Forms.Button deleteButton;
     }
 }

@@ -225,5 +225,10 @@ namespace _403unlocker
                 MessageBox.Show("Please select a DNS row before deleting it.", "Can't Delete!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
+
+        private void getPingButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
