@@ -58,11 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DnsCustomeAdderForm.cs">
+    <Compile Include="DnsCustomAdderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DnsCustomeAdderForm.Designer.cs">
-      <DependentUpon>DnsCustomeAdderForm.cs</DependentUpon>
+    <Compile Include="DnsCustomAdderForm.Designer.cs">
+      <DependentUpon>DnsCustomAdderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DnsPing.cs" />
     <Compile Include="DnsProvider.cs" />
@@ -78,6 +78,12 @@
     <Compile Include="DnsPingForm.Designer.cs">
       <DependentUpon>DnsPingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -85,8 +91,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DnsCustomeAdderForm.resx">
-      <DependentUpon>DnsCustomeAdderForm.cs</DependentUpon>
+    <EmbeddedResource Include="DnsCustomAdderForm.resx">
+      <DependentUpon>DnsCustomAdderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DnsCollectorForm.resx">
       <DependentUpon>DnsCollectorForm.cs</DependentUpon>

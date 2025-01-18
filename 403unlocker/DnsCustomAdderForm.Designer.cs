@@ -1,6 +1,6 @@
 ﻿namespace _403unlocker
 {
-    partial class DnsCustomeAdderForm
+    partial class DnsCustomAdderForm
     {
         /// <summary>
         /// Required designer variable.

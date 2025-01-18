@@ -176,7 +176,7 @@ namespace _403unlocker
 
         private void customeDnsButton_Click(object sender, EventArgs e)
         {
-            using (DnsCustomeAdderForm customeform = new DnsCustomeAdderForm())
+            using (DnsCustomAdderForm customeform = new DnsCustomAdderForm())
             {
                 customeform.ShowDialog();
                 
