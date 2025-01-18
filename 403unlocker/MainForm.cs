@@ -27,7 +27,7 @@ namespace _403unlocker
     public partial class MainForm : Form
     {
         private string jsonAddress = "DNSs.json";
-        private BindingList<DnsRecord> dnsRecordsBindingList = new BindingList<DnsRecord> ();
+        private BindingList<DnsProvider> dnsRecordsBindingList = new BindingList<DnsProvider> ();
         public MainForm()
         {
             InitializeComponent();
@@ -49,7 +49,7 @@ namespace _403unlocker
                     {
                         try
                         {
-                            List<DnsRecord> previousList = JsonConvert.DeserializeObject<List<DnsRecord>>(jsonText);
+                            List<DnsProvider> previousList = JsonConvert.DeserializeObject<List<DnsProvider>>(jsonText);
                             AppendDataToDnsTable(previousList, false);
                         }
                         catch (Exception)
@@ -84,21 +84,21 @@ namespace _403unlocker
             }
         }
 
-        private void AppendDataToDnsTable(DnsRecord additionDns ,bool statusMessages = true)
+        private void AppendDataToDnsTable(DnsProvider additionDns ,bool statusMessages = true)
         {
-            AppendDataToDnsTable(new List<DnsRecord> { additionDns }, statusMessages);
+            AppendDataToDnsTable(new List<DnsProvider> { additionDns }, statusMessages);
         }
 
-        private void AppendDataToDnsTable(List<DnsRecord> additionDnsList ,bool statusMessages = true)
+        private void AppendDataToDnsTable(List<DnsProvider> additionDnsList ,bool statusMessages = true)
         {
             // finds new DNSs
-            List<DnsRecord> newDns = additionDnsList.Except(dnsRecordsBindingList).ToList();
+            List<DnsProvider> newDns = additionDnsList.Except(dnsRecordsBindingList).ToList();
             // counts new DNSs
             int newDnsCount = newDns.Count();
             // counts duplicate DNSs
             int existingDnsCount = additionDnsList.Count() - newDnsCount;
 
-            foreach (DnsRecord dns in newDns)
+            foreach (DnsProvider dns in newDns)
             {
                 dnsRecordsBindingList.Add(dns);
             }
@@ -124,7 +124,7 @@ namespace _403unlocker
 
         private void defaultDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataToDnsTable(DnsRecord.DefaultDnsList);
+            AppendDataToDnsTable(DnsProvider.DefaultDnsList);
         }
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace _403unlocker
             {
                 dataGridView1.Cursor = Cursors.WaitCursor;
 
-                var publicDnS = await DnsRecord.DnsScrapAsync();
+                var publicDnS = await DnsProvider.DnsScrapAsync();
                 if (publicDnS == null)
                 {
                     dataGridView1.Cursor = Cursors.Default;
@@ -181,16 +181,16 @@ namespace _403unlocker
                 
                 if (!customeform.isFormClosePressed && customeform.isAddButtonPressed)
                 {
-                    List<DnsRecord> customeDnsList = new List<DnsRecord>
+                    List<DnsProvider> customeDnsList = new List<DnsProvider>
                     {
-                        new DnsRecord
+                        new DnsProvider
                         {
-                            Provider= customeform.providerTextBox.Text,
+                            Name= customeform.providerTextBox.Text,
                             DNS = customeform.primaryDnsTextBox.Text,
                         },
-                        new DnsRecord
+                        new DnsProvider
                         {
-                            Provider = customeform.providerTextBox.Text,
+                            Name = customeform.providerTextBox.Text,
                             DNS = customeform.secondaryDnsTextBox.Text
                         }
                     }

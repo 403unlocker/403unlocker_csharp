@@ -14,13 +14,13 @@ using Newtonsoft.Json;
 
 namespace _403unlocker
 {
-    internal class DnsRecord
+    internal class DnsProvider
     {
-        private string provider = "", dns = "";
-        public string Provider { get => provider; set => provider = value; }
+        private string name = "", dns = "";
+        public string Name { get => name; set => name = value; }
         public string DNS { get => dns; set => dns = value; }
 
-        public static bool IsValid(string dns)
+        public static bool IsIPv4(string dns)
         {
             var octets = dns.Split(new char[] { '.' });
             if (octets.Length == 4)
@@ -34,126 +34,126 @@ namespace _403unlocker
             return false;
         }
 
-        public static List<DnsRecord> DefaultDnsList
+        public static List<DnsProvider> DefaultDnsList
         {
             get
             {
-                List<DnsRecord> list = new List<DnsRecord>
+                List<DnsProvider> list = new List<DnsProvider>
                 {
-                    new DnsRecord{
-                        Provider = "shecan.ir",
+                    new DnsProvider{
+                        Name = "shecan.ir",
                         DNS = "178.22.122.100",
                     },
-                    new DnsRecord{
-                        Provider = "shecan.ir",
+                    new DnsProvider{
+                        Name = "shecan.ir",
                         DNS = "185.51.200.2"
                     },
-                    new DnsRecord{
-                        Provider = "server.ir/dns-proxy",
+                    new DnsProvider{
+                        Name = "server.ir/dns-proxy",
                         DNS = "192.104.158.78",
                     },
-                    new DnsRecord{
-                        Provider = "server.ir/dns-proxy",
+                    new DnsProvider{
+                        Name = "server.ir/dns-proxy",
                         DNS =  "194.104.158.48"
                     },
-                    new DnsRecord{
-                        Provider = "hostiran.net/landing/proxy",
+                    new DnsProvider{
+                        Name = "hostiran.net/landing/proxy",
                         DNS = "172.29.0.100",
                     },
-                    new DnsRecord{
-                        Provider = "hostiran.net/landing/proxy",
+                    new DnsProvider{
+                        Name = "hostiran.net/landing/proxy",
                         DNS = "172.29.2.100"
                     },
-                    new DnsRecord{
-                        Provider = "electrotm.org",
+                    new DnsProvider{
+                        Name = "electrotm.org",
                         DNS = "78.157.42.101",
                     },
-                    new DnsRecord{
-                        Provider = "electrotm.org",
+                    new DnsProvider{
+                        Name = "electrotm.org",
                         DNS = "78.157.42.100"
                     },
-                    new DnsRecord{
-                        Provider = "403.online/download",
+                    new DnsProvider{
+                        Name = "403.online/download",
                         DNS = "10.202.10.202",
                     },
-                    new DnsRecord{
-                        Provider = "403.online/download",
+                    new DnsProvider{
+                        Name = "403.online/download",
                         DNS = "10.202.10.102"
                     },
-                    new DnsRecord{
-                        Provider = "begzar.ir",
+                    new DnsProvider{
+                        Name = "begzar.ir",
                         DNS = "185.55.226.26",
                     },
-                    new DnsRecord{
-                        Provider = "begzar.ir",
+                    new DnsProvider{
+                        Name = "begzar.ir",
                         DNS = "185.55.225.25"
                     },
-                    new DnsRecord{
-                        Provider = "radar.game/#/dns",
+                    new DnsProvider{
+                        Name = "radar.game/#/dns",
                         DNS = "10.202.10.10",
                     },
-                     new DnsRecord{
-                        Provider = "radar.game/#/dns",
+                     new DnsProvider{
+                        Name = "radar.game/#/dns",
                         DNS = "10.202.10.11"
                     },
-                    new DnsRecord{
-                        Provider = "dnspro.ir",
+                    new DnsProvider{
+                        Name = "dnspro.ir",
                         DNS = "87.107.110.109",
                     },
-                    new DnsRecord{
-                        Provider = "dnspro.ir",
+                    new DnsProvider{
+                        Name = "dnspro.ir",
                         DNS = "87.107.110.110"
                     },
-                    new DnsRecord{
-                        Provider = "LinkedIn Suggested",
+                    new DnsProvider{
+                        Name = "LinkedIn Suggested",
                         DNS = "87.107.52.11",
                     },
-                    new DnsRecord{
-                        Provider = "LinkedIn Suggested",
+                    new DnsProvider{
+                        Name = "LinkedIn Suggested",
                         DNS = "87.107.52.13"
                     },
-                    new DnsRecord{
-                        Provider = "pishgaman",
+                    new DnsProvider{
+                        Name = "pishgaman",
                         DNS = "5.202.100.100",
                     },
-                    new DnsRecord{
-                        Provider = "pishgaman",
+                    new DnsProvider{
+                        Name = "pishgaman",
                         DNS = "5.202.100.101"
                     },
-                    new DnsRecord{
-                        Provider = "darzg.ir",
+                    new DnsProvider{
+                        Name = "darzg.ir",
                         DNS = "37.27.41.228",
                     },
-                    new DnsRecord{
-                        Provider = "sheltertm.com",
+                    new DnsProvider{
+                        Name = "sheltertm.com",
                         DNS = "94.103.125.157",
                     },
-                    new DnsRecord{
-                        Provider = "sheltertm.com",
+                    new DnsProvider{
+                        Name = "sheltertm.com",
                         DNS = "94.103.125.158"
                     },
-                    new DnsRecord{
-                        Provider = "shatel.ir(rsana)",
+                    new DnsProvider{
+                        Name = "shatel.ir(rsana)",
                         DNS = "85.15.1.15"
                     },
-                    new DnsRecord{
-                        Provider = "shatel.ir(rsana)",
+                    new DnsProvider{
+                        Name = "shatel.ir(rsana)",
                         DNS = "85.15.1.14",
                     },
-                    new DnsRecord{
-                        Provider = "cleanbrowsing.org/filters",
+                    new DnsProvider{
+                        Name = "cleanbrowsing.org/filters",
                         DNS = "185.228.168.168",
                     },
-                    new DnsRecord{
-                        Provider = "cleanbrowsing.org/filters",
+                    new DnsProvider{
+                        Name = "cleanbrowsing.org/filters",
                         DNS = "185.228.169.168",
                     },
-                    new DnsRecord{
-                        Provider = "alternate-dns.com",
+                    new DnsProvider{
+                        Name = "alternate-dns.com",
                         DNS = "76.76.19.19",
                     },
-                    new DnsRecord{
-                        Provider = "alternate-dns.com",
+                    new DnsProvider{
+                        Name = "alternate-dns.com",
                         DNS = "76.223.122.150",
                     }
                 };
@@ -164,7 +164,7 @@ namespace _403unlocker
             }
         }
 
-        public async static Task<List<DnsRecord>> DnsScrapAsync()
+        public async static Task<List<DnsProvider>> DnsScrapAsync()
         {
             try
             {
@@ -211,16 +211,16 @@ namespace _403unlocker
                                                             );
 
                         // convert it to usable list for app
-                        var dnsList = minedDns.SelectMany(dnsConfig => new DnsRecord[]
+                        var dnsList = minedDns.SelectMany(dnsConfig => new DnsProvider[]
                         {
-                            new DnsRecord()
+                            new DnsProvider()
                             {
-                                Provider = dnsConfig.ElementAt(0),
+                                Name = dnsConfig.ElementAt(0),
                                 DNS = dnsConfig.ElementAt(1)
                             },
-                            new DnsRecord()
+                            new DnsProvider()
                             {
-                                Provider = dnsConfig.ElementAt(0),
+                                Name = dnsConfig.ElementAt(0),
                                 DNS = dnsConfig.ElementAt(2)
                             }
                         })
@@ -256,15 +256,15 @@ namespace _403unlocker
 
         public override string ToString()
         {
-            if (string.IsNullOrEmpty(Provider)) return "";
-            return Provider;
+            if (string.IsNullOrEmpty(Name)) return "";
+            return Name;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is DnsRecord)
+            if (obj is DnsProvider)
             {
-                return dns == (obj as DnsRecord).dns;
+                return dns == (obj as DnsProvider).dns;
             }
             return false;
         }

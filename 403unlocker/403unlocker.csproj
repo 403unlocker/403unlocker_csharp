@@ -64,7 +64,8 @@
     <Compile Include="CustomeDnsForm.Designer.cs">
       <DependentUpon>CustomeDnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DnsRecord.cs" />
+    <Compile Include="DnsPing.cs" />
+    <Compile Include="DnsProvider.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
