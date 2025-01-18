@@ -1,24 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace _403unlocker
 {
     internal class DnsProvider
     {
-        private string name = "", dns = "";
-        public string Name { get => name; set => name = value; }
-        public string DNS { get => dns; set => dns = value; }
+        private string name = "";
+        private string dns = "";
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public string DNS
+        {
+            get => dns;
+            set => dns = value;
+        }
 
         public static bool IsIPv4(string dns)
         {
@@ -133,11 +137,11 @@ namespace _403unlocker
                         DNS = "94.103.125.158"
                     },
                     new DnsProvider{
-                        Name = "shatel.ir(rsana)",
+                        Name = "shatel.ir(rasana)",
                         DNS = "85.15.1.15"
                     },
                     new DnsProvider{
-                        Name = "shatel.ir(rsana)",
+                        Name = "shatel.ir(rasana)",
                         DNS = "85.15.1.14",
                     },
                     new DnsProvider{
@@ -196,19 +200,21 @@ namespace _403unlocker
                         // data preprocessing rows
                         var customizedRows = rows.Select(row => row.ChildNodes.Where(cell => cell.Name != "#text"));
 
-                        // removes IPv6 DNSs
+                        // removes second row (IPv6)
                         customizedRows = customizedRows.Where(x => x.Count() == 3);
 
                         // removes table title
                         customizedRows = customizedRows.Skip(1);
 
                         // removes non-letter in cells e.g. \n \t
-                        var minedDns = customizedRows.Select(row => row
-                                                   .Select(cell => string.Concat(
-                                                           cell.InnerText.Where(character => !char.IsControl(character))
-                                                                                 )
-                                                          )
-                                                            );
+                        var minedDns = customizedRows.Select(row =>
+                                                             row.Select(
+                                                                 cell =>
+                                                                 string.Concat(
+                                                                               cell.InnerText.Where(character => !char.IsControl(character))
+                                                                               )
+                                                                       )
+                                                             );
 
                         // convert it to usable list for app
                         var dnsList = minedDns.SelectMany(dnsConfig => new DnsProvider[]
@@ -216,16 +222,18 @@ namespace _403unlocker
                             new DnsProvider()
                             {
                                 Name = dnsConfig.ElementAt(0),
-                                DNS = dnsConfig.ElementAt(1)
+                                // ensures IPv6 is removed
+                                DNS = IsIPv4(dnsConfig.ElementAt(1)) ? dnsConfig.ElementAt(1) : ""
                             },
                             new DnsProvider()
                             {
                                 Name = dnsConfig.ElementAt(0),
-                                DNS = dnsConfig.ElementAt(2)
+                                // ensures IPv6 is removed
+                                DNS = IsIPv4(dnsConfig.ElementAt(2)) ? dnsConfig.ElementAt(2) : ""
                             }
                         })
-                        // removes empty secondary DNS
-                        .Where(dnsConfig => dnsConfig.DNS != "").ToList();
+                        // removes empty DNS
+                        .Where(dnsConfig => !string.IsNullOrEmpty(dnsConfig.DNS)).ToList();
 
                         return dnsList;
                     }
@@ -271,7 +279,7 @@ namespace _403unlocker
 
         public override int GetHashCode()
         {
-           return dns.GetHashCode();
+            return dns.GetHashCode();
         }
     }
 }

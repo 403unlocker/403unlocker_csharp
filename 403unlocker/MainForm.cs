@@ -21,19 +21,18 @@ using Newtonsoft.Json;
 using System.Xml.Linq;
 using System.Runtime.Remoting.Messaging;
 
-
 namespace _403unlocker
 {
     public partial class MainForm : Form
     {
         private string jsonAddress = "DNSs.json";
-        private BindingList<DnsProvider> dnsRecordsBindingList = new BindingList<DnsProvider> ();
+        private BindingList<DnsProvider> dnsRecordsBinding = new BindingList<DnsProvider> ();
         public MainForm()
         {
             InitializeComponent();
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
-            dataGridView1.DataSource = dnsRecordsBindingList; // Links dataGridView to BindingList variable
+            dataGridView1.DataSource = dnsRecordsBinding; // Links dataGridView to BindingList variable
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
@@ -50,7 +49,7 @@ namespace _403unlocker
                         try
                         {
                             List<DnsProvider> previousList = JsonConvert.DeserializeObject<List<DnsProvider>>(jsonText);
-                            AppendDataToDnsTable(previousList, false);
+                            AppendDataToDataGridView(previousList, false);
                         }
                         catch (Exception)
                         {
@@ -64,13 +63,13 @@ namespace _403unlocker
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string jsontext = dnsRecordsBindingList.Count == 0 ? "" : JsonConvert.SerializeObject(dnsRecordsBindingList, Formatting.Indented);
+            string jsontext = dnsRecordsBinding.Count == 0 ? "" : JsonConvert.SerializeObject(dnsRecordsBinding, Formatting.Indented);
             File.WriteAllText(jsonAddress, jsontext);
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
-            dnsRecordsBindingList.Clear();
+            dnsRecordsBinding.Clear();
             dnsCountLabel.Text = "DNS Count: 0";
         }
 
@@ -84,15 +83,15 @@ namespace _403unlocker
             }
         }
 
-        private void AppendDataToDnsTable(DnsProvider additionDns ,bool statusMessages = true)
+        private void AppendDataToDataGridView(DnsProvider additionDns ,bool statusMessages = true)
         {
-            AppendDataToDnsTable(new List<DnsProvider> { additionDns }, statusMessages);
+            AppendDataToDataGridView(new List<DnsProvider> { additionDns }, statusMessages);
         }
 
-        private void AppendDataToDnsTable(List<DnsProvider> additionDnsList ,bool statusMessages = true)
+        private void AppendDataToDataGridView(List<DnsProvider> additionDnsList ,bool statusMessages = true)
         {
             // finds new DNSs
-            List<DnsProvider> newDns = additionDnsList.Except(dnsRecordsBindingList).ToList();
+            List<DnsProvider> newDns = additionDnsList.Except(dnsRecordsBinding).ToList();
             // counts new DNSs
             int newDnsCount = newDns.Count();
             // counts duplicate DNSs
@@ -100,7 +99,7 @@ namespace _403unlocker
 
             foreach (DnsProvider dns in newDns)
             {
-                dnsRecordsBindingList.Add(dns);
+                dnsRecordsBinding.Add(dns);
             }
 
             if (statusMessages)
@@ -124,7 +123,7 @@ namespace _403unlocker
 
         private void defaultDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataToDnsTable(DnsProvider.DefaultDnsList);
+            AppendDataToDataGridView(DnsProvider.DefaultDnsList);
         }
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
@@ -139,7 +138,7 @@ namespace _403unlocker
                     dataGridView1.Cursor = Cursors.Default;
                     return;
                 }
-                AppendDataToDnsTable(publicDnS);
+                AppendDataToDataGridView(publicDnS);
 
                 dataGridView1.Cursor = Cursors.Default;
 
@@ -197,7 +196,7 @@ namespace _403unlocker
                     // removes null DNS
                     .Where(dns => !string.IsNullOrEmpty(dns.DNS)).ToList();
 
-                    AppendDataToDnsTable(customeDnsList);
+                    AppendDataToDataGridView(customeDnsList);
                 }
             }
         }
@@ -217,7 +216,7 @@ namespace _403unlocker
                 if (confirmResult == DialogResult.Yes) 
                 {
                     int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                    dnsRecordsBindingList.RemoveAt(selectedRowIndex); 
+                    dnsRecordsBinding.RemoveAt(selectedRowIndex); 
                 } 
             }
             else
