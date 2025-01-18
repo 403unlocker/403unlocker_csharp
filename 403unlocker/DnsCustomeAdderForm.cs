@@ -12,11 +12,11 @@ using System.Windows.Forms;
 
 namespace _403unlocker
 {
-    public partial class CustomeDnsForm : Form
+    public partial class DnsCustomeAdderForm : Form
     {
         public bool isFormClosePressed = true, isAddButtonPressed = false;
         private Color themeColor = Color.FromArgb(0x2C, 0xD4, 0xBF);
-        public CustomeDnsForm()
+        public DnsCustomeAdderForm()
         {
             InitializeComponent();
         }

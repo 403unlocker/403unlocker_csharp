@@ -1,6 +1,6 @@
 ﻿namespace _403unlocker
 {
-    partial class PingDnsForm
+    partial class DnsPingForm
     {
         /// <summary>
         /// Required designer variable.

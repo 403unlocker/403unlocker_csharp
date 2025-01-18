@@ -58,25 +58,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomeDnsForm.cs">
+    <Compile Include="DnsCustomeAdderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomeDnsForm.Designer.cs">
-      <DependentUpon>CustomeDnsForm.cs</DependentUpon>
+    <Compile Include="DnsCustomeAdderForm.Designer.cs">
+      <DependentUpon>DnsCustomeAdderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DnsPing.cs" />
     <Compile Include="DnsProvider.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="DnsCollectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="DnsCollectorForm.Designer.cs">
+      <DependentUpon>DnsCollectorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PingDnsForm.cs">
+    <Compile Include="DnsPingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PingDnsForm.Designer.cs">
-      <DependentUpon>PingDnsForm.cs</DependentUpon>
+    <Compile Include="DnsPingForm.Designer.cs">
+      <DependentUpon>DnsPingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,14 +85,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CustomeDnsForm.resx">
-      <DependentUpon>CustomeDnsForm.cs</DependentUpon>
+    <EmbeddedResource Include="DnsCustomeAdderForm.resx">
+      <DependentUpon>DnsCustomeAdderForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="DnsCollectorForm.resx">
+      <DependentUpon>DnsCollectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PingDnsForm.resx">
-      <DependentUpon>PingDnsForm.cs</DependentUpon>
+    <EmbeddedResource Include="DnsPingForm.resx">
+      <DependentUpon>DnsPingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -23,12 +23,12 @@ using System.Runtime.Remoting.Messaging;
 
 namespace _403unlocker
 {
-    public partial class MainForm : Form
+    public partial class DnsCollectorForm : Form
     {
         private string jsonAddress = "DNSs.json";
         private BindingList<DnsProvider> dnsProviderBinding = new BindingList<DnsProvider> ();
-        PingDnsForm pingDnsForm;
-        public MainForm(PingDnsForm pingDnsForm)
+        DnsPingForm pingDnsForm;
+        public DnsCollectorForm(DnsPingForm pingDnsForm)
         {
             InitializeComponent();
             timerLabel.Text = "";
@@ -176,7 +176,7 @@ namespace _403unlocker
 
         private void customeDnsButton_Click(object sender, EventArgs e)
         {
-            using (CustomeDnsForm customeform = new CustomeDnsForm())
+            using (DnsCustomeAdderForm customeform = new DnsCustomeAdderForm())
             {
                 customeform.ShowDialog();
                 

@@ -12,11 +12,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace _403unlocker
 {
-    public partial class PingDnsForm : Form
+    public partial class DnsPingForm : Form
     {
         internal BindingList<DnsPing> dnsPingBinding = new BindingList<DnsPing>();
 
-        public PingDnsForm()
+        public DnsPingForm()
         {
             InitializeComponent();
         }
