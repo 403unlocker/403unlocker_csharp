@@ -176,6 +176,7 @@
             this.sitePingButton.TabIndex = 13;
             this.sitePingButton.Text = "Ping to Site";
             this.sitePingButton.UseVisualStyleBackColor = false;
+            this.sitePingButton.Click += new System.EventHandler(this.sitePingButton_Click);
             // 
             // urlTextBox
             // 
@@ -187,6 +188,7 @@
             this.urlTextBox.Name = "urlTextBox";
             this.urlTextBox.Size = new System.Drawing.Size(190, 102);
             this.urlTextBox.TabIndex = 14;
+            this.urlTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.urlTextBox_KeyPress);
             // 
             // dnsCountLabel
             // 

@@ -67,5 +67,19 @@ namespace _403unlocker
             dataGridView1.DataSource = dnsPingBinding;
         }
 
+        private async void sitePingButton_Click(object sender, EventArgs e)
+        {
+            foreach (DnsPing dnsPing in dnsPingBinding)
+            {
+                await dnsPing.GetPing(urlTextBox.Text);
+            }
+            dataGridView1.Invalidate();
+        }
+
+        private void urlTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r') e.Handled = true;
+        }
+
     }
 }
