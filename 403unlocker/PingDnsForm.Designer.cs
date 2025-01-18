@@ -36,13 +36,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyCellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.getPingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortButton = new System.Windows.Forms.Button();
             this.sitePingButton = new System.Windows.Forms.Button();
             this.urlTextBox = new System.Windows.Forms.TextBox();
             this.dnsCountLabel = new System.Windows.Forms.Label();
-            this.copyCellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +58,7 @@
             this.pcPingButton.TabIndex = 10;
             this.pcPingButton.Text = "Ping to PC";
             this.pcPingButton.UseVisualStyleBackColor = false;
+            this.pcPingButton.Click += new System.EventHandler(this.pcPingButton_Click);
             // 
             // label1
             // 
@@ -131,11 +132,25 @@
             this.contextMenuStrip1.ShowImageMargin = false;
             this.contextMenuStrip1.Size = new System.Drawing.Size(156, 76);
             // 
+            // copyCellToolStripMenuItem
+            // 
+            this.copyCellToolStripMenuItem.Name = "copyCellToolStripMenuItem";
+            this.copyCellToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.copyCellToolStripMenuItem.Text = "Copy Cell";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.BackColor = System.Drawing.Color.Black;
+            this.toolStripSeparator1.ForeColor = System.Drawing.Color.Black;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
+            // 
             // getPingToolStripMenuItem
             // 
             this.getPingToolStripMenuItem.Name = "getPingToolStripMenuItem";
             this.getPingToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.getPingToolStripMenuItem.Text = "Get Ping";
+            this.getPingToolStripMenuItem.Click += new System.EventHandler(this.getPingToolStripMenuItem_Click);
             // 
             // sortButton
             // 
@@ -180,19 +195,6 @@
             this.dnsCountLabel.Size = new System.Drawing.Size(35, 13);
             this.dnsCountLabel.TabIndex = 15;
             this.dnsCountLabel.Text = "URL: ";
-            // 
-            // copyCellToolStripMenuItem
-            // 
-            this.copyCellToolStripMenuItem.Name = "copyCellToolStripMenuItem";
-            this.copyCellToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.copyCellToolStripMenuItem.Text = "Copy Cell";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.BackColor = System.Drawing.Color.Black;
-            this.toolStripSeparator1.ForeColor = System.Drawing.Color.Black;
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // PingDnsForm
             // 

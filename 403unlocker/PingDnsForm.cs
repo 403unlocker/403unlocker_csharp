@@ -30,5 +30,29 @@ namespace _403unlocker
             dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
+
+        private async void pcPingButton_Click(object sender, EventArgs e)
+        {
+            foreach (DnsPing dnsPing in dnsPingBinding)
+            {
+                await dnsPing.GetPing();
+            }
+            dataGridView1.Invalidate();
+        }
+
+        private async void getPingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+                DnsPing foundRecord = dnsPingBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
+                await foundRecord.GetPing();
+                dataGridView1.Invalidate();
+            }
+            else
+            {
+                MessageBox.Show("Please select a row", "Can't Get Ping!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
     }
 }
