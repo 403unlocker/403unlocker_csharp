@@ -26,15 +26,17 @@ namespace _403unlocker
     public partial class MainForm : Form
     {
         private string jsonAddress = "DNSs.json";
-        private BindingList<DnsProvider> dnsRecordsBinding = new BindingList<DnsProvider> ();
-        public MainForm()
+        private BindingList<DnsProvider> dnsProviderBinding = new BindingList<DnsProvider> ();
+        PingDnsForm pingDnsForm;
+        public MainForm(PingDnsForm pingDnsForm)
         {
             InitializeComponent();
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
-            dataGridView1.DataSource = dnsRecordsBinding; // Links dataGridView to BindingList variable
+            dataGridView1.DataSource = dnsProviderBinding; // Links dataGridView to BindingList variable
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.pingDnsForm = pingDnsForm;
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -63,13 +65,13 @@ namespace _403unlocker
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string jsontext = dnsRecordsBinding.Count == 0 ? "" : JsonConvert.SerializeObject(dnsRecordsBinding, Formatting.Indented);
+            string jsontext = dnsProviderBinding.Count == 0 ? "" : JsonConvert.SerializeObject(dnsProviderBinding, Formatting.Indented);
             File.WriteAllText(jsonAddress, jsontext);
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
-            dnsRecordsBinding.Clear();
+            dnsProviderBinding.Clear();
             dnsCountLabel.Text = "DNS Count: 0";
         }
 
@@ -91,7 +93,7 @@ namespace _403unlocker
         private void AppendDataToDataGridView(List<DnsProvider> additionDnsList ,bool statusMessages = true)
         {
             // finds new DNSs
-            List<DnsProvider> newDns = additionDnsList.Except(dnsRecordsBinding).ToList();
+            List<DnsProvider> newDns = additionDnsList.Except(dnsProviderBinding).ToList();
             // counts new DNSs
             int newDnsCount = newDns.Count();
             // counts duplicate DNSs
@@ -99,7 +101,7 @@ namespace _403unlocker
 
             foreach (DnsProvider dns in newDns)
             {
-                dnsRecordsBinding.Add(dns);
+                dnsProviderBinding.Add(dns);
             }
 
             if (statusMessages)
@@ -216,7 +218,7 @@ namespace _403unlocker
                 if (confirmResult == DialogResult.Yes) 
                 {
                     int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                    dnsRecordsBinding.RemoveAt(selectedRowIndex); 
+                    dnsProviderBinding.RemoveAt(selectedRowIndex); 
                 } 
             }
             else
@@ -225,12 +227,16 @@ namespace _403unlocker
             }
         }
 
-        private void pingDnsButton_Click(object sender, EventArgs e)
+        private void getPingButton_Click(object sender, EventArgs e)
         {
-            using (PingDnsForm pingDnsForm = new PingDnsForm())
+            if (pingDnsForm.dnsPingBinding.Count == 0)
             {
-                pingDnsForm.ShowDialog();
+                List<DnsProvider> dnsProviderList = dnsProviderBinding.ToList();
+                List<DnsPing> dnsPingList = dnsProviderList.Select(dnsRecord => new DnsPing(dnsRecord)).ToList();
+                pingDnsForm.dnsPingBinding = new BindingList<DnsPing>(dnsPingList);
             }
+            pingDnsForm.ShowDialog();
+
         }
     }
 }
