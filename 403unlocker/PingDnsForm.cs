@@ -54,5 +54,18 @@ namespace _403unlocker
                 MessageBox.Show("Please select a row", "Can't Get Ping!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
+
+
+        private void sortButton_Click(object sender, EventArgs e)
+        {
+            // sort by status
+            List<DnsPing> sortedDnsPing = dnsPingBinding.OrderBy(dnsPing => dnsPing.Status)
+                                                            // then sort by ping
+                                                            .ThenBy(dnsPing => dnsPing.Latency)
+                                                            .ToList();
+            dnsPingBinding = new BindingList<DnsPing>(sortedDnsPing);
+            dataGridView1.DataSource = dnsPingBinding;
+        }
+
     }
 }
