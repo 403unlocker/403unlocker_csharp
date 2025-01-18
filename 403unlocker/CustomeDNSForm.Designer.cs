@@ -56,6 +56,7 @@
             this.primaryDnsTextBox.ForeColor = System.Drawing.Color.Black;
             this.primaryDnsTextBox.Location = new System.Drawing.Point(119, 38);
             this.primaryDnsTextBox.Name = "primaryDnsTextBox";
+            this.primaryDnsTextBox.ShortcutsEnabled = false;
             this.primaryDnsTextBox.Size = new System.Drawing.Size(100, 20);
             this.primaryDnsTextBox.TabIndex = 1;
             this.primaryDnsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.primaryDnsTextBox_KeyPress);
@@ -68,6 +69,7 @@
             this.secondaryDnsTextBox.ForeColor = System.Drawing.Color.Black;
             this.secondaryDnsTextBox.Location = new System.Drawing.Point(119, 64);
             this.secondaryDnsTextBox.Name = "secondaryDnsTextBox";
+            this.secondaryDnsTextBox.ShortcutsEnabled = false;
             this.secondaryDnsTextBox.Size = new System.Drawing.Size(100, 20);
             this.secondaryDnsTextBox.TabIndex = 2;
             this.secondaryDnsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.secondaryDnsTextBox_KeyPress);
@@ -126,12 +128,12 @@
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // CustomeDNSForm
+            // CustomeDnsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(238, 125);
+            this.ClientSize = new System.Drawing.Size(234, 121);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.addButton);
@@ -145,7 +147,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "CustomeDNSForm";
+            this.Name = "CustomeDnsForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
