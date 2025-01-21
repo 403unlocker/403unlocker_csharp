@@ -52,7 +52,7 @@
             this.pcPingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.pcPingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pcPingButton.ForeColor = System.Drawing.Color.Black;
-            this.pcPingButton.Location = new System.Drawing.Point(12, 322);
+            this.pcPingButton.Location = new System.Drawing.Point(425, 322);
             this.pcPingButton.Name = "pcPingButton";
             this.pcPingButton.Size = new System.Drawing.Size(79, 23);
             this.pcPingButton.TabIndex = 10;
@@ -117,7 +117,7 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(451, 288);
+            this.dataGridView1.Size = new System.Drawing.Size(405, 317);
             this.dataGridView1.TabIndex = 8;
             // 
             // contextMenuStrip1
@@ -157,7 +157,7 @@
             this.sortButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.sortButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sortButton.ForeColor = System.Drawing.Color.Black;
-            this.sortButton.Location = new System.Drawing.Point(385, 322);
+            this.sortButton.Location = new System.Drawing.Point(510, 322);
             this.sortButton.Name = "sortButton";
             this.sortButton.Size = new System.Drawing.Size(79, 23);
             this.sortButton.TabIndex = 11;
@@ -170,7 +170,7 @@
             this.sitePingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.sitePingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sitePingButton.ForeColor = System.Drawing.Color.Black;
-            this.sitePingButton.Location = new System.Drawing.Point(471, 154);
+            this.sitePingButton.Location = new System.Drawing.Point(425, 152);
             this.sitePingButton.Name = "sitePingButton";
             this.sitePingButton.Size = new System.Drawing.Size(79, 23);
             this.sitePingButton.TabIndex = 13;
@@ -183,28 +183,29 @@
             this.urlTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.urlTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.urlTextBox.ForeColor = System.Drawing.Color.Black;
-            this.urlTextBox.Location = new System.Drawing.Point(471, 46);
+            this.urlTextBox.Location = new System.Drawing.Point(425, 44);
             this.urlTextBox.Multiline = true;
             this.urlTextBox.Name = "urlTextBox";
             this.urlTextBox.Size = new System.Drawing.Size(190, 102);
             this.urlTextBox.TabIndex = 14;
+            this.urlTextBox.Text = "https://www.youtube.com/";
             this.urlTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.urlTextBox_KeyPress);
             // 
             // dnsCountLabel
             // 
             this.dnsCountLabel.AutoSize = true;
-            this.dnsCountLabel.Location = new System.Drawing.Point(471, 30);
+            this.dnsCountLabel.Location = new System.Drawing.Point(425, 28);
             this.dnsCountLabel.Name = "dnsCountLabel";
             this.dnsCountLabel.Size = new System.Drawing.Size(35, 13);
             this.dnsCountLabel.TabIndex = 15;
             this.dnsCountLabel.Text = "URL: ";
             // 
-            // PingDnsForm
+            // DnsPingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(673, 357);
+            this.ClientSize = new System.Drawing.Size(624, 357);
             this.Controls.Add(this.dnsCountLabel);
             this.Controls.Add(this.urlTextBox);
             this.Controls.Add(this.sitePingButton);
@@ -214,7 +215,7 @@
             this.Controls.Add(this.dataGridView1);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "PingDnsForm";
+            this.Name = "DnsPingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ping DNS";
             this.Load += new System.EventHandler(this.PingDnsForm_Load);
