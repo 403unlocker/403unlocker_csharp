@@ -34,7 +34,7 @@ namespace _403unlocker
         {
             foreach (DnsPing dnsPing in dnsPingBinding)
             {
-                await dnsPing.GetPing();
+                await dnsPing.GetPing(5000);
             }
             dataGridView1.Invalidate();
         }
@@ -45,7 +45,7 @@ namespace _403unlocker
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
                 DnsPing foundRecord = dnsPingBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
-                await foundRecord.GetPing();
+                await foundRecord.GetPing(5000);
                 dataGridView1.Invalidate();
             }
             else
@@ -68,9 +68,10 @@ namespace _403unlocker
 
         private async void sitePingButton_Click(object sender, EventArgs e)
         {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(5);
             foreach (DnsPing dnsPing in dnsPingBinding)
             {
-                await dnsPing.GetPing(urlTextBox.Text);
+                await dnsPing.GetPing(urlTextBox.Text, timeSpan);
             }
             dataGridView1.Invalidate();
         }

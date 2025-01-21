@@ -9,6 +9,9 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
 using _403unlocker;
+using DnsClient;
+using System.Security.Cryptography;
+using System.Threading;
 
 namespace _403unlocker
 {
@@ -56,29 +59,58 @@ namespace _403unlocker
             base.DNS = dnsRecord.DNS;
         }
 
-        public async Task GetPing()
+        public async Task GetPing(int timeOutms)
         {
-            Ping ping = new Ping();
-            PingReply reply = await ping.SendPingAsync(DNS);
-            latency = reply.RoundtripTime;
-            status = reply.Status.ToString();
+            using (Ping ping = new Ping())
+            {
+                try
+                {
+                    PingReply reply = await ping.SendPingAsync(DNS, timeOutms);
+                    latency = reply.RoundtripTime;
+                    status = reply.Status.ToString();
+                }
+                catch (TaskCanceledException)
+                {
+                    latency = 0;
+                    status = "Thread Timeout";
+                }
+            }
         }
 
-        public async Task GetPing(string url)
+        public async Task GetPing(string url, TimeSpan timeOut)
         {
-            try
+            using (var cancellationTokenSource = new CancellationTokenSource())
             {
-                HttpClient httpClient = new HttpClient();
-                var stopwatch = Stopwatch.StartNew();
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                stopwatch.Stop();
-                latency = stopwatch.ElapsedMilliseconds;
-                status = response.StatusCode.ToString();
-            }
-            catch (HttpRequestException)
-            {
-                latency = 0;
-                status = "Unreachable";
+                cancellationTokenSource.CancelAfter(timeOut);
+                try
+                {
+                    using (var handler = new HttpClientHandler())
+                    {
+                        handler.Proxy = new WebProxy($"http://{DNS}");
+                        using (var client = new HttpClient(handler))
+                        {
+                            var response = await client.GetAsync(url, cancellationTokenSource.Token);
+                            if (response.IsSuccessStatusCode)
+                            {
+                                status = "OK";
+                            }
+                            else
+                            {
+                                status = "Unreachable";
+                            }
+                        }
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    latency = 0;
+                    status = "Unreachable";
+                }
+                catch (TaskCanceledException)
+                {
+                    latency = 0;
+                    status = "Thread Timeout";
+                }
             }
         }
 
