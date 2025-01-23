@@ -137,11 +137,11 @@ namespace _403unlocker
                         DNS = "94.103.125.158"
                     },
                     new DnsProvider{
-                        Name = "shatel.ir(rasana)",
+                        Name = "shatel.ir (rasana)",
                         DNS = "85.15.1.15"
                     },
                     new DnsProvider{
-                        Name = "shatel.ir(rasana)",
+                        Name = "shatel.ir (rasana)",
                         DNS = "85.15.1.14",
                     },
                     new DnsProvider{
@@ -161,8 +161,9 @@ namespace _403unlocker
                         DNS = "76.223.122.150",
                     }
                 };
-                //server.ir/dns-proxy/
-                //vanillapp.ir/
+                //server.ir/dns-proxy
+                //vanillapp.ir
+                //www.smartdnsproxy.com
 
                 return list;
             }
@@ -170,6 +171,7 @@ namespace _403unlocker
 
         public async static Task<List<DnsProvider>> DnsScrapAsync()
         {
+            //https://www.getflix.com.au/setup/dns-servers/
             try
             {
                 using (var handler = new HttpClientHandler())

@@ -79,6 +79,7 @@ namespace _403unlocker
 
         public async Task GetPing(string url, TimeSpan timeOut)
         {
+          
             using (var cancellationTokenSource = new CancellationTokenSource())
             {
                 cancellationTokenSource.CancelAfter(timeOut);
@@ -86,7 +87,8 @@ namespace _403unlocker
                 {
                     using (var handler = new HttpClientHandler())
                     {
-                        handler.Proxy = new WebProxy($"http://{DNS}");
+                        handler.Proxy = new WebProxy(DNS);
+                        handler.UseProxy = true;
                         using (var client = new HttpClient(handler))
                         {
                             var response = await client.GetAsync(url, cancellationTokenSource.Token);
@@ -109,7 +111,7 @@ namespace _403unlocker
                 catch (TaskCanceledException)
                 {
                     latency = 0;
-                    status = "Thread Timeout";
+                    status = "Timeout";
                 }
             }
         }
