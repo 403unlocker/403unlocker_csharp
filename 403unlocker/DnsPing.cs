@@ -79,28 +79,20 @@ namespace _403unlocker
 
         public async Task GetPing(string url, TimeSpan timeOut)
         {
-          
             using (var cancellationTokenSource = new CancellationTokenSource())
             {
                 cancellationTokenSource.CancelAfter(timeOut);
                 try
                 {
-                    using (var handler = new HttpClientHandler())
+
+                    bool success = await TestDNSBypass(DNS);
+                    if (success)
                     {
-                        handler.Proxy = new WebProxy(DNS);
-                        handler.UseProxy = true;
-                        using (var client = new HttpClient(handler))
-                        {
-                            var response = await client.GetAsync(url, cancellationTokenSource.Token);
-                            if (response.IsSuccessStatusCode)
-                            {
-                                status = "OK";
-                            }
-                            else
-                            {
-                                status = "Unreachable";
-                            }
-                        }
+                        status = "OK";
+                    }
+                    else
+                    {
+                        status = "403";
                     }
                 }
                 catch (HttpRequestException)
@@ -113,6 +105,54 @@ namespace _403unlocker
                     latency = 0;
                     status = "Timeout";
                 }
+            }
+        }
+
+        // Method to test if a DNS server bypasses geo-restriction and returns no 403 error
+        async Task<bool> TestDNSBypass(string dnsServer)
+        {
+            try
+            {
+                // Manually resolve the DNS address for the target URL using the specified DNS server
+                var ip = ResolveDNS(url, dnsServer);
+
+                // Now make the HTTP request using this resolved IP
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Host = url;  // Important: Set Host header to the actual domain name
+                    var response = await client.GetAsync($"http://{ip}");
+
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        // If 403, the geo-blocking is still in effect
+                        return false;
+                    }
+
+                    // If response is not 403, it means the request was successful (or bypassed geo-blocking)
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with DNS {dnsServer}: {ex.Message}");
+                return false;
+            }
+        }
+
+        // Method to resolve DNS using a custom DNS server
+        static string ResolveDNS(string domain, string dnsServer)
+        {
+            var resolver = new DnsClient.DnsQueryClient(dnsServer); // You can use DnsClient or similar library
+            var result = resolver.Query(domain, DnsClient.QueryType.A); // Query for A record (IPv4 address)
+
+            // Assuming the result has valid IP address
+            if (result.Answers.Count > 0)
+            {
+                return result.Answers[0].ToString();
+            }
+            else
+            {
+                throw new Exception("DNS resolution failed.");
             }
         }
 
