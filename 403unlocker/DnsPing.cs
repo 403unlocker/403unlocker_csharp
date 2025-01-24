@@ -110,6 +110,12 @@ namespace _403unlocker
                     // Now make the HTTP request using this resolved IP
                     using (var client = new HttpClient())
                     {
+                        // content to accept in response
+                        client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+
+                        // OS, browser version, html layout rendering engine
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+
                         client.DefaultRequestHeaders.Host = url;  // Important: Set Host header to the actual domain name
                         var response = await client.GetAsync($"http://{ip}", cancellationToken);
 
