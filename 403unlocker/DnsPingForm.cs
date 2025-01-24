@@ -78,6 +78,19 @@ namespace _403unlocker
             dataGridView1.Invalidate();
         }
 
+        private void copyDnsCellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+                Clipboard.SetText(selectedRowDns);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row", "Can't Get DNS Cell!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
         private async void getPingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
@@ -120,5 +133,6 @@ namespace _403unlocker
             if (e.KeyChar == '\r') e.Handled = true;
         }
 
+        
     }
 }
