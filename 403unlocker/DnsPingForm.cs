@@ -18,44 +18,10 @@ namespace _403unlocker
     public partial class DnsPingForm : Form
     {
         internal BindingList<DnsPing> dnsPingBinding = new BindingList<DnsPing>();
-
+        private List<string> urlList = new List<string>();
         public DnsPingForm()
         {
             InitializeComponent();
-        }
-
-        static void ChangeDnsSettings(string interfaceName, string primaryDns, string secondaryDns)
-        {
-            try
-            {
-                // Command to set DNS servers
-                string command = $"interface ip set dns name=\"{interfaceName}\" static {primaryDns} primary";
-                ExecuteCommand(command);
-
-                // Command to set secondary DNS
-                string secondaryCommand = $"interface ip add dns name=\"{interfaceName}\" {secondaryDns} index=2";
-                ExecuteCommand(secondaryCommand);
-
-                Console.WriteLine("DNS settings changed successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-        }
-
-        static void ExecuteCommand(string command)
-        {
-            // Run the command using netsh via the command line
-            ProcessStartInfo psi = new ProcessStartInfo("netsh", command)
-            {
-                Verb = "runas", // This ensures that the command runs with admin privileges
-                CreateNoWindow = true,
-                UseShellExecute = false
-            };
-
-            Process process = Process.Start(psi);
-            process.WaitForExit();
         }
 
         private void PingDnsForm_Load(object sender, EventArgs e)
@@ -64,9 +30,7 @@ namespace _403unlocker
             dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            ChangeDnsSettings("Ethernet", "8.8.8.8", "8.8.4.4");
+            dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
         }
 
         private async void pcPingButton_Click(object sender, EventArgs e)
@@ -120,10 +84,9 @@ namespace _403unlocker
 
         private async void sitePingButton_Click(object sender, EventArgs e)
         {
-            TimeSpan timeSpan = TimeSpan.FromSeconds(5);
             foreach (DnsPing dnsPing in dnsPingBinding)
             {
-                await dnsPing.GetPing(urlTextBox.Text, timeSpan);
+                await dnsPing.GetPing(urlTextBox.Text, 5000);
             }
             dataGridView1.Invalidate();
         }

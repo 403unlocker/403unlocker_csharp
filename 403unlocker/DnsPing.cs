@@ -13,13 +13,14 @@ using DnsClient;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using DnsClient.Protocol;
 
 namespace _403unlocker
 {
     internal class DnsPing : DnsProvider
     {
-        private string url = "";
-        private string status = ""; // HttpStatusCode.NoContent.ToString();
+        private int status;
         private long latency = 0;
 
         public string Name
@@ -32,13 +33,7 @@ namespace _403unlocker
             get => base.DNS;
         }
 
-        public string URL
-        {
-            get => url;
-            set => url = value;
-        }
-
-        public string Status
+        public int Status
         {
             get => status;
         }
@@ -59,88 +54,99 @@ namespace _403unlocker
             base.Name = dnsRecord.Name;
             base.DNS = dnsRecord.DNS;
         }
-
-        public async Task GetPing(int timeOutms)
+        public static bool IsValidHostName(string hostName)
+        {
+            if (Regex.IsMatch(hostName, @"^(www\.)?[a-zA - Z0 - 9]+\.com$")) return true;
+            return false;
+        }
+        public async Task GetPing(int timeOut_ms)
         {
             using (Ping ping = new Ping())
             {
                 try
                 {
-                    PingReply reply = await ping.SendPingAsync(DNS, timeOutms);
+                    PingReply reply = await ping.SendPingAsync(IPAddress.Parse(DNS), timeOut_ms);
                     latency = reply.RoundtripTime;
-                    status = reply.Status.ToString();
+                    status = (int)HttpStatusCode.OK;
                 }
                 catch (TaskCanceledException)
                 {
                     latency = 0;
-                    status = "TimeOut";
+                    status = (int)HttpStatusCode.RequestTimeout;
                 }
             }
         }
 
-        public async Task GetPing(string url, TimeSpan timeOut)
+        public async Task GetPing(string hostName, int timeOut_ms)
         {
             using (var cancellationTokenSource = new CancellationTokenSource())
             {
-                cancellationTokenSource.CancelAfter(timeOut);
+                cancellationTokenSource.CancelAfter(timeOut_ms);
                 CancellationToken cancellationToken = cancellationTokenSource.Token;
-
                 try
                 {
-                    // Manually resolve the DNS address for the target URL using the specified DNS server
-                    string ip = "";
-
-                    // Convert the string DNS server address to an IPAddress
-                    IPAddress dnsServerIp = IPAddress.Parse(DNS);  // Convert the DNS server IP string to IPAddress
-
-                    var lookupClient = new LookupClient(dnsServerIp);  // Create a new lookup client with the specified DNS server
-                    var result = await lookupClient.QueryAsync(url, QueryType.A, cancellationToken: cancellationToken);  // Query for A record (IPv4 address)
-
-                    // Assuming the result has a valid IP address
+                    // initialize settings
+                    var options = new LookupClientOptions(IPAddress.Parse(DNS))
+                    {
+                        Timeout = TimeSpan.FromSeconds(timeOut_ms),
+                        UseCache = false,
+                        ThrowDnsErrors = true,
+                        ContinueOnDnsError = false
+                    };
+                    // apply settings to query
+                    var lookup = new LookupClient(options);
+                    // query DNS server
+                    var result = await lookup.QueryAsync(hostName, QueryType.A);
+                    // seeking for any IPs
+                    string iP = "";
                     if (result.Answers.Count > 0)
                     {
-                        ip = result.Answers[0].ToString();
+                        iP = (result.Answers.Where(x=>x is AddressRecord).ElementAt(0) as AddressRecord).Address.ToString();
+                        status = (int)HttpStatusCode.OK;
                     }
                     else
                     {
-                        status = "failed";
+                        status = (int)HttpStatusCode.NoContent;
                         return;
                     }
 
                     // Now make the HTTP request using this resolved IP
-                    using (var client = new HttpClient())
+                    using (var handler = new HttpClientHandler())
                     {
-                        // content to accept in response
-                        client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-
-                        // OS, browser version, html layout rendering engine
-                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
-
-                        client.DefaultRequestHeaders.Host = url;  // Important: Set Host header to the actual domain name
-                        var response = await client.GetAsync($"http://{ip}", cancellationToken);
-
-                        if (response.StatusCode == HttpStatusCode.Forbidden)
+                        handler.Proxy = new WebProxy(DNS);
+                        handler.UseProxy = true;
+                        using (var client = new HttpClient(handler))
                         {
-                            // If 403, the geo-blocking is still in effect
-                            status = "403";
-                        }
+                            // content to accept in response
+                            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
-                        // If response is not 403, it means the request was successful (or bypassed geo-blocking)
-                        status = "OK";
+                            // OS, browser version, html layout rendering engine
+                            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+
+                            Uri uri = new Uri($"https://{iP}/");
+                            var response = await client.GetStringAsync(uri);
+
+                            //if (response.StatusCode == HttpStatusCode.Forbidden)
+                            //{
+                            //    // If 403, the geo-blocking is still in effect
+                            //    status = (int)HttpStatusCode.Forbidden;
+                            //}
+                        }
                     }
 
                 }
                 catch (HttpRequestException)
                 {
                     latency = 0;
-                    status = "Unreachable";
+                    status = (int)HttpStatusCode.BadRequest;
                 }
                 catch (Exception e) when (e is TaskCanceledException || e is DnsResponseException)
                 {
                     latency = 0;
-                    status = "TimeOut";
+                    status = (int)HttpStatusCode.RequestTimeout;
                 }
             }
+
         }
 
         public override string ToString()
