@@ -47,7 +47,15 @@ namespace _403unlocker
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                Clipboard.SetText(selectedRowDns);
+                try
+                {
+                    Clipboard.SetText(selectedRowDns);
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Somthing went wrong!", "Check your Clipboard\nIf it is not be copied, please try again", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
