@@ -109,11 +109,13 @@ namespace _403unlocker
                         status = (int)HttpStatusCode.NoContent;
                         return;
                     }
+                    Uri resolvedDns = new Uri($"http://{iP}/");
+                    Uri targetHostName = new Uri($"https://www.{hostName}");
 
                     // Now make the HTTP request using this resolved IP
                     using (var handler = new HttpClientHandler())
                     {
-                        handler.Proxy = new WebProxy(DNS);
+                        handler.Proxy = new WebProxy(resolvedDns, true);
                         handler.UseProxy = true;
                         using (var client = new HttpClient(handler))
                         {
@@ -123,8 +125,9 @@ namespace _403unlocker
                             // OS, browser version, html layout rendering engine
                             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
 
-                            Uri uri = new Uri($"https://{iP}/");
-                            var response = await client.GetStringAsync(uri);
+                            client.DefaultRequestHeaders.Host = hostName; // Replace with your domain name
+
+                            var response = await client.GetAsync(targetHostName);
 
                             //if (response.StatusCode == HttpStatusCode.Forbidden)
                             //{
@@ -135,10 +138,18 @@ namespace _403unlocker
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
                     latency = 0;
                     status = (int)HttpStatusCode.BadRequest;
+                    if (e.InnerException != null)
+                    {
+                        string s = string.Concat(e.InnerException.Message.Where(x => char.IsDigit(x)));
+                        if (s.Length == 3)
+                        {
+                            status = int.Parse(s);
+                        }
+                    }
                 }
                 catch (Exception e) when (e is TaskCanceledException || e is DnsResponseException)
                 {
