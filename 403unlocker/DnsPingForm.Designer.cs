@@ -189,7 +189,7 @@
             this.urlTextBox.Name = "urlTextBox";
             this.urlTextBox.Size = new System.Drawing.Size(190, 102);
             this.urlTextBox.TabIndex = 14;
-            this.urlTextBox.Text = "youtube.com";
+            this.urlTextBox.Text = "https://youtube.com/";
             this.urlTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.urlTextBox_KeyPress);
             // 
             // dnsCountLabel
