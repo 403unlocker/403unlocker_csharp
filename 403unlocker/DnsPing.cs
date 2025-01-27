@@ -15,6 +15,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using DnsClient.Protocol;
+using HtmlAgilityPack;
 
 namespace _403unlocker
 {
@@ -97,46 +98,49 @@ namespace _403unlocker
                     var lookup = new LookupClient(options);
                     // query DNS server
                     var result = await lookup.QueryAsync(hostName, QueryType.A);
-                    // seeking for any IPs
-                    string iP = "";
+                    // seeking for IPs
+                   var resolcedIpList = new List<string>();
                     if (result.Answers.Count > 0)
                     {
-                        iP = (result.Answers.Where(x=>x is AddressRecord).ElementAt(0) as AddressRecord).Address.ToString();
-                        status = (int)HttpStatusCode.OK;
+                        resolcedIpList = result.Answers.OfType<ARecord>().Select(x => $"http://{x.Address}").ToList();
                     }
                     else
                     {
                         status = (int)HttpStatusCode.NoContent;
                         return;
                     }
-                    Uri resolvedDns = new Uri($"http://{iP}/");
-                    Uri targetHostName = new Uri($"https://www.{hostName}");
+
+                    hostName = $"https://www.{hostName}";
 
                     // Now make the HTTP request using this resolved IP
-                    using (var handler = new HttpClientHandler())
+                    var handler = new HttpClientHandler()
                     {
-                        handler.Proxy = new WebProxy(resolvedDns, true);
-                        handler.UseProxy = true;
-                        using (var client = new HttpClient(handler))
-                        {
-                            // content to accept in response
-                            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+                        Proxy = new WebProxy(resolcedIpList.First(), true),
+                        UseProxy = true
+                    };
 
-                            // OS, browser version, html layout rendering engine
-                            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+                    HtmlWeb web = new HtmlWeb();
+                    web.LoadFromBrowser(hostName);
 
-                            client.DefaultRequestHeaders.Host = hostName; // Replace with your domain name
+                   
+                    using (var client = new HttpClient(handler))
+                    {
+                        // content to accept in response
+                        client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
-                            var response = await client.GetAsync(targetHostName);
+                        // OS, browser version, html layout rendering engine
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
 
-                            //if (response.StatusCode == HttpStatusCode.Forbidden)
-                            //{
-                            //    // If 403, the geo-blocking is still in effect
-                            //    status = (int)HttpStatusCode.Forbidden;
-                            //}
-                        }
+                        client.DefaultRequestHeaders.Host = hostName; // Replace with your domain name
+
+                        var response = await client.GetAsync(hostName);
+
+                        //if (response.StatusCode == HttpStatusCode.Forbidden)
+                        //{
+                        //    // If 403, the geo-blocking is still in effect
+                        //    status = (int)HttpStatusCode.Forbidden;
+                        //}
                     }
-
                 }
                 catch (HttpRequestException e)
                 {
