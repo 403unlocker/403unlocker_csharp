@@ -17,7 +17,7 @@ namespace _403unlockerLibrary
             get => name;
             set => name = value;
         }
-
+        
         public string DNS
         {
             get => dns;

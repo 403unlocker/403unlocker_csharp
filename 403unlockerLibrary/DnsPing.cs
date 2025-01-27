@@ -14,7 +14,6 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using DnsClient.Protocol;
 using HtmlAgilityPack;
-using _403unlockerLibrary;
 
 namespace _403unlockerLibrary
 {
@@ -77,33 +76,17 @@ namespace _403unlockerLibrary
             }
         }
 
-        public async Task GetPing(string hostName, int timeOut_ms)
+        public async Task GetPing(string hostName, int timeOut_s)
         {
             using (var cancellationTokenSource = new CancellationTokenSource())
             {
-                cancellationTokenSource.CancelAfter(timeOut_ms);
+                cancellationTokenSource.CancelAfter(timeOut_s *1000);
                 CancellationToken cancellationToken = cancellationTokenSource.Token;
                 try
                 {
-                    // initialize settings
-                    var options = new LookupClientOptions(IPAddress.Parse(DNS))
-                    {
-                        Timeout = TimeSpan.FromSeconds(timeOut_ms),
-                        UseCache = false,
-                        ThrowDnsErrors = true,
-                        ContinueOnDnsError = false
-                    };
-                    // apply settings to query
-                    var lookup = new LookupClient(options);
-                    // query DNS server
-                    var result = await lookup.QueryAsync(hostName, QueryType.A);
                     // seeking for IPs
-                    var resolcedIpList = new List<string>();
-                    if (result.Answers.Count > 0)
-                    {
-                        resolcedIpList = result.Answers.OfType<ARecord>().Select(x => $"http://{x.Address}").ToList();
-                    }
-                    else
+                    string[] resolvedIP = await ResolveDNS(DNS, hostName, timeOut_s * 1000);
+                    if (resolvedIP.Length == 0)
                     {
                         status = (int)HttpStatusCode.NoContent;
                         return;
@@ -114,7 +97,7 @@ namespace _403unlockerLibrary
                     // Now make the HTTP request using this resolved IP
                     var handler = new HttpClientHandler()
                     {
-                        Proxy = new WebProxy(resolcedIpList.First(), true),
+                        Proxy = new WebProxy(resolvedIP.First(), true),
                         UseProxy = true
                     };
 
@@ -161,6 +144,25 @@ namespace _403unlockerLibrary
                 }
             }
 
+        }
+
+        private async static Task<string[]> ResolveDNS(string customeDNS, string hostName, int timeOut_s = 5)
+        {
+            // initialize settings
+            var options = new LookupClientOptions(IPAddress.Parse(customeDNS))
+            {
+                Timeout = TimeSpan.FromSeconds(timeOut_s),
+                UseCache = false,
+                ThrowDnsErrors = true,
+                ContinueOnDnsError = false
+            };
+            // apply settings to query
+            var lookup = new LookupClient(options);
+            // query DNS server
+            var result = await lookup.QueryAsync(hostName, QueryType.A);
+
+            string[] resolvedIP = result.Answers.OfType<ARecord>().Select(x => $"http://{x.Address}").ToArray();
+            return resolvedIP;
         }
 
         public override string ToString()
