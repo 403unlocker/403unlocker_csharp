@@ -43,7 +43,6 @@
             this.sitePingButton = new System.Windows.Forms.Button();
             this.urlTextBox = new System.Windows.Forms.TextBox();
             this.dnsCountLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -202,21 +201,12 @@
             this.dnsCountLabel.TabIndex = 15;
             this.dnsCountLabel.Text = "URL: ";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(428, 181);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(184, 21);
-            this.comboBox1.TabIndex = 16;
-            // 
             // DnsPingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(624, 357);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dnsCountLabel);
             this.Controls.Add(this.urlTextBox);
             this.Controls.Add(this.sitePingButton);
@@ -250,6 +240,5 @@
         private System.Windows.Forms.Label dnsCountLabel;
         private System.Windows.Forms.ToolStripMenuItem copyDnsCellToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
