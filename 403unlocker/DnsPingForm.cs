@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using _403unlockerLibrary;
 
 namespace _403unlocker
 {
@@ -34,7 +35,7 @@ namespace _403unlocker
         {
             foreach (DnsPing dnsPing in dnsPingBinding)
             {
-                await dnsPing.GetPing();
+                await dnsPing.GetPing(5000);
             }
             dataGridView1.Invalidate();
         }
@@ -90,7 +91,7 @@ namespace _403unlocker
         {
             foreach (DnsPing dnsPing in dnsPingBinding)
             {
-                await dnsPing.GetPing(urlTextBox.Text);
+                await dnsPing.GetPing(urlTextBox.Text, 5000);
             }
             dataGridView1.Invalidate();
         }
