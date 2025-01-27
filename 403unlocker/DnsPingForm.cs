@@ -39,13 +39,34 @@ namespace _403unlocker
             dataGridView1.Invalidate();
         }
 
+        private void copyDnsCellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+                try
+                {
+                    Clipboard.SetText(selectedRowDns);
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Somthing went wrong!", "Check your Clipboard\nIf it is not be copied, please try again", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a row", "Can't Get DNS Cell!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
         private async void getPingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
                 DnsPing foundRecord = dnsPingBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
-                await foundRecord.GetPing();
+                await foundRecord.GetPing(5000);
                 dataGridView1.Invalidate();
             }
             else
@@ -53,7 +74,6 @@ namespace _403unlocker
                 MessageBox.Show("Please select a row", "Can't Get Ping!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
-
 
         private void sortButton_Click(object sender, EventArgs e)
         {
