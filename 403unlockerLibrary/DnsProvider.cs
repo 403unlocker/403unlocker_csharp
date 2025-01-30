@@ -174,53 +174,35 @@ namespace _403unlockerLibrary
             //https://www.getflix.com.au/setup/dns-servers/
             try
             {
-                using (var handler = new HttpClientHandler())
-                {
-                    handler.UseCookies = true;
-                    using (HttpClient client = new HttpClient(handler))
-                    {
-                        // content to accept in response
-                        client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+                var htmlDocument = await DnsPing.HttpRequest("https://publicdns.xyz");
+                // get DNS table
+                var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
 
-                        // OS, browser version, html layout rendering engine
-                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+                // get rows of table
+                var rows = table.SelectNodes(".//tr");
 
-                        // get html as string
-                        string htmlString = await client.GetStringAsync("https://publicdns.xyz");
+                // data preprocessing rows
+                var customizedRows = rows.Select(row => row.ChildNodes.Where(cell => cell.Name != "#text"));
 
-                        var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+                // removes second row (IPv6)
+                customizedRows = customizedRows.Where(x => x.Count() == 3);
 
-                        // make html to tree
-                        htmlDocument.LoadHtml(htmlString);
+                // removes table title
+                customizedRows = customizedRows.Skip(1);
 
-                        // get DNS table
-                        var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
-
-                        // get rows of table
-                        var rows = table.SelectNodes(".//tr");
-
-                        // data preprocessing rows
-                        var customizedRows = rows.Select(row => row.ChildNodes.Where(cell => cell.Name != "#text"));
-
-                        // removes second row (IPv6)
-                        customizedRows = customizedRows.Where(x => x.Count() == 3);
-
-                        // removes table title
-                        customizedRows = customizedRows.Skip(1);
-
-                        // removes non-letter in cells e.g. \n \t
-                        var minedDns = customizedRows.Select(row =>
-                                                             row.Select(
-                                                                 cell =>
-                                                                 string.Concat(
-                                                                               cell.InnerText.Where(character => !char.IsControl(character))
-                                                                               )
+                // removes non-letter in cells e.g. \n \t
+                var minedDns = customizedRows.Select(row =>
+                                                     row.Select(
+                                                         cell =>
+                                                         string.Concat(
+                                                                       cell.InnerText.Where(character => !char.IsControl(character))
                                                                        )
-                                                             );
+                                                               )
+                                                     );
 
-                        // convert it to usable list for app
-                        var dnsList = minedDns.SelectMany(dnsConfig => new DnsProvider[]
-                        {
+                // convert it to usable list for app
+                var dnsList = minedDns.SelectMany(dnsConfig => new DnsProvider[]
+                {
                             new DnsProvider()
                             {
                                 Name = dnsConfig.ElementAt(0),
@@ -233,13 +215,11 @@ namespace _403unlockerLibrary
                                 // ensures IPv6 is removed
                                 DNS = IsIPv4(dnsConfig.ElementAt(2)) ? dnsConfig.ElementAt(2) : ""
                             }
-                        })
-                        // removes empty DNS
-                        .Where(dnsConfig => !string.IsNullOrEmpty(dnsConfig.DNS)).ToList();
+                })
+                // removes empty DNS
+                .Where(dnsConfig => !string.IsNullOrEmpty(dnsConfig.DNS)).ToList();
 
-                        return dnsList;
-                    }
-                }
+                return dnsList;
             }
             catch (HttpRequestException error)
             {

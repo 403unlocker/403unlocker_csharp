@@ -89,6 +89,13 @@ namespace _403unlocker
 
         private async void sitePingButton_Click(object sender, EventArgs e)
         {
+            if (!DnsPing.IsValidUrl(urlTextBox.Text))
+            {
+                MessageBox.Show("Please type correct url\n\nLike this:\nwww.google.com\ngoogle.com",
+                                "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             foreach (DnsPing dnsPing in dnsPingBinding)
             {
                 await dnsPing.GetPing(urlTextBox.Text, 5000);
