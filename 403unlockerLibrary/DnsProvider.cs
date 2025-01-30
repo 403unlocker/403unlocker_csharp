@@ -174,7 +174,7 @@ namespace _403unlockerLibrary
             //https://www.getflix.com.au/setup/dns-servers/
             try
             {
-                var htmlDocument = await DnsPing.HttpRequest("https://publicdns.xyz");
+                var htmlDocument = await NetworkUtility.HttpRequest("https://publicdns.xyz");
                 // get DNS table
                 var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
 

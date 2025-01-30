@@ -17,7 +17,7 @@ using HtmlAgilityPack;
 
 namespace _403unlockerLibrary
 {
-    public class DnsPing : DnsProvider
+    public class NetworkUtility : DnsProvider
     {
         private int status;
         private long latency = 0;
@@ -42,13 +42,13 @@ namespace _403unlockerLibrary
             get => latency;
         }
 
-        public DnsPing(string provider, string dns)
+        public NetworkUtility(string provider, string dns)
         {
             base.Name = provider;
             base.DNS = dns;
         }
 
-        public DnsPing(DnsProvider dnsRecord)
+        public NetworkUtility(DnsProvider dnsRecord)
         {
             base.Name = dnsRecord.Name;
             base.DNS = dnsRecord.DNS;

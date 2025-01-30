@@ -233,8 +233,8 @@ namespace _403unlocker
             if (pingDnsForm.dnsPingBinding.Count == 0)
             {
                 List<DnsProvider> dnsProviderList = dnsProviderBinding.ToList();
-                List<DnsPing> dnsPingList = dnsProviderList.Select(dnsRecord => new DnsPing(dnsRecord)).ToList();
-                pingDnsForm.dnsPingBinding = new BindingList<DnsPing>(dnsPingList);
+                List<NetworkUtility> dnsPingList = dnsProviderList.Select(dnsRecord => new NetworkUtility(dnsRecord)).ToList();
+                pingDnsForm.dnsPingBinding = new BindingList<NetworkUtility>(dnsPingList);
             }
             pingDnsForm.ShowDialog();
 

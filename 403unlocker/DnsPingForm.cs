@@ -15,7 +15,7 @@ namespace _403unlocker
 {
     public partial class DnsPingForm : Form
     {
-        internal BindingList<DnsPing> dnsPingBinding = new BindingList<DnsPing>();
+        internal BindingList<NetworkUtility> dnsPingBinding = new BindingList<NetworkUtility>();
 
         public DnsPingForm()
         {
@@ -33,7 +33,7 @@ namespace _403unlocker
 
         private async void pcPingButton_Click(object sender, EventArgs e)
         {
-            foreach (DnsPing dnsPing in dnsPingBinding)
+            foreach (NetworkUtility dnsPing in dnsPingBinding)
             {
                 await dnsPing.GetPing(5000);
             }
@@ -66,7 +66,7 @@ namespace _403unlocker
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                DnsPing foundRecord = dnsPingBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
+                NetworkUtility foundRecord = dnsPingBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
                 await foundRecord.GetPing(5000);
                 dataGridView1.Invalidate();
             }
@@ -79,24 +79,24 @@ namespace _403unlocker
         private void sortButton_Click(object sender, EventArgs e)
         {
             // sort by status
-            List<DnsPing> sortedDnsPing = dnsPingBinding.OrderBy(dnsPing => dnsPing.Status)
+            List<NetworkUtility> sortedDnsPing = dnsPingBinding.OrderBy(dnsPing => dnsPing.Status)
                                                             // then sort by ping
                                                             .ThenBy(dnsPing => dnsPing.Latency)
                                                             .ToList();
-            dnsPingBinding = new BindingList<DnsPing>(sortedDnsPing);
+            dnsPingBinding = new BindingList<NetworkUtility>(sortedDnsPing);
             dataGridView1.DataSource = dnsPingBinding;
         }
 
         private async void sitePingButton_Click(object sender, EventArgs e)
         {
-            if (!DnsPing.IsValidUrl(urlTextBox.Text))
+            if (!NetworkUtility.IsValidUrl(urlTextBox.Text))
             {
                 MessageBox.Show("Please type correct url\n\nLike this:\nwww.google.com\ngoogle.com",
                                 "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            foreach (DnsPing dnsPing in dnsPingBinding)
+            foreach (NetworkUtility dnsPing in dnsPingBinding)
             {
                 await dnsPing.GetPing(urlTextBox.Text, 5000);
             }
