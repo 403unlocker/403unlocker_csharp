@@ -189,7 +189,7 @@
             this.urlTextBox.Name = "urlTextBox";
             this.urlTextBox.Size = new System.Drawing.Size(190, 102);
             this.urlTextBox.TabIndex = 14;
-            this.urlTextBox.Text = "https://youtube.com/";
+            this.urlTextBox.Text = "youtube.com";
             this.urlTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.urlTextBox_KeyPress);
             // 
             // dnsCountLabel
@@ -197,9 +197,9 @@
             this.dnsCountLabel.AutoSize = true;
             this.dnsCountLabel.Location = new System.Drawing.Point(425, 28);
             this.dnsCountLabel.Name = "dnsCountLabel";
-            this.dnsCountLabel.Size = new System.Drawing.Size(35, 13);
+            this.dnsCountLabel.Size = new System.Drawing.Size(61, 13);
             this.dnsCountLabel.TabIndex = 15;
-            this.dnsCountLabel.Text = "URL: ";
+            this.dnsCountLabel.Text = "Hostname: ";
             // 
             // DnsPingForm
             // 

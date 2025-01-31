@@ -54,9 +54,9 @@ namespace _403unlockerLibrary
             base.DNS = dnsRecord.DNS;
         }
 
-        public static bool IsValidUrl(string url)
+        public static bool IsValidHostname(string hostname)
         {
-            if (Regex.IsMatch(url, @"^(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]+$")) return true;
+            if (Regex.IsMatch(hostname, @"^(www.)?([^\W_][a-zA-Z0-9\-]+){1}(\.[^\W_][a-zA-Z0-9\-]+)*(\.[a-z]+)$")) return true;
             return false;
         }
 

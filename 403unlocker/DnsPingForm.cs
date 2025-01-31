@@ -89,10 +89,10 @@ namespace _403unlocker
 
         private async void sitePingButton_Click(object sender, EventArgs e)
         {
-            if (!NetworkUtility.IsValidUrl(urlTextBox.Text))
+            if (!NetworkUtility.IsValidHostname(urlTextBox.Text))
             {
-                MessageBox.Show("Please type correct url\n\nLike this:\nwww.google.com\ngoogle.com",
-                                "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please type correct Hostname\n\nLike this:\nwww.google.com\ngoogle.com",
+                                "Hostname is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
