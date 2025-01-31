@@ -159,6 +159,30 @@ namespace _403unlockerLibrary
                     new DnsProvider{
                         Name = "alternate-dns.com",
                         DNS = "76.223.122.150",
+                    },
+                    new DnsProvider{
+                        Name = "Unlocator",
+                        DNS = "185.37.37.37",
+                    },
+                    new DnsProvider{
+                        Name = "Unlocator",
+                        DNS = "185.37.39.39",
+                    },
+                    new DnsProvider{
+                        Name = "Yandex.DNS (Safe)",
+                        DNS = "77.88.8.88",
+                    },
+                    new DnsProvider{
+                        Name = "Yandex.DNS (Safe)",
+                        DNS = "77.88.8.2",
+                    },
+                    new DnsProvider{
+                        Name = "Yandex.DNS (Family)",
+                        DNS = "77.88.8.7",
+                    },
+                    new DnsProvider{
+                        Name = "Yandex.DNS (Family)",
+                        DNS = "77.88.8.3",
                     }
                 };
                 //server.ir/dns-proxy
