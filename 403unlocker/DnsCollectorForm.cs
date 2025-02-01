@@ -25,7 +25,7 @@ namespace _403unlocker
 {
     public partial class DnsCollectorForm : Form
     {
-        private string path = "DNSs.json";
+        private string path = "dns";
         private BindingList<DnsProvider> dnsProviderBinding = new BindingList<DnsProvider> ();
         DnsPingForm pingDnsForm;
         public DnsCollectorForm(DnsPingForm pingDnsForm)
@@ -43,7 +43,7 @@ namespace _403unlocker
         {
             try
             {
-                List<DnsProvider> previousList = await JsonHandler.ReadJson<DnsProvider>(path);
+                List<DnsProvider> previousList = await JsonHandler.ReadJson<DnsProvider>(path, true);
                 AppendDataToDataGridView(previousList, false);
             }
             catch (Exception)
@@ -53,9 +53,9 @@ namespace _403unlocker
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            JsonHandler.WriteJson(path, dnsProviderBinding.ToList());
+            await JsonHandler.WriteJson(path, dnsProviderBinding.ToList(), true);
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
