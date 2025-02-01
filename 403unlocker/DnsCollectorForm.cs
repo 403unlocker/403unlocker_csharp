@@ -17,7 +17,6 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Data.Common;
 using System.Net;
-using Newtonsoft.Json;
 using System.Xml.Linq;
 using System.Runtime.Remoting.Messaging;
 using _403unlockerLibrary;
@@ -26,7 +25,7 @@ namespace _403unlocker
 {
     public partial class DnsCollectorForm : Form
     {
-        private string jsonAddress = "DNSs.json";
+        private string path = "DNSs.json";
         private BindingList<DnsProvider> dnsProviderBinding = new BindingList<DnsProvider> ();
         DnsPingForm pingDnsForm;
         public DnsCollectorForm(DnsPingForm pingDnsForm)
@@ -42,32 +41,21 @@ namespace _403unlocker
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            if (File.Exists(jsonAddress))
+            try
             {
-                using (StreamReader streamReader = new StreamReader(jsonAddress))
-                {
-                    string jsonText = await streamReader.ReadToEndAsync();
-                    if (!string.IsNullOrEmpty(jsonText))
-                    {
-                        try
-                        {
-                            List<DnsProvider> previousList = JsonConvert.DeserializeObject<List<DnsProvider>>(jsonText);
-                            AppendDataToDataGridView(previousList, false);
-                        }
-                        catch (Exception)
-                        {
-                            // When json text is not valid to json
-                            // Do Nothing
-                        }
-                    }
-                }
+                List<DnsProvider> previousList = await JsonHandler.ReadJson<DnsProvider>(path);
+                AppendDataToDataGridView(previousList, false);
+            }
+            catch (Exception)
+            {
+                // When json text is not valid to json
+                // Do Nothing
             }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string jsontext = dnsProviderBinding.Count == 0 ? "" : JsonConvert.SerializeObject(dnsProviderBinding, Formatting.Indented);
-            File.WriteAllText(jsonAddress, jsontext);
+            JsonHandler.WriteJson(path, dnsProviderBinding.ToList());
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
