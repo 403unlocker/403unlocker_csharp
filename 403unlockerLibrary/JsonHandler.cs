@@ -86,6 +86,11 @@ namespace _403unlockerLibrary
             }
         }
 
+        public static async Task WriteJson<T>(string path, T data, bool encryptToByte)
+        {
+            await WriteJson(path, new List<T> { data }, encryptToByte);
+        }
+
         private static T DecryptByte<T>(string stringByte)
         {
             byte[] bytes = Convert.FromBase64String(stringByte);

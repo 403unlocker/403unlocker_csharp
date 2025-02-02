@@ -16,14 +16,10 @@ namespace _403unlocker
     public partial class DnsPingForm : Form
     {
         internal BindingList<NetworkUtility> dnsPingBinding = new BindingList<NetworkUtility>();
-
+        
         public DnsPingForm()
         {
             InitializeComponent();
-        }
-
-        private void PingDnsForm_Load(object sender, EventArgs e)
-        {
             dataGridView1.DataSource = dnsPingBinding;
             dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;

@@ -25,10 +25,9 @@ namespace _403unlocker
 {
     public partial class DnsCollectorForm : Form
     {
-        private string path = "dns";
+        private string pathDns = "dns";
         private BindingList<DnsProvider> dnsProviderBinding = new BindingList<DnsProvider> ();
-        DnsPingForm pingDnsForm;
-        public DnsCollectorForm(DnsPingForm pingDnsForm)
+        public DnsCollectorForm()
         {
             InitializeComponent();
             timerLabel.Text = "";
@@ -36,14 +35,13 @@ namespace _403unlocker
             dataGridView1.DataSource = dnsProviderBinding; // Links dataGridView to BindingList variable
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.pingDnsForm = pingDnsForm;
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
             try
             {
-                List<DnsProvider> previousList = await JsonHandler.ReadJson<DnsProvider>(path, true);
+                List<DnsProvider> previousList = await JsonHandler.ReadJson<DnsProvider>(pathDns, true);
                 AppendDataToDataGridView(previousList, false);
             }
             catch (Exception)
@@ -55,7 +53,7 @@ namespace _403unlocker
 
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            await JsonHandler.WriteJson(path, dnsProviderBinding.ToList(), true);
+            await JsonHandler.WriteJson(pathDns, dnsProviderBinding.ToList(), true);
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
@@ -218,14 +216,13 @@ namespace _403unlocker
 
         private void getPingButton_Click(object sender, EventArgs e)
         {
-            if (pingDnsForm.dnsPingBinding.Count == 0)
+            using (DnsPingForm dnsPingForm = new DnsPingForm())
             {
                 List<DnsProvider> dnsProviderList = dnsProviderBinding.ToList();
                 List<NetworkUtility> dnsPingList = dnsProviderList.Select(dnsRecord => new NetworkUtility(dnsRecord)).ToList();
-                pingDnsForm.dnsPingBinding = new BindingList<NetworkUtility>(dnsPingList);
+                dnsPingForm.dnsPingBinding = new BindingList<NetworkUtility>(dnsPingList);
+                dnsPingForm.ShowDialog();
             }
-            pingDnsForm.ShowDialog();
-
         }
     }
 }
