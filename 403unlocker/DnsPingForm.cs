@@ -15,11 +15,15 @@ namespace _403unlocker
 {
     public partial class DnsPingForm : Form
     {
-        internal BindingList<NetworkUtility> dnsPingBinding = new BindingList<NetworkUtility>();
+        internal BindingList<NetworkUtility> dnsPingBinding;
         
-        public DnsPingForm()
+        public DnsPingForm(List<DnsProvider> dnsProviders)
         {
             InitializeComponent();
+
+            List<NetworkUtility> dnsPings = dnsProviders.Select(dnsRecord => new NetworkUtility(dnsRecord)).ToList();
+            dnsPingBinding = new BindingList<NetworkUtility>(dnsPings);
+
             dataGridView1.DataSource = dnsPingBinding;
             dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;

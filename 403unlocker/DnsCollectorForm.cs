@@ -216,13 +216,11 @@ namespace _403unlocker
 
         private void getPingButton_Click(object sender, EventArgs e)
         {
-            using (DnsPingForm dnsPingForm = new DnsPingForm())
+            using (DnsPingForm dnsPingForm = new DnsPingForm(dnsProviderBinding.ToList()))
             {
-                List<DnsProvider> dnsProviderList = dnsProviderBinding.ToList();
-                List<NetworkUtility> dnsPingList = dnsProviderList.Select(dnsRecord => new NetworkUtility(dnsRecord)).ToList();
-                dnsPingForm.dnsPingBinding = new BindingList<NetworkUtility>(dnsPingList);
                 dnsPingForm.ShowDialog();
             }
+
         }
     }
 }
