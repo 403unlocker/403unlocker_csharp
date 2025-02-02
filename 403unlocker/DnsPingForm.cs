@@ -16,7 +16,21 @@ namespace _403unlocker
     public partial class DnsPingForm : Form
     {
         internal BindingList<NetworkUtility> dnsPingBinding;
-        
+        AutoCompleteStringCollection suggestions = new AutoCompleteStringCollection();
+
+        string pathUrl = "url";
+        string[] urlDefault = new string[]
+        {
+            "nvidia.com",
+            "asus.com",
+            "lenovo.com",
+            "youtube.com",
+            "chatgpt.com",
+            "x.com",
+            "developers.google.com",
+            "pkg.go.dev"
+        };
+
         public DnsPingForm(List<DnsProvider> dnsProviders)
         {
             InitializeComponent();
@@ -29,6 +43,10 @@ namespace _403unlocker
             dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            //Set the properties for the TextBox
+            suggestions.AddRange(urlDefault);
+            urlTextBox.AutoCompleteCustomSource = suggestions;
         }
 
         private async void pcPingButton_Click(object sender, EventArgs e)
@@ -102,11 +120,5 @@ namespace _403unlocker
             }
             dataGridView1.Invalidate();
         }
-
-        private void urlTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r') e.Handled = true;
-        }
-
     }
 }

@@ -95,24 +95,25 @@ namespace _403unlockerLibrary
         {
             byte[] bytes = Convert.FromBase64String(stringByte);
 
-            MemoryStream ms = new MemoryStream(bytes);
-            using (BsonDataReader bsonDataReader = new BsonDataReader(ms))
+            using (MemoryStream ms = new MemoryStream(bytes))
+            using (BsonDataReader bdr = new BsonDataReader(ms))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                return serializer.Deserialize<T>(bsonDataReader);
+                return serializer.Deserialize<T>(bdr);
             }
         }
 
         private static string Encrypt<T>(T data)
         {
-            MemoryStream ms = new MemoryStream();
-            using (BsonDataWriter bsonDataWriter = new BsonDataWriter(ms))
+            using (MemoryStream ms = new MemoryStream())
+            using (BsonDataWriter bdw = new BsonDataWriter(ms))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(bsonDataWriter, data);
+                serializer.Serialize(bdw, data, typeof(T));
+
+                byte[] bytes = ms.ToArray();
+                return Convert.ToBase64String(bytes);
             }
-            string serializedData = Convert.ToBase64String(ms.ToArray());
-            return serializedData;
         }
     }
 }

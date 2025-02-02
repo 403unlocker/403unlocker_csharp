@@ -171,7 +171,7 @@
             this.sitePingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.sitePingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sitePingButton.ForeColor = System.Drawing.Color.Black;
-            this.sitePingButton.Location = new System.Drawing.Point(425, 152);
+            this.sitePingButton.Location = new System.Drawing.Point(425, 70);
             this.sitePingButton.Name = "sitePingButton";
             this.sitePingButton.Size = new System.Drawing.Size(79, 23);
             this.sitePingButton.TabIndex = 13;
@@ -181,16 +181,15 @@
             // 
             // urlTextBox
             // 
+            this.urlTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.urlTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.urlTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.urlTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.urlTextBox.ForeColor = System.Drawing.Color.Black;
             this.urlTextBox.Location = new System.Drawing.Point(425, 44);
-            this.urlTextBox.Multiline = true;
             this.urlTextBox.Name = "urlTextBox";
-            this.urlTextBox.Size = new System.Drawing.Size(190, 102);
+            this.urlTextBox.Size = new System.Drawing.Size(190, 20);
             this.urlTextBox.TabIndex = 14;
-            this.urlTextBox.Text = "youtube.com";
-            this.urlTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.urlTextBox_KeyPress);
             // 
             // dnsCountLabel
             // 
