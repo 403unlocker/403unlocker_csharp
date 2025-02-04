@@ -54,19 +54,15 @@ namespace _403unlockerLibrary
             base.DNS = dnsRecord.DNS;
         }
 
-        public static bool IsValidHostname(string hostname)
-        {
-            if (Regex.IsMatch(hostname, @"^(www.)?([^\W_][a-zA-Z0-9\-]+){1}(\.[^\W_][a-zA-Z0-9\-]+)*(\.[a-z]+)$")) return true;
-            return false;
-        }
+        
 
-        public async Task GetPing(int timeOut_ms)
+        public async Task GetPing(int timeOutSecond = 2)
         {
             using (Ping ping = new Ping())
             {
                 try
                 {
-                    PingReply reply = await ping.SendPingAsync(IPAddress.Parse(DNS), timeOut_ms);
+                    PingReply reply = await ping.SendPingAsync(IPAddress.Parse(DNS), timeOutSecond);
                     latency = reply.RoundtripTime;
                     status = (int)HttpStatusCode.OK;
                 }
@@ -89,7 +85,7 @@ namespace _403unlockerLibrary
                     throw new DnsResponseException();
                 }
 
-                var httpreq = await HttpRequestAsWeb(resolvedIP.First(), timeOut_s);
+                await HttpRequestAsWeb(resolvedIP.First(), timeOut_s);
                 status = (int)HttpStatusCode.OK;
             }
             catch (HttpRequestException)
@@ -166,7 +162,7 @@ namespace _403unlockerLibrary
         }
             
        
-        public async static Task<string[]> ResolveDNS(string customeDNS, string hostName, int timeOut_s = 5)
+        public async static Task<string[]> ResolveDNS(string customeDNS, string hostName, int timeOut_s = 2)
         {
             // initialize settings
             var options = new LookupClientOptions(IPAddress.Parse(customeDNS))

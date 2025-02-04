@@ -38,161 +38,6 @@ namespace _403unlockerLibrary
             return false;
         }
 
-        public static List<DnsProvider> DefaultDnsList
-        {
-            get
-            {
-                List<DnsProvider> list = new List<DnsProvider>
-                {
-                    new DnsProvider{
-                        Name = "shecan.ir",
-                        DNS = "178.22.122.100",
-                    },
-                    new DnsProvider{
-                        Name = "shecan.ir",
-                        DNS = "185.51.200.2"
-                    },
-                    new DnsProvider{
-                        Name = "server.ir/dns-proxy",
-                        DNS = "192.104.158.78",
-                    },
-                    new DnsProvider{
-                        Name = "server.ir/dns-proxy",
-                        DNS =  "194.104.158.48"
-                    },
-                    new DnsProvider{
-                        Name = "hostiran.net/landing/proxy",
-                        DNS = "172.29.0.100",
-                    },
-                    new DnsProvider{
-                        Name = "hostiran.net/landing/proxy",
-                        DNS = "172.29.2.100"
-                    },
-                    new DnsProvider{
-                        Name = "electrotm.org",
-                        DNS = "78.157.42.101",
-                    },
-                    new DnsProvider{
-                        Name = "electrotm.org",
-                        DNS = "78.157.42.100"
-                    },
-                    new DnsProvider{
-                        Name = "403.online/download",
-                        DNS = "10.202.10.202",
-                    },
-                    new DnsProvider{
-                        Name = "403.online/download",
-                        DNS = "10.202.10.102"
-                    },
-                    new DnsProvider{
-                        Name = "begzar.ir",
-                        DNS = "185.55.226.26",
-                    },
-                    new DnsProvider{
-                        Name = "begzar.ir",
-                        DNS = "185.55.225.25"
-                    },
-                    new DnsProvider{
-                        Name = "radar.game/#/dns",
-                        DNS = "10.202.10.10",
-                    },
-                     new DnsProvider{
-                        Name = "radar.game/#/dns",
-                        DNS = "10.202.10.11"
-                    },
-                    new DnsProvider{
-                        Name = "dnspro.ir",
-                        DNS = "87.107.110.109",
-                    },
-                    new DnsProvider{
-                        Name = "dnspro.ir",
-                        DNS = "87.107.110.110"
-                    },
-                    new DnsProvider{
-                        Name = "LinkedIn Suggested",
-                        DNS = "87.107.52.11",
-                    },
-                    new DnsProvider{
-                        Name = "LinkedIn Suggested",
-                        DNS = "87.107.52.13"
-                    },
-                    new DnsProvider{
-                        Name = "pishgaman",
-                        DNS = "5.202.100.100",
-                    },
-                    new DnsProvider{
-                        Name = "pishgaman",
-                        DNS = "5.202.100.101"
-                    },
-                    new DnsProvider{
-                        Name = "darzg.ir",
-                        DNS = "37.27.41.228",
-                    },
-                    new DnsProvider{
-                        Name = "sheltertm.com",
-                        DNS = "94.103.125.157",
-                    },
-                    new DnsProvider{
-                        Name = "sheltertm.com",
-                        DNS = "94.103.125.158"
-                    },
-                    new DnsProvider{
-                        Name = "shatel.ir (rasana)",
-                        DNS = "85.15.1.15"
-                    },
-                    new DnsProvider{
-                        Name = "shatel.ir (rasana)",
-                        DNS = "85.15.1.14",
-                    },
-                    new DnsProvider{
-                        Name = "cleanbrowsing.org/filters",
-                        DNS = "185.228.168.168",
-                    },
-                    new DnsProvider{
-                        Name = "cleanbrowsing.org/filters",
-                        DNS = "185.228.169.168",
-                    },
-                    new DnsProvider{
-                        Name = "alternate-dns.com",
-                        DNS = "76.76.19.19",
-                    },
-                    new DnsProvider{
-                        Name = "alternate-dns.com",
-                        DNS = "76.223.122.150",
-                    },
-                    new DnsProvider{
-                        Name = "Unlocator",
-                        DNS = "185.37.37.37",
-                    },
-                    new DnsProvider{
-                        Name = "Unlocator",
-                        DNS = "185.37.39.39",
-                    },
-                    new DnsProvider{
-                        Name = "Yandex.DNS (Safe)",
-                        DNS = "77.88.8.88",
-                    },
-                    new DnsProvider{
-                        Name = "Yandex.DNS (Safe)",
-                        DNS = "77.88.8.2",
-                    },
-                    new DnsProvider{
-                        Name = "Yandex.DNS (Family)",
-                        DNS = "77.88.8.7",
-                    },
-                    new DnsProvider{
-                        Name = "Yandex.DNS (Family)",
-                        DNS = "77.88.8.3",
-                    }
-                };
-                //server.ir/dns-proxy
-                //vanillapp.ir
-                //www.smartdnsproxy.com
-
-                return list;
-            }
-        }
-
         public async static Task<List<DnsProvider>> DnsScrapAsync()
         {
             //https://www.getflix.com.au/setup/dns-servers/
@@ -227,18 +72,18 @@ namespace _403unlockerLibrary
                 // convert it to usable list for app
                 var dnsList = minedDns.SelectMany(dnsConfig => new DnsProvider[]
                 {
-                            new DnsProvider()
-                            {
-                                Name = dnsConfig.ElementAt(0),
-                                // ensures IPv6 is removed
-                                DNS = IsIPv4(dnsConfig.ElementAt(1)) ? dnsConfig.ElementAt(1) : ""
-                            },
-                            new DnsProvider()
-                            {
-                                Name = dnsConfig.ElementAt(0),
-                                // ensures IPv6 is removed
-                                DNS = IsIPv4(dnsConfig.ElementAt(2)) ? dnsConfig.ElementAt(2) : ""
-                            }
+                    new DnsProvider()
+                    {
+                        Name = dnsConfig.ElementAt(0),
+                        // ensures IPv6 is removed
+                        DNS = IsIPv4(dnsConfig.ElementAt(1)) ? dnsConfig.ElementAt(1) : ""
+                    },
+                    new DnsProvider()
+                    {
+                        Name = dnsConfig.ElementAt(0),
+                        // ensures IPv6 is removed
+                        DNS = IsIPv4(dnsConfig.ElementAt(2)) ? dnsConfig.ElementAt(2) : ""
+                    }
                 })
                 // removes empty DNS
                 .Where(dnsConfig => !string.IsNullOrEmpty(dnsConfig.DNS)).ToList();

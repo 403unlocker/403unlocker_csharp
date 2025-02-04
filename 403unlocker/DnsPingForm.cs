@@ -19,17 +19,7 @@ namespace _403unlocker
         AutoCompleteStringCollection suggestions = new AutoCompleteStringCollection();
 
         string pathUrl = "url";
-        string[] urlDefault = new string[]
-        {
-            "nvidia.com",
-            "asus.com",
-            "lenovo.com",
-            "youtube.com",
-            "chatgpt.com",
-            "x.com",
-            "developers.google.com",
-            "pkg.go.dev"
-        };
+        
 
         public DnsPingForm(List<DnsProvider> dnsProviders)
         {
@@ -45,7 +35,7 @@ namespace _403unlocker
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             //Set the properties for the TextBox
-            suggestions.AddRange(urlDefault);
+            suggestions.AddRange(Data.DefaultUrlList().Select(website => website.URL).ToArray());
             urlTextBox.AutoCompleteCustomSource = suggestions;
         }
 
@@ -107,10 +97,10 @@ namespace _403unlocker
 
         private async void sitePingButton_Click(object sender, EventArgs e)
         {
-            if (!NetworkUtility.IsValidHostname(urlTextBox.Text))
+            if (!Website.IsValidUrl(urlTextBox.Text))
             {
-                MessageBox.Show("Please type correct Hostname\n\nLike this:\nwww.google.com\ngoogle.com",
-                                "Hostname is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttps://www.google.com\nhttp://google.com",
+                                "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

@@ -112,7 +112,7 @@ namespace _403unlocker
 
         private void defaultDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataToDataGridView(DnsProvider.DefaultDnsList);
+            AppendDataToDataGridView(Data.DefaultDnsList());
         }
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
@@ -220,7 +220,6 @@ namespace _403unlocker
             {
                 dnsPingForm.ShowDialog();
             }
-
         }
     }
 }

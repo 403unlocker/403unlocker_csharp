@@ -196,9 +196,9 @@
             this.dnsCountLabel.AutoSize = true;
             this.dnsCountLabel.Location = new System.Drawing.Point(425, 28);
             this.dnsCountLabel.Name = "dnsCountLabel";
-            this.dnsCountLabel.Size = new System.Drawing.Size(61, 13);
+            this.dnsCountLabel.Size = new System.Drawing.Size(35, 13);
             this.dnsCountLabel.TabIndex = 15;
-            this.dnsCountLabel.Text = "Hostname: ";
+            this.dnsCountLabel.Text = "URL: ";
             // 
             // DnsPingForm
             // 
