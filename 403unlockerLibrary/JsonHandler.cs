@@ -60,35 +60,36 @@ namespace _403unlockerLibrary
             }
         }
 
-        public static async Task WriteJson<T>(string path, List<T> data, bool encryptToByte)
+        public static async Task WriteJson<T>(string path, List<T> data, bool append, bool encryptToByte)
         {
+            string text = "";
             if (encryptToByte)
             {
-                List<string> texts = new List<string>();
+                List<string> lines = new List<string>();
                 foreach (T element in data)
                 {
-                    texts.Add(Encrypt(element));
+                    lines.Add(Encrypt(element));
                 }
-
-                using (StreamWriter sw = new StreamWriter(path))
-                {
-                    await sw.WriteLineAsync(string.Join("\r\n", texts));
-                }
+                text = string.Join("\r\n", lines);
+                
             }
             else
             {
                 string serializedData = data.Count == 0 ? "" : JsonConvert.SerializeObject(data, Formatting.Indented);
-                using (StreamWriter sw = new StreamWriter(path))
-                {
-                    await sw.WriteLineAsync(serializedData);
-                }
+                text = serializedData;
                 //File.WriteAllText(path, serializedData);
+            }
+
+            using (StreamWriter sw = new StreamWriter(path, append))
+            {
+                await sw.WriteLineAsync(text);
             }
         }
 
-        public static async Task WriteJson<T>(string path, T data, bool encryptToByte)
+        public static async Task WriteJson<T>(string path, T data, bool append,bool encryptToByte)
         {
-            await WriteJson(path, new List<T> { data }, encryptToByte);
+            List<T> l = new List<T> { data };
+            await WriteJson(path, l, append, encryptToByte);
         }
 
         private static T DecryptByte<T>(string stringByte)

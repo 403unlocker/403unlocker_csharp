@@ -53,7 +53,7 @@ namespace _403unlocker
 
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            await JsonHandler.WriteJson(pathDns, dnsProviderBinding.ToList(), true);
+            await JsonHandler.WriteJson(pathDns, dnsProviderBinding.ToList(), false, true);
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)

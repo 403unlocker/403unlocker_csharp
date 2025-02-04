@@ -54,8 +54,6 @@ namespace _403unlockerLibrary
             base.DNS = dnsRecord.DNS;
         }
 
-        
-
         public async Task GetPing(int timeOutSecond = 2)
         {
             using (Ping ping = new Ping())

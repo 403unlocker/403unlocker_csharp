@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using _403unlockerLibrary;
+using System.Security.Policy;
 
 namespace _403unlocker
 {
     public partial class DnsPingForm : Form
     {
         internal BindingList<NetworkUtility> dnsPingBinding;
-        AutoCompleteStringCollection suggestions = new AutoCompleteStringCollection();
-
+        private List<Website> Websites = new List<Website>();
         string pathUrl = "url";
-        
+
 
         public DnsPingForm(List<DnsProvider> dnsProviders)
         {
@@ -33,10 +33,38 @@ namespace _403unlocker
             dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        }
 
-            //Set the properties for the TextBox
-            suggestions.AddRange(Data.DefaultUrlList().Select(website => website.URL).ToArray());
-            urlTextBox.AutoCompleteCustomSource = suggestions;
+        private async void DnsPingForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                //Set the properties for the TextBox
+                AppendAndWriteToAutoComplete(await JsonHandler.ReadJson<Website>(pathUrl, true));
+            }
+            catch (Exception)
+            {
+                AppendAndWriteToAutoComplete(Data.DefaultUrlList());
+            }
+        }
+
+        private void AppendAndWriteToAutoComplete(Website website)
+        {
+            AppendAndWriteToAutoComplete(new List<Website> { website });
+        }
+
+        private async void AppendAndWriteToAutoComplete(List<Website> toAddList)
+        {
+            // finds new DNSs
+            List<Website> newWebsites = toAddList.Except(Websites).ToList();
+            Websites.AddRange(newWebsites);
+            await JsonHandler.WriteJson(pathUrl, newWebsites, true, true);
+            urlTextBox.AutoCompleteCustomSource.AddRange(GetUrl(newWebsites));
+        }
+
+        private static string[] GetUrl(List<Website> websites)
+        {
+            return websites.Select(website => website.URL).ToArray();
         }
 
         private async void pcPingButton_Click(object sender, EventArgs e)
@@ -99,10 +127,12 @@ namespace _403unlocker
         {
             if (!Website.IsValidUrl(urlTextBox.Text))
             {
-                MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttps://www.google.com\nhttp://google.com",
+                MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttp://google.com\nhttps://google.com",
                                 "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            AppendAndWriteToAutoComplete(new Website { Name = "custom", URL = urlTextBox.Text });
 
             foreach (NetworkUtility dnsPing in dnsPingBinding)
             {
