@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using _403unlockerLibrary;
 using System.Security.Policy;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace _403unlocker
 {
@@ -31,7 +32,7 @@ namespace _403unlocker
             dataGridView1.DataSource = dnsPingBinding;
             dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
@@ -69,10 +70,9 @@ namespace _403unlocker
 
         private async void pcPingButton_Click(object sender, EventArgs e)
         {
-            foreach (NetworkUtility dnsPing in dnsPingBinding)
-            {
-                await dnsPing.GetPing(5000);
-            }
+            var pingList = new List<NetworkUtility>(dnsPingBinding);
+            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(5))).ToList();
+            await Task.WhenAll(tasks);
             dataGridView1.Invalidate();
         }
 
@@ -134,10 +134,9 @@ namespace _403unlocker
 
             AppendAndWriteToAutoComplete(new Website { Name = "custom", URL = urlTextBox.Text });
 
-            foreach (NetworkUtility dnsPing in dnsPingBinding)
-            {
-                await dnsPing.GetPing(urlTextBox.Text, 5000);
-            }
+            var pingList = new List<NetworkUtility>(dnsPingBinding);
+            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text, 5))).ToList();
+            await Task.WhenAll(tasks);
             dataGridView1.Invalidate();
         }
     }

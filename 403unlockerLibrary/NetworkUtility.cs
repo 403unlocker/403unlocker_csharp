@@ -19,7 +19,7 @@ namespace _403unlockerLibrary
 {
     public class NetworkUtility : DnsProvider
     {
-        private int status;
+        private string status;
         private long latency = 0;
 
         public string Name
@@ -32,7 +32,7 @@ namespace _403unlockerLibrary
             get => base.DNS;
         }
 
-        public int Status
+        public string Status
         {
             get => status;
         }
@@ -62,12 +62,12 @@ namespace _403unlockerLibrary
                 {
                     PingReply reply = await ping.SendPingAsync(IPAddress.Parse(DNS), timeOutSecond);
                     latency = reply.RoundtripTime;
-                    status = (int)HttpStatusCode.OK;
+                    status = reply.Status.ToString();
                 }
                 catch (TaskCanceledException)
                 {
                     latency = 0;
-                    status = (int)HttpStatusCode.RequestTimeout;
+                    status = HttpStatusCode.RequestTimeout.ToString();
                 }
             }
         }
@@ -83,23 +83,23 @@ namespace _403unlockerLibrary
                     throw new DnsResponseException();
                 }
 
-                await HttpRequestAsWeb(resolvedIP.First(), timeOut_s);
-                status = (int)HttpStatusCode.OK;
+                var htmlreq = await HttpRequestAsWeb(resolvedIP.First(), timeOut_s);
+                status = HttpStatusCode.OK.ToString();
             }
             catch (HttpRequestException)
             {
                 latency = 0;
-                status = (int)HttpStatusCode.ServiceUnavailable;
+                status = HttpStatusCode.ServiceUnavailable.ToString();
             }
             catch (DnsResponseException)
             {
                 latency = 0;
-                status = (int)HttpStatusCode.NotFound;
+                status = HttpStatusCode.NotFound.ToString();
             }
             catch (TaskCanceledException)
             {
                 latency = 0;
-                status = (int)HttpStatusCode.RequestTimeout;
+                status = HttpStatusCode.RequestTimeout.ToString();
             }
         }
 
