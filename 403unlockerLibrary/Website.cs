@@ -36,7 +36,6 @@ namespace _403unlockerLibrary
 
         public override string ToString()
         {
-            if (string.IsNullOrEmpty(Name)) return "";
             return Name;
         }
 

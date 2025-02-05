@@ -62,7 +62,29 @@ namespace _403unlockerLibrary
                 new DnsProvider{ Name = "Yandex.DNS (Safe)", DNS = "77.88.8.88" },
                 new DnsProvider{ Name = "Yandex.DNS (Safe)", DNS = "77.88.8.2" },
                 new DnsProvider{ Name = "Yandex.DNS (Family)", DNS = "77.88.8.7" },
-                new DnsProvider{ Name = "Yandex.DNS (Family)", DNS = "77.88.8.3" }
+                new DnsProvider{ Name = "Yandex.DNS (Family)", DNS = "77.88.8.3" },
+                new DnsProvider{ Name = "namecheap.com (SafeServe)", DNS = "198.54.117.10" },
+                new DnsProvider{ Name = "namecheap.com (SafeServe)", DNS = "198.54.117.11" },
+                new DnsProvider{ Name = "controld.com/free-dns (Unfiltered)", DNS = "76.76.2.0" },
+                new DnsProvider{ Name = "controld.com/free-dns (Unfiltered)", DNS = "76.76.10.0" },
+                new DnsProvider{ Name = "controld.com/free-dns (Malware)", DNS = "76.76.2.1" },
+                new DnsProvider{ Name = "controld.com/free-dns (Malware)", DNS = "76.76.10.1" },
+                new DnsProvider{ Name = "controld.com/free-dns (Ads & Tracking)", DNS = "76.76.2.2" },
+                new DnsProvider{ Name = "controld.com/free-dns (Ads & Tracking)", DNS = "76.76.10.2" },
+                new DnsProvider{ Name = "controld.com/free-dns (Social)", DNS = "76.76.2.3" },
+                new DnsProvider{ Name = "controld.com/free-dns (Social)", DNS = "76.76.10.3" },
+                new DnsProvider{ Name = "controld.com/free-dns (Family Friendly)", DNS = "76.76.2.4" },
+                new DnsProvider{ Name = "controld.com/free-dns (Family Friendly)", DNS = "76.76.10.4" },
+                new DnsProvider{ Name = "controld.com/free-dns (Uncensored)", DNS = "76.76.2.5" },
+                new DnsProvider{ Name = "controld.com/free-dns (Uncensored)", DNS = "76.76.10.5" },
+                new DnsProvider{ Name = "Private Internet Access (DNS)", DNS = "10.0.0.242" },
+                new DnsProvider{ Name = "Private Internet Access (DNS+Stream)", DNS = "10.0.0.243" },
+                new DnsProvider{ Name = "Private Internet Access (DNS+Mace)", DNS = "10.0.0.244" },
+                new DnsProvider{ Name = "Private Internet Access (DNS+Strem+Mace)", DNS = "10.0.0.241" },
+                new DnsProvider{ Name = "NordVPN", DNS = "103.86.96.100" },
+                new DnsProvider{ Name = "NordVPN", DNS = "103.86.99.100" }
+                // new DnsProvider{ Name = "", DNS = "" },
+
             };
             //server.ir/dns-proxy
             //vanillapp.ir
