@@ -41,31 +41,40 @@ namespace _403unlocker
             try
             {
                 //Set the properties for the TextBox
-                AppendAndWriteToAutoComplete(await JsonHandler.ReadJson<Website>(pathUrl, true));
+                Websites = await JsonHandler.ReadJson<Website>(pathUrl, true);
+                AppendToAutoComplete(Websites);
             }
             catch (Exception)
             {
-                AppendAndWriteToAutoComplete(Data.DefaultUrlList());
+                AppendToAutoComplete(Data.DefaultUrlList());
+                SaveNewUrlToBson(Data.DefaultUrlList());
             }
         }
 
-        private void AppendAndWriteToAutoComplete(Website website)
+        private void SaveNewUrlToBson(Website website)
         {
-            AppendAndWriteToAutoComplete(new List<Website> { website });
+            SaveNewUrlToBson(new List<Website> { website });
         }
 
-        private async void AppendAndWriteToAutoComplete(List<Website> toAddList)
+        private async void SaveNewUrlToBson(List<Website> toAddList)
         {
-            // finds new DNSs
+            // finds new Websites
             List<Website> newWebsites = toAddList.Except(Websites).ToList();
             Websites.AddRange(newWebsites);
-            await JsonHandler.WriteJson(pathUrl, newWebsites, true, true);
-            urlTextBox.AutoCompleteCustomSource.AddRange(GetUrl(newWebsites));
+            if (newWebsites.Count > 0)
+            {
+                await JsonHandler.WriteJson(pathUrl, newWebsites, true, true);
+            }
         }
 
-        private static string[] GetUrl(List<Website> websites)
+        private void AppendToAutoComplete(Website website)
         {
-            return websites.Select(website => website.URL).ToArray();
+            AppendToAutoComplete(new List<Website> { website });
+        }
+
+        private void AppendToAutoComplete(List<Website> websites)
+        {
+            urlTextBox.AutoCompleteCustomSource.AddRange(websites.Select(website => website.URL).ToArray());
         }
 
         private async void pcPingButton_Click(object sender, EventArgs e)
@@ -132,7 +141,14 @@ namespace _403unlocker
                 return;
             }
 
-            AppendAndWriteToAutoComplete(new Website { Name = "custom", URL = urlTextBox.Text });
+            var website = new Website
+            {
+                Name = "custom", 
+                URL = urlTextBox.Text
+            };
+
+            SaveNewUrlToBson(website);
+            AppendToAutoComplete(website);
 
             var pingList = new List<NetworkUtility>(dnsPingBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text, 5))).ToList();
