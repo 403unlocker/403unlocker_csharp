@@ -221,5 +221,13 @@ namespace _403unlocker
                 dnsPingForm.ShowDialog();
             }
         }
+
+        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SettingForm setting = new SettingForm())
+            {
+                setting.ShowDialog();
+            }
+        }
     }
 }

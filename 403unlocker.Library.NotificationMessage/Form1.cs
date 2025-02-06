@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _403unlocker
+namespace _403unlocker.Library.NotificationMessage
 {
-    public partial class MessageForm : Form
+    public partial class Form1 : Form
     {
-        public MessageForm()
+        public Form1()
         {
             InitializeComponent();
         }

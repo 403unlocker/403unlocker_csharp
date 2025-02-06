@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "403unlocker", "403unlocker\403unlocker.csproj", "{07817F22-439B-4CFF-A6B1-F76B4B1536E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "403unlockerLibrary", "403unlockerLibrary\403unlockerLibrary.csproj", "{FE70AE45-86C5-494A-9AE9-3ED2E6BB112B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "403unlocker.Library", "403unlockerLibrary\403unlocker.Library.csproj", "{FE70AE45-86C5-494A-9AE9-3ED2E6BB112B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "403unlocker.Library.NotificationMessage", "403unlocker.Library.NotificationMessage\403unlocker.Library.NotificationMessage.csproj", "{1A025345-6EFC-4708-A994-63ACB55823DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FE70AE45-86C5-494A-9AE9-3ED2E6BB112B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE70AE45-86C5-494A-9AE9-3ED2E6BB112B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE70AE45-86C5-494A-9AE9-3ED2E6BB112B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A025345-6EFC-4708-A994-63ACB55823DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A025345-6EFC-4708-A994-63ACB55823DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A025345-6EFC-4708-A994-63ACB55823DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A025345-6EFC-4708-A994-63ACB55823DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

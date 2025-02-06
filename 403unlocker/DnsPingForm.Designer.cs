@@ -39,11 +39,14 @@
             this.copyDnsCellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.getPingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDNSToWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asPrimaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asSecondaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortButton = new System.Windows.Forms.Button();
             this.sitePingButton = new System.Windows.Forms.Button();
             this.urlTextBox = new System.Windows.Forms.TextBox();
             this.dnsCountLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -128,15 +131,16 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyDnsCellToolStripMenuItem,
             this.toolStripSeparator1,
-            this.getPingToolStripMenuItem});
+            this.getPingToolStripMenuItem,
+            this.setDNSToWindowsToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(127, 54);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 98);
             // 
             // copyDnsCellToolStripMenuItem
             // 
             this.copyDnsCellToolStripMenuItem.Name = "copyDnsCellToolStripMenuItem";
-            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.copyDnsCellToolStripMenuItem.Text = "Copy DNS Cell";
             this.copyDnsCellToolStripMenuItem.Click += new System.EventHandler(this.copyDnsCellToolStripMenuItem_Click);
             // 
@@ -145,14 +149,40 @@
             this.toolStripSeparator1.BackColor = System.Drawing.Color.Black;
             this.toolStripSeparator1.ForeColor = System.Drawing.Color.Black;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(123, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(156, 6);
             // 
             // getPingToolStripMenuItem
             // 
             this.getPingToolStripMenuItem.Name = "getPingToolStripMenuItem";
-            this.getPingToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.getPingToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.getPingToolStripMenuItem.Text = "Get Ping";
             this.getPingToolStripMenuItem.Click += new System.EventHandler(this.getPingToolStripMenuItem_Click);
+            // 
+            // setDNSToWindowsToolStripMenuItem
+            // 
+            this.setDNSToWindowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.asPrimaryToolStripMenuItem,
+            this.asSecondaryToolStripMenuItem,
+            this.resetToolStripMenuItem});
+            this.setDNSToWindowsToolStripMenuItem.Name = "setDNSToWindowsToolStripMenuItem";
+            this.setDNSToWindowsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.setDNSToWindowsToolStripMenuItem.Text = "Set DNS To Windows";
+            // 
+            // asPrimaryToolStripMenuItem
+            // 
+            this.asPrimaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.asPrimaryToolStripMenuItem.Name = "asPrimaryToolStripMenuItem";
+            this.asPrimaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.asPrimaryToolStripMenuItem.Text = "As Primary";
+            this.asPrimaryToolStripMenuItem.Click += new System.EventHandler(this.asPrimaryToolStripMenuItem_Click);
+            // 
+            // asSecondaryToolStripMenuItem
+            // 
+            this.asSecondaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.asSecondaryToolStripMenuItem.Name = "asSecondaryToolStripMenuItem";
+            this.asSecondaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.asSecondaryToolStripMenuItem.Text = "As Secondary";
+            this.asSecondaryToolStripMenuItem.Click += new System.EventHandler(this.asSecondaryToolStripMenuItem_Click);
             // 
             // sortButton
             // 
@@ -201,15 +231,13 @@
             this.dnsCountLabel.TabIndex = 15;
             this.dnsCountLabel.Text = "URL: ";
             // 
-            // comboBox1
+            // resetToolStripMenuItem
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.comboBox1.ForeColor = System.Drawing.Color.Black;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(425, 99);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(190, 21);
-            this.comboBox1.TabIndex = 16;
+            this.resetToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // DnsPingForm
             // 
@@ -217,7 +245,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(624, 357);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dnsCountLabel);
             this.Controls.Add(this.urlTextBox);
             this.Controls.Add(this.sitePingButton);
@@ -252,6 +279,9 @@
         private System.Windows.Forms.Label dnsCountLabel;
         private System.Windows.Forms.ToolStripMenuItem copyDnsCellToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStripMenuItem setDNSToWindowsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem asPrimaryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem asSecondaryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }

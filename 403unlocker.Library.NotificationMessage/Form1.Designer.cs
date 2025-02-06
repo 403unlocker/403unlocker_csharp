@@ -1,6 +1,6 @@
-﻿namespace _403unlocker
+﻿namespace _403unlocker.Library.NotificationMessage
 {
-    partial class MessageForm
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -31,9 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "MessageForm";
+            this.Text = "Form1";
         }
 
         #endregion
     }
 }
+

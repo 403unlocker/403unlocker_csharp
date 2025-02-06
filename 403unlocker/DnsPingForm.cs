@@ -155,5 +155,36 @@ namespace _403unlocker
             await Task.WhenAll(tasks);
             dataGridView1.Invalidate();
         }
+
+        private void asPrimaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Setting.SelectedNetworkInterface))
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+                NetworkSettingsManager.SetAsPrimary(Setting.SelectedNetworkInterface, selectedRowDns);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row", "Can't Read DNS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void asSecondaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Setting.SelectedNetworkInterface))
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+                NetworkSettingsManager.SetAsSecondary(Setting.SelectedNetworkInterface, selectedRowDns);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row", "Can't Read DNS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NetworkSettingsManager.Reset(Setting.SelectedNetworkInterface);
+        }
     }
 }
