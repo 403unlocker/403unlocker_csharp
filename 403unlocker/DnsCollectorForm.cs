@@ -58,8 +58,12 @@ namespace _403unlocker
 
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
-            dnsProviderBinding.Clear();
-            dnsCountLabel.Text = "DNS Count: 0";
+            DialogResult r = MessageBox.Show("Are you sure about that?", "We are clearing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (r == DialogResult.Yes)
+            {
+                dnsProviderBinding.Clear();
+                dnsCountLabel.Text = "DNS Count: 0";
+            }
         }
 
         private void ScrollDownToEnd()
