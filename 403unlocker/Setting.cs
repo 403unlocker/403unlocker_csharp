@@ -11,30 +11,30 @@ namespace _403unlocker
 {
     internal static class Setting
     {
-        private static bool isAuto = true;
-        private static string selectedNetwork = "";
+        private static bool networkInterfaceAutoSelection = true;
+        private static string selectedNetworkInterface = "Auto";
 
-        public static bool IsAutoSelection
+        public static bool NetworkInterfaceAutoSelection
         {
-            get => isAuto;
-            set => isAuto = value;
+            get => networkInterfaceAutoSelection;
+            set => networkInterfaceAutoSelection = value;
         }
 
         public static string SelectedNetworkInterface
         {
             get
             {
-                if (IsAutoSelection)
+                if (networkInterfaceAutoSelection)
                 {
                     var networks = NetworkSettingsManager.GetNetworkInterfaceName(true);
-                    return networks.First().Name;
+                    return networks[0];
                 }
 
-                return selectedNetwork;
+                return selectedNetworkInterface;
             }
             set
             {
-                selectedNetwork = value;
+                selectedNetworkInterface = value;
             }
         }
 

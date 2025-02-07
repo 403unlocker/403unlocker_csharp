@@ -14,25 +14,31 @@ namespace _403unlockerLibrary
     public class NetworkSettingsManager
     {
         static string path = "cmdLog";
-        public static NetworkInterface[] GetNetworkInterfaceName(bool selectActiveNetworkInterface)
+        public static string[] GetNetworkInterfaceName(bool selectActiveNetworkInterface)
         {
+            // All Network Adaptors
             var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
+            // Shows only DNS allowed adaptors
             var netwrokFiltered = networkInterfaces.Where(x => x.GetIPProperties().GetIPv4Properties().IsDhcpEnabled);
 
+            // shows Lan, Wi-Fi, VPN adaptors
             netwrokFiltered = netwrokFiltered.Where(x => x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
                                                          x.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
                                                          x.NetworkInterfaceType == (NetworkInterfaceType)53
                                                     );
 
+            // shows usable ones
             netwrokFiltered = netwrokFiltered.Where(x => x.Speed > 0);
 
+            // shows active one
             if (selectActiveNetworkInterface)
             {
                 netwrokFiltered = netwrokFiltered.Where(a => a.GetIPProperties().GatewayAddresses.Any(g => g.Address.AddressFamily.ToString() == "InterNetwork"));
             }
 
-            return netwrokFiltered.ToArray();
+            // just names
+            return netwrokFiltered.Select(netwrok => netwrok.Name).ToArray();
         }
 
         private async static void Run(string command)

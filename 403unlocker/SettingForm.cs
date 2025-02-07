@@ -21,29 +21,25 @@ namespace _403unlocker
 
         private void SettingForm_Load(object sender, EventArgs e)
         {
-            comboBox1.AutoCompleteCustomSource.Clear();
-            comboBox1.Items.Clear();
-
-            var networks = NetworkSettingsManager.GetNetworkInterfaceName(false);
-            string[] networksNames = networks.Select(netwrok => netwrok.Name).ToArray();
-
-            comboBox1.Items.AddRange(networksNames);
-            comboBox1.Items.Add("Auto");
+            networkComboBox.AutoCompleteCustomSource.Clear();
+            networkComboBox.Items.Clear();
+            networkComboBox.Items.AddRange(NetworkSettingsManager.GetNetworkInterfaceName(false));
+            networkComboBox.SelectedIndex = networkComboBox.Items.IndexOf(Setting.SelectedNetworkInterface);
+            autoSelectionCheckBox.Checked = Setting.NetworkInterfaceAutoSelection;
         }
 
         private void getPingButton_Click(object sender, EventArgs e)
         {
             // Network Interface
-            string selectedNetworkInterface = comboBox1.SelectedItem as string;
-            if (selectedNetworkInterface == "Auto")
-            {
-                Setting.IsAutoSelection = true;
-            }
-            else
-            {
-                Setting.IsAutoSelection = false;
-                Setting.SelectedNetworkInterface = selectedNetworkInterface;
-            }
+            string selectedNetworkInterface = networkComboBox.SelectedItem as string;
+            Setting.NetworkInterfaceAutoSelection = autoSelectionCheckBox.Checked;
+            Setting.SelectedNetworkInterface = selectedNetworkInterface;
+            Close();
+        }
+
+        private void autoSelectionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            networkComboBox.Enabled = !autoSelectionCheckBox.Checked;
         }
     }
 }
