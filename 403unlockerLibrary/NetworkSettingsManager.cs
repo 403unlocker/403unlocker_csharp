@@ -80,7 +80,7 @@ namespace _403unlockerLibrary
                     new NotificationState("error", error)
                 };
 
-                await JsonHandler.WriteJson(path, notificationStates, true, false);
+                await JsonHandler.WriteJson(path, notificationStates, true);
             }
             catch (Exception ex)
             {
