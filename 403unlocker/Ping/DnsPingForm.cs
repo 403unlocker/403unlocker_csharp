@@ -16,6 +16,7 @@ using System.Security.Cryptography;
 using _403unlocker.Add;
 using System.Diagnostics;
 using static _403unlocker.Data;
+using System.IO;
 
 namespace _403unlocker.Ping
 {
@@ -63,6 +64,17 @@ namespace _403unlocker.Ping
         {
             DnsBenchmark.WriteJson(dnsBinding.ToList());
             UrlConfig.WriteJson(userUrls);
+        }
+
+        private void AppendToDataGridView(DnsCollectorForm form)
+        {
+            if (form.isApplied && form.isTableChanged)
+            {
+                foreach (DnsConfig dns in form.newDns)
+                {
+                    dnsBinding.Add(new DnsBenchmark(dns));
+                }
+            }
         }
 
         private void AppendToAutoComplete(UrlConfig url)
@@ -202,14 +214,8 @@ namespace _403unlocker.Ping
         {
             using (DnsCollectorForm form = new DnsCollectorForm(DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList())))
             {
-                var r = form.ShowDialog();
-                if (form.isApplied && form.isTableChanged)
-                {
-                    foreach (DnsConfig dns in form.newDns)
-                    {
-                        dnsBinding.Add(new DnsBenchmark(dns));
-                    }
-                }
+                form.ShowDialog();
+                AppendToDataGridView(form);
             }
         }
 
@@ -217,6 +223,26 @@ namespace _403unlocker.Ping
         {
             string link = @"https://github.com/ALiMoradzade/403unlocker";
             Process.Start(link);
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (DnsCollectorForm form = new DnsCollectorForm(DnsConfig.ReadJson(openFileDialog1.FileName)))
+                    {
+                        form.ShowDialog();
+                        AppendToDataGridView(form);
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Something went wrong!", "Can't load file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+               
+            }
         }
     }
 }

@@ -30,23 +30,22 @@ namespace _403unlocker.Add
         internal bool isApplied = false, isTableChanged = false;
         private BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
         internal List<DnsConfig> newDns = new List<DnsConfig>();
-        public DnsCollectorForm(object dnsObject)
+        public DnsCollectorForm(params object[] dnsObject)
         {
             InitializeComponent();
 
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
 
-            if (dnsObject is List<DnsConfig> dnsConfigs)
-            {
-                dnsBinding = new BindingList<DnsConfig>(dnsConfigs);
-            }
-            else if (dnsObject is List<DnsBenchmark> dnsBenchmarks)
-            {
-                dnsBinding = new BindingList<DnsConfig>(
-                                    DnsBenchmark.ConvertToDnsConfig(dnsBenchmarks));
-            }
+            dnsBinding = new BindingList<DnsConfig>(
+                                DnsBenchmark.ConvertToDnsConfig(
+                                    dnsObject[0] as List<DnsBenchmark>));
 
+            if (dnsObject.Length == 2)
+            {
+                AppendDataToDataGridView(dnsObject[1] as List<DnsConfig>, true);
+            }
+           
             dataGridView1.DataSource = dnsBinding; // Links dataGridView to BindingList variable
           
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
