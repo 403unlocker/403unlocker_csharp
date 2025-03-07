@@ -69,7 +69,7 @@ namespace _403unlocker.Ping
             }
         }
 
-        public static async Task WriteJson<T>(List<T> data, bool append)
+        public static async Task WriteJson(List<UrlConfig> data)
         {
             string text = "";
 
@@ -78,7 +78,7 @@ namespace _403unlocker.Ping
             //File.WriteAllText(path, serializedData);
 
 
-            using (StreamWriter sw = new StreamWriter(path, append))
+            using (StreamWriter sw = new StreamWriter(path))
             {
                 await sw.WriteLineAsync(text);
             }

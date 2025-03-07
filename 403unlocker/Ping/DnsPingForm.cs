@@ -15,20 +15,20 @@ using _403unlocker.Settings;
 using System.Security.Cryptography;
 using _403unlocker.Add;
 using System.Diagnostics;
+using static _403unlocker.Data;
 
 namespace _403unlocker.Ping
 {
     public partial class DnsPingForm : Form
     {
         private BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
-        private List<UrlConfig> Url = new List<UrlConfig>();
+        private List<UrlConfig> userUrls = new List<UrlConfig>();
 
         public DnsPingForm()
         {
             InitializeComponent();
 
             dataGridView1.DataSource = dnsBinding;
-
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -41,6 +41,8 @@ namespace _403unlocker.Ping
             {
                 List<DnsBenchmark> previousList = await DnsBenchmark.ReadJson();
                 dnsBinding = new BindingList<DnsBenchmark>(previousList);
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = dnsBinding;
             }
             catch (Exception)
             {
@@ -51,45 +53,35 @@ namespace _403unlocker.Ping
             try
             {
                 //Set the properties for the TextBox
-                Url = await UrlConfig.ReadJson();
-                AppendToAutoComplete(Url);
+                userUrls = await UrlConfig.ReadJson();
+                AppendToAutoComplete(userUrls);
             }
             catch (Exception)
             {
                 AppendToAutoComplete(Data.Url.DefaultList());
-                SaveNewUrlToBson(Data.Url.DefaultList());
             }
         }
 
         private async void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             await DnsBenchmark.WriteJson(dnsBinding.ToList(), false);
+            await UrlConfig.WriteJson(userUrls);
         }
 
-        private void SaveNewUrlToBson(UrlConfig website)
+        private void AppendToAutoComplete(UrlConfig url)
         {
-            SaveNewUrlToBson(new List<UrlConfig> { website });
+            AppendToAutoComplete(new List<UrlConfig> { url });
         }
 
-        private async void SaveNewUrlToBson(List<UrlConfig> toAddList)
+        private void AppendToAutoComplete(List<UrlConfig> additionUrlList)
         {
             // finds new Websites
-            List<UrlConfig> newWebsites = toAddList.Except(Url).ToList();
-            Url.AddRange(newWebsites);
-            if (newWebsites.Count > 0)
+            List<UrlConfig> newUrls = additionUrlList.Except(userUrls).ToList();
+            userUrls.AddRange(newUrls);
+            if (newUrls.Count > 0)
             {
-                await UrlConfig.WriteJson(newWebsites, true);
+                urlTextBox.AutoCompleteCustomSource.AddRange(newUrls.Select(website => website.URL).ToArray());
             }
-        }
-
-        private void AppendToAutoComplete(UrlConfig website)
-        {
-            AppendToAutoComplete(new List<UrlConfig> { website });
-        }
-
-        private void AppendToAutoComplete(List<UrlConfig> websites)
-        {
-            urlTextBox.AutoCompleteCustomSource.AddRange(websites.Select(website => website.URL).ToArray());
         }
 
         private async void pcPingButton_Click(object sender, EventArgs e)
@@ -162,7 +154,6 @@ namespace _403unlocker.Ping
                 URL = urlTextBox.Text
             };
 
-            SaveNewUrlToBson(website);
             AppendToAutoComplete(website);
 
             var pingList = new List<DnsBenchmark>(dnsBinding);

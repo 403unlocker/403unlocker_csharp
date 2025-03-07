@@ -29,6 +29,10 @@ namespace _403unlocker.Ping
         public string Status { get; set; } = "";
         public long Latency { get; set; } = 0;
 
+        public DnsBenchmark()
+        {
+        }
+
         public DnsBenchmark(DnsConfig dnsRecord)
         {
             Name = dnsRecord.Name;
