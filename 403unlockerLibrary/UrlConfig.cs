@@ -3,16 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace _403unlockerLibrary
 {
-    public class Website
+    public class UrlConfig
     {
-        private string name;
         private string url;
 
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
+        public string Name { get; set; } = "";
 
         public string URL
         {
@@ -41,9 +36,9 @@ namespace _403unlockerLibrary
 
         public override bool Equals(object obj)
         {
-            if (obj is Website)
+            if (obj is UrlConfig urlConfig)
             {
-                return url == (obj as Website).url;
+                return url == urlConfig.url;
             }
             return false;
         }

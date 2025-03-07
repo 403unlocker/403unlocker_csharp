@@ -17,41 +17,23 @@ using HtmlAgilityPack;
 
 namespace _403unlockerLibrary
 {
-    public class NetworkUtility : DnsProvider
+    public class DnsBenchmark
     {
-        private string status;
-        private long latency = 0;
+        public string Name { get; set; } = "";
+        public string DNS { get; set; } = "";
+        public string Status { get; set; } = "";
+        public long Latency { get; set; } = 0;
 
-        public string Name
+        public DnsBenchmark(string provider, string dns)
         {
-            get => base.Name;
+            Name = provider;
+            DNS = dns;
         }
 
-        public string DNS
+        public DnsBenchmark(DnsConfig dnsRecord)
         {
-            get => base.DNS;
-        }
-
-        public string Status
-        {
-            get => status;
-        }
-
-        public long Latency
-        {
-            get => latency;
-        }
-
-        public NetworkUtility(string provider, string dns)
-        {
-            base.Name = provider;
-            base.DNS = dns;
-        }
-
-        public NetworkUtility(DnsProvider dnsRecord)
-        {
-            base.Name = dnsRecord.Name;
-            base.DNS = dnsRecord.DNS;
+            Name = dnsRecord.Name;
+            DNS = dnsRecord.DNS;
         }
 
         public async Task GetPing(int timeOutSecond = 2)
@@ -61,13 +43,13 @@ namespace _403unlockerLibrary
                 try
                 {
                     PingReply reply = await ping.SendPingAsync(IPAddress.Parse(DNS), timeOutSecond);
-                    latency = reply.RoundtripTime;
-                    status = reply.Status.ToString();
+                    Latency = reply.RoundtripTime;
+                    Status = reply.Status.ToString();
                 }
                 catch (TaskCanceledException)
                 {
-                    latency = 0;
-                    status = HttpStatusCode.RequestTimeout.ToString();
+                    Latency = 0;
+                    Status = HttpStatusCode.RequestTimeout.ToString();
                 }
             }
         }
@@ -84,22 +66,22 @@ namespace _403unlockerLibrary
                 }
 
                 var htmlreq = await HttpRequestAsWeb(resolvedIP.First(), timeOut_s);
-                status = HttpStatusCode.OK.ToString();
+                Status = HttpStatusCode.OK.ToString();
             }
             catch (HttpRequestException)
             {
-                latency = 0;
-                status = HttpStatusCode.ServiceUnavailable.ToString();
+                Latency = 0;
+                Status = HttpStatusCode.ServiceUnavailable.ToString();
             }
             catch (DnsResponseException)
             {
-                latency = 0;
-                status = HttpStatusCode.NotFound.ToString();
+                Latency = 0;
+                Status = HttpStatusCode.NotFound.ToString();
             }
             catch (TaskCanceledException)
             {
-                latency = 0;
-                status = HttpStatusCode.RequestTimeout.ToString();
+                Latency = 0;
+                Status = HttpStatusCode.RequestTimeout.ToString();
             }
         }
 

@@ -1,6 +1,6 @@
-﻿namespace _403unlocker
+﻿namespace _403unlocker.Settings
 {
-    partial class SettingForm
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.

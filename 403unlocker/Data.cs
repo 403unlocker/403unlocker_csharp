@@ -5,14 +5,16 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using _403unlocker.Add;
+using _403unlocker.Ping;
 
-namespace _403unlockerLibrary
+namespace _403unlocker
 {
-    public class Data
+    internal static class Data
     {
-        static class Dns
+        internal static class Dns
         {
-            public async static Task<List<DnsConfig>> ScrapDns()
+            public async static Task<List<DnsConfig>> Scrap()
             {
                 //https://www.getflix.com.au/setup/dns-servers/
                 try
@@ -87,7 +89,7 @@ namespace _403unlockerLibrary
                 return null;
             }
 
-            public static List<DnsConfig> DefaultDnsList()
+            public static List<DnsConfig> DefaultList()
             {
                 List<DnsConfig> list = new List<DnsConfig>()
                 {
@@ -156,9 +158,9 @@ namespace _403unlockerLibrary
             }
         }
 
-        static class Url
+        internal static class Url
         {
-            public static List<UrlConfig> DefaultUrlList()
+            public static List<UrlConfig> DefaultList()
             {
                 List<UrlConfig> urlDefault = new List<UrlConfig>
                 {

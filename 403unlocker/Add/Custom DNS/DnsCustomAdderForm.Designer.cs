@@ -1,4 +1,4 @@
-﻿namespace _403unlocker
+﻿namespace _403unlocker.Add.Custom_DNS
 {
     partial class DnsCustomAdderForm
     {

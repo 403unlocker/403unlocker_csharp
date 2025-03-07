@@ -11,9 +11,9 @@ using _403unlocker.Library.NotificationMessage;
 
 namespace _403unlockerLibrary
 {
-    public class NetworkSettingsManager
+    public class NetworkSetting
     {
-        static string path = "cmdLog";
+        static string path = "cmd.log";
         public static string[] GetNetworkInterfaceName(bool selectActiveNetworkInterface)
         {
             // All Network Adaptors
@@ -89,12 +89,12 @@ namespace _403unlockerLibrary
         }
 
 
-        public static void SetAsPrimary(string adaptorName, string PrimaryDNS)
+        public static void SetDnsAsPrimary(string adaptorName, string PrimaryDNS)
         {
             Run($"netsh interface ip add dns name=\"{adaptorName}\" {PrimaryDNS} index=1");
         }
 
-        public static void SetAsSecondary(string adaptorName, string SecondaryDns)
+        public static void SetDnsAsSecondary(string adaptorName, string SecondaryDns)
         {
             Run($"netsh interface ip add dns name=\"{adaptorName}\" {SecondaryDns} index=2");
         }

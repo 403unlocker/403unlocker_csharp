@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
-using _403unlockerLibrary;
 using System.Windows.Forms;
+using _403unlocker.Ping;
 
-namespace _403unlocker
+namespace _403unlocker.Settings
 {
-    internal static class Setting
+    internal static class Settings
     {
         private static bool networkInterfaceAutoSelection = true;
         private static string selectedNetworkInterface = "Auto";
@@ -26,7 +26,7 @@ namespace _403unlocker
             {
                 if (networkInterfaceAutoSelection)
                 {
-                    var networks = NetworkSettingsManager.GetNetworkInterfaceName(true);
+                    var networks = NetworkSettings.GetNetworkInterfaceName(true);
                     return networks[0];
                 }
 
@@ -37,6 +37,5 @@ namespace _403unlocker
                 selectedNetworkInterface = value;
             }
         }
-
     }
 }

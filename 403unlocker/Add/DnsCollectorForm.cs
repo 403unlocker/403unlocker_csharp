@@ -19,41 +19,36 @@ using System.Data.Common;
 using System.Net;
 using System.Xml.Linq;
 using System.Runtime.Remoting.Messaging;
-using _403unlockerLibrary;
+using System.Security.Cryptography;
+using _403unlocker.Ping;
+using _403unlocker.Add.Custom_DNS;
 
-namespace _403unlocker
+namespace _403unlocker.Add
 {
     public partial class DnsCollectorForm : Form
     {
-        private string pathDns = "dns";
-        private BindingList<DnsProvider> dnsProviderBinding = new BindingList<DnsProvider> ();
-        public DnsCollectorForm()
+        private BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
+        public DnsCollectorForm(List<DnsConfig> dnsConfigs)
         {
             InitializeComponent();
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
-            dataGridView1.DataSource = dnsProviderBinding; // Links dataGridView to BindingList variable
+
+            dnsBinding = new BindingList<DnsConfig>(dnsConfigs);
+            dataGridView1.DataSource = dnsBinding; // Links dataGridView to BindingList variable
+
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
-        private async void MainForm_Load(object sender, EventArgs e)
+        private void DnsCollectorForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                List<DnsProvider> previousList = await JsonHandler.ReadJson<DnsProvider>(pathDns, true);
-                AppendDataToDataGridView(previousList, false);
-            }
-            catch (Exception)
-            {
-                // When json text is not valid to json
-                // Do Nothing
-            }
+         
         }
 
-        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void DnsCollectorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            await JsonHandler.WriteJson(pathDns, dnsProviderBinding.ToList(), false, true);
+            
         }
 
         private void clearDnsButton_Click(object sender, EventArgs e)
@@ -61,7 +56,7 @@ namespace _403unlocker
             DialogResult r = MessageBox.Show("Are you sure about that?", "We are clearing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (r == DialogResult.Yes)
             {
-                dnsProviderBinding.Clear();
+                dnsBinding.Clear();
                 dnsCountLabel.Text = "DNS Count: 0";
             }
         }
@@ -76,23 +71,23 @@ namespace _403unlocker
             }
         }
 
-        private void AppendDataToDataGridView(DnsProvider additionDns ,bool statusMessages = true)
+        private void AppendDataToDataGridView(DnsConfig additionDns ,bool statusMessages = true)
         {
-            AppendDataToDataGridView(new List<DnsProvider> { additionDns }, statusMessages);
+            AppendDataToDataGridView(new List<DnsConfig> { additionDns }, statusMessages);
         }
 
-        private void AppendDataToDataGridView(List<DnsProvider> additionDnsList ,bool statusMessages = true)
+        private void AppendDataToDataGridView(List<DnsConfig> additionDnsList ,bool statusMessages = true)
         {
             // finds new DNSs
-            List<DnsProvider> newDns = additionDnsList.Except(dnsProviderBinding).ToList();
+            List<DnsConfig> newDns = additionDnsList.Except(dnsBinding).ToList();
             // counts new DNSs
             int newDnsCount = newDns.Count();
             // counts duplicate DNSs
             int existingDnsCount = additionDnsList.Count() - newDnsCount;
 
-            foreach (DnsProvider dns in newDns)
+            foreach (DnsConfig dns in newDns)
             {
-                dnsProviderBinding.Add(dns);
+                dnsBinding.Add(dns);
             }
 
             if (statusMessages)
@@ -116,7 +111,7 @@ namespace _403unlocker
 
         private void defaultDnsButton_Click(object sender, EventArgs e)
         {
-            AppendDataToDataGridView(Data.DefaultDnsList());
+            AppendDataToDataGridView(Data.Dns.DefaultList());
         }
 
         private async void scrapDnsButton_Click(object sender, EventArgs e)
@@ -125,7 +120,7 @@ namespace _403unlocker
             {
                 dataGridView1.Cursor = Cursors.WaitCursor;
 
-                var publicDnS = await DnsProvider.DnsScrapAsync();
+                var publicDnS = await Data.Dns.Scrap();
                 if (publicDnS == null)
                 {
                     dataGridView1.Cursor = Cursors.Default;
@@ -173,14 +168,14 @@ namespace _403unlocker
                 
                 if (!customeform.isFormClosePressed && customeform.isAddButtonPressed)
                 {
-                    List<DnsProvider> customeDnsList = new List<DnsProvider>
+                    List<DnsConfig> customeDnsList = new List<DnsConfig>
                     {
-                        new DnsProvider
+                        new DnsConfig
                         {
                             Name= customeform.providerTextBox.Text,
                             DNS = customeform.primaryDnsTextBox.Text,
                         },
-                        new DnsProvider
+                        new DnsConfig
                         {
                             Name = customeform.providerTextBox.Text,
                             DNS = customeform.secondaryDnsTextBox.Text
@@ -209,7 +204,7 @@ namespace _403unlocker
                 if (confirmResult == DialogResult.Yes) 
                 {
                     int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                    dnsProviderBinding.RemoveAt(selectedRowIndex); 
+                    dnsBinding.RemoveAt(selectedRowIndex); 
                 } 
             }
             else
@@ -218,20 +213,6 @@ namespace _403unlocker
             }
         }
 
-        private void getPingButton_Click(object sender, EventArgs e)
-        {
-            using (DnsPingForm dnsPingForm = new DnsPingForm(dnsProviderBinding.ToList()))
-            {
-                dnsPingForm.ShowDialog();
-            }
-        }
-
-        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (SettingForm setting = new SettingForm())
-            {
-                setting.ShowDialog();
-            }
-        }
+        
     }
 }

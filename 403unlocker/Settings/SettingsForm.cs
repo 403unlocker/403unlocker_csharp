@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using _403unlockerLibrary;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using _403unlocker.Settings;
+using _403unlocker.Ping;
 
-namespace _403unlocker
+namespace _403unlocker.Settings
 {
-    public partial class SettingForm : Form
+    public partial class SettingsForm : Form
     {
-        public SettingForm()
+        public SettingsForm()
         {
             InitializeComponent();
         }
@@ -23,17 +24,17 @@ namespace _403unlocker
         {
             networkComboBox.AutoCompleteCustomSource.Clear();
             networkComboBox.Items.Clear();
-            networkComboBox.Items.AddRange(NetworkSettingsManager.GetNetworkInterfaceName(false));
-            networkComboBox.SelectedIndex = networkComboBox.Items.IndexOf(Setting.SelectedNetworkInterface);
-            autoSelectionCheckBox.Checked = Setting.NetworkInterfaceAutoSelection;
+            networkComboBox.Items.AddRange(NetworkSettings.GetNetworkInterfaceName(false));
+            networkComboBox.SelectedIndex = networkComboBox.Items.IndexOf(Settings.SelectedNetworkInterface);
+            autoSelectionCheckBox.Checked = Settings.NetworkInterfaceAutoSelection;
         }
 
         private void getPingButton_Click(object sender, EventArgs e)
         {
             // Network Interface
             string selectedNetworkInterface = networkComboBox.SelectedItem as string;
-            Setting.NetworkInterfaceAutoSelection = autoSelectionCheckBox.Checked;
-            Setting.SelectedNetworkInterface = selectedNetworkInterface;
+            Settings.NetworkInterfaceAutoSelection = autoSelectionCheckBox.Checked;
+            Settings.SelectedNetworkInterface = selectedNetworkInterface;
             Close();
         }
 

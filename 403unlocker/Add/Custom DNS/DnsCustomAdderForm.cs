@@ -9,9 +9,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using _403unlockerLibrary;
 
-namespace _403unlocker
+namespace _403unlocker.Add.Custom_DNS
 {
     public partial class DnsCustomAdderForm : Form
     {
@@ -50,7 +49,7 @@ namespace _403unlocker
         private void primaryDnsTextBox_Validated(object sender, EventArgs e)
         {
             string primaryDns = primaryDnsTextBox.Text;
-            if ((string.IsNullOrEmpty(primaryDns) ^ DnsProvider.IsIPv4(primaryDns)) && primaryDns.Count(c => c == '.') < 4)
+            if ((string.IsNullOrEmpty(primaryDns) ^ DnsConfig.IsIPv4(primaryDns)) && primaryDns.Count(c => c == '.') < 4)
             {
                 primaryDnsTextBox.BackColor = themeColor;
             }
@@ -63,7 +62,7 @@ namespace _403unlocker
         private void secondaryDnsTextBox_Validated(object sender, EventArgs e)
         {
             string secondaryDns = secondaryDnsTextBox.Text;
-            if ((string.IsNullOrEmpty(secondaryDns) ^ DnsProvider.IsIPv4(secondaryDns)) && secondaryDns.Count(c => c == '.') < 4)
+            if ((string.IsNullOrEmpty(secondaryDns) ^ DnsConfig.IsIPv4(secondaryDns)) && secondaryDns.Count(c => c == '.') < 4)
             {
                 secondaryDnsTextBox.BackColor = themeColor;
             }
@@ -92,14 +91,14 @@ namespace _403unlocker
                 if (!(string.IsNullOrEmpty(primaryDnsTextBox.Text) && string.IsNullOrEmpty(secondaryDnsTextBox.Text)))
                 {
                     // checks one of DNSs valid => true (both valid => true, both not valid => fasle)
-                    if (DnsProvider.IsIPv4(primaryDnsTextBox.Text) || DnsProvider.IsIPv4(secondaryDnsTextBox.Text))
+                    if (DnsConfig.IsIPv4(primaryDnsTextBox.Text) || DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
                     {
                         // checks one of DNSs valid => true (both valid => false, both not valid => false)
-                        if (DnsProvider.IsIPv4(primaryDnsTextBox.Text) ^ DnsProvider.IsIPv4(secondaryDnsTextBox.Text))
+                        if (DnsConfig.IsIPv4(primaryDnsTextBox.Text) ^ DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
                         {
                             List<TextBox> textBox = new List<TextBox>() { primaryDnsTextBox, secondaryDnsTextBox };
                             // one of DNSs is valid, then empty one of DNSs which is not valid
-                            textBox.Where(x => !DnsProvider.IsIPv4(x.Text)).First().Text = "";
+                            textBox.Where(x => !DnsConfig.IsIPv4(x.Text)).First().Text = "";
                         }
                         isFormClosePressed = false;
                         isAddButtonPressed = true;

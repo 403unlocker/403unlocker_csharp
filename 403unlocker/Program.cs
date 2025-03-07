@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using _403unlocker.Ping;
 
 namespace _403unlocker
 {
@@ -16,7 +17,7 @@ namespace _403unlocker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DnsCollectorForm());
+            Application.Run(new DnsPingForm());
         }
     }
 }

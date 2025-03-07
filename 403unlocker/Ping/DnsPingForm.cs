@@ -9,77 +9,82 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using _403unlockerLibrary;
 using System.Security.Policy;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using _403unlocker.Settings;
+using System.Security.Cryptography;
+using _403unlocker.Add;
 
-namespace _403unlocker
+namespace _403unlocker.Ping
 {
     public partial class DnsPingForm : Form
     {
-        internal BindingList<NetworkUtility> dnsPingBinding;
-        private List<Website> Websites = new List<Website>();
-        string pathUrl = "url";
+        internal BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
+        private List<UrlConfig> Websites = new List<UrlConfig>();
 
-
-        public DnsPingForm(List<DnsProvider> dnsProviders)
+        public DnsPingForm()
         {
             InitializeComponent();
-
-            List<NetworkUtility> dnsPings = dnsProviders.Select(dnsRecord => new NetworkUtility(dnsRecord)).ToList();
-            dnsPingBinding = new BindingList<NetworkUtility>(dnsPings);
-
-            dataGridView1.DataSource = dnsPingBinding;
-            dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private async void DnsPingForm_Load(object sender, EventArgs e)
         {
             try
             {
+                List<DnsBenchmark> previousList = await DnsBenchmark.ReadJson();
+                dnsBinding = new BindingList<DnsBenchmark>(previousList);
+                dataGridView1.DataSource = dnsBinding;
+
+                dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
                 //Set the properties for the TextBox
-                Websites = await JsonHandler.ReadJson<Website>(pathUrl, true);
+                Websites = await UrlConfig.ReadJson();
                 AppendToAutoComplete(Websites);
             }
             catch (Exception)
             {
-                AppendToAutoComplete(Data.DefaultUrlList());
-                SaveNewUrlToBson(Data.DefaultUrlList());
+                AppendToAutoComplete(Data.Url.DefaultList());
+                SaveNewUrlToBson(Data.Url.DefaultList());
             }
         }
 
-        private void SaveNewUrlToBson(Website website)
+        private async void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveNewUrlToBson(new List<Website> { website });
+            await DnsBenchmark.WriteJson(dnsBinding.ToList(), false);
         }
 
-        private async void SaveNewUrlToBson(List<Website> toAddList)
+        private void SaveNewUrlToBson(UrlConfig website)
+        {
+            SaveNewUrlToBson(new List<UrlConfig> { website });
+        }
+
+        private async void SaveNewUrlToBson(List<UrlConfig> toAddList)
         {
             // finds new Websites
-            List<Website> newWebsites = toAddList.Except(Websites).ToList();
+            List<UrlConfig> newWebsites = toAddList.Except(Websites).ToList();
             Websites.AddRange(newWebsites);
             if (newWebsites.Count > 0)
             {
-                await JsonHandler.WriteJson(pathUrl, newWebsites, true, true);
+                await UrlConfig.WriteJson(newWebsites, true);
             }
         }
 
-        private void AppendToAutoComplete(Website website)
+        private void AppendToAutoComplete(UrlConfig website)
         {
-            AppendToAutoComplete(new List<Website> { website });
+            AppendToAutoComplete(new List<UrlConfig> { website });
         }
 
-        private void AppendToAutoComplete(List<Website> websites)
+        private void AppendToAutoComplete(List<UrlConfig> websites)
         {
             urlTextBox.AutoCompleteCustomSource.AddRange(websites.Select(website => website.URL).ToArray());
         }
 
         private async void pcPingButton_Click(object sender, EventArgs e)
         {
-            var pingList = new List<NetworkUtility>(dnsPingBinding);
+            var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(5))).ToList();
             await Task.WhenAll(tasks);
             dataGridView1.Invalidate();
@@ -111,7 +116,7 @@ namespace _403unlocker
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                NetworkUtility foundRecord = dnsPingBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
+                DnsBenchmark foundRecord = dnsBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
                 await foundRecord.GetPing(5000);
                 dataGridView1.Invalidate();
             }
@@ -124,24 +129,24 @@ namespace _403unlocker
         private void sortButton_Click(object sender, EventArgs e)
         {
             // sort by status
-            List<NetworkUtility> sortedDnsPing = dnsPingBinding.OrderBy(dnsPing => dnsPing.Status)
+            List<DnsBenchmark> sortedDnsPing = dnsBinding.OrderBy(dnsPing => dnsPing.Status)
                                                             // then sort by ping
                                                             .ThenBy(dnsPing => dnsPing.Latency)
                                                             .ToList();
-            dnsPingBinding = new BindingList<NetworkUtility>(sortedDnsPing);
-            dataGridView1.DataSource = dnsPingBinding;
+            dnsBinding = new BindingList<DnsBenchmark>(sortedDnsPing);
+            dataGridView1.DataSource = dnsBinding;
         }
 
         private async void sitePingButton_Click(object sender, EventArgs e)
         {
-            if (!Website.IsValidUrl(urlTextBox.Text))
+            if (!UrlConfig.IsValidUrl(urlTextBox.Text))
             {
                 MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttp://google.com\nhttps://google.com",
                                 "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var website = new Website
+            var website = new UrlConfig
             {
                 Name = "custom", 
                 URL = urlTextBox.Text
@@ -150,7 +155,7 @@ namespace _403unlocker
             SaveNewUrlToBson(website);
             AppendToAutoComplete(website);
 
-            var pingList = new List<NetworkUtility>(dnsPingBinding);
+            var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text, 5))).ToList();
             await Task.WhenAll(tasks);
             dataGridView1.Invalidate();
@@ -158,10 +163,10 @@ namespace _403unlocker
 
         private void asPrimaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Setting.SelectedNetworkInterface))
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.Settings.SelectedNetworkInterface))
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                NetworkSettingsManager.SetAsPrimary(Setting.SelectedNetworkInterface, selectedRowDns);
+                NetworkSettings.DnsSetting.SetDnsAsPrimary(Settings.Settings.SelectedNetworkInterface, selectedRowDns);
             }
             else
             {
@@ -171,10 +176,10 @@ namespace _403unlocker
 
         private void asSecondaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Setting.SelectedNetworkInterface))
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.Settings.SelectedNetworkInterface))
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                NetworkSettingsManager.SetAsSecondary(Setting.SelectedNetworkInterface, selectedRowDns);
+                NetworkSettings.DnsSetting.SetDnsAsPrimary(Settings.Settings.SelectedNetworkInterface, selectedRowDns);
             }
             else
             {
@@ -184,7 +189,26 @@ namespace _403unlocker
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NetworkSettingsManager.Reset(Setting.SelectedNetworkInterface);
+            NetworkSettings.DnsSetting.Reset(Settings.Settings.SelectedNetworkInterface);
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SettingsForm setting = new SettingsForm())
+            {
+                setting.ShowDialog();
+            }
+        }
+
+        private void buttonAddDns_Click(object sender, EventArgs e)
+        {
+            List<DnsConfig> dns = new List<DnsConfig>();
+            dns.AddRange(DnsBenchmark.ConvertTo(dnsBinding.ToList()));
+           
+            using (DnsCollectorForm form = new DnsCollectorForm(dns))
+            {
+                form.ShowDialog();
+            }
         }
     }
 }

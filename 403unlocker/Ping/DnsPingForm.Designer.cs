@@ -1,4 +1,4 @@
-﻿namespace _403unlocker
+﻿namespace _403unlocker.Ping
 {
     partial class DnsPingForm
     {
@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DnsPingForm));
             this.pcPingButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -42,13 +43,17 @@
             this.setDNSToWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asPrimaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asSecondaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortButton = new System.Windows.Forms.Button();
             this.sitePingButton = new System.Windows.Forms.Button();
             this.urlTextBox = new System.Windows.Forms.TextBox();
             this.dnsCountLabel = new System.Windows.Forms.Label();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonAddDns = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pcPingButton
@@ -56,7 +61,7 @@
             this.pcPingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.pcPingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pcPingButton.ForeColor = System.Drawing.Color.Black;
-            this.pcPingButton.Location = new System.Drawing.Point(425, 322);
+            this.pcPingButton.Location = new System.Drawing.Point(425, 46);
             this.pcPingButton.Name = "pcPingButton";
             this.pcPingButton.Size = new System.Drawing.Size(79, 23);
             this.pcPingButton.TabIndex = 10;
@@ -69,7 +74,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label1.Location = new System.Drawing.Point(13, 9);
+            this.label1.Location = new System.Drawing.Point(13, 27);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 16);
@@ -104,7 +109,7 @@
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.dataGridView1.Location = new System.Drawing.Point(13, 28);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 46);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -135,7 +140,7 @@
             this.setDNSToWindowsToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 76);
             // 
             // copyDnsCellToolStripMenuItem
             // 
@@ -172,7 +177,7 @@
             // 
             this.asPrimaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.asPrimaryToolStripMenuItem.Name = "asPrimaryToolStripMenuItem";
-            this.asPrimaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.asPrimaryToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.asPrimaryToolStripMenuItem.Text = "As Primary";
             this.asPrimaryToolStripMenuItem.Click += new System.EventHandler(this.asPrimaryToolStripMenuItem_Click);
             // 
@@ -180,16 +185,24 @@
             // 
             this.asSecondaryToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.asSecondaryToolStripMenuItem.Name = "asSecondaryToolStripMenuItem";
-            this.asSecondaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.asSecondaryToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.asSecondaryToolStripMenuItem.Text = "As Secondary";
             this.asSecondaryToolStripMenuItem.Click += new System.EventHandler(this.asSecondaryToolStripMenuItem_Click);
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // sortButton
             // 
             this.sortButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.sortButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sortButton.ForeColor = System.Drawing.Color.Black;
-            this.sortButton.Location = new System.Drawing.Point(510, 322);
+            this.sortButton.Location = new System.Drawing.Point(339, 369);
             this.sortButton.Name = "sortButton";
             this.sortButton.Size = new System.Drawing.Size(79, 23);
             this.sortButton.TabIndex = 11;
@@ -202,7 +215,7 @@
             this.sitePingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.sitePingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sitePingButton.ForeColor = System.Drawing.Color.Black;
-            this.sitePingButton.Location = new System.Drawing.Point(425, 70);
+            this.sitePingButton.Location = new System.Drawing.Point(425, 237);
             this.sitePingButton.Name = "sitePingButton";
             this.sitePingButton.Size = new System.Drawing.Size(79, 23);
             this.sitePingButton.TabIndex = 13;
@@ -217,7 +230,7 @@
             this.urlTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.urlTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.urlTextBox.ForeColor = System.Drawing.Color.Black;
-            this.urlTextBox.Location = new System.Drawing.Point(425, 44);
+            this.urlTextBox.Location = new System.Drawing.Point(425, 211);
             this.urlTextBox.Name = "urlTextBox";
             this.urlTextBox.Size = new System.Drawing.Size(190, 20);
             this.urlTextBox.TabIndex = 14;
@@ -225,26 +238,51 @@
             // dnsCountLabel
             // 
             this.dnsCountLabel.AutoSize = true;
-            this.dnsCountLabel.Location = new System.Drawing.Point(425, 28);
+            this.dnsCountLabel.Location = new System.Drawing.Point(425, 195);
             this.dnsCountLabel.Name = "dnsCountLabel";
             this.dnsCountLabel.Size = new System.Drawing.Size(35, 13);
             this.dnsCountLabel.TabIndex = 15;
             this.dnsCountLabel.Text = "URL: ";
             // 
-            // resetToolStripMenuItem
+            // menuStrip1
             // 
-            this.resetToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.resetToolStripMenuItem.Text = "Reset";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(624, 24);
+            this.menuStrip1.TabIndex = 16;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // buttonAddDns
+            // 
+            this.buttonAddDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonAddDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonAddDns.ForeColor = System.Drawing.Color.Black;
+            this.buttonAddDns.Location = new System.Drawing.Point(12, 369);
+            this.buttonAddDns.Name = "buttonAddDns";
+            this.buttonAddDns.Size = new System.Drawing.Size(79, 23);
+            this.buttonAddDns.TabIndex = 17;
+            this.buttonAddDns.Text = "Add DNS";
+            this.buttonAddDns.UseVisualStyleBackColor = false;
+            this.buttonAddDns.Click += new System.EventHandler(this.buttonAddDns_Click);
             // 
             // DnsPingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(624, 357);
+            this.ClientSize = new System.Drawing.Size(624, 398);
+            this.Controls.Add(this.buttonAddDns);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.dnsCountLabel);
             this.Controls.Add(this.urlTextBox);
             this.Controls.Add(this.sitePingButton);
@@ -254,13 +292,18 @@
             this.Controls.Add(this.dataGridView1);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "DnsPingForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Ping DNS";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "403Unlocker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DnsPingForm_FormClosing);
             this.Load += new System.EventHandler(this.DnsPingForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,5 +326,8 @@
         private System.Windows.Forms.ToolStripMenuItem asPrimaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem asSecondaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.Button buttonAddDns;
     }
 }
