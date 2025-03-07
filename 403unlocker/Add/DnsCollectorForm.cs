@@ -48,11 +48,31 @@ namespace _403unlocker.Add
             }
 
             dataGridView1.DataSource = dnsBinding; // Links dataGridView to BindingList variable
-
+          
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
-       
+
+        private void DnsCollectorForm_Load(object sender, EventArgs e)
+        {
+            isTableChanged = false;
+        }
+
+        private void DnsCollectorForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isApplied && isTableChanged)
+            {
+                var r = MessageBox.Show("Do you want to discard changes?",
+                                        "Closing",
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Question,
+                                        MessageBoxDefaultButton.Button2);
+
+                if (r == DialogResult.No) e.Cancel = true;
+                else if (r == DialogResult.Cancel) e.Cancel = true;
+            }
+        }
+
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
             DialogResult r = MessageBox.Show("Are you sure about that?", "We are clearing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
