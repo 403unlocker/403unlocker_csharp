@@ -14,6 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 using _403unlocker.Settings;
 using System.Security.Cryptography;
 using _403unlocker.Add;
+using System.Diagnostics;
 
 namespace _403unlocker.Ping
 {
@@ -209,6 +210,12 @@ namespace _403unlocker.Ping
             {
                 form.ShowDialog();
             }
+        }
+
+        private void about403ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string link = @"https://github.com/ALiMoradzade/403unlocker";
+            Process.Start(link);
         }
     }
 }
