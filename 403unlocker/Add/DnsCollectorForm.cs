@@ -37,9 +37,7 @@ namespace _403unlocker.Add
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
 
-            dnsBinding = new BindingList<DnsConfig>(
-                                DnsBenchmark.ConvertToDnsConfig(
-                                    dnsObject[0] as List<DnsBenchmark>));
+            dnsBinding = new BindingList<DnsConfig>(dnsObject[0] as List<DnsConfig>);
 
             if (dnsObject.Length == 2)
             {

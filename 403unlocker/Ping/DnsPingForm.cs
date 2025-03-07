@@ -212,7 +212,8 @@ namespace _403unlocker.Ping
 
         private void buttonAddDns_Click(object sender, EventArgs e)
         {
-            using (DnsCollectorForm form = new DnsCollectorForm(DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList())))
+            var benchmarks = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
+            using (DnsCollectorForm form = new DnsCollectorForm(benchmarks))
             {
                 form.ShowDialog();
                 AppendToDataGridView(form);
@@ -225,13 +226,15 @@ namespace _403unlocker.Ping
             Process.Start(link);
         }
 
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    using (DnsCollectorForm form = new DnsCollectorForm(DnsConfig.ReadJson(openFileDialog1.FileName)))
+                    var benchmarks = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
+                    var configs = await DnsConfig.ReadJson(openFileDialog1.FileName);
+                    using (DnsCollectorForm form = new DnsCollectorForm(benchmarks, configs))
                     {
                         form.ShowDialog();
                         AppendToDataGridView(form);
@@ -242,6 +245,14 @@ namespace _403unlocker.Ping
                     MessageBox.Show("Something went wrong!", "Can't load file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                
+            }
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                DnsConfig.WriteJson(DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList()), saveFileDialog1.FileName);
             }
         }
     }
