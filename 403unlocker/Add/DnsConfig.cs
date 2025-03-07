@@ -19,10 +19,10 @@ namespace _403unlocker.Add
         {
         }
 
-        public DnsConfig(string name, string dns)
+        public DnsConfig(DnsBenchmark dnsBenchmark)
         {
-            Name = name;
-            DNS = dns;
+            Name = dnsBenchmark.Name;
+            DNS = dnsBenchmark.DNS;
         }
 
         public override string ToString()
@@ -58,9 +58,9 @@ namespace _403unlocker.Add
             return false;
         }
 
-        public static List<DnsBenchmark> ConvertTo(List<DnsConfig> dnsConfigs)
+        public static List<DnsBenchmark> ConvertToDnsBenchmark(List<DnsConfig> dnsConfigs)
         {
-            return dnsConfigs.Select(x => new DnsBenchmark(x.Name, x.DNS)).ToList();
+            return dnsConfigs.Select(config => new DnsBenchmark(config)).ToList();
         }
     }
 }

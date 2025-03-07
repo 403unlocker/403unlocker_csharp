@@ -27,30 +27,32 @@ namespace _403unlocker.Add
 {
     public partial class DnsCollectorForm : Form
     {
+        internal bool isApplied = false, isTableChanged = false;
         private BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
-        public DnsCollectorForm(List<DnsConfig> dnsConfigs)
+        internal List<DnsConfig> newDns = new List<DnsConfig>();
+        public DnsCollectorForm(object dnsObject)
         {
             InitializeComponent();
+
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
 
-            dnsBinding = new BindingList<DnsConfig>(dnsConfigs);
+            if (dnsObject is List<DnsConfig> dnsConfigs)
+            {
+                dnsBinding = new BindingList<DnsConfig>(dnsConfigs);
+            }
+            else if (dnsObject is List<DnsBenchmark> dnsBenchmarks)
+            {
+                dnsBinding = new BindingList<DnsConfig>(
+                                    DnsBenchmark.ConvertToDnsConfig(dnsBenchmarks));
+            }
+
             dataGridView1.DataSource = dnsBinding; // Links dataGridView to BindingList variable
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
-
-        private void DnsCollectorForm_Load(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void DnsCollectorForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
+       
         private void clearDnsButton_Click(object sender, EventArgs e)
         {
             DialogResult r = MessageBox.Show("Are you sure about that?", "We are clearing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
@@ -82,6 +84,10 @@ namespace _403unlocker.Add
             List<DnsConfig> newDns = additionDnsList.Except(dnsBinding).ToList();
             // counts new DNSs
             int newDnsCount = newDns.Count();
+            if (newDnsCount > 0)
+            {
+                this.newDns.AddRange(newDns);
+            }
             // counts duplicate DNSs
             int existingDnsCount = additionDnsList.Count() - newDnsCount;
 
@@ -142,6 +148,7 @@ namespace _403unlocker.Add
         private void dnsTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dnsCountLabel.Text = "DNS Count: " + dataGridView1.RowCount;
+            isTableChanged = true;
         }
 
         private void publicDnsTimer_Tick(object sender, EventArgs e)
@@ -213,6 +220,10 @@ namespace _403unlocker.Add
             }
         }
 
-        
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            isApplied = true;
+            Close();
+        }
     }
 }

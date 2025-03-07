@@ -29,12 +29,6 @@ namespace _403unlocker.Ping
         public string Status { get; set; } = "";
         public long Latency { get; set; } = 0;
 
-        public DnsBenchmark(string provider, string dns)
-        {
-            Name = provider;
-            DNS = dns;
-        }
-
         public DnsBenchmark(DnsConfig dnsRecord)
         {
             Name = dnsRecord.Name;
@@ -203,9 +197,9 @@ namespace _403unlocker.Ping
             }
         }
 
-        public static List<DnsConfig> ConvertTo(List<DnsBenchmark> dnsBenchmark)
+        public static List<DnsConfig> ConvertToDnsConfig(List<DnsBenchmark> dnsBenchmark)
         {
-            return dnsBenchmark.Select(x => new DnsConfig(x.Name, x.DNS)).ToList();
+            return dnsBenchmark.Select(benchmark => new DnsConfig(benchmark)).ToList();
         }
     }
 }

@@ -43,6 +43,7 @@
             this.customeDnsButton = new System.Windows.Forms.Button();
             this.dnsCountLabel = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.buttonOk = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,12 +196,26 @@
             this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
+            // buttonOk
+            // 
+            this.buttonOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonOk.ForeColor = System.Drawing.Color.Black;
+            this.buttonOk.Location = new System.Drawing.Point(224, 338);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(79, 23);
+            this.buttonOk.TabIndex = 14;
+            this.buttonOk.Text = "OK";
+            this.buttonOk.UseVisualStyleBackColor = false;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            // 
             // DnsCollectorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(526, 344);
+            this.ClientSize = new System.Drawing.Size(526, 366);
+            this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.scrapDnsButton);
             this.Controls.Add(this.dnsCountLabel);
@@ -219,8 +234,6 @@
             this.Name = "DnsCollectorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add DNS";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DnsCollectorForm_FormClosing);
-            this.Load += new System.EventHandler(this.DnsCollectorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -238,6 +251,7 @@
         private System.Windows.Forms.Button customeDnsButton;
         private System.Windows.Forms.Label dnsCountLabel;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button buttonOk;
     }
 }
 

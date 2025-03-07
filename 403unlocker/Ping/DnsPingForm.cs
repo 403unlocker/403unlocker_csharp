@@ -20,12 +20,19 @@ namespace _403unlocker.Ping
 {
     public partial class DnsPingForm : Form
     {
-        internal BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
-        private List<UrlConfig> Websites = new List<UrlConfig>();
+        private BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
+        private List<UrlConfig> Url = new List<UrlConfig>();
 
         public DnsPingForm()
         {
             InitializeComponent();
+
+            dataGridView1.DataSource = dnsBinding;
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private async void DnsPingForm_Load(object sender, EventArgs e)
@@ -34,16 +41,18 @@ namespace _403unlocker.Ping
             {
                 List<DnsBenchmark> previousList = await DnsBenchmark.ReadJson();
                 dnsBinding = new BindingList<DnsBenchmark>(previousList);
-                dataGridView1.DataSource = dnsBinding;
+            }
+            catch (Exception)
+            {
+                // When json text is not valid to json
+                // Do Nothing
+            }
 
-                dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dataGridView1.Columns["DNS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
+            try
+            {
                 //Set the properties for the TextBox
-                Websites = await UrlConfig.ReadJson();
-                AppendToAutoComplete(Websites);
+                Url = await UrlConfig.ReadJson();
+                AppendToAutoComplete(Url);
             }
             catch (Exception)
             {
@@ -65,8 +74,8 @@ namespace _403unlocker.Ping
         private async void SaveNewUrlToBson(List<UrlConfig> toAddList)
         {
             // finds new Websites
-            List<UrlConfig> newWebsites = toAddList.Except(Websites).ToList();
-            Websites.AddRange(newWebsites);
+            List<UrlConfig> newWebsites = toAddList.Except(Url).ToList();
+            Url.AddRange(newWebsites);
             if (newWebsites.Count > 0)
             {
                 await UrlConfig.WriteJson(newWebsites, true);
@@ -203,12 +212,16 @@ namespace _403unlocker.Ping
 
         private void buttonAddDns_Click(object sender, EventArgs e)
         {
-            List<DnsConfig> dns = new List<DnsConfig>();
-            dns.AddRange(DnsBenchmark.ConvertTo(dnsBinding.ToList()));
-           
-            using (DnsCollectorForm form = new DnsCollectorForm(dns))
+            using (DnsCollectorForm form = new DnsCollectorForm(DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList())))
             {
-                form.ShowDialog();
+                var r = form.ShowDialog();
+                if (form.isApplied && form.isTableChanged)
+                {
+                    foreach (DnsConfig dns in form.newDns)
+                    {
+                        dnsBinding.Add(new DnsBenchmark(dns));
+                    }
+                }
             }
         }
 
