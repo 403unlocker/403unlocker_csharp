@@ -10,7 +10,7 @@ namespace _403unlocker.Ping
 {
     public class UrlConfig
     {
-        private static string path = "Url.log";
+        private static string path = "Url.json";
         public string Name { get; set; } = "";
 
         private string url;
