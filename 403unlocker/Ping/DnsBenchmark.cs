@@ -186,19 +186,10 @@ namespace _403unlocker.Ping
             }
         }
 
-        public static async Task WriteJson(List<DnsBenchmark> data, bool append)
+        public static void WriteJson(List<DnsBenchmark> data)
         {
-            string text;
-
             string serializedData = data.Count == 0 ? "" : JsonConvert.SerializeObject(data, Formatting.Indented);
-            text = serializedData;
-            //File.WriteAllText(path, serializedData);
-
-
-            using (StreamWriter sw = new StreamWriter(path, append))
-            {
-                await sw.WriteLineAsync(text);
-            }
+            File.WriteAllText(path, serializedData);
         }
 
         public static List<DnsConfig> ConvertToDnsConfig(List<DnsBenchmark> dnsBenchmark)

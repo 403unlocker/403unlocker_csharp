@@ -62,10 +62,10 @@ namespace _403unlocker.Ping
             }
         }
 
-        private async void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            await DnsBenchmark.WriteJson(dnsBinding.ToList(), false);
-            await UrlConfig.WriteJson(userUrls);
+            DnsBenchmark.WriteJson(dnsBinding.ToList());
+            UrlConfig.WriteJson(userUrls);
         }
 
         private void AppendToAutoComplete(UrlConfig url)
