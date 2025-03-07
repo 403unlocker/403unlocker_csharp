@@ -27,12 +27,6 @@ namespace _403unlocker.Ping
         public DnsPingForm()
         {
             InitializeComponent();
-
-            dataGridView1.DataSource = dnsBinding;
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private async void DnsPingForm_Load(object sender, EventArgs e)
@@ -41,14 +35,17 @@ namespace _403unlocker.Ping
             {
                 List<DnsBenchmark> previousList = await DnsBenchmark.ReadJson();
                 dnsBinding = new BindingList<DnsBenchmark>(previousList);
-                dataGridView1.DataSource = null;
-                dataGridView1.DataSource = dnsBinding;
             }
             catch (Exception)
             {
                 // When json text is not valid to json
                 // Do Nothing
             }
+            dataGridView1.DataSource = dnsBinding;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             try
             {
