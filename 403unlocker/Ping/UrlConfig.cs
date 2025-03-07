@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -54,27 +55,17 @@ namespace _403unlocker.Ping
 
         public static async Task<List<UrlConfig>> ReadJson()
         {
-            if (File.Exists(path))
-            {
-                FileInfo fileInfo = new FileInfo(path);
-                if (fileInfo.Length != 0)
-                {
-                    using (StreamReader sr = new StreamReader(path))
-                    {
-                        string jsonText = await sr.ReadToEndAsync();
+            if (!File.Exists(path)) throw new FileNotFoundException($"File dosen't exist");
 
-                        List<UrlConfig> result = JsonConvert.DeserializeObject<List<UrlConfig>>(jsonText);
-                        return result;
-                    }
-                }
-                else
-                {
-                    throw new FileLoadException($"Can't load file at {path}");
-                }
-            }
-            else
+            FileInfo fileInfo = new FileInfo(path);
+            if (fileInfo.Length == 0) throw new FileLoadException($"Can't load file");
+
+            using (StreamReader sr = new StreamReader(path))
             {
-                throw new FileNotFoundException($"File dosen't exist at {path}");
+                string jsonText = await sr.ReadToEndAsync();
+
+                List<UrlConfig> result = JsonConvert.DeserializeObject<List<UrlConfig>>(jsonText);
+                return result;
             }
         }
 

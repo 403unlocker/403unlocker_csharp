@@ -17,6 +17,7 @@ using HtmlAgilityPack;
 using System.IO;
 using Newtonsoft.Json;
 using _403unlocker.Add;
+using System.Data;
 
 namespace _403unlocker.Ping
 {
@@ -172,27 +173,18 @@ namespace _403unlocker.Ping
 
         public static async Task<List<DnsBenchmark>> ReadJson()
         {
-            if (File.Exists(path))
-            {
-                FileInfo fileInfo = new FileInfo(path);
-                if (fileInfo.Length != 0)
-                {
-                    using (StreamReader sr = new StreamReader(path))
-                    {
-                        string jsonText = await sr.ReadToEndAsync();
+            if (!File.Exists(path)) throw new FileNotFoundException($"File dosen't exist");
 
-                        List<DnsBenchmark> result = JsonConvert.DeserializeObject<List<DnsBenchmark>>(jsonText);
-                        return result;
-                    }
-                }
-                else
-                {
-                    throw new FileLoadException($"Can't load file at {path}");
-                }
-            }
-            else
+            FileInfo fileInfo = new FileInfo(path);
+            if (fileInfo.Length == 0) throw new FileLoadException($"Can't load file");
+
+            using (StreamReader sr = new StreamReader(path))
             {
-                throw new FileNotFoundException($"File dosen't exist at {path}");
+                string jsonText = await sr.ReadToEndAsync();
+
+                List<DnsBenchmark> result = JsonConvert.DeserializeObject<List<DnsBenchmark>>(jsonText);
+                if (result is null) throw new NoNullAllowedException("Data is null");
+                return result;
             }
         }
 
