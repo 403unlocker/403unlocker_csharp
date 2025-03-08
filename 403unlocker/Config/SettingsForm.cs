@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using _403unlocker.Settings;
+using _403unlocker.Config;
 using _403unlocker.Ping;
 
-namespace _403unlocker.Settings
+namespace _403unlocker.Config
 {
     public partial class SettingsForm : Form
     {

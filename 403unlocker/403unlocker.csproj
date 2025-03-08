@@ -95,11 +95,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Settings\Settings.cs" />
-    <Compile Include="Settings\SettingsForm.cs">
+    <Compile Include="Config\Settings.cs" />
+    <Compile Include="Config\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Settings\SettingsForm.Designer.cs">
+    <Compile Include="Config\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Add\Custom DNS\DnsCustomAdderForm.resx">
@@ -116,7 +116,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Settings\SettingsForm.resx">
+    <EmbeddedResource Include="Config\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />

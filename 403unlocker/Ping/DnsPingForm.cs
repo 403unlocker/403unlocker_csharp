@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Security.Policy;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
-using _403unlocker.Settings;
+using _403unlocker.Config;
 using System.Security.Cryptography;
 using _403unlocker.Add;
 using System.Diagnostics;
@@ -96,7 +96,7 @@ namespace _403unlocker.Ping
         private async void pcPingButton_Click(object sender, EventArgs e)
         {
             var pingList = new List<DnsBenchmark>(dnsBinding);
-            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(5))).ToList();
+            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing())).ToList();
             await Task.WhenAll(tasks);
             dataGridView1.Invalidate();
         }
@@ -128,7 +128,7 @@ namespace _403unlocker.Ping
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
                 DnsBenchmark foundRecord = dnsBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
-                await foundRecord.GetPing(5000);
+                await foundRecord.GetPing();
                 dataGridView1.Invalidate();
             }
             else
@@ -173,10 +173,10 @@ namespace _403unlocker.Ping
 
         private void asPrimaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.Settings.SelectedNetworkInterface))
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Config.Settings.SelectedNetworkInterface))
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                NetworkSettings.DnsSetting.SetDnsAsPrimary(Settings.Settings.SelectedNetworkInterface, selectedRowDns);
+                NetworkSettings.DnsSetting.SetDnsAsPrimary(Config.Settings.SelectedNetworkInterface, selectedRowDns);
             }
             else
             {
@@ -186,10 +186,10 @@ namespace _403unlocker.Ping
 
         private void asSecondaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.Settings.SelectedNetworkInterface))
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Config.Settings.SelectedNetworkInterface))
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                NetworkSettings.DnsSetting.SetDnsAsPrimary(Settings.Settings.SelectedNetworkInterface, selectedRowDns);
+                NetworkSettings.DnsSetting.SetDnsAsPrimary(Config.Settings.SelectedNetworkInterface, selectedRowDns);
             }
             else
             {
@@ -199,7 +199,7 @@ namespace _403unlocker.Ping
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NetworkSettings.DnsSetting.Reset(Settings.Settings.SelectedNetworkInterface);
+            NetworkSettings.DnsSetting.Reset(Config.Settings.SelectedNetworkInterface);
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)

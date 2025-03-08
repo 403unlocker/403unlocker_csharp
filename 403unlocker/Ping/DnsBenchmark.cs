@@ -18,6 +18,7 @@ using System.IO;
 using Newtonsoft.Json;
 using _403unlocker.Add;
 using System.Data;
+using _403unlocker.Config;
 
 namespace _403unlocker.Ping
 {
@@ -27,7 +28,7 @@ namespace _403unlocker.Ping
         public string Name { get; set; } = "";
         public string DNS { get; set; } = "";
         public string Status { get; set; } = "";
-        public long Latency { get; set; } = 0;
+        public long Latency { get; set; } = -1;
 
         public DnsBenchmark()
         {
@@ -39,15 +40,29 @@ namespace _403unlocker.Ping
             DNS = dnsRecord.DNS;
         }
 
-        public async Task GetPing(int timeOutSecond = 2)
+        public async Task GetPing()
         {
-            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+            using (System.Net.NetworkInformation.Ping pingSender = new System.Net.NetworkInformation.Ping())
             {
                 try
                 {
-                    PingReply reply = await ping.SendPingAsync(IPAddress.Parse(DNS), timeOutSecond);
-                    Latency = reply.RoundtripTime;
-                    Status = reply.Status.ToString();
+                    long timeCount = 0;
+                    int successCount = 0;
+                    for (int i = 0; i < Settings.Ping.EchoRequestCount; i++)
+                    {
+                        byte[] buffer = new byte[Settings.Ping.BufferSize];
+
+                        PingReply reply =  await pingSender.SendPingAsync(IPAddress.Parse(DNS),
+                                                                        Settings.Ping.TimeOutInMiliSeconds,
+                                                                        buffer
+                                                                        );
+                        if (reply.Status == IPStatus.Success) successCount++;
+
+                        timeCount += reply.RoundtripTime;
+                    }
+                    if (successCount > 0) Latency =  timeCount / successCount;
+                    int packetLossPercentage = (int)((Settings.Ping.EchoRequestCount - successCount) / (double)Settings.Ping.EchoRequestCount) * 100;
+                    Status = $"{packetLossPercentage}% loss";
                 }
                 catch (TaskCanceledException)
                 {
