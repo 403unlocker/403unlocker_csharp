@@ -77,7 +77,7 @@
             this.buttonApply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonApply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonApply.ForeColor = System.Drawing.Color.Black;
-            this.buttonApply.Location = new System.Drawing.Point(178, 303);
+            this.buttonApply.Location = new System.Drawing.Point(173, 303);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(79, 23);
             this.buttonApply.TabIndex = 13;

@@ -58,12 +58,40 @@ namespace _403unlocker.Ping
             {
                 AppendToAutoComplete(Data.Url.DefaultList());
             }
+
+            try
+            {
+                bool isSuccesful = Settings.Read();
+                if (!isSuccesful) throw new Exception("Reading config file, failed");
+            }
+            catch (Exception error)
+            {
+                if (error is FileNotFoundException)
+                {
+                    MessageBox.Show("Config File, Not Found", error.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show(error.Message, "Error Occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                MessageBox.Show("App is using default Settings...", "No Worries", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DnsBenchmark.WriteJson(dnsBinding.ToList());
             UrlConfig.WriteJson(userUrls);
+
+            try
+            {
+                bool isSuccesful = Settings.Write();
+                if (!isSuccesful) throw new Exception("App couldn't save config file!");
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Saving Config File, Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void AppendToDataGridView(DnsCollectorForm form)

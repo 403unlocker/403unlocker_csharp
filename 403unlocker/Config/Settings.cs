@@ -6,11 +6,27 @@ using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using _403unlocker.Ping;
+using System.Configuration;
+using System.Drawing.Drawing2D;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace _403unlocker.Config
 {
+    public class SettingsAttributes
+    {
+        public int PingPacketCount { get; set; }
+        public ushort PingPacketSize { get; set; }
+        public int PingTimeOutInMiliSeconds { get; set; }
+        public int ByPassDnsResolveTimeOutInMiliSeconds { get; set; }
+        public int ByPassHttpRequestTimeOutInMiliSeconds { get; set; }
+        public bool NetworkAdaptorAutoSelection { get; set; }
+        public string NetworkAdaptorSelectedNetworkInterface { get; set; }
+    }
+
     internal static class Settings
     {
+        private static string path = "403unlocker.config";
         internal static class Ping
         {
             public static int PacketCount { get; set; } = 4;
@@ -55,6 +71,51 @@ namespace _403unlocker.Config
                     return b.ElementAt(0).Name;
                 }
             }
+        }
+
+        public static bool Read()
+        {
+            if (!File.Exists(path)) throw new FileNotFoundException($"File dosen't exist");
+
+            var serializer = new XmlSerializer(typeof(SettingsAttributes));
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                SettingsAttributes a = (SettingsAttributes)serializer.Deserialize(stream);
+
+                Settings.Ping.PacketCount = a.PingPacketCount;
+                Settings.Ping.PacketSize = a.PingPacketSize;
+                Settings.Ping.TimeOutInMiliSeconds = a.PingTimeOutInMiliSeconds;
+
+                Settings.ByPass.DnsResolveTimeOutInMiliSeconds = a.ByPassDnsResolveTimeOutInMiliSeconds;
+                Settings.ByPass.HttpRequestTimeOutInMiliSeconds = a.ByPassHttpRequestTimeOutInMiliSeconds;
+
+                Settings.NetworkAdaptor.AutoSelection = a.NetworkAdaptorAutoSelection;
+                Settings.NetworkAdaptor.SelectedNetworkInterface = a.NetworkAdaptorSelectedNetworkInterface;
+            }
+            return true;
+        }
+
+        public static bool Write()
+        {
+            SettingsAttributes settings = new SettingsAttributes()
+            {
+                PingPacketCount = Settings.Ping.PacketCount,
+                PingPacketSize = Settings.Ping.PacketSize,
+                PingTimeOutInMiliSeconds = Settings.Ping.TimeOutInMiliSeconds,
+
+                ByPassDnsResolveTimeOutInMiliSeconds = Settings.ByPass.DnsResolveTimeOutInMiliSeconds,
+                ByPassHttpRequestTimeOutInMiliSeconds = Settings.ByPass.HttpRequestTimeOutInMiliSeconds,
+
+                NetworkAdaptorAutoSelection = Settings.NetworkAdaptor.AutoSelection,
+                NetworkAdaptorSelectedNetworkInterface = Settings.NetworkAdaptor.SelectedNetworkInterface
+            };
+
+            var serializer = new XmlSerializer(typeof(SettingsAttributes));
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                serializer.Serialize(stream, settings);
+            }
+            return true;
         }
     }
 }
