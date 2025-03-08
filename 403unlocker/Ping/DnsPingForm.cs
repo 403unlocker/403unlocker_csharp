@@ -166,17 +166,17 @@ namespace _403unlocker.Ping
             AppendToAutoComplete(website);
 
             var pingList = new List<DnsBenchmark>(dnsBinding);
-            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text, 5))).ToList();
+            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text))).ToList();
             await Task.WhenAll(tasks);
             dataGridView1.Invalidate();
         }
 
         private void asPrimaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Config.Settings.SelectedNetworkInterface))
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.NetworkAdaptor.SelectedNetworkInterface))
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                NetworkSettings.DnsSetting.SetDnsAsPrimary(Config.Settings.SelectedNetworkInterface, selectedRowDns);
+                DnsCommand.SetDnsAsPrimary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
             }
             else
             {
@@ -186,10 +186,10 @@ namespace _403unlocker.Ping
 
         private void asSecondaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Config.Settings.SelectedNetworkInterface))
+            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.NetworkAdaptor.SelectedNetworkInterface))
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                NetworkSettings.DnsSetting.SetDnsAsPrimary(Config.Settings.SelectedNetworkInterface, selectedRowDns);
+                DnsCommand.SetDnsAsPrimary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
             }
             else
             {
@@ -199,7 +199,7 @@ namespace _403unlocker.Ping
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NetworkSettings.DnsSetting.Reset(Config.Settings.SelectedNetworkInterface);
+            DnsCommand.Reset(Settings.NetworkAdaptor.SelectedNetworkInterface);
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)

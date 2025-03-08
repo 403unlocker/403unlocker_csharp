@@ -72,7 +72,7 @@
             this.pcPingButton.Name = "pcPingButton";
             this.pcPingButton.Size = new System.Drawing.Size(79, 23);
             this.pcPingButton.TabIndex = 10;
-            this.pcPingButton.Text = "Ping to PC";
+            this.pcPingButton.Text = "Ping";
             this.pcPingButton.UseVisualStyleBackColor = false;
             this.pcPingButton.Click += new System.EventHandler(this.pcPingButton_Click);
             // 
@@ -226,7 +226,7 @@
             this.sitePingButton.Name = "sitePingButton";
             this.sitePingButton.Size = new System.Drawing.Size(79, 23);
             this.sitePingButton.TabIndex = 13;
-            this.sitePingButton.Text = "Ping to Site";
+            this.sitePingButton.Text = "Bypass";
             this.sitePingButton.UseVisualStyleBackColor = false;
             this.sitePingButton.Click += new System.EventHandler(this.sitePingButton_Click);
             // 

@@ -48,20 +48,31 @@ namespace _403unlocker.Ping
                 {
                     long timeCount = 0;
                     int successCount = 0;
-                    for (int i = 0; i < Settings.Ping.EchoRequestCount; i++)
+                    for (int i = 0; i < Settings.Ping.PacketCount; i++)
                     {
-                        byte[] buffer = new byte[Settings.Ping.BufferSize];
+                        byte[] buffer = new byte[Settings.Ping.PacketSize];
 
                         PingReply reply =  await pingSender.SendPingAsync(IPAddress.Parse(DNS),
-                                                                        Settings.Ping.TimeOutInMiliSeconds,
-                                                                        buffer
-                                                                        );
-                        if (reply.Status == IPStatus.Success) successCount++;
-
-                        timeCount += reply.RoundtripTime;
+                                                                            Settings.Ping.TimeOutInMiliSeconds,
+                                                                            buffer
+                                                                            );
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            successCount++;
+                            timeCount += reply.RoundtripTime;
+                        }
                     }
-                    if (successCount > 0) Latency =  timeCount / successCount;
-                    int packetLossPercentage = (int)((Settings.Ping.EchoRequestCount - successCount) / (double)Settings.Ping.EchoRequestCount) * 100;
+
+                    if (successCount > 0)
+                    {
+                        // Average
+                        Latency = timeCount / successCount;
+                    }
+                    else
+                    {
+                        Latency = -1;
+                    }
+                    int packetLossPercentage = (int)((Settings.Ping.PacketCount - successCount) / (double)Settings.Ping.PacketCount) * 100;
                     Status = $"{packetLossPercentage}% loss";
                 }
                 catch (TaskCanceledException)
@@ -72,18 +83,18 @@ namespace _403unlocker.Ping
             }
         }
 
-        public async Task GetPing(string hostName, int timeOut_s)
+        public async Task GetPing(string url)
         {
             try
             {
                 // seeking for IPs
-                string[] resolvedIP = await ResolveDNS(DNS, hostName, timeOut_s);
+                string[] resolvedIP = await NetworkUtility.ResolveDNS(DNS, url);
                 if (resolvedIP.Length == 0)
                 {
                     throw new DnsResponseException();
                 }
 
-                var htmlreq = await HttpRequestAsWeb(resolvedIP.First(), timeOut_s);
+                var htmlreq = await NetworkUtility.HttpRequestAsWeb(resolvedIP.First());
                 Status = HttpStatusCode.OK.ToString();
             }
             catch (HttpRequestException)
@@ -101,82 +112,6 @@ namespace _403unlocker.Ping
                 Latency = 0;
                 Status = HttpStatusCode.RequestTimeout.ToString();
             }
-        }
-
-        public async static Task<HtmlDocument> HttpRequest(string url, int timeOut_s = 5)
-        {
-            using (var handler = new HttpClientHandler())
-            {
-                handler.UseCookies = true;
-                using (HttpClient client = new HttpClient(handler))
-                {
-                    // content to accept in response
-                    client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-
-                    // OS, browser version, html layout rendering engine
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
-
-                    client.Timeout = TimeSpan.FromSeconds(timeOut_s);
-
-                    // get html as string
-                    string htmlString = await client.GetStringAsync(url);
-
-                    var htmlDocument = new HtmlDocument();
-
-                    // make html to tree
-                    htmlDocument.LoadHtml(htmlString);
-                    return htmlDocument;
-                }
-            }
-        }
-        public async static Task<HttpResponseMessage> HttpResponse(string url, int timeOut_s = 2)
-        {
-            using (var handler = new HttpClientHandler())
-            {
-                handler.UseCookies = true;
-                using (HttpClient client = new HttpClient(handler))
-                {
-                    // content to accept in response
-                    client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-
-                    // OS, browser version, html layout rendering engine
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
-
-                    client.Timeout = TimeSpan.FromSeconds(timeOut_s);
-
-                    // get html response
-                    HttpResponseMessage htmlResponse = await client.GetAsync(url);
-                    return htmlResponse;
-                }
-            }
-        }
-
-        public async static Task<HtmlDocument> HttpRequestAsWeb(string url, int timeOut_s)
-        {
-            HtmlWeb web = new HtmlWeb();
-            web.Timeout = timeOut_s;
-            var htmlDoc = await web.LoadFromWebAsync(url);
-            return htmlDoc;
-        }
-
-
-        public async static Task<string[]> ResolveDNS(string customeDNS, string hostName, int timeOut_s = 2)
-        {
-            // initialize settings
-            var options = new LookupClientOptions(IPAddress.Parse(customeDNS))
-            {
-                Timeout = TimeSpan.FromSeconds(timeOut_s),
-                UseCache = false,
-                ThrowDnsErrors = true,
-                ContinueOnDnsError = false
-            };
-            // apply settings to query
-            var lookup = new LookupClient(options);
-            // query DNS server
-            var result = await lookup.QueryAsync(hostName, QueryType.A);
-
-            string[] resolvedIP = result.Answers.OfType<ARecord>().Select(x => $"http://{x.Address}").ToArray();
-            return resolvedIP;
         }
 
         public override string ToString()

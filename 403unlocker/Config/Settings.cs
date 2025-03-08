@@ -13,35 +13,47 @@ namespace _403unlocker.Config
     {
         internal static class Ping
         {
-            public static int EchoRequestCount { get; set; } = 4;
+            public static int PacketCount { get; set; } = 4;
+            public static ushort PacketSize { get; set; } = 32;
             public static int TimeOutInMiliSeconds { get; set; } = 2000;
-            public static ushort BufferSize { get; set; } = 32;
         }
 
-        private static bool networkInterfaceAutoSelection = true;
-        private static string selectedNetworkInterface = "Auto";
-
-        public static bool NetworkInterfaceAutoSelection
+        internal static class ByPass
         {
-            get => networkInterfaceAutoSelection;
-            set => networkInterfaceAutoSelection = value;
+            public static int DnsResolveTimeOutInMiliSeconds { get; set; } = 2000;
+            public static int HttpRequestTimeOutInMiliSeconds { get; set; } = 2000;
         }
 
-        public static string SelectedNetworkInterface
+        internal static class NetworkAdaptor
         {
-            get
+            public static bool AutoSelection = true;
+            private static string selectedNetworkInterface = "Ethernet";
+            public static string SelectedNetworkInterface
             {
-                if (networkInterfaceAutoSelection)
+                get
                 {
-                    var networks = NetworkSettings.GetNetworkInterfaceName(true);
-                    return networks[0];
+                    if (AutoSelection) return ActiveNetworkInterface;
+                    return selectedNetworkInterface;
                 }
-
-                return selectedNetworkInterface;
+                set
+                { 
+                    selectedNetworkInterface = value; 
+                }
             }
-            set
+            public static string[] AllNetworkInterfaces
             {
-                selectedNetworkInterface = value;
+                get
+                {
+                    return NetworkUtility.Adaptor.GetNetworkInterfaceName().Select(netwrok => netwrok.Name).ToArray();
+                }
+            }
+            public static string ActiveNetworkInterface
+            {
+                get
+                {
+                    var b = NetworkUtility.Adaptor.GetNetworkInterfaceName().Where(a => a.GetIPProperties().GatewayAddresses.Any(g => g.Address.AddressFamily.ToString() == "InterNetwork"));
+                    return b.ElementAt(0).Name;
+                }
             }
         }
     }

@@ -79,6 +79,7 @@
       <DependentUpon>DnsCollectorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
+    <Compile Include="DnsCommand.cs" />
     <Compile Include="Ping\DnsBenchmark.cs" />
     <Compile Include="Ping\DnsPingForm.cs">
       <SubType>Form</SubType>
@@ -86,7 +87,7 @@
     <Compile Include="Ping\DnsPingForm.Designer.cs">
       <DependentUpon>DnsPingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ping\NetworkSettings.cs" />
+    <Compile Include="Ping\NetworkUtility.cs" />
     <Compile Include="Ping\UrlConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
