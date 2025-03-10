@@ -264,8 +264,7 @@ namespace _403unlocker.Ping
 
         private void about403ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string link = @"https://github.com/ALiMoradzade/403unlocker";
-            Process.Start(link);
+            
         }
 
         private async void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -296,6 +295,18 @@ namespace _403unlocker.Ping
             {
                 DnsConfig.WriteJson(DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList()), saveFileDialog1.FileName);
             }
+        }
+
+        private void codeSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string link = @"https://github.com/ALiMoradzade/403unlocker";
+            Process.Start(link);
+        }
+
+        private void websiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string link = @"https://www.403unlocker.ir";
+            Process.Start(link);
         }
     }
 }

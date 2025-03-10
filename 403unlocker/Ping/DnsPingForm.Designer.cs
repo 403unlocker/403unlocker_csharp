@@ -58,6 +58,8 @@
             this.buttonAddDns = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.codeSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.websiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -310,10 +312,12 @@
             // about403ToolStripMenuItem
             // 
             this.about403ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.about403ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.codeSourceToolStripMenuItem,
+            this.websiteToolStripMenuItem});
             this.about403ToolStripMenuItem.Name = "about403ToolStripMenuItem";
-            this.about403ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.about403ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.about403ToolStripMenuItem.Text = "About 403unlocker";
-            this.about403ToolStripMenuItem.Click += new System.EventHandler(this.about403ToolStripMenuItem_Click);
             // 
             // buttonAddDns
             // 
@@ -339,6 +343,22 @@
             // 
             this.saveFileDialog1.Filter = "JSON File|*.json";
             this.saveFileDialog1.Title = "Select where to save";
+            // 
+            // codeSourceToolStripMenuItem
+            // 
+            this.codeSourceToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.codeSourceToolStripMenuItem.Name = "codeSourceToolStripMenuItem";
+            this.codeSourceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.codeSourceToolStripMenuItem.Text = "Code Source";
+            this.codeSourceToolStripMenuItem.Click += new System.EventHandler(this.codeSourceToolStripMenuItem_Click);
+            // 
+            // websiteToolStripMenuItem
+            // 
+            this.websiteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
+            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.websiteToolStripMenuItem.Text = "Website";
+            this.websiteToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
             // 
             // DnsPingForm
             // 
@@ -401,5 +421,7 @@
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem codeSourceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem websiteToolStripMenuItem;
     }
 }
