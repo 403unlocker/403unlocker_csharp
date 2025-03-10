@@ -57,5 +57,10 @@ namespace _403unlocker.Config
         {
             comboBoxNetworkInterfaces.Enabled = !checkBoxAutoSelection.Checked;
         }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

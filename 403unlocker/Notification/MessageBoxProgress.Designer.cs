@@ -28,16 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelStatus = new System.Windows.Forms.Label();
+            this.labelProgressBarStatus = new System.Windows.Forms.Label();
+            this.labelTimeStatus = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 28);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(293, 23);
+            this.progressBar1.Size = new System.Drawing.Size(290, 23);
             this.progressBar1.TabIndex = 0;
             // 
             // buttonCancel
@@ -45,7 +48,7 @@
             this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancel.Location = new System.Drawing.Point(119, 57);
+            this.buttonCancel.Location = new System.Drawing.Point(118, 57);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -53,25 +56,42 @@
             this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // labelStatus
+            // labelProgressBarStatus
             // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.labelStatus.Location = new System.Drawing.Point(12, 9);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(87, 16);
-            this.labelStatus.TabIndex = 9;
-            this.labelStatus.Text = "0% Complete";
+            this.labelProgressBarStatus.AutoSize = true;
+            this.labelProgressBarStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProgressBarStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.labelProgressBarStatus.Location = new System.Drawing.Point(9, 9);
+            this.labelProgressBarStatus.Name = "labelProgressBarStatus";
+            this.labelProgressBarStatus.Size = new System.Drawing.Size(94, 16);
+            this.labelProgressBarStatus.TabIndex = 9;
+            this.labelProgressBarStatus.Text = "99% Complete";
+            // 
+            // labelTimeStatus
+            // 
+            this.labelTimeStatus.AutoSize = true;
+            this.labelTimeStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTimeStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.labelTimeStatus.Location = new System.Drawing.Point(155, 9);
+            this.labelTimeStatus.Name = "labelTimeStatus";
+            this.labelTimeStatus.Size = new System.Drawing.Size(147, 16);
+            this.labelTimeStatus.TabIndex = 10;
+            this.labelTimeStatus.Text = "Estimated Time:    99:99";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // MessageBoxProgress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(315, 87);
+            this.ClientSize = new System.Drawing.Size(310, 87);
             this.ControlBox = false;
-            this.Controls.Add(this.labelStatus);
+            this.Controls.Add(this.labelTimeStatus);
+            this.Controls.Add(this.labelProgressBarStatus);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.progressBar1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -91,6 +111,8 @@
         #endregion
         private System.Windows.Forms.Button buttonCancel;
         internal System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Label labelProgressBarStatus;
+        private System.Windows.Forms.Label labelTimeStatus;
+        private System.Windows.Forms.Timer timer1;
     }
 }

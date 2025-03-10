@@ -128,7 +128,7 @@ namespace _403unlocker.Ping
             var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing())).ToList();
 
-            using (MessageBoxProgress form = new MessageBoxProgress(tasks))
+            using (MessageBoxProgress form = new MessageBoxProgress(tasks, Settings.Ping.PacketCount, Settings.Ping.TimeOutInMiliSeconds))
             {
                 form.ShowDialog();
                 dataGridView1.Invalidate();
@@ -155,7 +155,7 @@ namespace _403unlocker.Ping
             var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text))).ToList();
 
-            using (MessageBoxProgress form = new MessageBoxProgress(tasks))
+            using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds + Settings.ByPass.HttpRequestTimeOutInMiliSeconds))
             {
                 form.ShowDialog();
                 dataGridView1.Invalidate();
