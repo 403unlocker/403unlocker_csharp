@@ -96,17 +96,6 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void AppendToDataGridView(DnsCollectorForm form)
-        {
-            if (form.isApplied && form.isTableChanged)
-            {
-                foreach (DnsConfig dns in form.newDns)
-                {
-                    dnsBinding.Add(new DnsBenchmark(dns));
-                }
-            }
-        }
-
         private void AppendToAutoComplete(UrlConfig url)
         {
             AppendToAutoComplete(new List<UrlConfig> { url });
@@ -200,10 +189,8 @@ namespace _403unlocker.Ping
 
         private void sortButton_Click(object sender, EventArgs e)
         {
-            // 1 to 300 - smaller to bigger
-            var valid = dnsBinding.Where(dns => dns.Latency >= 1 && dns.Latency <= 300).OrderBy(dns => dns.Latency);
-            // -1
-            var invalid = dnsBinding.Where(dns => dns.Latency >= -1);
+            var valid = dnsBinding.Where(dns => dns.Latency >= 0).OrderBy(dns => dns.Latency);
+            var invalid = dnsBinding.Where(dns => dns.Latency == -1);
 
             List<DnsBenchmark> result = valid.Concat(invalid).ToList();
 
@@ -258,13 +245,9 @@ namespace _403unlocker.Ping
             using (DnsCollectorForm form = new DnsCollectorForm(benchmarks))
             {
                 form.ShowDialog();
-                AppendToDataGridView(form);
+                dnsBinding = new BindingList<DnsBenchmark>(DnsConfig.ConvertToDnsBenchmark(form.dnsBinding.ToList()));
+                dataGridView1.DataSource = dnsBinding;
             }
-        }
-
-        private void about403ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private async void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -278,7 +261,8 @@ namespace _403unlocker.Ping
                     using (DnsCollectorForm form = new DnsCollectorForm(benchmarks, configs))
                     {
                         form.ShowDialog();
-                        AppendToDataGridView(form);
+                        dnsBinding = new BindingList<DnsBenchmark>(DnsConfig.ConvertToDnsBenchmark(form.dnsBinding.ToList()));
+                        dataGridView1.DataSource = dnsBinding;
                     }
                 }
                 catch (Exception)

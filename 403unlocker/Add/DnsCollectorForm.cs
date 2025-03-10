@@ -28,8 +28,7 @@ namespace _403unlocker.Add
     public partial class DnsCollectorForm : Form
     {
         internal bool isApplied = false, isTableChanged = false;
-        private BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
-        internal List<DnsConfig> newDns = new List<DnsConfig>();
+        internal BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
         public DnsCollectorForm(params object[] dnsObject)
         {
             InitializeComponent();
@@ -101,10 +100,6 @@ namespace _403unlocker.Add
             List<DnsConfig> newDns = additionDnsList.Except(dnsBinding).ToList();
             // counts new DNSs
             int newDnsCount = newDns.Count();
-            if (newDnsCount > 0)
-            {
-                this.newDns.AddRange(newDns);
-            }
             // counts duplicate DNSs
             int existingDnsCount = additionDnsList.Count() - newDnsCount;
 
