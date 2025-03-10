@@ -18,6 +18,7 @@ using System.Diagnostics;
 using static _403unlocker.Data;
 using System.IO;
 using _403unlocker.Notification;
+using System.Net;
 
 namespace _403unlocker.Ping
 {
@@ -199,12 +200,14 @@ namespace _403unlocker.Ping
 
         private void sortButton_Click(object sender, EventArgs e)
         {
-            // sort by status
-            List<DnsBenchmark> sortedDnsPing = dnsBinding.OrderBy(dnsPing => dnsPing.Status)
-                                                            // then sort by ping
-                                                            .ThenBy(dnsPing => dnsPing.Latency)
-                                                            .ToList();
-            dnsBinding = new BindingList<DnsBenchmark>(sortedDnsPing);
+            // 1 to 300 - smaller to bigger
+            var valid = dnsBinding.Where(dns => dns.Latency >= 1 && dns.Latency <= 300).OrderBy(dns => dns.Latency);
+            // -1
+            var invalid = dnsBinding.Where(dns => dns.Latency >= -1);
+
+            List<DnsBenchmark> result = valid.Concat(invalid).ToList();
+
+            dnsBinding = new BindingList<DnsBenchmark>(result);
             dataGridView1.DataSource = dnsBinding;
         }
 
