@@ -100,7 +100,7 @@ namespace _403unlocker.Ping
             // initialize settings
             var options = new LookupClientOptions(IPAddress.Parse(dns))
             {
-                Timeout = TimeSpan.FromSeconds(Settings.ByPass.DnsResolveTimeOutInMiliSeconds),
+                Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.DnsResolveTimeOutInMiliSeconds),
                 UseCache = false,
                 ThrowDnsErrors = true,
                 ContinueOnDnsError = false

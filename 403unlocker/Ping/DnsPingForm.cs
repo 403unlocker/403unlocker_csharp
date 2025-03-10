@@ -17,6 +17,7 @@ using _403unlocker.Add;
 using System.Diagnostics;
 using static _403unlocker.Data;
 using System.IO;
+using _403unlocker.Notification;
 
 namespace _403unlocker.Ping
 {
@@ -121,12 +122,43 @@ namespace _403unlocker.Ping
             }
         }
 
-        private async void pcPingButton_Click(object sender, EventArgs e)
+        private void pcPingButton_Click(object sender, EventArgs e)
         {
             var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing())).ToList();
-            await Task.WhenAll(tasks);
-            dataGridView1.Invalidate();
+
+            using (MessageBoxProgress form = new MessageBoxProgress(tasks))
+            {
+                form.ShowDialog();
+                dataGridView1.Invalidate();
+            }
+        }
+
+        private void sitePingButton_Click(object sender, EventArgs e)
+        {
+            if (!UrlConfig.IsValidUrl(urlTextBox.Text))
+            {
+                MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttp://google.com\nhttps://google.com",
+                                "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var website = new UrlConfig
+            {
+                Name = "custom",
+                URL = urlTextBox.Text
+            };
+
+            AppendToAutoComplete(website);
+
+            var pingList = new List<DnsBenchmark>(dnsBinding);
+            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text))).ToList();
+
+            using (MessageBoxProgress form = new MessageBoxProgress(tasks))
+            {
+                form.ShowDialog();
+                dataGridView1.Invalidate();
+            }
         }
 
         private void copyDnsCellToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,28 +208,7 @@ namespace _403unlocker.Ping
             dataGridView1.DataSource = dnsBinding;
         }
 
-        private async void sitePingButton_Click(object sender, EventArgs e)
-        {
-            if (!UrlConfig.IsValidUrl(urlTextBox.Text))
-            {
-                MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttp://google.com\nhttps://google.com",
-                                "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var website = new UrlConfig
-            {
-                Name = "custom", 
-                URL = urlTextBox.Text
-            };
-
-            AppendToAutoComplete(website);
-
-            var pingList = new List<DnsBenchmark>(dnsBinding);
-            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text))).ToList();
-            await Task.WhenAll(tasks);
-            dataGridView1.Invalidate();
-        }
+        
 
         private void asPrimaryToolStripMenuItem_Click(object sender, EventArgs e)
         {

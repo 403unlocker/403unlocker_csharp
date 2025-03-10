@@ -19,6 +19,8 @@ using Newtonsoft.Json;
 using _403unlocker.Add;
 using System.Data;
 using _403unlocker.Config;
+using _403unlocker.Notification;
+using System.Reflection;
 
 namespace _403unlocker.Ping
 {
@@ -29,6 +31,9 @@ namespace _403unlocker.Ping
         public string DNS { get; set; } = "";
         public string Status { get; set; } = "";
         public long Latency { get; set; } = -1;
+
+        private static ProgressReport progressReport = new ProgressReport();
+        public static IProgress<ProgressReport> progress;
 
         public DnsBenchmark()
         {
@@ -42,6 +47,7 @@ namespace _403unlocker.Ping
 
         public async Task GetPing()
         {
+            ProgressReset();
             using (System.Net.NetworkInformation.Ping pingSender = new System.Net.NetworkInformation.Ping())
             {
                 try
@@ -50,17 +56,23 @@ namespace _403unlocker.Ping
                     int successCount = 0;
                     for (int i = 0; i < Settings.Ping.PacketCount; i++)
                     {
+                        
                         byte[] buffer = new byte[Settings.Ping.PacketSize];
 
                         PingReply reply =  await pingSender.SendPingAsync(IPAddress.Parse(DNS),
                                                                             Settings.Ping.TimeOutInMiliSeconds,
                                                                             buffer
                                                                             );
+
+                        
+
                         if (reply.Status == IPStatus.Success)
                         {
                             successCount++;
                             timeCount += reply.RoundtripTime;
                         }
+
+                        ProgressIncreament();
                     }
 
                     if (successCount > 0)
@@ -85,6 +97,7 @@ namespace _403unlocker.Ping
 
         public async Task GetPing(string url)
         {
+            ProgressReset();
             try
             {
                 // seeking for IPs
@@ -96,21 +109,41 @@ namespace _403unlocker.Ping
 
                 var htmlreq = await NetworkUtility.HttpRequestAsWeb(resolvedIP.First());
                 Status = HttpStatusCode.OK.ToString();
+
+                ProgressIncreament();
             }
             catch (HttpRequestException)
             {
-                Latency = 0;
+                Latency = -1;
                 Status = HttpStatusCode.ServiceUnavailable.ToString();
             }
             catch (DnsResponseException)
             {
-                Latency = 0;
+                Latency = -1;
                 Status = HttpStatusCode.NotFound.ToString();
             }
             catch (TaskCanceledException)
             {
-                Latency = 0;
+                Latency = -1;
                 Status = HttpStatusCode.RequestTimeout.ToString();
+            }
+        }
+
+        private void ProgressReset()
+        {
+            if (!(progress is null))
+            {
+                progressReport.CurrentValue = 0;
+                progress.Report(progressReport);
+            }
+        }
+
+        private void ProgressIncreament()
+        {
+            if (!(progress is null))
+            {
+                progressReport.CurrentValue++;
+                progress.Report(progressReport);
             }
         }
 
