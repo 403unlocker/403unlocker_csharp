@@ -26,7 +26,6 @@ namespace _403unlocker.Ping
     public partial class DnsBenchmarkForm : Form
     {
         private BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
-        private List<UrlConfig> userUrls = new List<UrlConfig>();
 
         public DnsBenchmarkForm()
         {
@@ -51,16 +50,7 @@ namespace _403unlocker.Ping
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            try
-            {
-                //Set the properties for the TextBox
-                userUrls = await UrlConfig.ReadJson();
-                AppendToAutoComplete(userUrls);
-            }
-            catch (Exception)
-            {
-                AppendToAutoComplete(Data.Url.DefaultList());
-            }
+            
 
             try
             {
@@ -84,7 +74,6 @@ namespace _403unlocker.Ping
         private void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DnsBenchmark.WriteJson(dnsBinding.ToList());
-            UrlConfig.WriteJson(userUrls);
 
             try
             {
@@ -97,21 +86,7 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void AppendToAutoComplete(UrlConfig url)
-        {
-            AppendToAutoComplete(new List<UrlConfig> { url });
-        }
-
-        private void AppendToAutoComplete(List<UrlConfig> additionUrlList)
-        {
-            // finds new Websites
-            List<UrlConfig> newUrls = additionUrlList.Except(userUrls).ToList();
-            userUrls.AddRange(newUrls);
-            if (newUrls.Count > 0)
-            {
-                urlTextBox.AutoCompleteCustomSource.AddRange(newUrls.Select(website => website.URL).ToArray());
-            }
-        }
+        
 
         private void pcPingButton_Click(object sender, EventArgs e)
         {
@@ -127,23 +102,16 @@ namespace _403unlocker.Ping
 
         private void sitePingButton_Click(object sender, EventArgs e)
         {
-            if (!UrlConfig.IsValidUrl(urlTextBox.Text))
+            string url = "";
+            using (GetUrlForm form = new GetUrlForm())
             {
-                MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttp://google.com\nhttps://google.com",
-                                "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                form.ShowDialog();
+                if (!form.isOk) return;
+                url = form.textBoxUrl.Text;
             }
 
-            var website = new UrlConfig
-            {
-                Name = "custom",
-                URL = urlTextBox.Text
-            };
-
-            AppendToAutoComplete(website);
-
             var pingList = new List<DnsBenchmark>(dnsBinding);
-            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(urlTextBox.Text))).ToList();
+            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(url))).ToList();
 
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds + Settings.ByPass.HttpRequestTimeOutInMiliSeconds))
             {

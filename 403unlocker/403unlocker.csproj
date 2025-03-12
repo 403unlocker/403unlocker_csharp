@@ -122,6 +122,9 @@
     <EmbeddedResource Include="Add\DnsConfigForm.resx">
       <DependentUpon>DnsConfigForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ByPass Url\GetUrlForm.resx">
+      <DependentUpon>GetUrlForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Notification\MessageBoxProgress.resx">
       <DependentUpon>MessageBoxProgress.cs</DependentUpon>
     </EmbeddedResource>
