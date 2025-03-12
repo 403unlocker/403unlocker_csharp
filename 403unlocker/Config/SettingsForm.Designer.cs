@@ -110,6 +110,11 @@
             // 
             // numericUpDownPingTimeOut
             // 
+            this.numericUpDownPingTimeOut.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.numericUpDownPingTimeOut.Location = new System.Drawing.Point(82, 179);
             this.numericUpDownPingTimeOut.Maximum = new decimal(new int[] {
             5000,
@@ -117,11 +122,12 @@
             0,
             0});
             this.numericUpDownPingTimeOut.Minimum = new decimal(new int[] {
-            2000,
+            1000,
             0,
             0,
             0});
             this.numericUpDownPingTimeOut.Name = "numericUpDownPingTimeOut";
+            this.numericUpDownPingTimeOut.ReadOnly = true;
             this.numericUpDownPingTimeOut.Size = new System.Drawing.Size(49, 20);
             this.numericUpDownPingTimeOut.TabIndex = 6;
             this.numericUpDownPingTimeOut.Value = new decimal(new int[] {
@@ -149,6 +155,11 @@
             // 
             // numericUpDownPacketSize
             // 
+            this.numericUpDownPacketSize.Increment = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
             this.numericUpDownPacketSize.Location = new System.Drawing.Point(102, 153);
             this.numericUpDownPacketSize.Maximum = new decimal(new int[] {
             65500,
@@ -161,6 +172,7 @@
             0,
             0});
             this.numericUpDownPacketSize.Name = "numericUpDownPacketSize";
+            this.numericUpDownPacketSize.ReadOnly = true;
             this.numericUpDownPacketSize.Size = new System.Drawing.Size(53, 20);
             this.numericUpDownPacketSize.TabIndex = 4;
             this.numericUpDownPacketSize.Value = new decimal(new int[] {
@@ -239,7 +251,12 @@
             // 
             // numericUpDownHttpRequestTimeOut
             // 
-            this.numericUpDownHttpRequestTimeOut.Location = new System.Drawing.Point(163, 268);
+            this.numericUpDownHttpRequestTimeOut.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDownHttpRequestTimeOut.Location = new System.Drawing.Point(176, 268);
             this.numericUpDownHttpRequestTimeOut.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -251,10 +268,11 @@
             0,
             0});
             this.numericUpDownHttpRequestTimeOut.Name = "numericUpDownHttpRequestTimeOut";
+            this.numericUpDownHttpRequestTimeOut.ReadOnly = true;
             this.numericUpDownHttpRequestTimeOut.Size = new System.Drawing.Size(49, 20);
             this.numericUpDownHttpRequestTimeOut.TabIndex = 10;
             this.numericUpDownHttpRequestTimeOut.Value = new decimal(new int[] {
-            2000,
+            3000,
             0,
             0,
             0});
@@ -277,12 +295,17 @@
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.label8.Location = new System.Drawing.Point(12, 268);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(145, 16);
+            this.label8.Size = new System.Drawing.Size(158, 16);
             this.label8.TabIndex = 11;
-            this.label8.Text = "Http Request TimeOut: ";
+            this.label8.Text = "HTTP Request TimeOut: ";
             // 
             // numericUpDownDnsResolveTimeOut
             // 
+            this.numericUpDownDnsResolveTimeOut.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.numericUpDownDnsResolveTimeOut.Location = new System.Drawing.Point(165, 242);
             this.numericUpDownDnsResolveTimeOut.Maximum = new decimal(new int[] {
             5000,
@@ -290,11 +313,12 @@
             0,
             0});
             this.numericUpDownDnsResolveTimeOut.Minimum = new decimal(new int[] {
-            2000,
+            1000,
             0,
             0,
             0});
             this.numericUpDownDnsResolveTimeOut.Name = "numericUpDownDnsResolveTimeOut";
+            this.numericUpDownDnsResolveTimeOut.ReadOnly = true;
             this.numericUpDownDnsResolveTimeOut.Size = new System.Drawing.Size(49, 20);
             this.numericUpDownDnsResolveTimeOut.TabIndex = 12;
             this.numericUpDownDnsResolveTimeOut.Value = new decimal(new int[] {
@@ -352,7 +376,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label13.Location = new System.Drawing.Point(218, 268);
+            this.label13.Location = new System.Drawing.Point(231, 268);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(84, 16);
             this.label13.TabIndex = 20;

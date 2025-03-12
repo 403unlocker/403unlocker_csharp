@@ -98,6 +98,7 @@
             this.Name = "GetUrlForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Please enter URL...";
             this.Load += new System.EventHandler(this.GetUrlForm_Load);
             this.ResumeLayout(false);

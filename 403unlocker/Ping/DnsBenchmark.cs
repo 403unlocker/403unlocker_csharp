@@ -30,7 +30,7 @@ namespace _403unlocker.Ping
         public string Name { get; set; } = "";
         public string DNS { get; set; } = "";
         public string Status { get; set; } = "";
-        public long Latency { get; set; } = -1;
+        public int Latency { get; set; } = -1;
 
         private static ProgressReport progressReport = new ProgressReport();
         public static IProgress<ProgressReport> progress;
@@ -52,7 +52,7 @@ namespace _403unlocker.Ping
             {
                 try
                 {
-                    long timeCount = 0;
+                    int timeCount = 0;
                     int successCount = 0;
                     for (int i = 0; i < Settings.Ping.PacketCount; i++)
                     {
@@ -69,7 +69,7 @@ namespace _403unlocker.Ping
                         if (reply.Status == IPStatus.Success)
                         {
                             successCount++;
-                            timeCount += reply.RoundtripTime;
+                            timeCount += (int)reply.RoundtripTime;
                         }
 
                         ProgressIncreament();
@@ -89,8 +89,8 @@ namespace _403unlocker.Ping
                 }
                 catch (TaskCanceledException)
                 {
-                    Latency = 0;
-                    Status = HttpStatusCode.RequestTimeout.ToString();
+                    Latency = -1;
+                    Status = "Timeout";
                 }
             }
         }
@@ -107,26 +107,29 @@ namespace _403unlocker.Ping
                     throw new DnsResponseException();
                 }
 
-                var htmlreq = await NetworkUtility.HttpRequestAsWeb(resolvedIP.First());
-                Status = HttpStatusCode.OK.ToString();
+                DateTime now = DateTime.Now;
+                var htmlreq = await NetworkUtility.HttpRequestAsWeb($"http://{resolvedIP.First()}");
+                DateTime after = DateTime.Now;
 
-                ProgressIncreament();
+                Latency = (int)((after - now).TotalMilliseconds/1000);
+                Status = "OK";
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException e)
             {
                 Latency = -1;
-                Status = HttpStatusCode.ServiceUnavailable.ToString();
+                Status = "Can't ByPass";
             }
-            catch (DnsResponseException)
+            catch (DnsResponseException e)
             {
                 Latency = -1;
-                Status = HttpStatusCode.NotFound.ToString();
+                Status = "Resolve Timeout";
             }
-            catch (TaskCanceledException)
+            catch (TaskCanceledException e)
             {
                 Latency = -1;
-                Status = HttpStatusCode.RequestTimeout.ToString();
+                Status = "HTTP Timeout";
             }
+            ProgressIncreament();
         }
 
         private void ProgressReset()

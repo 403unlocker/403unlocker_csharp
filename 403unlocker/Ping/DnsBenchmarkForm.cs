@@ -100,7 +100,7 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void sitePingButton_Click(object sender, EventArgs e)
+        private async void sitePingButton_Click(object sender, EventArgs e)
         {
             string url = "";
             using (GetUrlForm form = new GetUrlForm())
@@ -110,6 +110,7 @@ namespace _403unlocker.Ping
                 url = form.textBoxUrl.Text;
             }
 
+           
             var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(url))).ToList();
 
@@ -138,21 +139,6 @@ namespace _403unlocker.Ping
             else
             {
                 MessageBox.Show("Please select a row", "Can't Get DNS Cell!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-        }
-
-        private async void getPingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                DnsBenchmark foundRecord = dnsBinding.First(dnsPing => dnsPing.DNS == selectedRowDns);
-                await foundRecord.GetPing();
-                dataGridView1.Invalidate();
-            }
-            else
-            {
-                MessageBox.Show("Please select a row", "Can't Get Ping!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
@@ -206,7 +192,6 @@ namespace _403unlocker.Ping
                 {
                     MessageBox.Show("Something went wrong!", "Can't load file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
         }
 

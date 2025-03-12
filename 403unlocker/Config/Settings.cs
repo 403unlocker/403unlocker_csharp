@@ -37,7 +37,7 @@ namespace _403unlocker.Config
         internal static class ByPass
         {
             public static int DnsResolveTimeOutInMiliSeconds { get; set; } = 2000;
-            public static int HttpRequestTimeOutInMiliSeconds { get; set; } = 2000;
+            public static int HttpRequestTimeOutInMiliSeconds { get; set; } = 3000;
         }
 
         internal static class NetworkAdaptor

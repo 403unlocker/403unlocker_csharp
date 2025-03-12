@@ -38,8 +38,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyDnsCellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.getPingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortButton = new System.Windows.Forms.Button();
             this.sitePingButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -140,33 +138,17 @@
             this.contextMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.contextMenuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyDnsCellToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.getPingToolStripMenuItem});
+            this.copyDnsCellToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(127, 54);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 48);
             // 
             // copyDnsCellToolStripMenuItem
             // 
             this.copyDnsCellToolStripMenuItem.Name = "copyDnsCellToolStripMenuItem";
-            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.copyDnsCellToolStripMenuItem.Text = "Copy DNS Cell";
+            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.copyDnsCellToolStripMenuItem.Text = "Copy DNS";
             this.copyDnsCellToolStripMenuItem.Click += new System.EventHandler(this.copyDnsCellToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.BackColor = System.Drawing.Color.Black;
-            this.toolStripSeparator1.ForeColor = System.Drawing.Color.Black;
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(123, 6);
-            // 
-            // getPingToolStripMenuItem
-            // 
-            this.getPingToolStripMenuItem.Name = "getPingToolStripMenuItem";
-            this.getPingToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.getPingToolStripMenuItem.Text = "Get Ping";
-            this.getPingToolStripMenuItem.Click += new System.EventHandler(this.getPingToolStripMenuItem_Click);
             // 
             // sortButton
             // 
@@ -382,11 +364,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button sortButton;
-        private System.Windows.Forms.ToolStripMenuItem getPingToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button sitePingButton;
         private System.Windows.Forms.ToolStripMenuItem copyDnsCellToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.Button buttonAddDns;

@@ -94,23 +94,23 @@ namespace _403unlocker
             return htmlDoc;
         }
 
-
         public async static Task<string[]> ResolveDNS(string dns, string url)
         {
             // initialize settings
             var options = new LookupClientOptions(IPAddress.Parse(dns))
             {
-                Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.DnsResolveTimeOutInMiliSeconds),
+                ContinueOnDnsError = false,
                 UseCache = false,
+                Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.DnsResolveTimeOutInMiliSeconds),
                 ThrowDnsErrors = true,
-                ContinueOnDnsError = false
+                Retries = 0
             };
             // apply settings to query
             var lookup = new LookupClient(options);
             // query DNS server
             var result = await lookup.QueryAsync(url, QueryType.A);
 
-            string[] resolvedIP = result.Answers.OfType<ARecord>().Select(x => $"http://{x.Address}").ToArray();
+            string[] resolvedIP = result.Answers.OfType<ARecord>().Select(x => x.Address.ToString()).ToArray();
             return resolvedIP;
         }
     }
