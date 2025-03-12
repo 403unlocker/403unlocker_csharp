@@ -144,8 +144,15 @@ namespace _403unlocker.Ping
 
         private void sortButton_Click(object sender, EventArgs e)
         {
-            var valid = dnsBinding.Where(dns => dns.Latency >= 0).OrderBy(dns => dns.Latency);
-            var invalid = dnsBinding.Where(dns => dns.Latency == -1);
+            var valid = dnsBinding
+                .Where(dns => dns.Latency >= 0)
+                .OrderBy(dns => dns.Latency)
+                .ThenBy(dns => dns.Status);
+
+            var invalid = dnsBinding
+                .Where(dns => dns.Latency == -1)
+                .OrderBy(dns => dns.Status)
+                .ThenBy(dns => dns.Name);
 
             List<DnsBenchmark> result = valid.Concat(invalid).ToList();
 
