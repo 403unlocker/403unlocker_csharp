@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using _403unlocker.Add;
-using _403unlocker.Ping;
+using _403unlocker.ByPass_Url;
 
 namespace _403unlocker
 {

@@ -1,4 +1,4 @@
-﻿namespace _403unlocker.ByPass
+﻿namespace _403unlocker.ByPass_Url
 {
     partial class GetUrlForm
     {
