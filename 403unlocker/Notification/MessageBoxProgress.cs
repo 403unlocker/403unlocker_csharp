@@ -21,7 +21,7 @@ namespace _403unlocker.Notification
         private TimeSpan timeSpan;
         private List<Task> tasks;
 
-        public MessageBoxProgress(List<Task> tasks, int eachTaskThreadCount, int maxTimeSpan)
+        public MessageBoxProgress(List<Task> tasks, int eachTaskThreadCount, int eachThreadTime)
         {
             InitializeComponent();
 
@@ -39,7 +39,7 @@ namespace _403unlocker.Notification
             };
             DnsBenchmark.progress = progress;
 
-            timeSpan = TimeSpan.FromMilliseconds(maxTimeSpan);
+            timeSpan = TimeSpan.FromMilliseconds(eachTaskThreadCount * eachThreadTime);
             labelTimeStatus.Text = $"Estimated Time:    {timeSpan:mm\\:ss}";
         }
 

@@ -162,7 +162,7 @@
             0});
             this.numericUpDownPacketSize.Location = new System.Drawing.Point(102, 153);
             this.numericUpDownPacketSize.Maximum = new decimal(new int[] {
-            65500,
+            20480,
             0,
             0,
             0});
