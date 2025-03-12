@@ -22,12 +22,12 @@ using System.Net;
 
 namespace _403unlocker.Ping
 {
-    public partial class DnsPingForm : Form
+    public partial class DnsBenchmarkForm : Form
     {
         private BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
         private List<UrlConfig> userUrls = new List<UrlConfig>();
 
-        public DnsPingForm()
+        public DnsBenchmarkForm()
         {
             InitializeComponent();
         }
@@ -198,7 +198,7 @@ namespace _403unlocker.Ping
             dataGridView1.DataSource = dnsBinding;
         }
 
-        
+
 
         private void asPrimaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -213,24 +213,6 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void asSecondaryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.NetworkAdaptor.SelectedNetworkInterface))
-            {
-                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                DnsCommand.SetDnsAsPrimary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
-            }
-            else
-            {
-                MessageBox.Show("Please select a row", "Can't Read DNS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-        }
-
-        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DnsCommand.Reset(Settings.NetworkAdaptor.SelectedNetworkInterface);
-        }
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (SettingsForm setting = new SettingsForm())
@@ -242,7 +224,7 @@ namespace _403unlocker.Ping
         private void buttonAddDns_Click(object sender, EventArgs e)
         {
             var benchmarks = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
-            using (DnsCollectorForm form = new DnsCollectorForm(benchmarks))
+            using (DnsConfigForm form = new DnsConfigForm(benchmarks))
             {
                 form.ShowDialog();
                 dnsBinding = new BindingList<DnsBenchmark>(DnsConfig.ConvertToDnsBenchmark(form.dnsBinding.ToList()));
@@ -258,7 +240,7 @@ namespace _403unlocker.Ping
                 {
                     var benchmarks = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
                     var configs = await DnsConfig.ReadJson(openFileDialog1.FileName);
-                    using (DnsCollectorForm form = new DnsCollectorForm(benchmarks, configs))
+                    using (DnsConfigForm form = new DnsConfigForm(benchmarks, configs))
                     {
                         form.ShowDialog();
                         dnsBinding = new BindingList<DnsBenchmark>(DnsConfig.ConvertToDnsBenchmark(form.dnsBinding.ToList()));
@@ -269,7 +251,7 @@ namespace _403unlocker.Ping
                 {
                     MessageBox.Show("Something went wrong!", "Can't load file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-               
+
             }
         }
 
@@ -291,6 +273,36 @@ namespace _403unlocker.Ping
         {
             string link = @"https://www.403unlocker.ir";
             Process.Start(link);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonDnsSet.Text = comboBoxDnsSet.SelectedItem as string;
+        }
+
+        private void buttonDnsSet_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0 || string.IsNullOrEmpty(Settings.NetworkAdaptor.SelectedNetworkInterface))
+            {
+                MessageBox.Show("Please select a row", "Can't Read DNS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            if (buttonDnsSet.Text == "Set as Primary")
+            {
+
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+                DnsCommand.SetDnsAsPrimary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
+            }
+            else
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+                DnsCommand.SetDnsAsSecondary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
+            }
+        }
+
+        private void buttonResetDns_Click(object sender, EventArgs e)
+        {
+            DnsCommand.Reset(Settings.NetworkAdaptor.SelectedNetworkInterface);
         }
     }
 }

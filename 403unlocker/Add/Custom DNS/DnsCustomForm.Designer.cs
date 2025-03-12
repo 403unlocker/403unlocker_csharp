@@ -1,6 +1,6 @@
 ﻿namespace _403unlocker.Add.Custom_DNS
 {
-    partial class DnsCustomAdderForm
+    partial class DnsCustomForm
     {
         /// <summary>
         /// Required designer variable.

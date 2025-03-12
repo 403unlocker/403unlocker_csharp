@@ -17,7 +17,7 @@ namespace _403unlocker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DnsPingForm());
+            Application.Run(new DnsBenchmarkForm());
         }
     }
 }

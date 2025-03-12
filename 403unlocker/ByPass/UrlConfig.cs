@@ -6,7 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace _403unlocker.Ping
+namespace _403unlocker.ByPass
 {
     public class UrlConfig
     {

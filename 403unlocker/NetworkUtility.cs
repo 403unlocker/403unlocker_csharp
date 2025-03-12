@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _403unlocker.Config;
 
-namespace _403unlocker.Ping
+namespace _403unlocker
 {
     internal class NetworkUtility
     {

@@ -25,11 +25,11 @@ using _403unlocker.Add.Custom_DNS;
 
 namespace _403unlocker.Add
 {
-    public partial class DnsCollectorForm : Form
+    public partial class DnsConfigForm : Form
     {
         internal bool isApplied = false, isTableChanged = false;
         internal BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
-        public DnsCollectorForm(params object[] dnsObject)
+        public DnsConfigForm(params object[] dnsObject)
         {
             InitializeComponent();
 
@@ -181,7 +181,7 @@ namespace _403unlocker.Add
 
         private void customeDnsButton_Click(object sender, EventArgs e)
         {
-            using (DnsCustomAdderForm customeform = new DnsCustomAdderForm())
+            using (DnsCustomForm customeform = new DnsCustomForm())
             {
                 customeform.ShowDialog();
                 
