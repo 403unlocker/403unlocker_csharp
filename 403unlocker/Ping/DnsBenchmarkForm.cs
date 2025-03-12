@@ -168,20 +168,6 @@ namespace _403unlocker.Ping
         }
 
 
-
-        private void asPrimaryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count > 0 && !string.IsNullOrEmpty(Settings.NetworkAdaptor.SelectedNetworkInterface))
-            {
-                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                DnsCommand.SetDnsAsPrimary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
-            }
-            else
-            {
-                MessageBox.Show("Please select a row", "Can't Read DNS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-        }
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (SettingsForm setting = new SettingsForm())
@@ -256,16 +242,31 @@ namespace _403unlocker.Ping
                 MessageBox.Show("Please select a row", "Can't Read DNS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
+            string selectedDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+            string selectedInterface = Settings.NetworkAdaptor.SelectedNetworkInterface;
+
+            DialogResult r;
+            if (!selectedInterface.Contains("Ethernet") && !selectedInterface.ToLower().Contains("wifi"))
+            {
+                r = MessageBox.Show(
+                    $"You are setting {selectedDns} to \"{selectedInterface}\" adaptor!\n" +
+                    "Are you sure?\n\n" +
+                    "(Go to the Settings and select your desire adaptor)",
+                    "Unexpected Recognition",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button2);
+
+                if (r == DialogResult.No) return;
+            }
+
             if (buttonDnsSet.Text == "Set as Primary")
             {
-
-                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                DnsCommand.SetDnsAsPrimary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
+                DnsCommand.SetDnsAsPrimary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedDns);
             }
             else
             {
-                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                DnsCommand.SetDnsAsSecondary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedRowDns);
+                DnsCommand.SetDnsAsSecondary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedDns);
             }
         }
 
