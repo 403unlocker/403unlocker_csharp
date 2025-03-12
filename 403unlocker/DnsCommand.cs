@@ -1,19 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using DnsClient.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _403unlocker
 {
     internal class DnsCommand
     {
-        static string path = "cmd.log";
-        private async static void Run(string command)
+        private async static Task<Dictionary<string, string>> Run(string command)
         {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
             try
             {
                 ProcessStartInfo psi = new ProcessStartInfo()
@@ -44,59 +47,59 @@ namespace _403unlocker
                     error = await process.StandardError.ReadToEndAsync();
                 }
 
-                List<CommandConfig> notificationStates = new List<CommandConfig>()
-                {
-                    new CommandConfig()
-                    {
-                        Command = "command",
-                        Message = command
-                    },
-                    new CommandConfig()
-                    {
-                        Command = "output",
-                        Message = output
-                    },
-                    new CommandConfig()
-                    {
-                        Command = "error",
-                        Message = error
-                    }
-                };
-
-                WriteJson(notificationStates, true);
+                dict["output"] = output;
+                dict["error"] = error;
+                return dict;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message);
+                dict["output"] = "";
+                dict["error"] = ex.Message;
+                return dict;
             }
         }
 
-
-        public static void SetDnsAsPrimary(string adaptorName, string PrimaryDNS)
+        public async static void SetDnsAsPrimary(string adaptorName, string PrimaryDNS)
         {
-            Run($"netsh interface ip add dns name=\"{adaptorName}\" {PrimaryDNS} index=1");
+            Dictionary<string, string> response = await Run($"netsh interface ip add dns name=\"{adaptorName}\" {PrimaryDNS} index=1");
+            Respond(response, $"{PrimaryDNS} has been set as primary\non \"{adaptorName}\" adaptor DNS setting");
         }
 
-        public static void SetDnsAsSecondary(string adaptorName, string SecondaryDns)
+        public async static void SetDnsAsSecondary(string adaptorName, string SecondaryDns)
         {
-            Run($"netsh interface ip add dns name=\"{adaptorName}\" {SecondaryDns} index=2");
+            Dictionary<string, string> response = await Run($"netsh interface ip add dns name=\"{adaptorName}\" {SecondaryDns} index=2");
+            Respond(response, $"{SecondaryDns} has been set secondary\non \"{adaptorName}\" adaptor DNS setting");
         }
 
-        public static void Reset(string adaptorName)
+        public async static void Reset(string adaptorName)
         {
-            Run($"netsh interface ip set dns name=\"{adaptorName}\" source=dhcp");
+            Dictionary<string, string> response = await Run($"netsh interface ip set dns name=\"{adaptorName}\" source=dhcp");
+            Respond(response, $"\"{adaptorName}\" adaptor DNS setting has been reset");
         }
 
-        public static void WriteJson(List<CommandConfig> data, bool append)
+        private static void Respond(Dictionary<string, string> dict, string action)
         {
-            string serializedData = data.Count == 0 ? "" : JsonConvert.SerializeObject(data, Formatting.Indented);
-            File.WriteAllText(path, serializedData);
-        }
-    }
+            string title, caption = "Successful";
 
-    class CommandConfig
-    {
-        public string Command { get; set; }
-        public string Message { get; set; }
+            string output = dict["output"];
+            string error = dict["error"];
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                title = error;
+                caption = "Somthing went wrong";
+            }
+            else if (output != "\r\n" && !string.IsNullOrEmpty(output))
+            {
+                title = output;
+                caption = "A Message form CMD";
+            }
+            else
+            {
+                MessageBox.Show(action, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            MessageBox.Show(title, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }
