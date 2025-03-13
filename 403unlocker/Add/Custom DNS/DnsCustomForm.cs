@@ -14,8 +14,9 @@ namespace _403unlocker.Add.Custom_DNS
 {
     public partial class DnsCustomForm : Form
     {
-        public bool isFormClosePressed = true, isAddButtonPressed = false;
-        private Color themeColor = Color.FromArgb(0x2C, 0xD4, 0xBF);
+        public bool isAddPressed = false;
+        public List<DnsConfig> dns = new List<DnsConfig>();
+        private Color colorTheme = Color.FromArgb(0x2C, 0xD4, 0xBF);
         public DnsCustomForm()
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace _403unlocker.Add.Custom_DNS
             }
             else
             {
-                providerTextBox.BackColor = themeColor;
+                providerTextBox.BackColor = colorTheme;
             }
         }
 
@@ -51,7 +52,7 @@ namespace _403unlocker.Add.Custom_DNS
             string primaryDns = primaryDnsTextBox.Text;
             if ((string.IsNullOrEmpty(primaryDns) ^ DnsConfig.IsIPv4(primaryDns)) && primaryDns.Count(c => c == '.') < 4)
             {
-                primaryDnsTextBox.BackColor = themeColor;
+                primaryDnsTextBox.BackColor = colorTheme;
             }
             else
             {
@@ -64,7 +65,7 @@ namespace _403unlocker.Add.Custom_DNS
             string secondaryDns = secondaryDnsTextBox.Text;
             if ((string.IsNullOrEmpty(secondaryDns) ^ DnsConfig.IsIPv4(secondaryDns)) && secondaryDns.Count(c => c == '.') < 4)
             {
-                secondaryDnsTextBox.BackColor = themeColor;
+                secondaryDnsTextBox.BackColor = colorTheme;
             }
             else
             {
@@ -114,25 +115,30 @@ namespace _403unlocker.Add.Custom_DNS
                 return;
             }
                     
-            // checks which of DNSs is invalid
-            if (!DnsConfig.IsIPv4(primaryDnsTextBox.Text))
+            // checks which of DNSs is valid
+            if (DnsConfig.IsIPv4(primaryDnsTextBox.Text))
             {
-                primaryDnsTextBox.Text = "";
+                dns.Add(new DnsConfig()
+                {
+                    Name = primaryDnsTextBox.Text,
+                    DNS = primaryDnsTextBox.Text,
+                });
             }
-            else if (!DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
+            else if (DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
             {
-                secondaryDnsTextBox.Text = "";
+                dns.Add(new DnsConfig()
+                {
+                    Name = primaryDnsTextBox.Text,
+                    DNS = secondaryDnsTextBox.Text,
+                });
             }
 
-            isFormClosePressed = false;
-            isAddButtonPressed = true;
+            isAddPressed = true;
             Close();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            isFormClosePressed = false;
-            isAddButtonPressed = false;
             Close();
         }
     }

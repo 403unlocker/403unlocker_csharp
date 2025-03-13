@@ -43,7 +43,7 @@
             this.providerTextBox.BackColor = System.Drawing.Color.Red;
             this.providerTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.providerTextBox.ForeColor = System.Drawing.Color.Black;
-            this.providerTextBox.Location = new System.Drawing.Point(119, 12);
+            this.providerTextBox.Location = new System.Drawing.Point(105, 12);
             this.providerTextBox.Name = "providerTextBox";
             this.providerTextBox.Size = new System.Drawing.Size(100, 20);
             this.providerTextBox.TabIndex = 0;
@@ -54,7 +54,7 @@
             this.primaryDnsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.primaryDnsTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.primaryDnsTextBox.ForeColor = System.Drawing.Color.Black;
-            this.primaryDnsTextBox.Location = new System.Drawing.Point(119, 38);
+            this.primaryDnsTextBox.Location = new System.Drawing.Point(105, 38);
             this.primaryDnsTextBox.Name = "primaryDnsTextBox";
             this.primaryDnsTextBox.ShortcutsEnabled = false;
             this.primaryDnsTextBox.Size = new System.Drawing.Size(100, 20);
@@ -67,7 +67,7 @@
             this.secondaryDnsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.secondaryDnsTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.secondaryDnsTextBox.ForeColor = System.Drawing.Color.Black;
-            this.secondaryDnsTextBox.Location = new System.Drawing.Point(119, 64);
+            this.secondaryDnsTextBox.Location = new System.Drawing.Point(105, 64);
             this.secondaryDnsTextBox.Name = "secondaryDnsTextBox";
             this.secondaryDnsTextBox.ShortcutsEnabled = false;
             this.secondaryDnsTextBox.Size = new System.Drawing.Size(100, 20);
@@ -78,7 +78,7 @@
             // providerLabel
             // 
             this.providerLabel.AutoSize = true;
-            this.providerLabel.Location = new System.Drawing.Point(12, 9);
+            this.providerLabel.Location = new System.Drawing.Point(12, 14);
             this.providerLabel.Name = "providerLabel";
             this.providerLabel.Size = new System.Drawing.Size(49, 13);
             this.providerLabel.TabIndex = 3;
@@ -87,7 +87,7 @@
             // primaryDnsLabel
             // 
             this.primaryDnsLabel.AutoSize = true;
-            this.primaryDnsLabel.Location = new System.Drawing.Point(12, 37);
+            this.primaryDnsLabel.Location = new System.Drawing.Point(12, 40);
             this.primaryDnsLabel.Name = "primaryDnsLabel";
             this.primaryDnsLabel.Size = new System.Drawing.Size(70, 13);
             this.primaryDnsLabel.TabIndex = 4;
@@ -96,7 +96,7 @@
             // secondaryDnsLabel
             // 
             this.secondaryDnsLabel.AutoSize = true;
-            this.secondaryDnsLabel.Location = new System.Drawing.Point(12, 65);
+            this.secondaryDnsLabel.Location = new System.Drawing.Point(12, 66);
             this.secondaryDnsLabel.Name = "secondaryDnsLabel";
             this.secondaryDnsLabel.Size = new System.Drawing.Size(87, 13);
             this.secondaryDnsLabel.TabIndex = 5;
@@ -107,7 +107,7 @@
             this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addButton.ForeColor = System.Drawing.Color.Black;
-            this.addButton.Location = new System.Drawing.Point(32, 90);
+            this.addButton.Location = new System.Drawing.Point(24, 90);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 6;
@@ -120,7 +120,7 @@
             this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cancelButton.ForeColor = System.Drawing.Color.Black;
-            this.cancelButton.Location = new System.Drawing.Point(144, 90);
+            this.cancelButton.Location = new System.Drawing.Point(118, 90);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -128,13 +128,12 @@
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // CustomeDnsForm
+            // DnsCustomForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(234, 121);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(217, 125);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.secondaryDnsLabel);
@@ -147,7 +146,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "CustomeDnsForm";
+            this.Name = "DnsCustomForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -164,8 +163,8 @@
         private System.Windows.Forms.Label secondaryDnsLabel;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button cancelButton;
-        internal System.Windows.Forms.TextBox providerTextBox;
-        internal System.Windows.Forms.TextBox primaryDnsTextBox;
-        internal System.Windows.Forms.TextBox secondaryDnsTextBox;
+        private System.Windows.Forms.TextBox providerTextBox;
+        private System.Windows.Forms.TextBox primaryDnsTextBox;
+        private System.Windows.Forms.TextBox secondaryDnsTextBox;
     }
 }
