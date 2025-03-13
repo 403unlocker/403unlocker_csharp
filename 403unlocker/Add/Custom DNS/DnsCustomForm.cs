@@ -84,45 +84,49 @@ namespace _403unlocker.Add.Custom_DNS
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            // checks provider not empty => true
-            if (!string.IsNullOrEmpty(providerTextBox.Text))
+            // checks provider empty
+            if (string.IsNullOrEmpty(providerTextBox.Text))
             {
-                // checks one of DNSs empty => true (both empty => false, both not empty => true)
-                if (!(string.IsNullOrEmpty(primaryDnsTextBox.Text) && string.IsNullOrEmpty(secondaryDnsTextBox.Text)))
-                {
-                    // checks one of DNSs valid => true (both valid => true, both not valid => fasle)
-                    if (DnsConfig.IsIPv4(primaryDnsTextBox.Text) || DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
-                    {
-                        // checks one of DNSs valid => true (both valid => false, both not valid => false)
-                        if (DnsConfig.IsIPv4(primaryDnsTextBox.Text) ^ DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
-                        {
-                            List<TextBox> textBox = new List<TextBox>() { primaryDnsTextBox, secondaryDnsTextBox };
-                            // one of DNSs is valid, then empty one of DNSs which is not valid
-                            textBox.Where(x => !DnsConfig.IsIPv4(x.Text)).First().Text = "";
-                        }
-                        isFormClosePressed = false;
-                        isAddButtonPressed = true;
-                        Close();
-                    }
-                    else
-                    {
-                        string text = "DNS value(s) are not valid!";
-                        string caption = "Invalid Value!";
-                        MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                   
-                }
-                else
-                {
-                    string text = "Primary DNS & Secondry DNS can't be empty at same time!";
-                    string caption = "Empty Values!";
-                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Provider Can't Be Empty!",
+                                "Empty Values!", 
+                                MessageBoxButtons.OK, 
+                                MessageBoxIcon.Stop);
+                return;
             }
-            else
+
+            // checks both of DNSs empty
+            if (string.IsNullOrEmpty(primaryDnsTextBox.Text) && string.IsNullOrEmpty(secondaryDnsTextBox.Text))
             {
-                MessageBox.Show("Provider Can't Be Empty!", "Empty Values!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Primary DNS & Secondry DNS can't be empty at same time!",
+                                "Empty Values!",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
             }
+                
+            // checks both of DNSs invalid
+            if (!DnsConfig.IsIPv4(primaryDnsTextBox.Text) && !DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
+            {
+                MessageBox.Show("DNS value(s) are not valid!",
+                                "Invalid Value!",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+                    
+            // checks which of DNSs is invalid
+            if (!DnsConfig.IsIPv4(primaryDnsTextBox.Text))
+            {
+                primaryDnsTextBox.Text = "";
+            }
+            else if (!DnsConfig.IsIPv4(secondaryDnsTextBox.Text))
+            {
+                secondaryDnsTextBox.Text = "";
+            }
+
+            isFormClosePressed = false;
+            isAddButtonPressed = true;
+            Close();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
