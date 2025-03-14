@@ -129,7 +129,6 @@ namespace _403unlocker.Ping
                 try
                 {
                     Clipboard.SetText(selectedRowDns);
-
                 }
                 catch (Exception)
                 {

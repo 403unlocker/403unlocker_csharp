@@ -37,13 +37,13 @@ namespace _403unlocker.Add.Custom_DNS
 
         private void providerTextBox_Validated(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(providerTextBox.Text))
+            if (string.IsNullOrEmpty(textBoxName.Text))
             {
-                providerTextBox.BackColor = Color.Red;
+                textBoxName.BackColor = Color.Red;
             }
             else
             {
-                providerTextBox.BackColor = colorTheme;
+                textBoxName.BackColor = colorTheme;
             }
         }
 
@@ -86,7 +86,7 @@ namespace _403unlocker.Add.Custom_DNS
         private void addButton_Click(object sender, EventArgs e)
         {
             // checks provider empty
-            if (string.IsNullOrEmpty(providerTextBox.Text))
+            if (string.IsNullOrEmpty(textBoxName.Text))
             {
                 MessageBox.Show("Provider Can't Be Empty!",
                                 "Empty Values!", 
@@ -140,6 +140,37 @@ namespace _403unlocker.Add.Custom_DNS
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = contextMenuStrip1.SourceControl as TextBox;
+            textBox.Undo();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = contextMenuStrip1.SourceControl as TextBox;
+            if (textBox.SelectionLength > 0) textBox.Copy();
+            else Clipboard.SetText(textBox.Text);
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = contextMenuStrip1.SourceControl as TextBox;
+            textBox.Paste();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = contextMenuStrip1.SourceControl as TextBox;
+            textBox.SelectedText = "";
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = contextMenuStrip1.SourceControl as TextBox;
+            textBox.SelectAll();
         }
     }
 }
