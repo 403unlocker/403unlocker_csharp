@@ -35,15 +35,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DnsConfigForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.defaultDnsButton = new System.Windows.Forms.Button();
-            this.clearButton = new System.Windows.Forms.Button();
-            this.scrapDnsButton = new System.Windows.Forms.Button();
+            this.buttonDefaultDns = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonPublicDns = new System.Windows.Forms.Button();
             this.timerLabel = new System.Windows.Forms.Label();
             this.publicDnsTimer = new System.Windows.Forms.Timer(this.components);
-            this.customeDnsButton = new System.Windows.Forms.Button();
+            this.buttonCustomeDns = new System.Windows.Forms.Button();
             this.dnsCountLabel = new System.Windows.Forms.Label();
-            this.deleteButton = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +94,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(242, 288);
             this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dnsTable_DataBindingComplete);
+            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             // 
             // label1
             // 
@@ -107,72 +108,72 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "DNS Table:";
             // 
-            // defaultDnsButton
+            // buttonDefaultDns
             // 
-            this.defaultDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.defaultDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.defaultDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.defaultDnsButton.Location = new System.Drawing.Point(265, 112);
-            this.defaultDnsButton.Name = "defaultDnsButton";
-            this.defaultDnsButton.Size = new System.Drawing.Size(79, 35);
-            this.defaultDnsButton.TabIndex = 6;
-            this.defaultDnsButton.Text = "Add Default DNS";
-            this.defaultDnsButton.UseVisualStyleBackColor = false;
-            this.defaultDnsButton.Click += new System.EventHandler(this.defaultDnsButton_Click);
+            this.buttonDefaultDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonDefaultDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonDefaultDns.ForeColor = System.Drawing.Color.Black;
+            this.buttonDefaultDns.Location = new System.Drawing.Point(154, 338);
+            this.buttonDefaultDns.Name = "buttonDefaultDns";
+            this.buttonDefaultDns.Size = new System.Drawing.Size(104, 23);
+            this.buttonDefaultDns.TabIndex = 6;
+            this.buttonDefaultDns.Text = "Add Default DNS";
+            this.buttonDefaultDns.UseVisualStyleBackColor = false;
+            this.buttonDefaultDns.Click += new System.EventHandler(this.buttonDefaultDns_Click);
             // 
-            // clearButton
+            // buttonClear
             // 
-            this.clearButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.clearButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.clearButton.ForeColor = System.Drawing.Color.Black;
-            this.clearButton.Location = new System.Drawing.Point(265, 58);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(79, 23);
-            this.clearButton.TabIndex = 7;
-            this.clearButton.Text = "Clear Table";
-            this.clearButton.UseVisualStyleBackColor = false;
-            this.clearButton.Click += new System.EventHandler(this.clearDnsButton_Click);
+            this.buttonClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonClear.ForeColor = System.Drawing.Color.Black;
+            this.buttonClear.Location = new System.Drawing.Point(16, 338);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(79, 23);
+            this.buttonClear.TabIndex = 7;
+            this.buttonClear.Text = "Clear Table";
+            this.buttonClear.UseVisualStyleBackColor = false;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
-            // scrapDnsButton
+            // buttonPublicDns
             // 
-            this.scrapDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.scrapDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.scrapDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.scrapDnsButton.Location = new System.Drawing.Point(350, 112);
-            this.scrapDnsButton.Name = "scrapDnsButton";
-            this.scrapDnsButton.Size = new System.Drawing.Size(79, 35);
-            this.scrapDnsButton.TabIndex = 8;
-            this.scrapDnsButton.Text = "Add Public DNS";
-            this.scrapDnsButton.UseVisualStyleBackColor = false;
-            this.scrapDnsButton.Click += new System.EventHandler(this.scrapDnsButton_Click);
+            this.buttonPublicDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonPublicDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonPublicDns.ForeColor = System.Drawing.Color.Black;
+            this.buttonPublicDns.Location = new System.Drawing.Point(154, 367);
+            this.buttonPublicDns.Name = "buttonPublicDns";
+            this.buttonPublicDns.Size = new System.Drawing.Size(104, 23);
+            this.buttonPublicDns.TabIndex = 8;
+            this.buttonPublicDns.Text = "Add Public DNS";
+            this.buttonPublicDns.UseVisualStyleBackColor = false;
+            this.buttonPublicDns.Click += new System.EventHandler(this.buttonPublicDns_Click);
             // 
             // timerLabel
             // 
             this.timerLabel.AutoSize = true;
-            this.timerLabel.Location = new System.Drawing.Point(347, 96);
+            this.timerLabel.Location = new System.Drawing.Point(128, 28);
             this.timerLabel.Name = "timerLabel";
             this.timerLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timerLabel.Size = new System.Drawing.Size(76, 13);
+            this.timerLabel.Size = new System.Drawing.Size(131, 13);
             this.timerLabel.TabIndex = 9;
-            this.timerLabel.Text = "Seconds Left: ";
+            this.timerLabel.Text = "Public Dns Cooldown: 99s";
             // 
             // publicDnsTimer
             // 
             this.publicDnsTimer.Interval = 1000;
-            this.publicDnsTimer.Tick += new System.EventHandler(this.publicDnsTimer_Tick);
+            this.publicDnsTimer.Tick += new System.EventHandler(this.timerPublicDns_Tick);
             // 
-            // customeDnsButton
+            // buttonCustomeDns
             // 
-            this.customeDnsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.customeDnsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.customeDnsButton.ForeColor = System.Drawing.Color.Black;
-            this.customeDnsButton.Location = new System.Drawing.Point(435, 112);
-            this.customeDnsButton.Name = "customeDnsButton";
-            this.customeDnsButton.Size = new System.Drawing.Size(79, 35);
-            this.customeDnsButton.TabIndex = 10;
-            this.customeDnsButton.Text = "Add Custome DNS";
-            this.customeDnsButton.UseVisualStyleBackColor = false;
-            this.customeDnsButton.Click += new System.EventHandler(this.customeDnsButton_Click);
+            this.buttonCustomeDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonCustomeDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonCustomeDns.ForeColor = System.Drawing.Color.Black;
+            this.buttonCustomeDns.Location = new System.Drawing.Point(154, 396);
+            this.buttonCustomeDns.Name = "buttonCustomeDns";
+            this.buttonCustomeDns.Size = new System.Drawing.Size(104, 23);
+            this.buttonCustomeDns.TabIndex = 10;
+            this.buttonCustomeDns.Text = "Add Custome DNS";
+            this.buttonCustomeDns.UseVisualStyleBackColor = false;
+            this.buttonCustomeDns.Click += new System.EventHandler(this.buttonCustomeDns_Click);
             // 
             // dnsCountLabel
             // 
@@ -183,25 +184,25 @@
             this.dnsCountLabel.TabIndex = 11;
             this.dnsCountLabel.Text = "DNS Count: ";
             // 
-            // deleteButton
+            // buttonDelete
             // 
-            this.deleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.deleteButton.ForeColor = System.Drawing.Color.Black;
-            this.deleteButton.Location = new System.Drawing.Point(350, 58);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(79, 23);
-            this.deleteButton.TabIndex = 13;
-            this.deleteButton.Text = "Delete DNS";
-            this.deleteButton.UseVisualStyleBackColor = false;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.buttonDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonDelete.ForeColor = System.Drawing.Color.Black;
+            this.buttonDelete.Location = new System.Drawing.Point(16, 367);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(79, 23);
+            this.buttonDelete.TabIndex = 13;
+            this.buttonDelete.Text = "Delete DNS";
+            this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonOk
             // 
             this.buttonOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonOk.ForeColor = System.Drawing.Color.Black;
-            this.buttonOk.Location = new System.Drawing.Point(224, 338);
+            this.buttonOk.Location = new System.Drawing.Point(91, 425);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(79, 23);
             this.buttonOk.TabIndex = 14;
@@ -209,20 +210,34 @@
             this.buttonOk.UseVisualStyleBackColor = false;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // DnsCollectorForm
+            // buttonCancel
+            // 
+            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonCancel.ForeColor = System.Drawing.Color.Black;
+            this.buttonCancel.Location = new System.Drawing.Point(176, 425);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(79, 23);
+            this.buttonCancel.TabIndex = 15;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = false;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // DnsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(526, 366);
+            this.ClientSize = new System.Drawing.Size(271, 457);
+            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.scrapDnsButton);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonPublicDns);
             this.Controls.Add(this.dnsCountLabel);
-            this.Controls.Add(this.customeDnsButton);
+            this.Controls.Add(this.buttonCustomeDns);
             this.Controls.Add(this.timerLabel);
-            this.Controls.Add(this.clearButton);
-            this.Controls.Add(this.defaultDnsButton);
+            this.Controls.Add(this.buttonClear);
+            this.Controls.Add(this.buttonDefaultDns);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -231,7 +246,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
-            this.Name = "DnsCollectorForm";
+            this.Name = "DnsConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add DNS";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DnsCollectorForm_FormClosing);
@@ -244,16 +259,17 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button defaultDnsButton;
-        private System.Windows.Forms.Button clearButton;
-        private System.Windows.Forms.Button scrapDnsButton;
+        private System.Windows.Forms.Button buttonDefaultDns;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonPublicDns;
         private System.Windows.Forms.Label timerLabel;
         private System.Windows.Forms.Timer publicDnsTimer;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button customeDnsButton;
+        private System.Windows.Forms.Button buttonCustomeDns;
         private System.Windows.Forms.Label dnsCountLabel;
-        private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }
 

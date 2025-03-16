@@ -27,8 +27,8 @@ namespace _403unlocker.Add
 {
     public partial class DnsConfigForm : Form
     {
-        internal bool isApplied = false, isTableChanged = false;
-        internal BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
+        public bool isApplied = false, isTableChanged;
+        public BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
         public DnsConfigForm(params object[] dnsObject)
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace _403unlocker.Add
 
             if (dnsObject.Length == 2)
             {
-                AppendDataToDataGridView(dnsObject[1] as List<DnsConfig>, true);
+                AppendData(dnsObject[1] as List<DnsConfig>, true);
             }
            
             dataGridView1.DataSource = dnsBinding; // Links dataGridView to BindingList variable
@@ -69,7 +69,7 @@ namespace _403unlocker.Add
             }
         }
 
-        private void clearDnsButton_Click(object sender, EventArgs e)
+        private void buttonClear_Click(object sender, EventArgs e)
         {
             DialogResult r = MessageBox.Show("Are you sure about that?", "We are clearing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (r == DialogResult.Yes)
@@ -89,12 +89,7 @@ namespace _403unlocker.Add
             }
         }
 
-        private void AppendDataToDataGridView(DnsConfig additionDns ,bool statusMessages = true)
-        {
-            AppendDataToDataGridView(new List<DnsConfig> { additionDns }, statusMessages);
-        }
-
-        private void AppendDataToDataGridView(List<DnsConfig> additionDnsList ,bool statusMessages = true)
+        private void AppendData(List<DnsConfig> additionDnsList ,bool statusMessages = true)
         {
             // finds new DNSs
             List<DnsConfig> newDns = additionDnsList.Except(dnsBinding).ToList();
@@ -127,12 +122,12 @@ namespace _403unlocker.Add
             }
         }
 
-        private void defaultDnsButton_Click(object sender, EventArgs e)
+        private void buttonDefaultDns_Click(object sender, EventArgs e)
         {
-            AppendDataToDataGridView(Data.Dns.DefaultList());
+            AppendData(Data.Dns.DefaultList());
         }
 
-        private async void scrapDnsButton_Click(object sender, EventArgs e)
+        private async void buttonPublicDns_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(timerLabel.Text))
             {
@@ -144,7 +139,7 @@ namespace _403unlocker.Add
                     dataGridView1.Cursor = Cursors.Default;
                     return;
                 }
-                AppendDataToDataGridView(publicDnS);
+                AppendData(publicDnS);
 
                 dataGridView1.Cursor = Cursors.Default;
 
@@ -157,13 +152,13 @@ namespace _403unlocker.Add
             }
         }
 
-        private void dnsTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dnsCountLabel.Text = "DNS Count: " + dataGridView1.RowCount;
             isTableChanged = true;
         }
 
-        private void publicDnsTimer_Tick(object sender, EventArgs e)
+        private void timerPublicDns_Tick(object sender, EventArgs e)
         {
             string s = timerLabel.Text;
             s = s.Replace("Seconds Left: ", "");
@@ -179,7 +174,7 @@ namespace _403unlocker.Add
             }
         }
 
-        private void customeDnsButton_Click(object sender, EventArgs e)
+        private void buttonCustomeDns_Click(object sender, EventArgs e)
         {
             using (DnsCustomForm form = new DnsCustomForm())
             {
@@ -187,12 +182,12 @@ namespace _403unlocker.Add
                 
                 if (form.isAddPressed)
                 {
-                    AppendDataToDataGridView(form.dns);
+                    AppendData(form.dns);
                 }
             }
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        private void buttonDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0) 
             {
@@ -214,6 +209,11 @@ namespace _403unlocker.Add
             {
                 MessageBox.Show("Please select a DNS row before deleting it.", "Can't Delete!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
