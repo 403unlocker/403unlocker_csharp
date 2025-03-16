@@ -168,31 +168,38 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void buttonAddDns_Click(object sender, EventArgs e)
+        private void InvokeAddDns(List<DnsConfig> currentDns, List<DnsConfig> importedExternalDns)
         {
-            var benchmarks = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
-            using (DnsConfigForm form = new DnsConfigForm(benchmarks))
+            using (DnsConfigForm form = new DnsConfigForm(currentDns, importedExternalDns))
             {
                 form.ShowDialog();
-                dnsBinding = new BindingList<DnsBenchmark>(DnsConfig.ConvertToDnsBenchmark(form.dnsBinding.ToList()));
-                dataGridView1.DataSource = dnsBinding;
+                if (form.isApplyPressed && form.isTableChanged)
+                {
+                    List<DnsConfig> dnsEdited = form.dnsBinding.ToList();
+                    List<DnsBenchmark> dnsConverted = DnsConfig.ConvertToDnsBenchmark(dnsEdited);
+                    dnsBinding = new BindingList<DnsBenchmark>(dnsConverted);
+                    dataGridView1.DataSource = dnsBinding;
+                }
             }
+        }
+
+        private void buttonAddDns_Click(object sender, EventArgs e)
+        {
+            List<DnsConfig> dns = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
+            InvokeAddDns(dns, null);
         }
 
         private async void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            DialogResult r = openFileDialog1.ShowDialog();
+            if (r == DialogResult.OK)
             {
                 try
                 {
-                    var benchmarks = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
-                    var configs = await DnsConfig.ReadJson(openFileDialog1.FileName);
-                    using (DnsConfigForm form = new DnsConfigForm(benchmarks, configs))
-                    {
-                        form.ShowDialog();
-                        dnsBinding = new BindingList<DnsBenchmark>(DnsConfig.ConvertToDnsBenchmark(form.dnsBinding.ToList()));
-                        dataGridView1.DataSource = dnsBinding;
-                    }
+                    List<DnsConfig> dnsCurrent = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
+                    List<DnsConfig> dnsSaved = await DnsConfig.ReadJson(openFileDialog1.FileName);
+                    InvokeAddDns(dnsCurrent, dnsSaved);
+
                 }
                 catch (Exception)
                 {
@@ -203,7 +210,8 @@ namespace _403unlocker.Ping
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            DialogResult r = saveFileDialog1.ShowDialog();
+            if (r == DialogResult.OK)
             {
                 DnsConfig.WriteJson(DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList()), saveFileDialog1.FileName);
             }

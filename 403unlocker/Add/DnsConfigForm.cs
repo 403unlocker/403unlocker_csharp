@@ -27,24 +27,21 @@ namespace _403unlocker.Add
 {
     public partial class DnsConfigForm : Form
     {
-        public bool isApplied = false, isTableChanged;
+        public bool isApplyPressed = false, isTableChanged;
         public BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
-        public DnsConfigForm(params object[] dnsObject)
+        private List<DnsConfig> dnsImported;
+        public DnsConfigForm(List<DnsConfig> dnsCurrent, List<DnsConfig> dnsImported)
         {
             InitializeComponent();
 
             timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
 
-            dnsBinding = new BindingList<DnsConfig>(dnsObject[0] as List<DnsConfig>);
+            dnsBinding = new BindingList<DnsConfig>(dnsCurrent);
+            this.dnsImported = dnsImported;
 
-            if (dnsObject.Length == 2)
-            {
-                AppendData(dnsObject[1] as List<DnsConfig>, true);
-            }
-           
             dataGridView1.DataSource = dnsBinding; // Links dataGridView to BindingList variable
-          
+
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
@@ -52,11 +49,15 @@ namespace _403unlocker.Add
         private void DnsCollectorForm_Load(object sender, EventArgs e)
         {
             isTableChanged = false;
+            if (!(dnsImported is null))
+            {
+                AppendData(dnsImported, true);
+            }
         }
 
         private void DnsCollectorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!isApplied && isTableChanged)
+            if (!isApplyPressed && isTableChanged)
             {
                 var r = MessageBox.Show("Do you want to discard changes?",
                                         "Closing",
@@ -65,7 +66,6 @@ namespace _403unlocker.Add
                                         MessageBoxDefaultButton.Button2);
 
                 if (r == DialogResult.No) e.Cancel = true;
-                else if (r == DialogResult.Cancel) e.Cancel = true;
             }
         }
 
@@ -96,7 +96,7 @@ namespace _403unlocker.Add
             // counts new DNSs
             int newDnsCount = newDns.Count();
             // counts duplicate DNSs
-            int existingDnsCount = additionDnsList.Count() - newDnsCount;
+            int duplicateDnsCount = additionDnsList.Count() - newDnsCount;
 
             foreach (DnsConfig dns in newDns)
             {
@@ -108,14 +108,14 @@ namespace _403unlocker.Add
                 string text, caption;
                 if (newDnsCount > 0)
                 {
-                    text = $"New DNS(s) has been successfully added!\n\nNew DNSs: {newDnsCount}\nExisting DNSs: {existingDnsCount}";
+                    text = $"New DNS(s) has been successfully added!\n\nNew DNSs: {newDnsCount}\nDuplicate DNSs: {duplicateDnsCount}";
                     caption = "Successfully Updated 🎉";
                     ScrollDownToEnd();
                     MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    text = "DNS(s) already exist in table";
+                    text = "DNS(s) already exist";
                     caption = "No Duplicates Allowed 🛑";
                     MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -218,7 +218,7 @@ namespace _403unlocker.Add
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            isApplied = true;
+            isApplyPressed = true;
             Close();
         }
     }

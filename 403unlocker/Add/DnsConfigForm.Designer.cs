@@ -43,7 +43,7 @@
             this.buttonCustomeDns = new System.Windows.Forms.Button();
             this.dnsCountLabel = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -197,18 +197,18 @@
             this.buttonDelete.UseVisualStyleBackColor = false;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
-            // buttonOk
+            // buttonApply
             // 
-            this.buttonOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonOk.ForeColor = System.Drawing.Color.Black;
-            this.buttonOk.Location = new System.Drawing.Point(91, 425);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(79, 23);
-            this.buttonOk.TabIndex = 14;
-            this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = false;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            this.buttonApply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonApply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonApply.ForeColor = System.Drawing.Color.Black;
+            this.buttonApply.Location = new System.Drawing.Point(91, 425);
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.Size = new System.Drawing.Size(79, 23);
+            this.buttonApply.TabIndex = 14;
+            this.buttonApply.Text = "Apply";
+            this.buttonApply.UseVisualStyleBackColor = false;
+            this.buttonApply.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
@@ -230,7 +230,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(271, 457);
             this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonPublicDns);
             this.Controls.Add(this.dnsCountLabel);
@@ -268,7 +268,7 @@
         private System.Windows.Forms.Button buttonCustomeDns;
         private System.Windows.Forms.Label dnsCountLabel;
         private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonCancel;
     }
 }
