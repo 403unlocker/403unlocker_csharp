@@ -45,6 +45,7 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,11 +114,11 @@
             this.buttonDefaultDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonDefaultDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonDefaultDns.ForeColor = System.Drawing.Color.Black;
-            this.buttonDefaultDns.Location = new System.Drawing.Point(154, 338);
+            this.buttonDefaultDns.Location = new System.Drawing.Point(12, 364);
             this.buttonDefaultDns.Name = "buttonDefaultDns";
-            this.buttonDefaultDns.Size = new System.Drawing.Size(104, 23);
+            this.buttonDefaultDns.Size = new System.Drawing.Size(83, 23);
             this.buttonDefaultDns.TabIndex = 6;
-            this.buttonDefaultDns.Text = "Add Default DNS";
+            this.buttonDefaultDns.Text = "Default DNS";
             this.buttonDefaultDns.UseVisualStyleBackColor = false;
             this.buttonDefaultDns.Click += new System.EventHandler(this.buttonDefaultDns_Click);
             // 
@@ -126,7 +127,7 @@
             this.buttonClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonClear.ForeColor = System.Drawing.Color.Black;
-            this.buttonClear.Location = new System.Drawing.Point(16, 338);
+            this.buttonClear.Location = new System.Drawing.Point(180, 364);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(79, 23);
             this.buttonClear.TabIndex = 7;
@@ -139,23 +140,23 @@
             this.buttonPublicDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonPublicDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonPublicDns.ForeColor = System.Drawing.Color.Black;
-            this.buttonPublicDns.Location = new System.Drawing.Point(154, 367);
+            this.buttonPublicDns.Location = new System.Drawing.Point(12, 393);
             this.buttonPublicDns.Name = "buttonPublicDns";
-            this.buttonPublicDns.Size = new System.Drawing.Size(104, 23);
+            this.buttonPublicDns.Size = new System.Drawing.Size(83, 23);
             this.buttonPublicDns.TabIndex = 8;
-            this.buttonPublicDns.Text = "Add Public DNS";
+            this.buttonPublicDns.Text = "Public DNS";
             this.buttonPublicDns.UseVisualStyleBackColor = false;
             this.buttonPublicDns.Click += new System.EventHandler(this.buttonPublicDns_Click);
             // 
             // timerLabel
             // 
             this.timerLabel.AutoSize = true;
-            this.timerLabel.Location = new System.Drawing.Point(128, 28);
+            this.timerLabel.Location = new System.Drawing.Point(101, 392);
             this.timerLabel.Name = "timerLabel";
             this.timerLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timerLabel.Size = new System.Drawing.Size(131, 13);
+            this.timerLabel.Size = new System.Drawing.Size(57, 26);
             this.timerLabel.TabIndex = 9;
-            this.timerLabel.Text = "Public Dns Cooldown: 99s";
+            this.timerLabel.Text = "Cooldown:\r\n00:00";
             // 
             // publicDnsTimer
             // 
@@ -167,11 +168,11 @@
             this.buttonCustomeDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonCustomeDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCustomeDns.ForeColor = System.Drawing.Color.Black;
-            this.buttonCustomeDns.Location = new System.Drawing.Point(154, 396);
+            this.buttonCustomeDns.Location = new System.Drawing.Point(12, 422);
             this.buttonCustomeDns.Name = "buttonCustomeDns";
-            this.buttonCustomeDns.Size = new System.Drawing.Size(104, 23);
+            this.buttonCustomeDns.Size = new System.Drawing.Size(83, 23);
             this.buttonCustomeDns.TabIndex = 10;
-            this.buttonCustomeDns.Text = "Add Custome DNS";
+            this.buttonCustomeDns.Text = "Custome DNS";
             this.buttonCustomeDns.UseVisualStyleBackColor = false;
             this.buttonCustomeDns.Click += new System.EventHandler(this.buttonCustomeDns_Click);
             // 
@@ -189,7 +190,7 @@
             this.buttonDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonDelete.ForeColor = System.Drawing.Color.Black;
-            this.buttonDelete.Location = new System.Drawing.Point(16, 367);
+            this.buttonDelete.Location = new System.Drawing.Point(180, 393);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(79, 23);
             this.buttonDelete.TabIndex = 13;
@@ -202,9 +203,9 @@
             this.buttonApply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonApply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonApply.ForeColor = System.Drawing.Color.Black;
-            this.buttonApply.Location = new System.Drawing.Point(91, 425);
+            this.buttonApply.Location = new System.Drawing.Point(103, 463);
             this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(79, 23);
+            this.buttonApply.Size = new System.Drawing.Size(75, 23);
             this.buttonApply.TabIndex = 14;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = false;
@@ -215,20 +216,33 @@
             this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancel.Location = new System.Drawing.Point(176, 425);
+            this.buttonCancel.Location = new System.Drawing.Point(184, 463);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(79, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.label2.Location = new System.Drawing.Point(13, 338);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 16);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Add:";
             // 
             // DnsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(271, 457);
+            this.ClientSize = new System.Drawing.Size(271, 498);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.buttonDelete);
@@ -270,6 +284,7 @@
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label label2;
     }
 }
 
