@@ -107,9 +107,8 @@ namespace _403unlocker.Add.Custom_DNS
                                 MessageBoxIcon.Stop);
                 return;
             }
-
             // checks both of DNSs empty
-            if (string.IsNullOrEmpty(textBoxPrimaryDns.Text) && string.IsNullOrEmpty(textBoxSecondaryDns.Text))
+            else if (string.IsNullOrEmpty(textBoxPrimaryDns.Text) && string.IsNullOrEmpty(textBoxSecondaryDns.Text))
             {
                 MessageBox.Show("Primary DNS & Secondry DNS can't be empty at same time!",
                                 "Empty Values!",
@@ -117,9 +116,8 @@ namespace _403unlocker.Add.Custom_DNS
                                 MessageBoxIcon.Error);
                 return;
             }
-
             // checks both of DNSs invalid
-            if (!DnsConfig.IsIPv4(textBoxPrimaryDns.Text) && !DnsConfig.IsIPv4(textBoxSecondaryDns.Text))
+            else if (!DnsConfig.IsIPv4(textBoxPrimaryDns.Text) && !DnsConfig.IsIPv4(textBoxSecondaryDns.Text))
             {
                 MessageBox.Show("DNS value(s) are not valid!",
                                 "Invalid Value!",
@@ -137,7 +135,7 @@ namespace _403unlocker.Add.Custom_DNS
                     DNS = textBoxPrimaryDns.Text,
                 });
             }
-            else if (DnsConfig.IsIPv4(textBoxSecondaryDns.Text))
+            if (DnsConfig.IsIPv4(textBoxSecondaryDns.Text))
             {
                 dns.Add(new DnsConfig()
                 {
