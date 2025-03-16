@@ -38,8 +38,8 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.primaryDnsTextBox = new System.Windows.Forms.TextBox();
-            this.secondaryDnsTextBox = new System.Windows.Forms.TextBox();
+            this.textBoxPrimaryDns = new System.Windows.Forms.TextBox();
+            this.textBoxSecondaryDns = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.labelPrimaryDns = new System.Windows.Forms.Label();
             this.labelSecondaryDns = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(100, 20);
             this.textBoxName.TabIndex = 0;
-            this.textBoxName.Validated += new System.EventHandler(this.providerTextBox_Validated);
+            this.textBoxName.Validated += new System.EventHandler(this.textBoxName_Validated);
             // 
             // contextMenuStrip1
             // 
@@ -73,13 +73,13 @@
             this.selectAllToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 148);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(98, 126);
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
@@ -87,26 +87,26 @@
             // 
             this.toolStripSeparator1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(94, 6);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -114,42 +114,41 @@
             // 
             this.toolStripSeparator2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(152, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(94, 6);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
-            // primaryDnsTextBox
+            // textBoxPrimaryDns
             // 
-            this.primaryDnsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.primaryDnsTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.primaryDnsTextBox.ContextMenuStrip = this.contextMenuStrip1;
-            this.primaryDnsTextBox.ForeColor = System.Drawing.Color.Black;
-            this.primaryDnsTextBox.Location = new System.Drawing.Point(105, 38);
-            this.primaryDnsTextBox.Name = "primaryDnsTextBox";
-            this.primaryDnsTextBox.ShortcutsEnabled = false;
-            this.primaryDnsTextBox.Size = new System.Drawing.Size(100, 20);
-            this.primaryDnsTextBox.TabIndex = 1;
-            this.primaryDnsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.primaryDnsTextBox_KeyPress);
-            this.primaryDnsTextBox.Validated += new System.EventHandler(this.primaryDnsTextBox_Validated);
+            this.textBoxPrimaryDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.textBoxPrimaryDns.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPrimaryDns.ContextMenuStrip = this.contextMenuStrip1;
+            this.textBoxPrimaryDns.ForeColor = System.Drawing.Color.Black;
+            this.textBoxPrimaryDns.Location = new System.Drawing.Point(105, 38);
+            this.textBoxPrimaryDns.Name = "textBoxPrimaryDns";
+            this.textBoxPrimaryDns.ShortcutsEnabled = false;
+            this.textBoxPrimaryDns.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPrimaryDns.TabIndex = 1;
+            this.textBoxPrimaryDns.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDnsKeyPress);
+            this.textBoxPrimaryDns.Validated += new System.EventHandler(this.TextBoxDnsValidated);
             // 
-            // secondaryDnsTextBox
+            // textBoxSecondaryDns
             // 
-            this.secondaryDnsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.secondaryDnsTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.secondaryDnsTextBox.ContextMenuStrip = this.contextMenuStrip1;
-            this.secondaryDnsTextBox.ForeColor = System.Drawing.Color.Black;
-            this.secondaryDnsTextBox.Location = new System.Drawing.Point(105, 64);
-            this.secondaryDnsTextBox.Name = "secondaryDnsTextBox";
-            this.secondaryDnsTextBox.ShortcutsEnabled = false;
-            this.secondaryDnsTextBox.Size = new System.Drawing.Size(100, 20);
-            this.secondaryDnsTextBox.TabIndex = 2;
-            this.secondaryDnsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.secondaryDnsTextBox_KeyPress);
-            this.secondaryDnsTextBox.Validated += new System.EventHandler(this.secondaryDnsTextBox_Validated);
+            this.textBoxSecondaryDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.textBoxSecondaryDns.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxSecondaryDns.ContextMenuStrip = this.contextMenuStrip1;
+            this.textBoxSecondaryDns.ForeColor = System.Drawing.Color.Black;
+            this.textBoxSecondaryDns.Location = new System.Drawing.Point(105, 64);
+            this.textBoxSecondaryDns.Name = "textBoxSecondaryDns";
+            this.textBoxSecondaryDns.ShortcutsEnabled = false;
+            this.textBoxSecondaryDns.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSecondaryDns.TabIndex = 2;
+            this.textBoxSecondaryDns.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDnsKeyPress);
             // 
             // labelName
             // 
@@ -189,7 +188,7 @@
             this.buttonAdd.TabIndex = 6;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = false;
-            this.buttonAdd.Click += new System.EventHandler(this.addButton_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonCancel
             // 
@@ -215,8 +214,8 @@
             this.Controls.Add(this.labelSecondaryDns);
             this.Controls.Add(this.labelPrimaryDns);
             this.Controls.Add(this.labelName);
-            this.Controls.Add(this.secondaryDnsTextBox);
-            this.Controls.Add(this.primaryDnsTextBox);
+            this.Controls.Add(this.textBoxSecondaryDns);
+            this.Controls.Add(this.textBoxPrimaryDns);
             this.Controls.Add(this.textBoxName);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -241,8 +240,8 @@
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.TextBox primaryDnsTextBox;
-        private System.Windows.Forms.TextBox secondaryDnsTextBox;
+        private System.Windows.Forms.TextBox textBoxPrimaryDns;
+        private System.Windows.Forms.TextBox textBoxSecondaryDns;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;

@@ -100,7 +100,7 @@ namespace _403unlocker.Ping
             }
         }
 
-        private async void sitePingButton_Click(object sender, EventArgs e)
+        private void sitePingButton_Click(object sender, EventArgs e)
         {
             string url = "";
             using (GetUrlForm form = new GetUrlForm())

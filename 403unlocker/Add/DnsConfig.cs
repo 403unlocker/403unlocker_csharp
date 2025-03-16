@@ -46,6 +46,8 @@ namespace _403unlocker.Add
 
         public static bool IsIPv4(string dns)
         {
+            if (string.IsNullOrWhiteSpace(dns)) return false;
+
             var octets = dns.Split(new char[] { '.' });
             if (octets.Length == 4)
             {
@@ -55,6 +57,7 @@ namespace _403unlocker.Add
                                      .All(x => 0 <= x && x <= 255); ;
                 return isOctetsValid;
             }
+
             return false;
         }
 
