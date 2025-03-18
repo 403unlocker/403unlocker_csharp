@@ -22,6 +22,8 @@ using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using _403unlocker.Ping;
 using _403unlocker.Add.Custom_DNS;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 
 namespace _403unlocker.Add
 {
@@ -30,11 +32,15 @@ namespace _403unlocker.Add
         public bool isApplyPressed = false, isTableChanged;
         public BindingList<DnsConfig> dnsBinding = new BindingList<DnsConfig>();
         private List<DnsConfig> dnsImported;
+
+        private string pathTimer = "dnstimer.bson";
+        private DateTime dateTime;
+        private TimeSpan timeSpan, timeSpanLimitation = TimeSpan.FromMinutes(7);
+        private bool needToBeWritten = false;
         public DnsConfigForm(List<DnsConfig> dnsCurrent, List<DnsConfig> dnsImported)
         {
             InitializeComponent();
 
-            timerLabel.Text = "";
             dnsCountLabel.Text = "DNS Count: 0";
 
             dnsBinding = new BindingList<DnsConfig>(dnsCurrent);
@@ -53,6 +59,23 @@ namespace _403unlocker.Add
             {
                 AppendData(dnsImported, true);
             }
+
+            try
+            {
+                dateTime = ReadBson(pathTimer);
+                timeSpan = DateTime.Now - dateTime;
+                if (timeSpanLimitation.TotalSeconds >= timeSpan.TotalSeconds) // 7 min
+                {
+                    timeSpan = timeSpanLimitation - timeSpan;
+                    labelTimer.Text = $"Cooldown:\r\n{timeSpan:mm\\:ss}";
+                    labelTimer.Show();
+                    timer1.Start();
+                }
+            }
+            catch (Exception error) when (error is FileNotFoundException || error is FileLoadException)
+            {
+                // Do Nothing
+            }
         }
 
         private void DnsCollectorForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -67,6 +90,15 @@ namespace _403unlocker.Add
 
                 if (r == DialogResult.No) e.Cancel = true;
             }
+        }
+
+        private void DnsConfigForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (needToBeWritten)
+            {
+                WriteBson(dateTime, pathTimer);
+            }
+            timer1.Stop();
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -129,27 +161,46 @@ namespace _403unlocker.Add
 
         private async void buttonPublicDns_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(timerLabel.Text))
+            if (timer1.Enabled)
             {
-                dataGridView1.Cursor = Cursors.WaitCursor;
+                MessageBox.Show("You have time to wait, be patient",
+                    "Hold Your Horses🐎!", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Hand);
+                return;
+            }
 
-                var publicDnS = await Data.Dns.Scrap();
-                if (publicDnS == null)
-                {
-                    dataGridView1.Cursor = Cursors.Default;
-                    return;
-                }
-                AppendData(publicDnS);
+            dataGridView1.Cursor = Cursors.WaitCursor;
 
+            var publicDnS = await Data.Dns.Scrap();
+            if (publicDnS == null)
+            {
                 dataGridView1.Cursor = Cursors.Default;
+                return;
+            }
+            AppendData(publicDnS);
 
-                timerLabel.Text = "Seconds Left: 60s";
-                publicDnsTimer.Enabled = true;
-            }
-            else
+            dataGridView1.Cursor = Cursors.Default;
+
+            dateTime = DateTime.Now;
+            timeSpan = timeSpanLimitation;
+            labelTimer.Text = $"Cooldown:\r\n{timeSpan:mm\\:ss}";
+            labelTimer.Show();
+            timer1.Start();
+            needToBeWritten = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (timeSpan.TotalSeconds < 1)
             {
-                MessageBox.Show("You have time to wait, be patient", "Hold Your Horses🐎!", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                timer1.Stop();
+                labelTimer.Hide();
+                needToBeWritten = false;
+                return;
             }
+            timeSpan -= TimeSpan.FromSeconds(1);
+            labelTimer.Text = $"Cooldown:\r\n{timeSpan:mm\\:ss}";
         }
 
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -160,17 +211,17 @@ namespace _403unlocker.Add
 
         private void timerPublicDns_Tick(object sender, EventArgs e)
         {
-            string s = timerLabel.Text;
+            string s = labelTimer.Text;
             s = s.Replace("Seconds Left: ", "");
             ushort secondLeft = ushort.Parse(s.Remove(s.Length - 1));
             if (--secondLeft == 0)
             {
-                timerLabel.Text = "";
-                publicDnsTimer.Enabled = false;
+                labelTimer.Text = "";
+                timer1.Enabled = false;
             }
             else
             {
-                timerLabel.Text = $"Seconds Left: {secondLeft}s";
+                labelTimer.Text = $"Seconds Left: {secondLeft}s";
             }
         }
 
@@ -220,6 +271,49 @@ namespace _403unlocker.Add
         {
             isApplyPressed = true;
             Close();
+        }
+
+        private static DateTime ReadBson(string path)
+        {
+            if (!File.Exists(path)) throw new FileNotFoundException($"File dosen't exist at {path}");
+
+
+            FileInfo fileInfo = new FileInfo(path);
+            if (fileInfo.Length == 0) throw new FileLoadException($"Can't load file at {path}");
+
+            // Read File
+            string text = File.ReadAllText(path);
+           
+            // BSON
+            byte[] bytes = Convert.FromBase64String(text);
+            using (MemoryStream ms = new MemoryStream(bytes))
+            using (BsonDataReader reader = new BsonDataReader(ms))
+            {
+                // JSON
+                JsonSerializer serializer = new JsonSerializer();
+                var deserializedObject = serializer.Deserialize<Dictionary<string, DateTime>>(reader);
+
+                return deserializedObject["data"];
+            }
+        }
+
+        private static void WriteBson(DateTime data ,string path)
+        {
+            Dictionary<string, DateTime> packedData = new Dictionary<string, DateTime>();
+            packedData["data"] = data;
+
+            // BSON
+            using (MemoryStream ms = new MemoryStream())
+            using (BsonDataWriter writer = new BsonDataWriter(ms))
+            {
+                // JSON
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(writer, packedData);
+                string serializedData = Convert.ToBase64String(ms.ToArray());
+
+                // Write File
+                File.WriteAllText(path, serializedData);
+            }
         }
     }
 }
