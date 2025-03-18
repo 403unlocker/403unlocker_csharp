@@ -24,6 +24,7 @@ using _403unlocker.Ping;
 using _403unlocker.Add.Custom_DNS;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using _403unlocker.Notification;
 
 namespace _403unlocker.Add
 {
@@ -156,10 +157,10 @@ namespace _403unlocker.Add
 
         private void buttonDefaultDns_Click(object sender, EventArgs e)
         {
-            AppendData(Data.Dns.DefaultList());
+            AppendData(Data.DnsScraper.DefaultList());
         }
 
-        private async void buttonPublicDns_Click(object sender, EventArgs e)
+        private void buttonPublicDns_Click(object sender, EventArgs e)
         {
             if (timer1.Enabled)
             {
@@ -170,17 +171,21 @@ namespace _403unlocker.Add
                 return;
             }
 
-            dataGridView1.Cursor = Cursors.WaitCursor;
-
-            var publicDnS = await Data.Dns.Scrap();
-            if (publicDnS == null)
+            using (var form = new MessageBoxWait(Data.DnsScraper.Get()))
             {
-                dataGridView1.Cursor = Cursors.Default;
+                form.ShowDialog();
+            }
+
+            if (Data.DnsScraper.Errors.Message != "")
+            {
+                MessageBox.Show(Data.DnsScraper.Errors.Message,
+                   "Somthing went wrong",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
                 return;
             }
-            AppendData(publicDnS);
 
-            dataGridView1.Cursor = Cursors.Default;
+            AppendData(Data.DnsScraper.Values);
 
             dateTime = DateTime.Now;
             timeSpan = timeSpanLimitation;

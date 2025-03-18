@@ -40,7 +40,7 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 28);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(290, 23);
+            this.progressBar1.Size = new System.Drawing.Size(290, 15);
             this.progressBar1.TabIndex = 0;
             // 
             // buttonCancel
@@ -48,7 +48,7 @@
             this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancel.Location = new System.Drawing.Point(118, 57);
+            this.buttonCancel.Location = new System.Drawing.Point(120, 49);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -88,7 +88,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(310, 87);
+            this.ClientSize = new System.Drawing.Size(314, 84);
             this.ControlBox = false;
             this.Controls.Add(this.labelTimeStatus);
             this.Controls.Add(this.labelProgressBarStatus);

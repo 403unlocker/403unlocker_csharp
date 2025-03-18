@@ -12,9 +12,11 @@ namespace _403unlocker
 {
     internal static class Data
     {
-        internal static class Dns
+        internal static class DnsScraper
         {
-            public async static Task<List<DnsConfig>> Scrap()
+            public static Exception Errors { get; set; } = new Exception("");
+            public static List<DnsConfig> Values { get; set; }
+            public static async Task Get()
             {
                 //https://www.getflix.com.au/setup/dns-servers/
                 try
@@ -36,14 +38,11 @@ namespace _403unlocker
                     customizedRows = customizedRows.Skip(1);
 
                     // removes non-letter in cells e.g. \n \t
-                    var minedDns = customizedRows.Select(row =>
-                                                         row.Select(
-                                                             cell =>
-                                                             string.Concat(
-                                                                           cell.InnerText.Where(character => !char.IsControl(character))
-                                                                           )
-                                                                   )
-                                                         );
+                    var minedDns = customizedRows.Select(row => row.Select(
+                                                             cell => string.Concat(
+                                                                           cell.InnerText.Where(
+                                                                               character => !char.IsControl(character)
+                                                                               ))));
 
                     // convert it to usable list for app
                     var dnsList = minedDns.SelectMany(dnsConfig => new DnsConfig[]
@@ -64,29 +63,21 @@ namespace _403unlocker
                     // removes empty DNS
                     .Where(dnsConfig => !string.IsNullOrEmpty(dnsConfig.DNS)).ToList();
 
-                    return dnsList;
-                }
-                catch (HttpRequestException error)
-                {
-                    string errorText = error.Message;
-                    string errorCaption = "Access Denied! - Server Blocked us";
-
-                    if (error.InnerException != null)
-                    {
-                        errorText = error.InnerException.Message;
-                        errorCaption = "Access Denied! - There is No Internet 🌐";
-                    }
-                    MessageBox.Show(errorText, errorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (TaskCanceledException error)
-                {
-                    MessageBox.Show(error.Message, "Request Timeout!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   Values = dnsList;
                 }
                 catch (Exception error)
                 {
-                    MessageBox.Show(error.Message, "Something Went Wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string GetMessages(Exception exception)
+                    {
+                        string s = exception.Message;
+                        if (!(exception.InnerException is null))
+                        {
+                            s += "\n\n" + GetMessages(exception.InnerException);
+                        }
+                        return s;
+                    }
+                    Errors = new Exception(GetMessages(error));
                 }
-                return null;
             }
 
             public static List<DnsConfig> DefaultList()
