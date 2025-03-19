@@ -174,6 +174,7 @@ namespace _403unlocker.Ping
         {
             using (DnsConfigForm form = new DnsConfigForm(currentDns, importedExternalDns))
             {
+                Hide();
                 form.ShowDialog();
                 if (form.isApplyPressed && form.isTableChanged)
                 {
@@ -182,6 +183,7 @@ namespace _403unlocker.Ping
                     dnsBinding = new BindingList<DnsBenchmark>(dnsConverted);
                     dataGridView1.DataSource = dnsBinding;
                 }
+                Show();
             }
         }
 
@@ -201,7 +203,6 @@ namespace _403unlocker.Ping
                     List<DnsConfig> dnsCurrent = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
                     List<DnsConfig> dnsSaved = await DnsConfig.ReadJson(openFileDialog1.FileName);
                     InvokeAddDns(dnsCurrent, dnsSaved);
-
                 }
                 catch (Exception)
                 {
@@ -274,6 +275,11 @@ namespace _403unlocker.Ping
         private void buttonResetDns_Click(object sender, EventArgs e)
         {
             DnsCommand.Reset(Settings.NetworkAdaptor.SelectedNetworkInterface);
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            labelDnsCount.Text = "Count: " + dataGridView1.RowCount;
         }
     }
 }

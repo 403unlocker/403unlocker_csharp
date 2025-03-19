@@ -42,7 +42,7 @@ namespace _403unlocker.Add
         {
             InitializeComponent();
 
-            dnsCountLabel.Text = "DNS Count: 0";
+            labelDnsCount.Text = "Count: 0";
 
             dnsBinding = new BindingList<DnsConfig>(dnsCurrent);
             this.dnsImported = dnsImported;
@@ -108,7 +108,7 @@ namespace _403unlocker.Add
             if (r == DialogResult.Yes)
             {
                 dnsBinding.Clear();
-                dnsCountLabel.Text = "DNS Count: 0";
+                labelDnsCount.Text = "DNS Count: 0";
             }
         }
 
@@ -210,7 +210,7 @@ namespace _403unlocker.Add
 
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            dnsCountLabel.Text = "DNS Count: " + dataGridView1.RowCount;
+            labelDnsCount.Text = "Count: " + dataGridView1.RowCount;
             isTableChanged = true;
         }
 

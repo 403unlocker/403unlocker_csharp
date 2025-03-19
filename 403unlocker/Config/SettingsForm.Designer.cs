@@ -410,7 +410,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.numericUpDownPacketCount);
             this.Controls.Add(this.numericUpDownPacketSize);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";

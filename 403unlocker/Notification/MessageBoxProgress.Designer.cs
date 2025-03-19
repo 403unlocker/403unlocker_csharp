@@ -88,13 +88,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(314, 84);
+            this.ClientSize = new System.Drawing.Size(310, 80);
             this.ControlBox = false;
             this.Controls.Add(this.labelTimeStatus);
             this.Controls.Add(this.labelProgressBarStatus);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.progressBar1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MessageBoxProgress";

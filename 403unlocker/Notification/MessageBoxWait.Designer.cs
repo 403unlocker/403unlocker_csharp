@@ -36,7 +36,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.progressBar1.Cursor = System.Windows.Forms.Cursors.Default;
             this.progressBar1.Location = new System.Drawing.Point(12, 50);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(288, 15);
@@ -67,7 +67,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(312, 77);
+            this.ClientSize = new System.Drawing.Size(308, 73);
             this.ControlBox = false;
             this.Controls.Add(this.labe1);
             this.Controls.Add(this.pictureBox1);
