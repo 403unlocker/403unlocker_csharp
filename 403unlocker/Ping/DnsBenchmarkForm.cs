@@ -106,11 +106,13 @@ namespace _403unlocker.Ping
             using (GetUrlForm form = new GetUrlForm())
             {
                 form.ShowDialog();
-                if (!form.isOk) return;
-                url = form.textBoxUrl.Text;
+                if (!form.isOkPressed)
+                {
+                    return;
+                }
+                url = form.comboBoxUrl.Text;
             }
 
-           
             var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(url))).ToList();
 

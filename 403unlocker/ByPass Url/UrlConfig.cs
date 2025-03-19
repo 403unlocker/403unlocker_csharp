@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _403unlocker.ByPass_Url
 {
@@ -73,6 +75,17 @@ namespace _403unlocker.ByPass_Url
         {
             string serializedData = data.Count == 0 ? "" : JsonConvert.SerializeObject(data, Formatting.Indented);
             File.WriteAllText(path, serializedData);
+        }
+    }
+    internal static class Extention
+    {
+        public static void AddItemsAndAutoComplete(this ComboBox comboBox, string[] items)
+        {
+            foreach (var item in items)
+            {
+                comboBox.Items.Add(item);
+            }
+            comboBox.AutoCompleteCustomSource.AddRange(items);
         }
     }
 }

@@ -12,8 +12,9 @@ namespace _403unlocker.ByPass_Url
 {
     public partial class GetUrlForm : Form
     {
-        List<UrlConfig> userUrls;
-        public bool isOk = false;
+        public bool isOkPressed = false;
+        private bool needToWriteFile = false;
+        private List<UrlConfig> urls;
         public GetUrlForm()
         {
             InitializeComponent();
@@ -24,49 +25,45 @@ namespace _403unlocker.ByPass_Url
             try
             {
                 //Set the properties for the TextBox
-                userUrls = await UrlConfig.ReadJson();
-                AppendToAutoComplete(userUrls);
+                urls = await UrlConfig.ReadJson();
             }
             catch (Exception)
             {
-                AppendToAutoComplete(Data.Url.DefaultList());
+                urls = Data.Url.DefaultList();
+                needToWriteFile = true;
             }
+            comboBoxUrl.AddItemsAndAutoComplete(urls.Select(x => x.URL).ToArray());
         }
 
-        private void AppendToAutoComplete(UrlConfig url)
+        private void GetUrlForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            AppendToAutoComplete(new List<UrlConfig> { url });
-        }
-
-        private void AppendToAutoComplete(List<UrlConfig> additionUrlList)
-        {
-            // finds new Websites
-            List<UrlConfig> newUrls = additionUrlList.Except(userUrls).ToList();
-            userUrls.AddRange(newUrls);
-            if (newUrls.Count > 0)
+            if (needToWriteFile)
             {
-                textBoxUrl.AutoCompleteCustomSource.AddRange(newUrls.Select(website => website.URL).ToArray());
+                UrlConfig.WriteJson(urls);
             }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (!UrlConfig.IsValidUrl(textBoxUrl.Text))
+            if (!UrlConfig.IsValidUrl(comboBoxUrl.Text))
             {
                 MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttp://google.com\nhttps://google.com",
                                 "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var website = new UrlConfig
+            if (!comboBoxUrl.Items.Contains(comboBoxUrl.Text))
             {
-                Name = "custom",
-                URL = textBoxUrl.Text
-            };
+                urls.Add(new UrlConfig()
+                {
+                    Name = "custom",
+                    URL = comboBoxUrl.Text
+                });
+                comboBoxUrl.AddItemsAndAutoComplete(new string[] { comboBoxUrl.Text });
+                needToWriteFile = true;
+            }
 
-            AppendToAutoComplete(website);
-
-            isOk = true;
+            isOkPressed = true;
             Close();
         }
 
