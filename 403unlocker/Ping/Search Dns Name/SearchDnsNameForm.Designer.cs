@@ -1,6 +1,6 @@
-﻿namespace _403unlocker.ByPass_Url
+﻿namespace _403unlocker.Ping.Search_Dns_Name
 {
-    partial class GetUrlForm
+    partial class SearchDnsNameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.comboBoxUrl = new System.Windows.Forms.ComboBox();
+            this.textBoxDns = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonCancel.ForeColor = System.Drawing.Color.Black;
+            this.buttonCancel.Location = new System.Drawing.Point(168, 40);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(79, 23);
+            this.buttonCancel.TabIndex = 22;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = false;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // label1
             // 
@@ -40,69 +53,52 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "URL: ";
+            this.label1.Size = new System.Drawing.Size(39, 15);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "DNS: ";
             // 
             // buttonOk
             // 
             this.buttonOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonOk.ForeColor = System.Drawing.Color.Black;
-            this.buttonOk.Location = new System.Drawing.Point(82, 42);
+            this.buttonOk.Location = new System.Drawing.Point(83, 40);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(79, 23);
-            this.buttonOk.TabIndex = 16;
+            this.buttonOk.TabIndex = 20;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = false;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // buttonCancel
+            // textBoxDns
             // 
-            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonCancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancel.Location = new System.Drawing.Point(167, 42);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(79, 23);
-            this.buttonCancel.TabIndex = 19;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.textBoxDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.textBoxDns.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxDns.Location = new System.Drawing.Point(57, 12);
+            this.textBoxDns.Name = "textBoxDns";
+            this.textBoxDns.Size = new System.Drawing.Size(190, 22);
+            this.textBoxDns.TabIndex = 23;
+            this.textBoxDns.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDns_KeyPress);
             // 
-            // comboBoxUrl
-            // 
-            this.comboBoxUrl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxUrl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.comboBoxUrl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.comboBoxUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxUrl.FormattingEnabled = true;
-            this.comboBoxUrl.Location = new System.Drawing.Point(56, 12);
-            this.comboBoxUrl.Name = "comboBoxUrl";
-            this.comboBoxUrl.Size = new System.Drawing.Size(190, 24);
-            this.comboBoxUrl.TabIndex = 20;
-            // 
-            // GetUrlForm
+            // SearchDnsNameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(258, 77);
+            this.ClientSize = new System.Drawing.Size(259, 75);
+            this.Controls.Add(this.textBoxDns);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.comboBoxUrl);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "GetUrlForm";
+            this.Name = "SearchDnsNameForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Please enter URL...";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GetUrlForm_FormClosing);
-            this.Load += new System.EventHandler(this.GetUrlForm_Load);
+            this.Text = "Please enter DNS...";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,9 +106,9 @@
 
         #endregion
 
+        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
-        public System.Windows.Forms.ComboBox comboBoxUrl;
+        public System.Windows.Forms.TextBox textBoxDns;
     }
 }

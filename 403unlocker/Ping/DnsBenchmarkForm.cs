@@ -22,6 +22,8 @@ using _403unlocker.ByPass_Url;
 using System.Net;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Collections.Specialized.BitVector32;
+using _403unlocker.Ping.Search_Dns_Name;
+using System.Runtime.InteropServices;
 
 namespace _403unlocker.Ping
 {
@@ -117,8 +119,6 @@ namespace _403unlocker.Ping
             }
         }
 
-        
-
         private void pcPingButton_Click(object sender, EventArgs e)
         {
             var pingList = new List<DnsBenchmark>(dnsBinding);
@@ -131,7 +131,7 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void sitePingButton_Click(object sender, EventArgs e)
+        private async void sitePingButton_Click(object sender, EventArgs e)
         {
             string url = "";
             using (GetUrlForm form = new GetUrlForm())
@@ -343,6 +343,38 @@ namespace _403unlocker.Ping
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             labelDnsCount.Text = "Count: " + dataGridView1.RowCount;
+        }
+
+        private void searchDNSNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SearchDnsNameForm searchDnsName = new SearchDnsNameForm())
+            {
+                searchDnsName.ShowDialog();
+                if (searchDnsName.isOkPressed)
+                {
+                    DnsBenchmark dnsSearched = dnsBinding.First(x => x.DNS == searchDnsName.textBoxDns.Text);
+                    int index = dnsBinding.IndexOf(dnsSearched);
+                    if (index > 0)
+                    {
+                        dataGridView1.Rows[index].Selected = true;
+                        if (!dataGridView1.Rows[index].Displayed)
+                        {
+                            dataGridView1.FirstDisplayedScrollingRowIndex = index;
+                        }
+                    }
+                    else
+                    {
+                        using (MessageBoxForm messageBox = new MessageBoxForm())
+                        {
+                            messageBox.Title = $"\"{searchDnsName.textBoxDns.Text}\" is not in table";
+                            messageBox.Caption = "DNS Not Found";
+                            messageBox.Buttons = MessageBoxButtons.OK;
+                            messageBox.Picture = MessageBoxIcon.Information;
+                            messageBox.ShowDialog();
+                        }
+                    }
+                }
+            }
         }
     }
 }

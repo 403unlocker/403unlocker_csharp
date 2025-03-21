@@ -56,6 +56,7 @@
             this.comboBoxDnsSet = new System.Windows.Forms.ComboBox();
             this.buttonResetDns = new System.Windows.Forms.Button();
             this.labelDnsCount = new System.Windows.Forms.Label();
+            this.searchDNSNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -140,15 +141,16 @@
             this.contextMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.contextMenuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyDnsCellToolStripMenuItem});
+            this.copyDnsCellToolStripMenuItem,
+            this.searchDNSNameToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(104, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 70);
             // 
             // copyDnsCellToolStripMenuItem
             // 
             this.copyDnsCellToolStripMenuItem.Name = "copyDnsCellToolStripMenuItem";
-            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.copyDnsCellToolStripMenuItem.Text = "Copy DNS";
             this.copyDnsCellToolStripMenuItem.Click += new System.EventHandler(this.copyDnsCellToolStripMenuItem_Click);
             // 
@@ -334,6 +336,13 @@
             this.labelDnsCount.TabIndex = 21;
             this.labelDnsCount.Text = "Count: 999";
             // 
+            // searchDNSNameToolStripMenuItem
+            // 
+            this.searchDNSNameToolStripMenuItem.Name = "searchDNSNameToolStripMenuItem";
+            this.searchDNSNameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.searchDNSNameToolStripMenuItem.Text = "Search DNS Name";
+            this.searchDNSNameToolStripMenuItem.Click += new System.EventHandler(this.searchDNSNameToolStripMenuItem_Click);
+            // 
             // DnsBenchmarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,5 +404,6 @@
         private System.Windows.Forms.ComboBox comboBoxDnsSet;
         private System.Windows.Forms.Button buttonResetDns;
         private System.Windows.Forms.Label labelDnsCount;
+        private System.Windows.Forms.ToolStripMenuItem searchDNSNameToolStripMenuItem;
     }
 }

@@ -107,11 +107,13 @@ namespace _403unlocker.Ping
                     throw new DnsResponseException();
                 }
 
+                string ip = resolvedIP.First();
                 DateTime now = DateTime.Now;
-                var htmlreq = await NetworkUtility.HttpRequestAsWeb($"http://{resolvedIP.First()}");
+                var htmlreq = await NetworkUtility.HttpRequestAsWeb($"http://{ip}");
                 DateTime after = DateTime.Now;
 
-                Latency = (int)((after - now).TotalMilliseconds/1000);
+                TimeSpan timeSpan = after - now;
+                Latency = (int)Math.Round(timeSpan.TotalMilliseconds / 1000);
                 Status = "OK";
             }
             catch (HttpRequestException e)
