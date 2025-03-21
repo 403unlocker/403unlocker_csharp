@@ -163,7 +163,7 @@ namespace _403unlocker
                 new UrlConfig{Name = "X", URL = "x.com" },
                 new UrlConfig{Name = "Google.Dev", URL = "developers.google.com" },
                 new UrlConfig{Name = "Go", URL = "pkg.go.dev" },
-                new UrlConfig{Name = "Lucid Chart", URL = "lucid.app/users/login#/login?" }
+                new UrlConfig{Name = "Lucid Chart", URL = "lucid.app" }
                 };
                 return urlDefault;
             }

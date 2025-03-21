@@ -51,7 +51,10 @@ namespace _403unlocker.ByPass_Url
 
         public static bool IsValidUrl(string hostname)
         {
-            if (Regex.IsMatch(hostname, @"^(www.)?([^\W_]{1}[a-zA-Z\d\-]*){1}(\.[^\W_]{1}[a-zA-Z\d\-]*){0,60}(\.[a-z]+){1}(/[\w\W]*)*$")) return true;
+            if (Regex.IsMatch(hostname, @"^(www.)?([^\W_]{1}[a-zA-Z\d\-]*){1}(\.[^\W_]{1}[a-zA-Z\d\-]*){0,60}(\.[a-z]+){1}$"))
+            {
+                return true;
+            }
             return false;
         }
 
