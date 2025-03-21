@@ -54,7 +54,8 @@ namespace _403unlocker.ByPass_Url
                                  "\n" +
                                  "Not Passing:\n" +
                                  "http://google.com\n" +
-                                 "https://google.com";
+                                 "https://google.com\n" +
+                                 "www.google.com/search?q=cat";
                     form.Caption = "URL is wrong";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Error;
