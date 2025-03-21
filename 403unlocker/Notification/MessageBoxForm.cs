@@ -34,6 +34,9 @@ namespace _403unlocker.Notification
 
         private void MessageBoxForm_Load(object sender, EventArgs e)
         {
+            Text = Caption;
+            label1.Text = Title;
+
             switch (Picture)
             {
                 case MessageBoxIcon.Asterisk: // Information
@@ -67,9 +70,13 @@ namespace _403unlocker.Notification
                     break;
             }
 
-            Text = Caption;
-            label1.Text = Title;
+            UpdateCoordinates();
+            CenterToParent();
+            sound.Play();
+        }
 
+        private void UpdateCoordinates()
+        {
             if (label1.Text.Count(c => c == '\n') > 0)
             {
                 label1.Location = new Point(label1.Location.X, pictureBox1.Location.Y);
@@ -79,13 +86,10 @@ namespace _403unlocker.Notification
 
             int h = Size.Height - (buttonNo.Size.Height + 55);
             int w = Size.Width - (buttonOk.Size.Width + 32);
-            buttonNo.Location = new Point(w,h);
-            buttonOk.Location = new Point(w,h);
+            buttonNo.Location = new Point(w, h);
+            buttonOk.Location = new Point(w, h);
 
             buttonYes.Location = new Point(w - (buttonYes.Size.Width + 6), h);
-
-            CenterToParent();
-            sound.Play();
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
