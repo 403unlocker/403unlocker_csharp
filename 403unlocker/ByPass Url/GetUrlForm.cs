@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _403unlocker.Notification;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,9 +48,19 @@ namespace _403unlocker.ByPass_Url
         {
             if (!UrlConfig.IsValidUrl(comboBoxUrl.Text))
             {
-                MessageBox.Show("Please type correct URL\n\nNot Passing:\nhttp://google.com\nhttps://google.com",
-                                "URL is wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Please type correct URL\n" +
+                                 "\n" +
+                                 "Not Passing:\n" +
+                                 "http://google.com\n" +
+                                 "https://google.com";
+                    form.Caption = "URL is wrong";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Error;
+                    form.ShowDialog();
+                    return;
+                }
             }
 
             if (!comboBoxUrl.Items.Contains(comboBoxUrl.Text))

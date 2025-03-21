@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _403unlocker.Notification;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -101,29 +102,41 @@ namespace _403unlocker.Add.Custom_DNS
             // checks provider empty
             if (string.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Provider Can't Be Empty!",
-                                "Empty Values!",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Stop);
-                return;
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Provider Can't Be Empty!";
+                    form.Caption = "Empty Values!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                    return;
+                }
             }
             // checks both of DNSs empty
             else if (string.IsNullOrEmpty(textBoxPrimaryDns.Text) && string.IsNullOrEmpty(textBoxSecondaryDns.Text))
             {
-                MessageBox.Show("Primary DNS & Secondry DNS can't be empty at same time!",
-                                "Empty Values!",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                return;
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Primary DNS & Secondry DNS can't be empty at same time!";
+                    form.Caption = "Empty Values!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Error;
+                    form.ShowDialog();
+                    return;
+                }
             }
             // checks both of DNSs invalid
             else if (!DnsConfig.IsIPv4(textBoxPrimaryDns.Text) && !DnsConfig.IsIPv4(textBoxSecondaryDns.Text))
             {
-                MessageBox.Show("DNS value(s) are not valid!",
-                                "Invalid Value!",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                return;
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "DNS value(s) are not valid!";
+                    form.Caption = "Invalid Value!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Error;
+                    form.ShowDialog();
+                    return;
+                }
             }
 
             // checks which of DNSs is valid

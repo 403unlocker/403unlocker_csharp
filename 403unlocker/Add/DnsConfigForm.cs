@@ -83,13 +83,18 @@ namespace _403unlocker.Add
         {
             if (!isApplyPressed && isTableChanged)
             {
-                var r = MessageBox.Show("Do you want to discard changes?",
-                                        "Closing",
-                                        MessageBoxButtons.YesNo,
-                                        MessageBoxIcon.Question,
-                                        MessageBoxDefaultButton.Button2);
-
-                if (r == DialogResult.No) e.Cancel = true;
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Do you want to discard changes?";
+                    form.Caption = "Closing";
+                    form.Buttons = MessageBoxButtons.YesNo;
+                    form.Picture = MessageBoxIcon.Question;
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.No)
+                    {
+                        e.Cancel = true;
+                    }
+                }
             }
         }
 
@@ -104,11 +109,18 @@ namespace _403unlocker.Add
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            DialogResult r = MessageBox.Show("Are you sure about that?", "We are clearing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (r == DialogResult.Yes)
+            using (MessageBoxForm form = new MessageBoxForm())
             {
-                dnsBinding.Clear();
-                labelDnsCount.Text = "DNS Count: 0";
+                form.Title = "Are you sure about that?";
+                form.Caption = "We are clearing";
+                form.Buttons = MessageBoxButtons.YesNo;
+                form.Picture = MessageBoxIcon.Question;
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.Yes)
+                {
+                    dnsBinding.Clear();
+                    labelDnsCount.Text = "DNS Count: 0";
+                }
             }
         }
 
@@ -138,19 +150,31 @@ namespace _403unlocker.Add
 
             if (statusMessages)
             {
-                string text, caption;
                 if (newDnsCount > 0)
                 {
-                    text = $"New DNS(s) has been successfully added!\n\nNew DNSs: {newDnsCount}\nDuplicate DNSs: {duplicateDnsCount}";
-                    caption = "Successfully Updated 🎉";
                     ScrollDownToEnd();
-                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.Title = "New DNS(s) has been successfully added!\n" +
+                                     "\n" +
+                                     $"New DNSs: {newDnsCount}\n" +
+                                     $"Duplicate DNSs: {duplicateDnsCount}";
+                        form.Caption = "Successfully Updated 🎉";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Information;
+                        form.ShowDialog();
+                    }
                 }
                 else
                 {
-                    text = "DNS(s) already exist";
-                    caption = "No Duplicates Allowed 🛑";
-                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.Title = "DNS(s) already exist";
+                        form.Caption = "No Duplicates Allowed 🛑";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Warning;
+                        form.ShowDialog();
+                    }
                 }
             }
         }
@@ -164,11 +188,15 @@ namespace _403unlocker.Add
         {
             if (timer1.Enabled)
             {
-                MessageBox.Show("You have time to wait, be patient",
-                    "Hold Your Horses🐎!", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Hand);
-                return;
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "You have time to wait, be patient";
+                    form.Caption = "Hold Your Horses🐎!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Hand;
+                    form.ShowDialog();
+                    return;
+                }
             }
 
             using (var form = new MessageBoxWait(Data.DnsScraper.Get()))
@@ -178,11 +206,15 @@ namespace _403unlocker.Add
 
             if (Data.DnsScraper.Errors.Message != "")
             {
-                MessageBox.Show(Data.DnsScraper.Errors.Message,
-                   "Somthing went wrong",
-                   MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
-                return;
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = Data.DnsScraper.Errors.Message;
+                    form.Caption = "Somthing went wrong";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Error;
+                    form.ShowDialog();
+                    return;
+                }
             }
 
             AppendData(Data.DnsScraper.Values);
@@ -249,21 +281,30 @@ namespace _403unlocker.Add
             {
                 string selectedRowDns = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
 
-                DialogResult confirmResult = MessageBox.Show($"Are you sure you want to delete \"{selectedRowDns}\" DNS?",
-                                                             "Confirm Delete",
-                                                             MessageBoxButtons.YesNo,
-                                                             MessageBoxIcon.Question,
-                                                             MessageBoxDefaultButton.Button2);
-
-                if (confirmResult == DialogResult.Yes) 
+                using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                    dnsBinding.RemoveAt(selectedRowIndex); 
-                } 
+                    form.Title = $"Are you sure you want to delete \"{selectedRowDns}\" DNS?";
+                    form.Caption = "Confirm Delete";
+                    form.Buttons = MessageBoxButtons.YesNo;
+                    form.Picture = MessageBoxIcon.Question;
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.Yes)
+                    {
+                        int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                        dnsBinding.RemoveAt(selectedRowIndex);
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("Please select a DNS row before deleting it.", "Can't Delete!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Please select a DNS row before deleting it.";
+                    form.Caption = "Can't Delete!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
             }
         }
 

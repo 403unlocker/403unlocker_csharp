@@ -90,6 +90,12 @@
     </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="DnsCommand.cs" />
+    <Compile Include="Notification\MessageBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notification\MessageBoxForm.Designer.cs">
+      <DependentUpon>MessageBoxForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Notification\MessageBoxWait.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ByPass Url\GetUrlForm.resx">
       <DependentUpon>GetUrlForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\MessageBoxForm.resx">
+      <DependentUpon>MessageBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Notification\MessageBoxProgress.resx">
       <DependentUpon>MessageBoxProgress.cs</DependentUpon>

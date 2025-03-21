@@ -20,6 +20,8 @@ using System.IO;
 using _403unlocker.Notification;
 using _403unlocker.ByPass_Url;
 using System.Net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using static System.Collections.Specialized.BitVector32;
 
 namespace _403unlocker.Ping
 {
@@ -61,13 +63,35 @@ namespace _403unlocker.Ping
             {
                 if (error is FileNotFoundException)
                 {
-                    MessageBox.Show("Config File, Not Found", error.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.Title = "Config File, Not Found";
+                        form.Caption = error.Message;
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(error.Message, "Error Occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.Title = error.Message;
+                        form.Caption = "Error Occurred";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
                 }
-                MessageBox.Show("App is using default Settings...", "No Worries", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "App is using default Settings...";
+                    form.Caption = "No Worries";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Information;
+                    form.ShowDialog();
+                }
             }
         }
 
@@ -82,7 +106,14 @@ namespace _403unlocker.Ping
             }
             catch (Exception error)
             {
-                MessageBox.Show(error.Message, "Saving Config File, Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = error.Message;
+                    form.Caption = "Saving Config File, Failed";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Error;
+                    form.ShowDialog();
+                }
             }
         }
 
@@ -134,12 +165,27 @@ namespace _403unlocker.Ping
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Somthing went wrong!", "Check your Clipboard\nIf it is not be copied, please try again", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.Title = "Somthing went wrong!";
+                        form.Caption = "Check your Clipboard\n" +
+                                       "If it is not be copied, please try again";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("Please select a row", "Can't Get DNS Cell!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Please select a row";
+                    form.Caption = "Can't Get DNS Cell!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
             }
         }
 
@@ -206,7 +252,14 @@ namespace _403unlocker.Ping
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Something went wrong!", "Can't load file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.Title = "Something went wrong!";
+                        form.Caption = "Can't load file";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
                 }
             }
         }
@@ -241,25 +294,35 @@ namespace _403unlocker.Ping
         {
             if (dataGridView1.SelectedRows.Count == 0 || string.IsNullOrEmpty(Settings.NetworkAdaptor.SelectedNetworkInterface))
             {
-                MessageBox.Show("Please select a row", "Can't Read DNS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Please select a row";
+                    form.Caption = "Can't Read DNS";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
             }
 
             string selectedDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
             string selectedInterface = Settings.NetworkAdaptor.SelectedNetworkInterface;
 
-            DialogResult r;
             if (!selectedInterface.Contains("Ethernet") && !selectedInterface.ToLower().Contains("wifi"))
             {
-                r = MessageBox.Show(
-                    $"You are setting {selectedDns} to \"{selectedInterface}\" adaptor!\n" +
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = $"You are setting {selectedDns} to \"{selectedInterface}\" adaptor!\n" +
                     "Are you sure?\n\n" +
-                    "(Go to the Settings and select your desire adaptor)",
-                    "Unexpected Recognition",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button2);
-
-                if (r == DialogResult.No) return;
+                    "(Go to the Settings and select your desire adaptor)";
+                    form.Caption = "Unexpected Recognition";
+                    form.Buttons = MessageBoxButtons.YesNo;
+                    form.Picture = MessageBoxIcon.Exclamation;
+                    form.ShowDialog();
+                    if (form.DialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
             }
 
             if (buttonDnsSet.Text == "Set as Primary")

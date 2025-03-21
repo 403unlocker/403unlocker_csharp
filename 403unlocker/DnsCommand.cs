@@ -1,4 +1,5 @@
-﻿using DnsClient.Internal;
+﻿using _403unlocker.Notification;
+using DnsClient.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -96,10 +97,24 @@ namespace _403unlocker
             }
             else
             {
-                MessageBox.Show(action, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = action;
+                    form.Caption = caption;
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Information;
+                    form.ShowDialog();
+                }
                 return;
             }
-            MessageBox.Show(title, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            using (MessageBoxForm form = new MessageBoxForm())
+            {
+                form.Title = title;
+                form.Caption = caption;
+                form.Buttons = MessageBoxButtons.OK;
+                form.Picture = MessageBoxIcon.Error;
+                form.ShowDialog();
+            }
         }
     }
 }
