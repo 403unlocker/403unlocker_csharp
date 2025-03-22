@@ -21,6 +21,8 @@ using System.Data;
 using _403unlocker.Config;
 using _403unlocker.Notification;
 using System.Reflection;
+using static _403unlocker.Data;
+using System.Net.Sockets;
 
 namespace _403unlocker.Ping
 {
@@ -131,6 +133,38 @@ namespace _403unlocker.Ping
                 Latency = -1;
                 Status = "HTTP Timeout";
             }
+            ProgressIncreament();
+        }
+
+        public async Task NsLookUp(string nameServer)
+        {
+            ProgressReset();
+
+            try
+            {
+                // seeking for IPs
+                DateTime now = DateTime.Now;
+                string[] resolvedIP = await NetworkUtility.ResolveDNS(DNS, $"{nameServer}");
+                DateTime after = DateTime.Now;
+
+                TimeSpan timeSpan = after - now;
+                Latency = (int)Math.Round(timeSpan.TotalMilliseconds / 1000);
+
+                if (resolvedIP.Length == 0)
+                {
+                    Status = "";
+                }
+                else
+                {
+                    Status = string.Join(" ", resolvedIP);
+                }
+            }
+            catch (DnsResponseException e)
+            {
+                Latency = -1;
+                Status = e.Code.ToString();
+            }
+
             ProgressIncreament();
         }
 

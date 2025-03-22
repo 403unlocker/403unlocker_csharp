@@ -245,9 +245,9 @@
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.label6.Location = new System.Drawing.Point(12, 221);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 18);
+            this.label6.Size = new System.Drawing.Size(161, 18);
             this.label6.TabIndex = 8;
-            this.label6.Text = "Bypass:";
+            this.label6.Text = "Bypass && NS Look Up:";
             // 
             // numericUpDownHttpRequestTimeOut
             // 
@@ -258,7 +258,7 @@
             0});
             this.numericUpDownHttpRequestTimeOut.Location = new System.Drawing.Point(176, 268);
             this.numericUpDownHttpRequestTimeOut.Maximum = new decimal(new int[] {
-            5000,
+            10000,
             0,
             0,
             0});
@@ -269,7 +269,7 @@
             0});
             this.numericUpDownHttpRequestTimeOut.Name = "numericUpDownHttpRequestTimeOut";
             this.numericUpDownHttpRequestTimeOut.ReadOnly = true;
-            this.numericUpDownHttpRequestTimeOut.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownHttpRequestTimeOut.Size = new System.Drawing.Size(53, 20);
             this.numericUpDownHttpRequestTimeOut.TabIndex = 10;
             this.numericUpDownHttpRequestTimeOut.Value = new decimal(new int[] {
             3000,
@@ -308,7 +308,7 @@
             0});
             this.numericUpDownDnsResolveTimeOut.Location = new System.Drawing.Point(165, 242);
             this.numericUpDownDnsResolveTimeOut.Maximum = new decimal(new int[] {
-            5000,
+            10000,
             0,
             0,
             0});
@@ -319,7 +319,7 @@
             0});
             this.numericUpDownDnsResolveTimeOut.Name = "numericUpDownDnsResolveTimeOut";
             this.numericUpDownDnsResolveTimeOut.ReadOnly = true;
-            this.numericUpDownDnsResolveTimeOut.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownDnsResolveTimeOut.Size = new System.Drawing.Size(53, 20);
             this.numericUpDownDnsResolveTimeOut.TabIndex = 12;
             this.numericUpDownDnsResolveTimeOut.Value = new decimal(new int[] {
             2000,
@@ -365,7 +365,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label11.Location = new System.Drawing.Point(220, 242);
+            this.label11.Location = new System.Drawing.Point(224, 242);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 16);
             this.label11.TabIndex = 19;
@@ -376,7 +376,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label13.Location = new System.Drawing.Point(231, 268);
+            this.label13.Location = new System.Drawing.Point(235, 268);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(84, 16);
             this.label13.TabIndex = 20;

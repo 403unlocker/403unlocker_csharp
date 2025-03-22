@@ -38,6 +38,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyDnsCellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchDNSNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortButton = new System.Windows.Forms.Button();
             this.sitePingButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -56,7 +57,7 @@
             this.comboBoxDnsSet = new System.Windows.Forms.ComboBox();
             this.buttonResetDns = new System.Windows.Forms.Button();
             this.labelDnsCount = new System.Windows.Forms.Label();
-            this.searchDNSNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonNsLookUp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -145,14 +146,21 @@
             this.searchDNSNameToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 48);
             // 
             // copyDnsCellToolStripMenuItem
             // 
             this.copyDnsCellToolStripMenuItem.Name = "copyDnsCellToolStripMenuItem";
-            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.copyDnsCellToolStripMenuItem.Text = "Copy DNS";
             this.copyDnsCellToolStripMenuItem.Click += new System.EventHandler(this.copyDnsCellToolStripMenuItem_Click);
+            // 
+            // searchDNSNameToolStripMenuItem
+            // 
+            this.searchDNSNameToolStripMenuItem.Name = "searchDNSNameToolStripMenuItem";
+            this.searchDNSNameToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.searchDNSNameToolStripMenuItem.Text = "Search DNS Name";
+            this.searchDNSNameToolStripMenuItem.Click += new System.EventHandler(this.searchDNSNameToolStripMenuItem_Click);
             // 
             // sortButton
             // 
@@ -336,12 +344,18 @@
             this.labelDnsCount.TabIndex = 21;
             this.labelDnsCount.Text = "Count: 999";
             // 
-            // searchDNSNameToolStripMenuItem
+            // buttonNsLookUp
             // 
-            this.searchDNSNameToolStripMenuItem.Name = "searchDNSNameToolStripMenuItem";
-            this.searchDNSNameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.searchDNSNameToolStripMenuItem.Text = "Search DNS Name";
-            this.searchDNSNameToolStripMenuItem.Click += new System.EventHandler(this.searchDNSNameToolStripMenuItem_Click);
+            this.buttonNsLookUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonNsLookUp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonNsLookUp.ForeColor = System.Drawing.Color.Black;
+            this.buttonNsLookUp.Location = new System.Drawing.Point(255, 400);
+            this.buttonNsLookUp.Name = "buttonNsLookUp";
+            this.buttonNsLookUp.Size = new System.Drawing.Size(79, 23);
+            this.buttonNsLookUp.TabIndex = 22;
+            this.buttonNsLookUp.Text = "ns Lookup";
+            this.buttonNsLookUp.UseVisualStyleBackColor = false;
+            this.buttonNsLookUp.Click += new System.EventHandler(this.buttonNsLookUp_Click);
             // 
             // DnsBenchmarkForm
             // 
@@ -349,6 +363,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(431, 435);
+            this.Controls.Add(this.buttonNsLookUp);
             this.Controls.Add(this.labelDnsCount);
             this.Controls.Add(this.buttonResetDns);
             this.Controls.Add(this.buttonDnsSet);
@@ -405,5 +420,6 @@
         private System.Windows.Forms.Button buttonResetDns;
         private System.Windows.Forms.Label labelDnsCount;
         private System.Windows.Forms.ToolStripMenuItem searchDNSNameToolStripMenuItem;
+        private System.Windows.Forms.Button buttonNsLookUp;
     }
 }

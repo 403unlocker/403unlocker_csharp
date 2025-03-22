@@ -143,11 +143,30 @@ namespace _403unlocker.Ping
                 }
                 url = form.comboBoxUrl.Text;
             }
-
-            var pingList = new List<DnsBenchmark>(dnsBinding);
-            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing(url))).ToList();
-
+         
+            List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.GetPing(url))).ToList();
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds + Settings.ByPass.HttpRequestTimeOutInMiliSeconds))
+            {
+                form.ShowDialog();
+                dataGridView1.Invalidate();
+            }
+        }
+
+        private void buttonNsLookUp_Click(object sender, EventArgs e)
+        {
+            string url = "";
+            using (GetUrlForm form = new GetUrlForm())
+            {
+                form.ShowDialog();
+                if (!form.isOkPressed)
+                {
+                    return;
+                }
+                url = form.comboBoxUrl.Text;
+            }
+
+            List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.NsLookUp(url))).ToList();
+            using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds))
             {
                 form.ShowDialog();
                 dataGridView1.Invalidate();

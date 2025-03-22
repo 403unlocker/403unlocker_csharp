@@ -101,6 +101,7 @@ namespace _403unlocker
             {
                 ContinueOnDnsError = false,
                 UseCache = false,
+                UseTcpOnly = false,
                 Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.DnsResolveTimeOutInMiliSeconds),
                 ThrowDnsErrors = true,
                 Retries = 0
@@ -109,11 +110,9 @@ namespace _403unlocker
             var lookup = new LookupClient(options);
             // query DNS server
             var result = await lookup.QueryAsync(url, QueryType.A);
+            var resolvedIP = result.Answers.OfType<ARecord>();
 
-            string[] resolvedIP = result.Answers.OfType<ARecord>().Select(x => x.Address.ToString()).ToArray();
-            return resolvedIP;
+            return resolvedIP.Select(x => x.Address.ToString()).ToArray();
         }
     }
-
-    
 }
