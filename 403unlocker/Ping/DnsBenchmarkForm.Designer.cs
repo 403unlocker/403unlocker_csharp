@@ -167,7 +167,7 @@
             this.sortButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.sortButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sortButton.ForeColor = System.Drawing.Color.Black;
-            this.sortButton.Location = new System.Drawing.Point(182, 371);
+            this.sortButton.Location = new System.Drawing.Point(267, 371);
             this.sortButton.Name = "sortButton";
             this.sortButton.Size = new System.Drawing.Size(79, 23);
             this.sortButton.TabIndex = 11;
@@ -349,11 +349,11 @@
             this.buttonNsLookUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonNsLookUp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonNsLookUp.ForeColor = System.Drawing.Color.Black;
-            this.buttonNsLookUp.Location = new System.Drawing.Point(255, 400);
+            this.buttonNsLookUp.Location = new System.Drawing.Point(182, 371);
             this.buttonNsLookUp.Name = "buttonNsLookUp";
             this.buttonNsLookUp.Size = new System.Drawing.Size(79, 23);
             this.buttonNsLookUp.TabIndex = 22;
-            this.buttonNsLookUp.Text = "ns Lookup";
+            this.buttonNsLookUp.Text = "NS Look Up";
             this.buttonNsLookUp.UseVisualStyleBackColor = false;
             this.buttonNsLookUp.Click += new System.EventHandler(this.buttonNsLookUp_Click);
             // 

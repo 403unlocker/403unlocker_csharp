@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,23 +12,10 @@ namespace _403unlocker.ByPass_Url
 {
     public class UrlConfig
     {
-        private static string path = "Url.json";
+        private static string path = "HostName.json";
         public string Name { get; set; } = "";
 
-        private string url;
-        public string URL
-        {
-            get => url;
-            set
-            {
-                if (!IsValidUrl(value))
-                {
-                    throw new UriFormatException();
-                }
-
-                url = value;
-            }
-        }
+        public string HostName { get; set; }
 
         public override string ToString()
         {
@@ -39,19 +26,19 @@ namespace _403unlocker.ByPass_Url
         {
             if (obj is UrlConfig urlConfig)
             {
-                return url == urlConfig.url;
+                return HostName == urlConfig.HostName;
             }
             return false;
         }
 
         public override int GetHashCode()
         {
-            return url.GetHashCode();
+            return HostName.GetHashCode();
         }
 
-        public static bool IsValidUrl(string hostname)
+        public static bool IsValidHostName(string hostname)
         {
-            if (Regex.IsMatch(hostname, @"^(www.)?([^\W_]{1}[a-zA-Z\d\-]*){1}(\.[^\W_]{1}[a-zA-Z\d\-]*){0,60}(\.[a-z]+){1}$"))
+            if (Regex.IsMatch(hostname, @"^([^\W_]{1}[a-zA-Z\d\-]*){1}(\.[^\W_]{1}[a-zA-Z\d\-]*){0,60}(\.[a-z]+){1}$"))
             {
                 return true;
             }
@@ -80,6 +67,7 @@ namespace _403unlocker.ByPass_Url
             File.WriteAllText(path, serializedData);
         }
     }
+
     internal static class Extention
     {
         public static void AddItemsAndAutoComplete(this ComboBox comboBox, string[] items)

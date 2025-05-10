@@ -258,7 +258,7 @@
             0});
             this.numericUpDownHttpRequestTimeOut.Location = new System.Drawing.Point(176, 268);
             this.numericUpDownHttpRequestTimeOut.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -308,7 +308,7 @@
             0});
             this.numericUpDownDnsResolveTimeOut.Location = new System.Drawing.Point(165, 242);
             this.numericUpDownDnsResolveTimeOut.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});

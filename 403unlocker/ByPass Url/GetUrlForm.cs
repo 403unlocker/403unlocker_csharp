@@ -1,4 +1,4 @@
-﻿using _403unlocker.Notification;
+using _403unlocker.Notification;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +33,7 @@ namespace _403unlocker.ByPass_Url
                 urls = Data.Url.DefaultList();
                 needToWriteFile = true;
             }
-            comboBoxUrl.AddItemsAndAutoComplete(urls.Select(x => x.URL).ToArray());
+            comboBoxUrl.AddItemsAndAutoComplete(urls.Select(x => x.HostName).ToArray());
         }
 
         private void GetUrlForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -46,17 +46,15 @@ namespace _403unlocker.ByPass_Url
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (!UrlConfig.IsValidUrl(comboBoxUrl.Text))
+            if (!UrlConfig.IsValidHostName(comboBoxUrl.Text))
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Please type correct URL\n" +
+                    form.Title = "Please just type hostname\n" +
                                  "\n" +
-                                 "Not Passing:\n" +
-                                 "http://google.com\n" +
-                                 "https://google.com\n" +
-                                 "www.google.com/search?q=cat";
-                    form.Caption = "URL is wrong";
+                                 "For e.g.:\n" +
+                                 "google.com";
+                    form.Caption = "Hostname is wrong";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Error;
                     form.ShowDialog();
@@ -69,7 +67,7 @@ namespace _403unlocker.ByPass_Url
                 urls.Add(new UrlConfig()
                 {
                     Name = "custom",
-                    URL = comboBoxUrl.Text
+                    HostName = comboBoxUrl.Text
                 });
                 comboBoxUrl.AddItemsAndAutoComplete(new string[] { comboBoxUrl.Text });
                 needToWriteFile = true;

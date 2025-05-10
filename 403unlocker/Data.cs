@@ -155,15 +155,15 @@ namespace _403unlocker
             {
                 List<UrlConfig> urlDefault = new List<UrlConfig>
                 {
-                new UrlConfig{Name = "Nvidia", URL = "nvidia.com" },
-                new UrlConfig{Name = "ASUS", URL = "asus.com" },
-                new UrlConfig{Name = "Lenovo", URL = "lenovo.com" },
-                new UrlConfig{Name = "YouTube", URL = "youtube.com" },
-                new UrlConfig{Name = "ChatGPT", URL = "chatgpt.com" },
-                new UrlConfig{Name = "X", URL = "x.com" },
-                new UrlConfig{Name = "Google.Dev", URL = "developers.google.com" },
-                new UrlConfig{Name = "Go", URL = "pkg.go.dev" },
-                new UrlConfig{Name = "Lucid Chart", URL = "lucid.app" }
+                new UrlConfig{Name = "Nvidia", HostName = "nvidia.com" },
+                new UrlConfig{Name = "ASUS", HostName = "asus.com" },
+                new UrlConfig{Name = "Lenovo", HostName = "lenovo.com" },
+                new UrlConfig{Name = "YouTube", HostName = "youtube.com" },
+                new UrlConfig{Name = "ChatGPT", HostName = "chatgpt.com" },
+                new UrlConfig{Name = "X", HostName = "x.com" },
+                new UrlConfig{Name = "Google.Dev", HostName = "developers.google.com" },
+                new UrlConfig{Name = "Go", HostName = "pkg.go.dev" },
+                new UrlConfig{Name = "Lucid Chart", HostName = "lucid.app" }
                 };
                 return urlDefault;
             }
