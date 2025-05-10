@@ -1,4 +1,4 @@
-﻿using DnsClient.Protocol;
+using DnsClient.Protocol;
 using DnsClient;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
@@ -38,7 +38,8 @@ namespace _403unlocker
                 return netwrokFiltered.Where(x => x.Speed > 0).ToArray();
             }
         }
-        public async static Task<HtmlDocument> HttpRequest(string url, int timeOut_s = 5)
+
+        public async static Task<HtmlDocument> HttpDocument(string url)
         {
             using (var handler = new HttpClientHandler())
             {
@@ -51,7 +52,7 @@ namespace _403unlocker
                     // OS, browser version, html layout rendering engine
                     client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
 
-                    client.Timeout = TimeSpan.FromSeconds(timeOut_s);
+                    client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
 
                     // get html as string
                     string htmlString = await client.GetStringAsync(url);
@@ -64,7 +65,7 @@ namespace _403unlocker
                 }
             }
         }
-        public async static Task<HttpResponseMessage> HttpResponse(string url, int timeOut_s = 2)
+        public async static Task<HttpResponseMessage> HttpMessage(string link, Uri uri)
         {
             using (var handler = new HttpClientHandler())
             {
@@ -75,26 +76,20 @@ namespace _403unlocker
                     client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
                     // OS, browser version, html layout rendering engine
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+                    client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
+                    client.DefaultRequestHeaders.Host = uri.Host;
+                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0");
 
-                    client.Timeout = TimeSpan.FromSeconds(timeOut_s);
+                    client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
 
                     // get html response
-                    HttpResponseMessage htmlResponse = await client.GetAsync(url);
+                    HttpResponseMessage htmlResponse = await client.GetAsync(link);
                     return htmlResponse;
                 }
             }
         }
 
-        public async static Task<HtmlDocument> HttpRequestAsWeb(string url)
-        {
-            HtmlWeb web = new HtmlWeb();
-            web.Timeout = Settings.ByPass.HttpRequestTimeOutInMiliSeconds;
-            var htmlDoc = await web.LoadFromWebAsync(url);
-            return htmlDoc;
-        }
-
-        public async static Task<string[]> ResolveDNS(string dns, string url)
+        public async static Task<string[]> ResolveDNS(string dns, Uri uri)
         {
             // initialize settings
             var options = new LookupClientOptions(IPAddress.Parse(dns))
@@ -108,11 +103,23 @@ namespace _403unlocker
             };
             // apply settings to query
             var lookup = new LookupClient(options);
-            // query DNS server
-            var result = await lookup.QueryAsync(url, QueryType.A);
-            var resolvedIP = result.Answers.OfType<ARecord>();
 
-            return resolvedIP.Select(x => x.Address.ToString()).ToArray();
+            // query DNS server
+            List<string> addresses = new List<string>();
+            try
+            {
+                // without www.
+                var response = await lookup.QueryAsync(uri.Host.Replace("www.", ""), QueryType.A);
+                addresses.AddRange(response.Answers.OfType<ARecord>().Select(x => x.Address.ToString()));
+            }
+            catch (DnsResponseException)
+            {
+                // hostname: www.example.com
+                var response = await lookup.QueryAsync(uri.Host, QueryType.A);
+                addresses.AddRange(response.Answers.OfType<ARecord>().Select(x => x.Address.ToString()));
+            }
+
+            return addresses.ToArray();
         }
     }
 }

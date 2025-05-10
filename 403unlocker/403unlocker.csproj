@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="DnsCommand.cs" />
+    <Compile Include="Extention.cs" />
     <Compile Include="Notification\MessageBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +23,7 @@ using _403unlocker.Notification;
 using System.Reflection;
 using static _403unlocker.Data;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace _403unlocker.Ping
 {
@@ -47,104 +48,125 @@ namespace _403unlocker.Ping
             DNS = dnsRecord.DNS;
         }
 
-        public async Task GetPing()
+        public async Task Ping()
         {
             ProgressReset();
-            using (System.Net.NetworkInformation.Ping pingSender = new System.Net.NetworkInformation.Ping())
+
+            try
             {
-                try
+                int timeCount = 0;
+                int successCount = 0;
+                for (int i = 0; i < Settings.Ping.PacketCount; i++)
                 {
-                    int timeCount = 0;
-                    int successCount = 0;
-                    for (int i = 0; i < Settings.Ping.PacketCount; i++)
+                    using (System.Net.NetworkInformation.Ping pingSender = new System.Net.NetworkInformation.Ping())
                     {
-                        
+
                         byte[] buffer = new byte[Settings.Ping.PacketSize];
 
-                        PingReply reply =  await pingSender.SendPingAsync(IPAddress.Parse(DNS),
+                        PingReply reply = await pingSender.SendPingAsync(IPAddress.Parse(DNS),
                                                                             Settings.Ping.TimeOutInMiliSeconds,
                                                                             buffer
                                                                             );
-
-                        
 
                         if (reply.Status == IPStatus.Success)
                         {
                             successCount++;
                             timeCount += (int)reply.RoundtripTime;
                         }
-
-                        ProgressIncreament();
                     }
-
-                    if (successCount > 0)
-                    {
-                        // Average
-                        Latency = timeCount / successCount;
-                    }
-                    else
-                    {
-                        Latency = -1;
-                    }
-                    int packetLossPercentage = (int)((Settings.Ping.PacketCount - successCount) / (double)Settings.Ping.PacketCount) * 100;
-                    Status = $"{packetLossPercentage}% loss";
+                    ProgressIncreament();
                 }
-                catch (TaskCanceledException)
+
+                if (successCount > 0)
+                {
+                    // Average
+                    Latency = timeCount / successCount;
+                }
+                else
                 {
                     Latency = -1;
-                    Status = "Timeout";
                 }
+                int packetLossPercentage = (int)((Settings.Ping.PacketCount - successCount) / (double)Settings.Ping.PacketCount) * 100;
+                Status = $"{packetLossPercentage}% loss";
             }
+            catch (TaskCanceledException)
+            {
+                Latency = -1;
+                Status = "Timeout";
+            }
+
         }
 
-        public async Task GetPing(string url)
+        public async Task ByPass(Uri uri)
         {
             ProgressReset();
             try
             {
-                // seeking for IPs
-                string[] resolvedIP = await NetworkUtility.ResolveDNS(DNS, url);
+                string[] resolvedIP = await NetworkUtility.ResolveDNS(DNS, uri);
                 if (resolvedIP.Length == 0)
                 {
-                    throw new DnsResponseException();
+                    Status = "No IP";
+                    Latency = -1;
+                    return;
                 }
+                string ip = resolvedIP[0];
 
-                string ip = resolvedIP.First();
                 DateTime now = DateTime.Now;
-                var htmlreq = await NetworkUtility.HttpRequestAsWeb($"http://{ip}");
+                var htmlreq = await NetworkUtility.HttpMessage($"https://{ip}/", uri);
                 DateTime after = DateTime.Now;
 
                 TimeSpan timeSpan = after - now;
+                if (htmlreq.IsSuccessStatusCode)
+                {
+                    Status = "OK";
+                }
+                else
+                {
+                    Status = "Forbidden";
+                }
                 Latency = (int)Math.Round(timeSpan.TotalMilliseconds / 1000);
-                Status = "OK";
+            }
+            catch (DnsResponseException e)
+            {
+                if (e.InnerException is OperationCanceledException)
+                {
+                    Status = "Resolve Canceled";
+                }
+                else if (e.InnerException is SocketException)
+                {
+                    Status = "Remote Host Closed";
+                }
+                else
+                {
+                    Status = e.Code.ToString();
+                }
+                Latency = -1;
             }
             catch (HttpRequestException e)
             {
                 Latency = -1;
-                Status = "Can't ByPass";
-            }
-            catch (DnsResponseException e)
-            {
-                Latency = -1;
-                Status = "Resolve Timeout";
+                Status = e.GetMessages();
+                if (e.InnerException is WebException)
+                {
+                    Status = "Restricted";
+                }
             }
             catch (TaskCanceledException e)
             {
                 Latency = -1;
-                Status = "HTTP Timeout";
+                Status = "Canceled By App";
             }
             ProgressIncreament();
         }
 
-        public async Task NsLookUp(string nameServer)
+        public async Task NsLookUp(Uri uri)
         {
             ProgressReset();
-
             try
             {
                 // seeking for IPs
                 DateTime now = DateTime.Now;
-                string[] resolvedIP = await NetworkUtility.ResolveDNS(DNS, $"{nameServer}");
+                string[] resolvedIP = await NetworkUtility.ResolveDNS(DNS, uri);
                 DateTime after = DateTime.Now;
 
                 TimeSpan timeSpan = after - now;
@@ -152,7 +174,7 @@ namespace _403unlocker.Ping
 
                 if (resolvedIP.Length == 0)
                 {
-                    Status = "";
+                    Status = "Couldn't Resolve";
                 }
                 else
                 {
@@ -164,7 +186,6 @@ namespace _403unlocker.Ping
                 Latency = -1;
                 Status = e.Code.ToString();
             }
-
             ProgressIncreament();
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -21,7 +21,7 @@ namespace _403unlocker
                 //https://www.getflix.com.au/setup/dns-servers/
                 try
                 {
-                    var htmlDocument = await NetworkUtility.HttpRequest("https://publicdns.xyz");
+                    var htmlDocument = await NetworkUtility.HttpDocument("https://publicdns.xyz");
                     // get DNS table
                     var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
 
@@ -67,16 +67,7 @@ namespace _403unlocker
                 }
                 catch (Exception error)
                 {
-                    string GetMessages(Exception exception)
-                    {
-                        string s = exception.Message;
-                        if (!(exception.InnerException is null))
-                        {
-                            s += "\n\n" + GetMessages(exception.InnerException);
-                        }
-                        return s;
-                    }
-                    Errors = new Exception(GetMessages(error));
+                    Errors = new Exception(error.GetMessages());
                 }
             }
 
@@ -103,7 +94,7 @@ namespace _403unlocker
                 new DnsConfig{ Name = "LinkedIn Suggested", DNS = "87.107.52.11" },
                 new DnsConfig{ Name = "LinkedIn Suggested", DNS = "87.107.52.13" },
                 new DnsConfig{ Name = "pishgaman", DNS = "5.202.100.101" },
-                new DnsConfig{ Name = "darzg.ir", DNS = "37.27.41.228" },
+                // new DnsConfig{ Name = "darzg.ir", DNS = "37.27.41.228" },
                 new DnsConfig{ Name = "sheltertm.com", DNS = "94.103.125.157" },
                 new DnsConfig{ Name = "sheltertm.com", DNS = "94.103.125.158" },
                 new DnsConfig{ Name = "shatel.ir (rasana)", DNS = "85.15.1.15" },

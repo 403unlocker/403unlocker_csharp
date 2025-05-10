@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -122,7 +122,7 @@ namespace _403unlocker.Ping
         private void pcPingButton_Click(object sender, EventArgs e)
         {
             var pingList = new List<DnsBenchmark>(dnsBinding);
-            List<Task> tasks = pingList.Select(x => Task.Run(() => x.GetPing())).ToList();
+            List<Task> tasks = pingList.Select(x => Task.Run(() => x.Ping())).ToList();
 
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, Settings.Ping.PacketCount, Settings.Ping.TimeOutInMiliSeconds))
             {
@@ -143,13 +143,42 @@ namespace _403unlocker.Ping
                 }
                 url = form.comboBoxUrl.Text;
             }
-         
-            List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.GetPing(url))).ToList();
-            using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds + Settings.ByPass.HttpRequestTimeOutInMiliSeconds))
+
+
+            Uri uri = new Uri($"https://www.{url}");
+            
+
+
+            var pingList = new List<DnsBenchmark>()
             {
-                form.ShowDialog();
-                dataGridView1.Invalidate();
+                new DnsBenchmark { Name = "8.8.8.8", DNS = "8.8.8.8" },
+                new DnsBenchmark { Name = "8.8.4.4", DNS = "8.8.4.4" },
+                new DnsBenchmark { Name = "185.55.226.26", DNS = "185.55.226.26" },
+                new DnsBenchmark { Name = "178.22.122.100", DNS = "178.22.122.100" },
+                new DnsBenchmark { Name = "9.9.9.9", DNS = "9.9.9.9" },
+                new DnsBenchmark { Name = "5.202.100.100", DNS = "5.202.100.100" },
+                new DnsBenchmark { Name = "5.202.100.101", DNS = "5.202.100.101" },
+                new DnsBenchmark { Name = "185.51.200.2", DNS = "185.51.200.2" },
+                new DnsBenchmark { Name = "1.1.1.1", DNS = "1.1.1.1" },
+                new DnsBenchmark { Name = "1.0.0.1", DNS = "1.0.0.1" },
+                new DnsBenchmark { Name = "10.202.10.11", DNS = "10.202.10.11" },
+                new DnsBenchmark { Name = "10.202.10.10", DNS = "10.202.10.10" }
+            };
+
+            dnsBinding = new BindingList<DnsBenchmark>(pingList);
+            dataGridView1.DataSource = dnsBinding;
+
+            foreach (var item in dnsBinding)
+            {
+                await item.ByPass(uri);
             }
+
+            //List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.ByPass(uri))).ToList();
+            //using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds + Settings.ByPass.HttpRequestTimeOutInMiliSeconds))
+            //{
+            //    form.ShowDialog();
+            //    dataGridView1.Invalidate();
+            //}
         }
 
         private void buttonNsLookUp_Click(object sender, EventArgs e)
@@ -165,7 +194,9 @@ namespace _403unlocker.Ping
                 url = form.comboBoxUrl.Text;
             }
 
-            List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.NsLookUp(url))).ToList();
+            Uri uri = new Uri($"https://www.{url}");
+
+            List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.NsLookUp(uri))).ToList();
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds))
             {
                 form.ShowDialog();
