@@ -112,7 +112,7 @@ namespace _403unlocker.Ping
                 string ip = resolvedIP[0];
 
                 DateTime now = DateTime.Now;
-                var htmlreq = await NetworkUtility.HttpMessage($"https://{ip}/", uri);
+                var htmlreq = await NetworkUtility.HttpResponseHeader($"https://{ip}/", uri);
                 DateTime after = DateTime.Now;
 
                 TimeSpan timeSpan = after - now;
@@ -151,7 +151,7 @@ namespace _403unlocker.Ping
                     Status = "Restricted";
                 }
             }
-            catch (TaskCanceledException e)
+            catch (TaskCanceledException)
             {
                 Latency = -1;
                 Status = "Canceled By App";

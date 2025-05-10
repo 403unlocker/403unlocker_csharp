@@ -21,7 +21,8 @@ namespace _403unlocker
                 //https://www.getflix.com.au/setup/dns-servers/
                 try
                 {
-                    var htmlDocument = await NetworkUtility.HttpDocument("https://publicdns.xyz");
+                    Uri uri = new Uri("https://www.publicdns.xyz");
+                    var htmlDocument = await NetworkUtility.HttpResponseHtml(uri);
                     // get DNS table
                     var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
 

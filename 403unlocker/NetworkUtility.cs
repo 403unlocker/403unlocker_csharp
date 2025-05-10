@@ -39,54 +39,45 @@ namespace _403unlocker
             }
         }
 
-        public async static Task<HtmlDocument> HttpDocument(string url)
+        private static HttpClient HttpRequestHeaders(Uri uri)
         {
-            using (var handler = new HttpClientHandler())
-            {
-                handler.UseCookies = true;
-                using (HttpClient client = new HttpClient(handler))
-                {
-                    // content to accept in response
-                    client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.UseCookies = true;
 
-                    // OS, browser version, html layout rendering engine
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+            // content to accept in response
+            HttpClient client = new HttpClient(handler);
+            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
-                    client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
+            // OS, browser version, html layout rendering engine
+            client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
+            client.DefaultRequestHeaders.Host = uri.Host;
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0");
 
-                    // get html as string
-                    string htmlString = await client.GetStringAsync(url);
+            client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
 
-                    var htmlDocument = new HtmlDocument();
-
-                    // make html to tree
-                    htmlDocument.LoadHtml(htmlString);
-                    return htmlDocument;
-                }
-            }
+            return client;
         }
-        public async static Task<HttpResponseMessage> HttpMessage(string link, Uri uri)
+
+        public async static Task<HtmlDocument> HttpResponseHtml(Uri uri)
         {
-            using (var handler = new HttpClientHandler())
-            {
-                handler.UseCookies = true;
-                using (HttpClient client = new HttpClient(handler))
-                {
-                    // content to accept in response
-                    client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            HttpClient client = HttpRequestHeaders(uri);
 
-                    // OS, browser version, html layout rendering engine
-                    client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
-                    client.DefaultRequestHeaders.Host = uri.Host;
-                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0");
+            // get html as string
+            string htmlString = await client.GetStringAsync(uri);
 
-                    client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
+            // convert html to tree
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlString);
+            return htmlDocument;
+        }
 
-                    // get html response
-                    HttpResponseMessage htmlResponse = await client.GetAsync(link);
-                    return htmlResponse;
-                }
-            }
+        public async static Task<HttpResponseMessage> HttpResponseHeader(string url, Uri uri)
+        {
+            HttpClient client = HttpRequestHeaders(uri);
+
+            // get html response
+            HttpResponseMessage htmlResponse = await client.GetAsync(url);
+            return htmlResponse;
         }
 
         public async static Task<string[]> ResolveDNS(string dns, Uri uri)
