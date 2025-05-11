@@ -95,6 +95,8 @@ namespace _403unlocker.Ping
                     form.ShowDialog();
                 }
             }
+
+            showIconOnTaskTrayToolStripMenuItem.Checked = Settings.iconTray;
         }
 
         private void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -398,6 +400,22 @@ namespace _403unlocker.Ping
                     }
                 }
             }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            buttonResetDns.PerformClick();
+        }
+
+        private void showIconOnTaskTrayToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.iconTray = showIconOnTaskTrayToolStripMenuItem.Checked;
+            notifyIcon1.Visible = showIconOnTaskTrayToolStripMenuItem.Checked;
         }
     }
 }

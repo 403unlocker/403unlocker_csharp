@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,7 @@ namespace _403unlocker.Config
 {
     public class SettingsAttributes
     {
+        public bool IconTray { get; set; }
         public int PingPacketCount { get; set; }
         public ushort PingPacketSize { get; set; }
         public int PingTimeOutInMiliSeconds { get; set; }
@@ -27,6 +28,7 @@ namespace _403unlocker.Config
     internal static class Settings
     {
         private static string path = "403unlocker.config";
+        public static bool iconTray = true;
         internal static class Ping
         {
             public static int PacketCount { get; set; } = 4;
@@ -82,6 +84,7 @@ namespace _403unlocker.Config
             {
                 SettingsAttributes a = (SettingsAttributes)serializer.Deserialize(stream);
 
+                Settings.iconTray = a.IconTray;
                 Settings.Ping.PacketCount = a.PingPacketCount;
                 Settings.Ping.PacketSize = a.PingPacketSize;
                 Settings.Ping.TimeOutInMiliSeconds = a.PingTimeOutInMiliSeconds;
@@ -99,6 +102,7 @@ namespace _403unlocker.Config
         {
             SettingsAttributes settings = new SettingsAttributes()
             {
+                IconTray = Settings.iconTray,
                 PingPacketCount = Settings.Ping.PacketCount,
                 PingPacketSize = Settings.Ping.PacketSize,
                 PingTimeOutInMiliSeconds = Settings.Ping.TimeOutInMiliSeconds,

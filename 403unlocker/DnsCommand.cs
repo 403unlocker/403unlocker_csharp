@@ -1,4 +1,4 @@
-﻿using _403unlocker.Notification;
+using _403unlocker.Notification;
 using DnsClient.Internal;
 using Newtonsoft.Json;
 using System;
@@ -103,6 +103,7 @@ namespace _403unlocker
                     form.Caption = caption;
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Information;
+                    form.StartPosition = FormStartPosition.CenterScreen;
                     form.ShowDialog();
                 }
                 return;
@@ -113,6 +114,7 @@ namespace _403unlocker
                 form.Caption = caption;
                 form.Buttons = MessageBoxButtons.OK;
                 form.Picture = MessageBoxIcon.Error;
+                form.StartPosition = FormStartPosition.CenterScreen;
                 form.ShowDialog();
             }
         }
