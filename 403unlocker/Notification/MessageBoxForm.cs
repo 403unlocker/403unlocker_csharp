@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +24,13 @@ namespace _403unlocker.Notification
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="caption"></param>
+        /// <param name="button">just OK, YesNo</param>
+        /// <param name="icon">all available</param>
         public MessageBoxForm(string title, string caption, MessageBoxButtons button, MessageBoxIcon icon) : this()
         {
             Title = title;
@@ -71,7 +78,8 @@ namespace _403unlocker.Notification
             }
 
             UpdateCoordinates();
-            CenterToParent();
+            if (StartPosition == FormStartPosition.CenterScreen) CenterToScreen();
+            else if (StartPosition == FormStartPosition.CenterParent) CenterToParent();
             sound.Play();
         }
 
@@ -83,7 +91,7 @@ namespace _403unlocker.Notification
             }
 
             Size = new Size(label1.Location.X + label1.Size.Width + 46, label1.Location.Y + label1.Size.Height + 111);
-
+            
             int h = Size.Height - (buttonNo.Size.Height + 55);
             int w = Size.Width - (buttonOk.Size.Width + 32);
             buttonNo.Location = new Point(w, h);

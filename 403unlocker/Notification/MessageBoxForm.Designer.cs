@@ -1,4 +1,4 @@
-﻿namespace _403unlocker.Notification
+namespace _403unlocker.Notification
 {
     partial class MessageBoxForm
     {
