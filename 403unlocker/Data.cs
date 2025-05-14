@@ -95,7 +95,6 @@ namespace _403unlocker
                 new DnsConfig{ Name = "LinkedIn Suggested", DNS = "87.107.52.11" },
                 new DnsConfig{ Name = "LinkedIn Suggested", DNS = "87.107.52.13" },
                 new DnsConfig{ Name = "pishgaman", DNS = "5.202.100.101" },
-                // new DnsConfig{ Name = "darzg.ir", DNS = "37.27.41.228" },
                 new DnsConfig{ Name = "sheltertm.com", DNS = "94.103.125.157" },
                 new DnsConfig{ Name = "sheltertm.com", DNS = "94.103.125.158" },
                 new DnsConfig{ Name = "shatel.ir (rasana)", DNS = "85.15.1.15" },
