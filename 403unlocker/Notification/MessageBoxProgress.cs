@@ -1,4 +1,4 @@
-﻿using _403unlocker.Config;
+using _403unlocker.Config;
 using _403unlocker.Ping;
 using System;
 using System.Collections.Generic;
@@ -21,12 +21,12 @@ namespace _403unlocker.Notification
         private TimeSpan timeSpan;
         private List<Task> tasks;
 
-        public MessageBoxProgress(List<Task> tasks, int eachTaskThreadCount, int eachThreadTime)
+        public MessageBoxProgress(List<Task> tasks, int eachThreadTaskCount, int eachThreadTime)
         {
             InitializeComponent();
 
             this.tasks = tasks;
-            progressBar1.Maximum = tasks.Count * eachTaskThreadCount;
+            progressBar1.Maximum = tasks.Count * eachThreadTaskCount;
 
             Progress<ProgressReport> progress = new Progress<ProgressReport>();
             progress.ProgressChanged += (o, report) =>
@@ -39,7 +39,7 @@ namespace _403unlocker.Notification
             };
             DnsBenchmark.progress = progress;
 
-            timeSpan = TimeSpan.FromMilliseconds(eachTaskThreadCount * eachThreadTime);
+            timeSpan = TimeSpan.FromMilliseconds(eachThreadTaskCount * eachThreadTime);
             labelTimeStatus.Text = $"Estimated Time:    {timeSpan:mm\\:ss}";
         }
 

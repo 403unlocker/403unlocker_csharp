@@ -133,7 +133,7 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void sitePingButton_Click(object sender, EventArgs e)
+        private async void sitePingButton_Click(object sender, EventArgs e)
         {
             string hostName = "";
             using (GetUrlForm form = new GetUrlForm())
@@ -146,33 +146,8 @@ namespace _403unlocker.Ping
                 hostName = form.comboBoxUrl.Text;
             }
 
-            Uri uri = new Uri($"https://www.{hostName}");
-
-            List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.ByPass(uri))).ToList();
+            List<Task> tasks = dnsBinding.Select(x => Task.Run(async () => await x.ByPass(hostName))).ToList();
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds + Settings.ByPass.HttpRequestTimeOutInMiliSeconds))
-            {
-                form.ShowDialog();
-                dataGridView1.Invalidate();
-            }
-        }
-
-        private void buttonNsLookUp_Click(object sender, EventArgs e)
-        {
-            string hostName = "";
-            using (GetUrlForm form = new GetUrlForm())
-            {
-                form.ShowDialog();
-                if (!form.isOkPressed)
-                {
-                    return;
-                }
-                hostName = form.comboBoxUrl.Text;
-            }
-
-            Uri uri = new Uri($"https://www.{hostName}");
-
-            List<Task> tasks = dnsBinding.Select(x => Task.Run(() => x.NsLookUp(uri))).ToList();
-            using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds))
             {
                 form.ShowDialog();
                 dataGridView1.Invalidate();

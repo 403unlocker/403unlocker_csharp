@@ -39,31 +39,32 @@ namespace _403unlocker
             }
         }
 
-        private static HttpClient HttpRequestHeaders(Uri uri)
+        private static HttpClient HttpRequestHeaders(string hostName)
         {
             HttpClientHandler handler = new HttpClientHandler();
-            handler.UseCookies = true;
+            handler.UseCookies = false;
+            handler.AllowAutoRedirect = true;
+
+            HttpClient client = new HttpClient(handler);
 
             // content to accept in response
-            HttpClient client = new HttpClient(handler);
             client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
             // OS, browser version, html layout rendering engine
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
-            client.DefaultRequestHeaders.Host = uri.Host;
             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0");
 
-            client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
+            client.DefaultRequestHeaders.Host = hostName;
 
             return client;
         }
 
-        public async static Task<HtmlDocument> HttpResponseHtml(Uri uri)
+        public async static Task<HtmlDocument> HttpResponseHtml(string hostName)
         {
-            HttpClient client = HttpRequestHeaders(uri);
+            HttpClient client = HttpRequestHeaders(hostName);
 
             // get html as string
-            string htmlString = await client.GetStringAsync(uri);
+            string htmlString = await client.GetStringAsync($"https://www.{hostName}");
 
             // convert html to tree
             var htmlDocument = new HtmlDocument();
@@ -71,19 +72,22 @@ namespace _403unlocker
             return htmlDocument;
         }
 
-        public async static Task<HttpResponseMessage> HttpResponseHeader(string url, Uri uri)
+        public async static Task<HttpResponseMessage> HttpResponseHeader(string hostName, string resolvedIp)
         {
-            HttpClient client = HttpRequestHeaders(uri);
+            using (HttpClient client = HttpRequestHeaders(hostName))
+            {
+                client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
 
-            // get html response
-            HttpResponseMessage htmlResponse = await client.GetAsync(url);
-            return htmlResponse;
+                // get html response
+                HttpResponseMessage htmlResponse = await client.GetAsync($"https://{resolvedIp}:443");
+                return htmlResponse;
+            }
         }
 
-        public async static Task<string[]> ResolveDNS(string dns, Uri uri)
+        public async static Task<string[]> ResolveDNS(string DnsIp, string hostName)
         {
             // initialize settings
-            var options = new LookupClientOptions(IPAddress.Parse(dns))
+            var options = new LookupClientOptions(IPAddress.Parse(DnsIp))
             {
                 ContinueOnDnsError = false,
                 UseCache = false,
@@ -99,14 +103,14 @@ namespace _403unlocker
             List<string> addresses = new List<string>();
             try
             {
-                // without www.
-                var response = await lookup.QueryAsync(uri.Host.Replace("www.", ""), QueryType.A);
+                // example.com
+                var response = await lookup.QueryAsync(hostName, QueryType.A);
                 addresses.AddRange(response.Answers.OfType<ARecord>().Select(x => x.Address.ToString()));
             }
             catch (DnsResponseException)
             {
-                // hostname: www.example.com
-                var response = await lookup.QueryAsync(uri.Host, QueryType.A);
+                // www.example.com
+                var response = await lookup.QueryAsync($"www.{hostName}", QueryType.A);
                 addresses.AddRange(response.Answers.OfType<ARecord>().Select(x => x.Address.ToString()));
             }
 
