@@ -63,6 +63,8 @@ namespace _403unlocker.Ping
             this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.shareDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStripDataGridView.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -149,22 +151,23 @@ namespace _403unlocker.Ping
             this.contextMenuStripDataGridView.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.contextMenuStripDataGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyDnsCellToolStripMenuItem,
-            this.searchDNSNameToolStripMenuItem});
+            this.searchDNSNameToolStripMenuItem,
+            this.shareDNSToolStripMenuItem});
             this.contextMenuStripDataGridView.Name = "contextMenuStrip1";
             this.contextMenuStripDataGridView.ShowImageMargin = false;
-            this.contextMenuStripDataGridView.Size = new System.Drawing.Size(146, 48);
+            this.contextMenuStripDataGridView.Size = new System.Drawing.Size(156, 92);
             // 
             // copyDnsCellToolStripMenuItem
             // 
             this.copyDnsCellToolStripMenuItem.Name = "copyDnsCellToolStripMenuItem";
-            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.copyDnsCellToolStripMenuItem.Text = "Copy DNS";
             this.copyDnsCellToolStripMenuItem.Click += new System.EventHandler(this.copyDnsCellToolStripMenuItem_Click);
             // 
             // searchDNSNameToolStripMenuItem
             // 
             this.searchDNSNameToolStripMenuItem.Name = "searchDNSNameToolStripMenuItem";
-            this.searchDNSNameToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.searchDNSNameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.searchDNSNameToolStripMenuItem.Text = "Search DNS Name";
             this.searchDNSNameToolStripMenuItem.Click += new System.EventHandler(this.searchDNSNameToolStripMenuItem_Click);
             // 
@@ -401,6 +404,22 @@ namespace _403unlocker.Ping
             this.toolStripMenuItem2.Text = "Exit";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
+            // shareDNSToolStripMenuItem
+            // 
+            this.shareDNSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generateQRCodeToolStripMenuItem});
+            this.shareDNSToolStripMenuItem.Name = "shareDNSToolStripMenuItem";
+            this.shareDNSToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.shareDNSToolStripMenuItem.Text = "Share";
+            // 
+            // generateQRCodeToolStripMenuItem
+            // 
+            this.generateQRCodeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.generateQRCodeToolStripMenuItem.Name = "generateQRCodeToolStripMenuItem";
+            this.generateQRCodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.generateQRCodeToolStripMenuItem.Text = "Generate QR Code";
+            this.generateQRCodeToolStripMenuItem.Click += new System.EventHandler(this.generateQRCodeToolStripMenuItem_Click);
+            // 
             // DnsBenchmarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,5 +489,7 @@ namespace _403unlocker.Ping
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showIconOnTaskTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shareDNSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generateQRCodeToolStripMenuItem;
     }
 }

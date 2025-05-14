@@ -24,6 +24,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Collections.Specialized.BitVector32;
 using _403unlocker.Ping.Search_Dns_Name;
 using System.Runtime.InteropServices;
+using _403unlocker.QR_Code;
 
 namespace _403unlocker.Ping
 {
@@ -391,6 +392,30 @@ namespace _403unlocker.Ping
         {
             Settings.iconTray = showIconOnTaskTrayToolStripMenuItem.Checked;
             notifyIcon1.Visible = showIconOnTaskTrayToolStripMenuItem.Checked;
+        }
+
+        private void generateQRCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+
+                using (QrCodeForm f = new QrCodeForm(selectedRowDns))
+                {
+                    f.ShowDialog();
+                }
+            }
+            else
+            {
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.Title = "Please select a row";
+                    form.Caption = "Can't Create";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
+            }
         }
     }
 }
