@@ -1,4 +1,4 @@
-﻿using _403unlocker.Notification;
+using _403unlocker.Notification;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -144,7 +144,7 @@ namespace _403unlocker.Add.Custom_DNS
             {
                 dns.Add(new DnsConfig()
                 {
-                    Name = textBoxPrimaryDns.Text,
+                    Provider = textBoxPrimaryDns.Text,
                     DNS = textBoxPrimaryDns.Text,
                 });
             }
@@ -152,7 +152,7 @@ namespace _403unlocker.Add.Custom_DNS
             {
                 dns.Add(new DnsConfig()
                 {
-                    Name = textBoxPrimaryDns.Text,
+                    Provider = textBoxPrimaryDns.Text,
                     DNS = textBoxSecondaryDns.Text,
                 });
             }

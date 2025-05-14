@@ -1,4 +1,4 @@
-﻿namespace _403unlocker.Add.Custom_DNS
+namespace _403unlocker.Add.Custom_DNS
 {
     partial class DnsCustomForm
     {
@@ -155,9 +155,9 @@
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(12, 14);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(41, 13);
+            this.labelName.Size = new System.Drawing.Size(52, 13);
             this.labelName.TabIndex = 3;
-            this.labelName.Text = "Name: ";
+            this.labelName.Text = "Provider: ";
             // 
             // labelPrimaryDns
             // 

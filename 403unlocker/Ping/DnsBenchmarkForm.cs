@@ -200,7 +200,7 @@ namespace _403unlocker.Ping
             var invalid = dnsBinding
                 .Where(dns => dns.Latency == -1)
                 .OrderBy(dns => dns.Status)
-                .ThenBy(dns => dns.Name);
+                .ThenBy(dns => dns.Provider);
 
             List<DnsBenchmark> result = valid.Concat(invalid).ToList();
 

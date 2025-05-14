@@ -31,7 +31,7 @@ namespace _403unlocker.Ping
     public class DnsBenchmark
     {
         private static string path = "DnsBenchmark.json";
-        public string Name { get; set; } = "";
+        public string Provider { get; set; } = "";
         public string DNS { get; set; } = "";
         public string Status { get; set; } = "";
         public int Latency { get; set; } = -1;
@@ -45,7 +45,7 @@ namespace _403unlocker.Ping
 
         public DnsBenchmark(DnsConfig dnsRecord)
         {
-            Name = dnsRecord.Name;
+            Provider = dnsRecord.Provider;
             DNS = dnsRecord.DNS;
         }
 
@@ -179,7 +179,7 @@ namespace _403unlocker.Ping
 
         public override string ToString()
         {
-            return Name;
+            return Provider;
         }
 
         public static async Task<List<DnsBenchmark>> ReadJson()

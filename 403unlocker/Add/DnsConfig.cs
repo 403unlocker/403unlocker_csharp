@@ -1,4 +1,4 @@
-﻿using _403unlocker.Ping;
+using _403unlocker.Ping;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace _403unlocker.Add
 {
     public class DnsConfig
     {
-        public virtual string Name { get; set; } = "";
+        public virtual string Provider { get; set; } = "";
         public virtual string DNS { get; set; } = "";
 
         public DnsConfig()
@@ -21,13 +21,13 @@ namespace _403unlocker.Add
 
         public DnsConfig(DnsBenchmark dnsBenchmark)
         {
-            Name = dnsBenchmark.Name;
+            Provider = dnsBenchmark.Provider;
             DNS = dnsBenchmark.DNS;
         }
 
         public override string ToString()
         {
-            return Name;
+            return Provider;
         }
 
         public override bool Equals(object obj)
