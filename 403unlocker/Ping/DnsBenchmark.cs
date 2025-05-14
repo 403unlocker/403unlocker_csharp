@@ -103,7 +103,7 @@ namespace _403unlocker.Ping
             ProgressReset();
             try
             {
-                string[] resolvedIP = await NetworkUtility.ResolveDNS(DNS, hostName);
+                string[] resolvedIP = await NetworkUtility.ResolveHostName(DNS, hostName);
                 if (resolvedIP.Length == 0)
                 {
                     Status = "Get No IP";
@@ -113,7 +113,7 @@ namespace _403unlocker.Ping
                 else
                 {
                     DateTime now = DateTime.Now;
-                    var htmlreq = await NetworkUtility.HttpResponseHeader(hostName, resolvedIP[0]);
+                    var htmlreq = await NetworkUtility.HttpResponseMessage(hostName, resolvedIP[0]);
                     DateTime after = DateTime.Now;
 
                     TimeSpan timeSpan = after - now;

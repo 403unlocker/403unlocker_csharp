@@ -39,7 +39,7 @@ namespace _403unlocker
             }
         }
 
-        private static HttpClient HttpRequestHeaders(string hostName)
+        private static HttpClient SetHttpRequestHeaders(string hostName)
         {
             HttpClientHandler handler = new HttpClientHandler();
             handler.UseCookies = false;
@@ -61,7 +61,7 @@ namespace _403unlocker
 
         public async static Task<HtmlDocument> HttpResponseHtml(string hostName)
         {
-            HttpClient client = HttpRequestHeaders(hostName);
+            HttpClient client = SetHttpRequestHeaders(hostName);
 
             // get html as string
             string htmlString = await client.GetStringAsync($"https://www.{hostName}");
@@ -72,9 +72,9 @@ namespace _403unlocker
             return htmlDocument;
         }
 
-        public async static Task<HttpResponseMessage> HttpResponseHeader(string hostName, string resolvedIp)
+        public async static Task<HttpResponseMessage> HttpResponseMessage(string hostName, string resolvedIp)
         {
-            using (HttpClient client = HttpRequestHeaders(hostName))
+            using (HttpClient client = SetHttpRequestHeaders(hostName))
             {
                 client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
 
@@ -84,10 +84,10 @@ namespace _403unlocker
             }
         }
 
-        public async static Task<string[]> ResolveDNS(string DnsIp, string hostName)
+        public async static Task<string[]> ResolveHostName(string Dns, string hostName)
         {
             // initialize settings
-            var options = new LookupClientOptions(IPAddress.Parse(DnsIp))
+            var options = new LookupClientOptions(IPAddress.Parse(Dns))
             {
                 ContinueOnDnsError = false,
                 UseCache = false,
