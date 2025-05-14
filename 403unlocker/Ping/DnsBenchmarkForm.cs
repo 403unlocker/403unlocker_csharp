@@ -22,7 +22,7 @@ using _403unlocker.ByPass_Url;
 using System.Net;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Collections.Specialized.BitVector32;
-using _403unlocker.Ping.Search_Dns_Name;
+using _403unlocker.Ping.Search;
 using System.Runtime.InteropServices;
 using _403unlocker.QR_Code;
 
@@ -346,36 +346,9 @@ namespace _403unlocker.Ping
             labelDnsCount.Text = "Count: " + dataGridView1.RowCount;
         }
 
-        private void searchDNSNameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (SearchDnsNameForm searchDnsName = new SearchDnsNameForm())
-            {
-                searchDnsName.ShowDialog();
-                if (searchDnsName.isOkPressed)
-                {
-                    DnsBenchmark dnsSearched = dnsBinding.First(x => x.DNS == searchDnsName.textBoxDns.Text);
-                    int index = dnsBinding.IndexOf(dnsSearched);
-                    if (index > 0)
-                    {
-                        dataGridView1.Rows[index].Selected = true;
-                        if (!dataGridView1.Rows[index].Displayed)
-                        {
-                            dataGridView1.FirstDisplayedScrollingRowIndex = index;
-                        }
-                    }
-                    else
-                    {
-                        using (MessageBoxForm messageBox = new MessageBoxForm())
-                        {
-                            messageBox.Title = $"\"{searchDnsName.textBoxDns.Text}\" is not in table";
-                            messageBox.Caption = "DNS Not Found";
-                            messageBox.Buttons = MessageBoxButtons.OK;
-                            messageBox.Picture = MessageBoxIcon.Information;
-                            messageBox.ShowDialog();
-                        }
-                    }
-                }
-            }
+            
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -414,6 +387,80 @@ namespace _403unlocker.Ping
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Stop;
                     form.ShowDialog();
+                }
+            }
+        }
+
+        private void providerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SearchForm form = new SearchForm(false))
+            {
+                form.ShowDialog();
+                if (form.isOkPressed)
+                {
+                    List<string> searchedList = dnsBinding.ToList().FindAll(row =>
+                    {
+                        // IndexOf returns an int indicating the position of searchText
+                        int index = row.Provider.IndexOf(form.textBox1.Text, StringComparison.OrdinalIgnoreCase);
+
+                        // We use the returned int to decide if the substring is neither at the start nor the end.
+                        return index >= 0 && index <= row.Provider.Length;
+                    })
+                        .Select(row => row.Provider).ToList();
+
+                    if (searchedList.Count > 0)
+                    {
+                        DnsBenchmark searchedValue = dnsBinding.First(x => x.Provider == searchedList.First());
+                        int index = dnsBinding.IndexOf(searchedValue);
+                        dataGridView1.Rows[index].Selected = true;
+                        if (!dataGridView1.Rows[index].Displayed)
+                        {
+                            dataGridView1.FirstDisplayedScrollingRowIndex = index;
+                        }
+                    }
+                    else
+                    {
+                        using (MessageBoxForm messageBox = new MessageBoxForm())
+                        {
+                            messageBox.Title = $"\"{form.textBox1.Text}\" is not in table";
+                            messageBox.Caption = "Provider Not Found";
+                            messageBox.Buttons = MessageBoxButtons.OK;
+                            messageBox.Picture = MessageBoxIcon.Information;
+                            messageBox.ShowDialog();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void dNSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SearchForm form = new SearchForm(true))
+            {
+                form.ShowDialog();
+                if (form.isOkPressed)
+                {
+                    DnsBenchmark searchedValue = dnsBinding.First(x => x.DNS == form.textBox1.Text);
+                    int index = dnsBinding.IndexOf(searchedValue);
+                    if (index > 0)
+                    {
+                        dataGridView1.Rows[index].Selected = true;
+                        if (!dataGridView1.Rows[index].Displayed)
+                        {
+                            dataGridView1.FirstDisplayedScrollingRowIndex = index;
+                        }
+                    }
+                    else
+                    {
+                        using (MessageBoxForm messageBox = new MessageBoxForm())
+                        {
+                            messageBox.Title = $"\"{form.textBox1.Text}\" is not in table";
+                            messageBox.Caption = "DNS Not Found";
+                            messageBox.Buttons = MessageBoxButtons.OK;
+                            messageBox.Picture = MessageBoxIcon.Information;
+                            messageBox.ShowDialog();
+                        }
+                    }
                 }
             }
         }

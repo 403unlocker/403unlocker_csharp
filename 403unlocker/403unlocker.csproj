@@ -125,11 +125,11 @@
     </Compile>
     <Compile Include="NetworkUtility.cs" />
     <Compile Include="ByPass Url\UrlConfig.cs" />
-    <Compile Include="Ping\Search Dns Name\SearchDnsNameForm.cs">
+    <Compile Include="Ping\Search\SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ping\Search Dns Name\SearchDnsNameForm.Designer.cs">
-      <DependentUpon>SearchDnsNameForm.cs</DependentUpon>
+    <Compile Include="Ping\Search\SearchForm.Designer.cs">
+      <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,8 +172,8 @@
     <EmbeddedResource Include="Ping\DnsBenchmarkForm.resx">
       <DependentUpon>DnsBenchmarkForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ping\Search Dns Name\SearchDnsNameForm.resx">
-      <DependentUpon>SearchDnsNameForm.cs</DependentUpon>
+    <EmbeddedResource Include="Ping\Search\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,6 +1,6 @@
-﻿namespace _403unlocker.Ping.Search_Dns_Name
+namespace _403unlocker.Ping.Search
 {
-    partial class SearchDnsNameForm
+    partial class SearchForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.textBoxDns = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -42,7 +42,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(168, 40);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(79, 23);
-            this.buttonCancel.TabIndex = 22;
+            this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -54,7 +54,7 @@
             this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 15);
-            this.label1.TabIndex = 21;
+            this.label1.TabIndex = 4;
             this.label1.Text = "DNS: ";
             // 
             // buttonOk
@@ -65,28 +65,28 @@
             this.buttonOk.Location = new System.Drawing.Point(83, 40);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(79, 23);
-            this.buttonOk.TabIndex = 20;
+            this.buttonOk.TabIndex = 2;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = false;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // textBoxDns
+            // textBox1
             // 
-            this.textBoxDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.textBoxDns.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDns.Location = new System.Drawing.Point(57, 12);
-            this.textBoxDns.Name = "textBoxDns";
-            this.textBoxDns.Size = new System.Drawing.Size(190, 22);
-            this.textBoxDns.TabIndex = 23;
-            this.textBoxDns.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDns_KeyPress);
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(57, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(190, 22);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDns_KeyPress);
             // 
-            // SearchDnsNameForm
+            // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(259, 75);
-            this.Controls.Add(this.textBoxDns);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOk);
@@ -94,11 +94,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SearchDnsNameForm";
+            this.Name = "SearchForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Please enter DNS...";
+            this.Text = "Please enter";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,6 +109,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonOk;
-        public System.Windows.Forms.TextBox textBoxDns;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
