@@ -260,12 +260,12 @@ namespace _403unlocker.Config
             0});
             this.numericUpDownHttpRequestTimeOut.Location = new System.Drawing.Point(176, 334);
             this.numericUpDownHttpRequestTimeOut.Maximum = new decimal(new int[] {
-            20000,
+            30000,
             0,
             0,
             0});
             this.numericUpDownHttpRequestTimeOut.Minimum = new decimal(new int[] {
-            2000,
+            1000,
             0,
             0,
             0});
@@ -274,7 +274,7 @@ namespace _403unlocker.Config
             this.numericUpDownHttpRequestTimeOut.Size = new System.Drawing.Size(53, 20);
             this.numericUpDownHttpRequestTimeOut.TabIndex = 10;
             this.numericUpDownHttpRequestTimeOut.Value = new decimal(new int[] {
-            3000,
+            10000,
             0,
             0,
             0});
@@ -324,7 +324,7 @@ namespace _403unlocker.Config
             this.numericUpDownDnsResolveTimeOut.Size = new System.Drawing.Size(53, 20);
             this.numericUpDownDnsResolveTimeOut.TabIndex = 12;
             this.numericUpDownDnsResolveTimeOut.Value = new decimal(new int[] {
-            2000,
+            5000,
             0,
             0,
             0});
@@ -387,8 +387,6 @@ namespace _403unlocker.Config
             // checkBoxStartWithWindows
             // 
             this.checkBoxStartWithWindows.AutoSize = true;
-            this.checkBoxStartWithWindows.Checked = true;
-            this.checkBoxStartWithWindows.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxStartWithWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxStartWithWindows.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.checkBoxStartWithWindows.Location = new System.Drawing.Point(12, 31);
@@ -443,9 +441,10 @@ namespace _403unlocker.Config
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "403 Setting";
+            this.Text = "Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPingTimeOut)).EndInit();
