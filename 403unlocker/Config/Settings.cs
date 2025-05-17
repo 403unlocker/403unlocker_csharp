@@ -10,12 +10,16 @@ using System.Configuration;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Xml.Serialization;
+using Microsoft.Win32;
+using System.Windows.Input;
+using System.Windows.Documents;
 
 namespace _403unlocker.Config
 {
     public class SettingsAttributes
     {
         public bool IconTray { get; set; }
+        public bool StartUpIsEnabled { get; set; }
         public int PingPacketCount { get; set; }
         public ushort PingPacketSize { get; set; }
         public int PingTimeOutInMiliSeconds { get; set; }
@@ -27,8 +31,9 @@ namespace _403unlocker.Config
 
     internal static class Settings
     {
-        private static string path = "403unlocker.config";
+        private static string path = $"{Application.ProductName}.config";
         public static bool iconTray = true;
+
         internal static class Ping
         {
             public static int PacketCount { get; set; } = 4;

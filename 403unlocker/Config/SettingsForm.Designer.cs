@@ -1,4 +1,4 @@
-﻿namespace _403unlocker.Config
+namespace _403unlocker.Config
 {
     partial class SettingsForm
     {
@@ -50,6 +50,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.checkBoxStartWithWindows = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPingTimeOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketSize)).BeginInit();
@@ -64,7 +66,7 @@
             this.checkBoxAutoSelection.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAutoSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAutoSelection.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.checkBoxAutoSelection.Location = new System.Drawing.Point(12, 57);
+            this.checkBoxAutoSelection.Location = new System.Drawing.Point(12, 123);
             this.checkBoxAutoSelection.Name = "checkBoxAutoSelection";
             this.checkBoxAutoSelection.Size = new System.Drawing.Size(112, 20);
             this.checkBoxAutoSelection.TabIndex = 14;
@@ -77,7 +79,7 @@
             this.buttonApply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonApply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonApply.ForeColor = System.Drawing.Color.Black;
-            this.buttonApply.Location = new System.Drawing.Point(173, 303);
+            this.buttonApply.Location = new System.Drawing.Point(173, 369);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(79, 23);
             this.buttonApply.TabIndex = 13;
@@ -92,7 +94,7 @@
             this.comboBoxNetworkInterfaces.Enabled = false;
             this.comboBoxNetworkInterfaces.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBoxNetworkInterfaces.FormattingEnabled = true;
-            this.comboBoxNetworkInterfaces.Location = new System.Drawing.Point(201, 30);
+            this.comboBoxNetworkInterfaces.Location = new System.Drawing.Point(201, 96);
             this.comboBoxNetworkInterfaces.Name = "comboBoxNetworkInterfaces";
             this.comboBoxNetworkInterfaces.Size = new System.Drawing.Size(121, 21);
             this.comboBoxNetworkInterfaces.TabIndex = 1;
@@ -102,7 +104,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label1.Location = new System.Drawing.Point(12, 31);
+            this.label1.Location = new System.Drawing.Point(12, 97);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(183, 16);
             this.label1.TabIndex = 0;
@@ -115,7 +117,7 @@
             0,
             0,
             0});
-            this.numericUpDownPingTimeOut.Location = new System.Drawing.Point(82, 179);
+            this.numericUpDownPingTimeOut.Location = new System.Drawing.Point(82, 245);
             this.numericUpDownPingTimeOut.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -138,7 +140,7 @@
             // 
             // numericUpDownPacketCount
             // 
-            this.numericUpDownPacketCount.Location = new System.Drawing.Point(110, 128);
+            this.numericUpDownPacketCount.Location = new System.Drawing.Point(110, 194);
             this.numericUpDownPacketCount.Minimum = new decimal(new int[] {
             1,
             0,
@@ -160,7 +162,7 @@
             0,
             0,
             0});
-            this.numericUpDownPacketSize.Location = new System.Drawing.Point(102, 153);
+            this.numericUpDownPacketSize.Location = new System.Drawing.Point(102, 219);
             this.numericUpDownPacketSize.Maximum = new decimal(new int[] {
             20480,
             0,
@@ -186,7 +188,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label4.Location = new System.Drawing.Point(12, 179);
+            this.label4.Location = new System.Drawing.Point(12, 245);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 16);
             this.label4.TabIndex = 3;
@@ -197,7 +199,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label3.Location = new System.Drawing.Point(12, 128);
+            this.label3.Location = new System.Drawing.Point(12, 194);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 16);
             this.label3.TabIndex = 2;
@@ -208,7 +210,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label2.Location = new System.Drawing.Point(12, 153);
+            this.label2.Location = new System.Drawing.Point(12, 219);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 16);
             this.label2.TabIndex = 1;
@@ -219,7 +221,7 @@
             this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancel.Location = new System.Drawing.Point(258, 303);
+            this.buttonCancel.Location = new System.Drawing.Point(258, 369);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(79, 23);
             this.buttonCancel.TabIndex = 14;
@@ -232,7 +234,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label5.Location = new System.Drawing.Point(12, 106);
+            this.label5.Location = new System.Drawing.Point(12, 172);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 18);
             this.label5.TabIndex = 7;
@@ -243,7 +245,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label6.Location = new System.Drawing.Point(12, 221);
+            this.label6.Location = new System.Drawing.Point(12, 287);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(161, 18);
             this.label6.TabIndex = 8;
@@ -256,7 +258,7 @@
             0,
             0,
             0});
-            this.numericUpDownHttpRequestTimeOut.Location = new System.Drawing.Point(176, 268);
+            this.numericUpDownHttpRequestTimeOut.Location = new System.Drawing.Point(176, 334);
             this.numericUpDownHttpRequestTimeOut.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -282,7 +284,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label7.Location = new System.Drawing.Point(12, 242);
+            this.label7.Location = new System.Drawing.Point(12, 308);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(147, 16);
             this.label7.TabIndex = 9;
@@ -293,7 +295,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label8.Location = new System.Drawing.Point(12, 268);
+            this.label8.Location = new System.Drawing.Point(12, 334);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 16);
             this.label8.TabIndex = 11;
@@ -306,7 +308,7 @@
             0,
             0,
             0});
-            this.numericUpDownDnsResolveTimeOut.Location = new System.Drawing.Point(165, 242);
+            this.numericUpDownDnsResolveTimeOut.Location = new System.Drawing.Point(165, 308);
             this.numericUpDownDnsResolveTimeOut.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -332,7 +334,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label9.Location = new System.Drawing.Point(12, 9);
+            this.label9.Location = new System.Drawing.Point(12, 75);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(123, 18);
             this.label9.TabIndex = 15;
@@ -343,7 +345,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label10.Location = new System.Drawing.Point(161, 153);
+            this.label10.Location = new System.Drawing.Point(161, 219);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(41, 16);
             this.label10.TabIndex = 16;
@@ -354,7 +356,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label12.Location = new System.Drawing.Point(137, 179);
+            this.label12.Location = new System.Drawing.Point(137, 245);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(84, 16);
             this.label12.TabIndex = 18;
@@ -365,7 +367,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label11.Location = new System.Drawing.Point(224, 242);
+            this.label11.Location = new System.Drawing.Point(224, 308);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 16);
             this.label11.TabIndex = 19;
@@ -376,18 +378,45 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.label13.Location = new System.Drawing.Point(235, 268);
+            this.label13.Location = new System.Drawing.Point(235, 334);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(84, 16);
             this.label13.TabIndex = 20;
             this.label13.Text = "Mili Seconds";
+            // 
+            // checkBoxStartWithWindows
+            // 
+            this.checkBoxStartWithWindows.AutoSize = true;
+            this.checkBoxStartWithWindows.Checked = true;
+            this.checkBoxStartWithWindows.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStartWithWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxStartWithWindows.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.checkBoxStartWithWindows.Location = new System.Drawing.Point(12, 31);
+            this.checkBoxStartWithWindows.Name = "checkBoxStartWithWindows";
+            this.checkBoxStartWithWindows.Size = new System.Drawing.Size(136, 20);
+            this.checkBoxStartWithWindows.TabIndex = 21;
+            this.checkBoxStartWithWindows.Text = "Start with Windows";
+            this.checkBoxStartWithWindows.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.label14.Location = new System.Drawing.Point(12, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(59, 18);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "Startup:";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(349, 338);
+            this.ClientSize = new System.Drawing.Size(349, 404);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.checkBoxStartWithWindows);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label12);
@@ -451,5 +480,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBoxStartWithWindows;
+        private System.Windows.Forms.Label label14;
     }
 }

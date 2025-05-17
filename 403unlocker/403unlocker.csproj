@@ -94,6 +94,7 @@
     <Compile Include="ByPass Url\GetUrlForm.Designer.cs">
       <DependentUpon>GetUrlForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Config\StartUp.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DnsCommand.cs" />
     <Compile Include="Extention.cs" />

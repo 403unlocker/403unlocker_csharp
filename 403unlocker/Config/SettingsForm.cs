@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using _403unlocker.Config;
 using _403unlocker.Ping;
+using System.Configuration;
 
 namespace _403unlocker.Config
 {
@@ -22,6 +23,8 @@ namespace _403unlocker.Config
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            checkBoxAutoSelection.Checked = StartUp.isEnabled;
+
             checkBoxAutoSelection.Checked = Settings.NetworkAdaptor.AutoSelection;
 
             comboBoxNetworkInterfaces.AutoCompleteCustomSource.Clear();
@@ -39,6 +42,8 @@ namespace _403unlocker.Config
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
+            StartUp.isEnabled = checkBoxAutoSelection.Checked;
+
             Settings.NetworkAdaptor.AutoSelection = checkBoxAutoSelection.Checked;
 
             Settings.NetworkAdaptor.SelectedNetworkInterface = comboBoxNetworkInterfaces.SelectedItem as string;
