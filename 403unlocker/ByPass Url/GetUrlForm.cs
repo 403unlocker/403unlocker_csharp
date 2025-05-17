@@ -50,7 +50,7 @@ namespace _403unlocker.ByPass_Url
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Please just type hostname\n" +
+                    form.LabelText = "Please just type hostname\n" +
                                  "\n" +
                                  "For e.g.:\n" +
                                  "google.com";

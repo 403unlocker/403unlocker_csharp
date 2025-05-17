@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -85,7 +85,7 @@ namespace _403unlocker.Add
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Do you want to discard changes?";
+                    form.LabelText = "Do you want to discard changes?";
                     form.Caption = "Closing";
                     form.Buttons = MessageBoxButtons.YesNo;
                     form.Picture = MessageBoxIcon.Question;
@@ -111,7 +111,7 @@ namespace _403unlocker.Add
         {
             using (MessageBoxForm form = new MessageBoxForm())
             {
-                form.Title = "Are you sure about that?";
+                form.LabelText = "Are you sure about that?";
                 form.Caption = "We are clearing";
                 form.Buttons = MessageBoxButtons.YesNo;
                 form.Picture = MessageBoxIcon.Question;
@@ -155,7 +155,7 @@ namespace _403unlocker.Add
                     ScrollDownToEnd();
                     using (MessageBoxForm form = new MessageBoxForm())
                     {
-                        form.Title = "New DNS(s) has been successfully added!\n" +
+                        form.LabelText = "New DNS(s) has been successfully added!\n" +
                                      "\n" +
                                      $"New DNSs: {newDnsCount}\n" +
                                      $"Duplicate DNSs: {duplicateDnsCount}";
@@ -169,7 +169,7 @@ namespace _403unlocker.Add
                 {
                     using (MessageBoxForm form = new MessageBoxForm())
                     {
-                        form.Title = "DNS(s) already exist";
+                        form.LabelText = "DNS(s) already exist";
                         form.Caption = "No Duplicates Allowed 🛑";
                         form.Buttons = MessageBoxButtons.OK;
                         form.Picture = MessageBoxIcon.Warning;
@@ -190,7 +190,7 @@ namespace _403unlocker.Add
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "You have time to wait, be patient";
+                    form.LabelText = "You have time to wait, be patient";
                     form.Caption = "Hold Your Horses🐎!";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Hand;
@@ -208,7 +208,7 @@ namespace _403unlocker.Add
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = Data.DnsScraper.Errors.Message;
+                    form.LabelText = Data.DnsScraper.Errors.Message;
                     form.Caption = "Somthing went wrong";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Error;
@@ -283,7 +283,7 @@ namespace _403unlocker.Add
 
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = $"Are you sure you want to delete \"{selectedRowDns}\" DNS?";
+                    form.LabelText = $"Are you sure you want to delete \"{selectedRowDns}\" DNS?";
                     form.Caption = "Confirm Delete";
                     form.Buttons = MessageBoxButtons.YesNo;
                     form.Picture = MessageBoxIcon.Question;
@@ -299,7 +299,7 @@ namespace _403unlocker.Add
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Please select a DNS row before deleting it.";
+                    form.LabelText = "Please select a DNS row before deleting it.";
                     form.Caption = "Can't Delete!";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Stop;

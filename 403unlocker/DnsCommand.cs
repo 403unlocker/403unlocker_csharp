@@ -80,26 +80,26 @@ namespace _403unlocker
 
         private static void Respond(Dictionary<string, string> dict, string action)
         {
-            string title, caption = "Successful";
+            string text, caption = "Successful";
 
             string output = dict["output"];
             string error = dict["error"];
 
             if (!string.IsNullOrEmpty(error))
             {
-                title = error;
+                text = error;
                 caption = "Somthing went wrong";
             }
             else if (output != "\r\n" && !string.IsNullOrEmpty(output))
             {
-                title = output;
+                text = output;
                 caption = "A Message form CMD";
             }
             else
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = action;
+                    form.LabelText = action;
                     form.Caption = caption;
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Information;
@@ -110,7 +110,7 @@ namespace _403unlocker
             }
             using (MessageBoxForm form = new MessageBoxForm())
             {
-                form.Title = title;
+                form.LabelText = text;
                 form.Caption = caption;
                 form.Buttons = MessageBoxButtons.OK;
                 form.Picture = MessageBoxIcon.Error;

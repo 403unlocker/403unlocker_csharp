@@ -145,7 +145,7 @@ namespace _403unlocker.Ping
                 }
                 Latency = -1;
             }
-            catch (TaskCanceledException e)
+            catch (TaskCanceledException)
             {
                 Status = "HTTP TimeOut";
                 Latency = -1;

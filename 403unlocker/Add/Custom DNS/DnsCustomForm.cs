@@ -104,7 +104,7 @@ namespace _403unlocker.Add.Custom_DNS
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Provider Can't Be Empty!";
+                    form.LabelText = "Provider Can't Be Empty!";
                     form.Caption = "Empty Values!";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Stop;
@@ -117,7 +117,7 @@ namespace _403unlocker.Add.Custom_DNS
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Primary DNS & Secondry DNS can't be empty at same time!";
+                    form.LabelText = "Primary DNS & Secondry DNS can't be empty at same time!";
                     form.Caption = "Empty Values!";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Error;
@@ -130,7 +130,7 @@ namespace _403unlocker.Add.Custom_DNS
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "DNS value(s) are not valid!";
+                    form.LabelText = "DNS value(s) are not valid!";
                     form.Caption = "Invalid Value!";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Error;

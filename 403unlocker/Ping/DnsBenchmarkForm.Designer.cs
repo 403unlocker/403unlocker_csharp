@@ -29,18 +29,23 @@ namespace _403unlocker.Ping
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DnsBenchmarkForm));
             this.pcPingButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDataGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyDnsCellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.providerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dNSToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.latencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.providerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byProviderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shareDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortButton = new System.Windows.Forms.Button();
@@ -84,7 +89,7 @@ namespace _403unlocker.Ping
             this.pcPingButton.TabIndex = 10;
             this.pcPingButton.Text = "Ping";
             this.pcPingButton.UseVisualStyleBackColor = false;
-            this.pcPingButton.Click += new System.EventHandler(this.pcPingButton_Click);
+            this.pcPingButton.Click += new System.EventHandler(this.pingButton_Click);
             // 
             // label1
             // 
@@ -106,24 +111,24 @@ namespace _403unlocker.Ping
             this.dataGridView1.BackgroundColor = System.Drawing.Color.Black;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextMenuStripDataGridView;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.dataGridView1.Location = new System.Drawing.Point(13, 48);
@@ -132,14 +137,14 @@ namespace _403unlocker.Ping
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -157,46 +162,91 @@ namespace _403unlocker.Ping
             this.shareDNSToolStripMenuItem});
             this.contextMenuStripDataGridView.Name = "contextMenuStrip1";
             this.contextMenuStripDataGridView.ShowImageMargin = false;
-            this.contextMenuStripDataGridView.Size = new System.Drawing.Size(156, 92);
+            this.contextMenuStripDataGridView.Size = new System.Drawing.Size(85, 70);
             // 
             // copyDnsCellToolStripMenuItem
             // 
+            this.copyDnsCellToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.providerToolStripMenuItem1,
+            this.dNSToolStripMenuItem1,
+            this.statusToolStripMenuItem,
+            this.latencyToolStripMenuItem,
+            this.asCSVToolStripMenuItem});
             this.copyDnsCellToolStripMenuItem.Name = "copyDnsCellToolStripMenuItem";
-            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.copyDnsCellToolStripMenuItem.Text = "Copy DNS";
-            this.copyDnsCellToolStripMenuItem.Click += new System.EventHandler(this.copyDnsCellToolStripMenuItem_Click);
+            this.copyDnsCellToolStripMenuItem.Size = new System.Drawing.Size(84, 22);
+            this.copyDnsCellToolStripMenuItem.Text = "Copy";
+            // 
+            // providerToolStripMenuItem1
+            // 
+            this.providerToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.providerToolStripMenuItem1.Name = "providerToolStripMenuItem1";
+            this.providerToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
+            this.providerToolStripMenuItem1.Text = "Provider";
+            this.providerToolStripMenuItem1.Click += new System.EventHandler(this.providerToolStripMenuItem1_Click);
+            // 
+            // dNSToolStripMenuItem1
+            // 
+            this.dNSToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.dNSToolStripMenuItem1.Name = "dNSToolStripMenuItem1";
+            this.dNSToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
+            this.dNSToolStripMenuItem1.Text = "DNS";
+            this.dNSToolStripMenuItem1.Click += new System.EventHandler(this.dNSToolStripMenuItem1_Click);
+            // 
+            // statusToolStripMenuItem
+            // 
+            this.statusToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
+            this.statusToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.statusToolStripMenuItem.Text = "Status";
+            this.statusToolStripMenuItem.Click += new System.EventHandler(this.statusToolStripMenuItem_Click);
+            // 
+            // latencyToolStripMenuItem
+            // 
+            this.latencyToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.latencyToolStripMenuItem.Name = "latencyToolStripMenuItem";
+            this.latencyToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.latencyToolStripMenuItem.Text = "Latency";
+            this.latencyToolStripMenuItem.Click += new System.EventHandler(this.latencyToolStripMenuItem_Click);
+            // 
+            // asCSVToolStripMenuItem
+            // 
+            this.asCSVToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.asCSVToolStripMenuItem.Name = "asCSVToolStripMenuItem";
+            this.asCSVToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.asCSVToolStripMenuItem.Text = "...as CSV";
+            this.asCSVToolStripMenuItem.Click += new System.EventHandler(this.asCSVToolStripMenuItem_Click);
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.providerToolStripMenuItem,
-            this.dNSToolStripMenuItem});
+            this.byProviderToolStripMenuItem,
+            this.byDNSToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.searchToolStripMenuItem.Text = "Search By";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(84, 22);
+            this.searchToolStripMenuItem.Text = "Search";
             // 
-            // providerToolStripMenuItem
+            // byProviderToolStripMenuItem
             // 
-            this.providerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.providerToolStripMenuItem.Name = "providerToolStripMenuItem";
-            this.providerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.providerToolStripMenuItem.Text = "Provider";
-            this.providerToolStripMenuItem.Click += new System.EventHandler(this.providerToolStripMenuItem_Click);
+            this.byProviderToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.byProviderToolStripMenuItem.Name = "byProviderToolStripMenuItem";
+            this.byProviderToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.byProviderToolStripMenuItem.Text = "...by Provider";
+            this.byProviderToolStripMenuItem.Click += new System.EventHandler(this.byProviderToolStripMenuItem_Click);
             // 
-            // dNSToolStripMenuItem
+            // byDNSToolStripMenuItem
             // 
-            this.dNSToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.dNSToolStripMenuItem.Name = "dNSToolStripMenuItem";
-            this.dNSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.dNSToolStripMenuItem.Text = "DNS";
-            this.dNSToolStripMenuItem.Click += new System.EventHandler(this.dNSToolStripMenuItem_Click);
+            this.byDNSToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.byDNSToolStripMenuItem.Name = "byDNSToolStripMenuItem";
+            this.byDNSToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.byDNSToolStripMenuItem.Text = "...by DNS";
+            this.byDNSToolStripMenuItem.Click += new System.EventHandler(this.byDNSToolStripMenuItem_Click);
             // 
             // shareDNSToolStripMenuItem
             // 
             this.shareDNSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.generateQRCodeToolStripMenuItem});
             this.shareDNSToolStripMenuItem.Name = "shareDNSToolStripMenuItem";
-            this.shareDNSToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.shareDNSToolStripMenuItem.Size = new System.Drawing.Size(84, 22);
             this.shareDNSToolStripMenuItem.Text = "Share";
             // 
             // generateQRCodeToolStripMenuItem
@@ -231,7 +281,7 @@ namespace _403unlocker.Ping
             this.sitePingButton.TabIndex = 13;
             this.sitePingButton.Text = "Bypass";
             this.sitePingButton.UseVisualStyleBackColor = false;
-            this.sitePingButton.Click += new System.EventHandler(this.sitePingButton_Click);
+            this.sitePingButton.Click += new System.EventHandler(this.bypassButton_Click);
             // 
             // menuStrip1
             // 
@@ -465,8 +515,8 @@ namespace _403unlocker.Ping
             this.Name = "DnsBenchmarkForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "403unlocker";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DnsPingForm_FormClosing);
-            this.Load += new System.EventHandler(this.DnsPingForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DnsBenchmarkForm_FormClosing);
+            this.Load += new System.EventHandler(this.DnsBenchmarkForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStripDataGridView.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -511,7 +561,12 @@ namespace _403unlocker.Ping
         private System.Windows.Forms.ToolStripMenuItem showIconOnTaskTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem shareDNSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generateQRCodeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem providerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dNSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byProviderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byDNSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem providerToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem dNSToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem latencyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem asCSVToolStripMenuItem;
     }
 }

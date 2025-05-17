@@ -13,12 +13,13 @@ namespace _403unlocker.Ping.Search
     public partial class SearchForm : Form
     {
         public bool isOkPressed = false;
-        private readonly bool searchDns;
+        private readonly bool SearchDns;
 
         public SearchForm(bool searchDns)
         {
             InitializeComponent();
 
+            SearchDns = searchDns;
             string s = searchDns ? "DNS" : "Provider";
             Text += ' ' + s;
             label1.Text = s + " :";
@@ -40,7 +41,7 @@ namespace _403unlocker.Ping.Search
 
         private void textBoxDns_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (searchDns)
+            if (SearchDns)
             {
                 if (char.IsDigit(e.KeyChar)) return;
                 else

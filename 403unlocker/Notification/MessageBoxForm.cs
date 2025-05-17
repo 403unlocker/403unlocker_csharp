@@ -14,7 +14,7 @@ namespace _403unlocker.Notification
     public partial class MessageBoxForm : Form
     {
         private SystemSound sound;
-        public string Title;
+        public string LabelText;
         public string Caption;
         public MessageBoxButtons Buttons;
         public MessageBoxIcon Picture;
@@ -27,13 +27,13 @@ namespace _403unlocker.Notification
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="caption"></param>
+        /// <param name="text">error detail</param>
+        /// <param name="caption">error topic</param>
         /// <param name="button">just OK, YesNo</param>
         /// <param name="icon">all available</param>
-        public MessageBoxForm(string title, string caption, MessageBoxButtons button, MessageBoxIcon icon) : this()
+        public MessageBoxForm(string text, string caption, MessageBoxButtons button, MessageBoxIcon icon) : this()
         {
-            Title = title;
+            LabelText = text;
             Caption = caption;
             Buttons = button;
             Picture = icon;
@@ -42,7 +42,7 @@ namespace _403unlocker.Notification
         private void MessageBoxForm_Load(object sender, EventArgs e)
         {
             Text = Caption;
-            label1.Text = Title;
+            label1.Text = LabelText;
 
             switch (Picture)
             {

@@ -37,7 +37,7 @@ namespace _403unlocker.Ping
             InitializeComponent();
         }
 
-        private async void DnsPingForm_Load(object sender, EventArgs e)
+        private async void DnsBenchmarkForm_Load(object sender, EventArgs e)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace _403unlocker.Ping
                 {
                     using (MessageBoxForm form = new MessageBoxForm())
                     {
-                        form.Title = "Config File, Not Found";
+                        form.LabelText = "Config File, Not Found";
                         form.Caption = error.Message;
                         form.Buttons = MessageBoxButtons.OK;
                         form.Picture = MessageBoxIcon.Error;
@@ -79,7 +79,7 @@ namespace _403unlocker.Ping
                 {
                     using (MessageBoxForm form = new MessageBoxForm())
                     {
-                        form.Title = error.Message;
+                        form.LabelText = error.Message;
                         form.Caption = "Error Occurred";
                         form.Buttons = MessageBoxButtons.OK;
                         form.Picture = MessageBoxIcon.Error;
@@ -89,7 +89,7 @@ namespace _403unlocker.Ping
 
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "App is using default Settings...";
+                    form.LabelText = "App is using default Settings...";
                     form.Caption = "No Worries";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Information;
@@ -100,7 +100,7 @@ namespace _403unlocker.Ping
             showIconOnTaskTrayToolStripMenuItem.Checked = Settings.iconTray;
         }
 
-        private void DnsPingForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void DnsBenchmarkForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DnsBenchmark.WriteJson(dnsBinding.ToList());
 
@@ -113,7 +113,7 @@ namespace _403unlocker.Ping
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = error.Message;
+                    form.LabelText = error.Message;
                     form.Caption = "Saving Config File, Failed";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Error;
@@ -122,10 +122,11 @@ namespace _403unlocker.Ping
             }
         }
 
-        private void pcPingButton_Click(object sender, EventArgs e)
+        #region Ping
+        private void pingButton_Click(object sender, EventArgs e)
         {
             var pingList = new List<DnsBenchmark>(dnsBinding);
-            List<Task> tasks = pingList.Select(x => Task.Run(() => x.Ping())).ToList();
+            List<Task> tasks = pingList.Select(x => Task.Run(async() => await x.Ping())).ToList();
 
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, Settings.Ping.PacketCount, Settings.Ping.TimeOutInMiliSeconds))
             {
@@ -133,8 +134,10 @@ namespace _403unlocker.Ping
                 dataGridView1.Invalidate();
             }
         }
+        #endregion
 
-        private async void sitePingButton_Click(object sender, EventArgs e)
+        #region ByPass
+        private void bypassButton_Click(object sender, EventArgs e)
         {
             string hostName = "";
             using (GetUrlForm form = new GetUrlForm())
@@ -154,42 +157,9 @@ namespace _403unlocker.Ping
                 dataGridView1.Invalidate();
             }
         }
+        #endregion
 
-        private void copyDnsCellToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-                try
-                {
-                    Clipboard.SetText(selectedRowDns);
-                }
-                catch (Exception)
-                {
-                    using (MessageBoxForm form = new MessageBoxForm())
-                    {
-                        form.Title = "Somthing went wrong!";
-                        form.Caption = "Check your Clipboard\n" +
-                                       "If it is not be copied, please try again";
-                        form.Buttons = MessageBoxButtons.OK;
-                        form.Picture = MessageBoxIcon.Error;
-                        form.ShowDialog();
-                    }
-                }
-            }
-            else
-            {
-                using (MessageBoxForm form = new MessageBoxForm())
-                {
-                    form.Title = "Please select a row";
-                    form.Caption = "Can't Get DNS Cell!";
-                    form.Buttons = MessageBoxButtons.OK;
-                    form.Picture = MessageBoxIcon.Stop;
-                    form.ShowDialog();
-                }
-            }
-        }
-
+        #region Sort
         private void sortButton_Click(object sender, EventArgs e)
         {
             var valid = dnsBinding
@@ -207,8 +177,9 @@ namespace _403unlocker.Ping
             dnsBinding = new BindingList<DnsBenchmark>(result);
             dataGridView1.DataSource = dnsBinding;
         }
+        #endregion
 
-
+        #region Setting Form
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (SettingsForm setting = new SettingsForm())
@@ -216,7 +187,9 @@ namespace _403unlocker.Ping
                 setting.ShowDialog();
             }
         }
+        #endregion
 
+        #region Add DNS
         private void InvokeAddDns(List<DnsConfig> currentDns, List<DnsConfig> importedExternalDns)
         {
             using (DnsConfigForm form = new DnsConfigForm(currentDns, importedExternalDns))
@@ -239,7 +212,11 @@ namespace _403unlocker.Ping
             List<DnsConfig> dns = DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList());
             InvokeAddDns(dns, null);
         }
+        #endregion
 
+        #region File
+
+        #region Import
         private async void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult r = openFileDialog1.ShowDialog();
@@ -255,7 +232,7 @@ namespace _403unlocker.Ping
                 {
                     using (MessageBoxForm form = new MessageBoxForm())
                     {
-                        form.Title = "Something went wrong!";
+                        form.LabelText = "Something went wrong!";
                         form.Caption = "Can't load file";
                         form.Buttons = MessageBoxButtons.OK;
                         form.Picture = MessageBoxIcon.Error;
@@ -264,7 +241,9 @@ namespace _403unlocker.Ping
                 }
             }
         }
+        #endregion
 
+        #region Export
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult r = saveFileDialog1.ShowDialog();
@@ -273,19 +252,31 @@ namespace _403unlocker.Ping
                 DnsConfig.WriteJson(DnsBenchmark.ConvertToDnsConfig(dnsBinding.ToList()), saveFileDialog1.FileName);
             }
         }
+        #endregion
 
+        #endregion
+
+        #region Help
+
+        #region Code Source
         private void codeSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string link = @"https://github.com/ALiMoradzade/403unlocker";
             Process.Start(link);
         }
+        #endregion
 
+        #region Website
         private void websiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string link = @"https://www.403unlocker.ir";
             Process.Start(link);
         }
+        #endregion
 
+        #endregion
+
+        #region Set DNS
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonDnsSet.Text = comboBoxDnsSet.SelectedItem as string;
@@ -297,7 +288,7 @@ namespace _403unlocker.Ping
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Please select a row";
+                    form.LabelText = "Please select a row";
                     form.Caption = "Can't Read DNS";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Stop;
@@ -312,9 +303,9 @@ namespace _403unlocker.Ping
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = $"You are setting {selectedDns} to \"{selectedInterface}\" adaptor!\n" +
-                    "Are you sure?\n\n" +
-                    "(Go to the Settings and select your desire adaptor)";
+                    form.LabelText = $"You are setting {selectedDns} to \"{selectedInterface}\" adaptor!\n" +
+                                      "Are you sure?\n\n" +
+                                      "(Go to the Settings and select your desire adaptor)";
                     form.Caption = "Unexpected Recognition";
                     form.Buttons = MessageBoxButtons.YesNo;
                     form.Picture = MessageBoxIcon.Exclamation;
@@ -335,63 +326,224 @@ namespace _403unlocker.Ping
                 DnsCommand.SetDnsAsSecondary(Settings.NetworkAdaptor.SelectedNetworkInterface, selectedDns);
             }
         }
+        #endregion
 
+        #region Reset DNS
         private void buttonResetDns_Click(object sender, EventArgs e)
         {
             DnsCommand.Reset(Settings.NetworkAdaptor.SelectedNetworkInterface);
         }
+        #endregion
 
-        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            labelDnsCount.Text = "Count: " + dataGridView1.RowCount;
-        }
-
-        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            buttonResetDns.PerformClick();
-        }
-
+        #region View
         private void showIconOnTaskTrayToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             Settings.iconTray = showIconOnTaskTrayToolStripMenuItem.Checked;
             notifyIcon1.Visible = showIconOnTaskTrayToolStripMenuItem.Checked;
         }
+        #endregion
 
-        private void generateQRCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Copy
+
+        #region Provider
+        private void providerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
-
-                using (QrCodeForm f = new QrCodeForm(selectedRowDns))
+                var selectedRow = dataGridView1.SelectedRows[0];
+                string selectedCell = selectedRow.Cells["Provider"].Value.ToString();
+                try
                 {
-                    f.ShowDialog();
+                    Clipboard.SetText(selectedCell);
+                }
+                catch (Exception)
+                {
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.LabelText = "Check your Clipboard\n" +
+                                       "If it is not be copied, please try again";
+                        form.Caption = "Unknown Error!";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
                 }
             }
             else
             {
                 using (MessageBoxForm form = new MessageBoxForm())
                 {
-                    form.Title = "Please select a row";
-                    form.Caption = "Can't Create";
+                    form.LabelText = "Please select a row";
+                    form.Caption = "Can't Get Provider Cell!";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Stop;
                     form.ShowDialog();
                 }
             }
         }
+        #endregion
 
-        private void providerToolStripMenuItem_Click(object sender, EventArgs e)
+        #region DNS
+        private void dNSToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridView1.SelectedRows[0];
+                string selectedCell = selectedRow.Cells["Provider"].Value.ToString();
+                try
+                {
+                    Clipboard.SetText(selectedCell);
+                }
+                catch (Exception)
+                {
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.LabelText = "Check your Clipboard\n" +
+                                       "If it is not be copied, please try again";
+                        form.Caption = "Unknown Error!";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.LabelText = "Please select a row";
+                    form.Caption = "Can't Get DNS Cell!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
+            }
+        }
+        #endregion
+
+        #region Status
+        private void statusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridView1.SelectedRows[0];
+                string selectedCell = selectedRow.Cells["Status"].Value.ToString();
+                try
+                {
+                    Clipboard.SetText(selectedCell);
+                }
+                catch (Exception)
+                {
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.LabelText = "Check your Clipboard\n" +
+                                       "If it is not be copied, please try again";
+                        form.Caption = "Unknown Error!";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.LabelText = "Please select a row";
+                    form.Caption = "Can't Get Status Cell!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
+            }
+        }
+        #endregion
+
+        #region Latency
+        private void latencyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridView1.SelectedRows[0];
+                string selectedCell = selectedRow.Cells["Latency"].Value.ToString();
+                try
+                {
+                    Clipboard.SetText(selectedCell);
+                }
+                catch (Exception)
+                {
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.LabelText = "Check your Clipboard\n" +
+                                       "If it is not be copied, please try again";
+                        form.Caption = "Unknown Error!";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.LabelText = "Please select a row";
+                    form.Caption = "Can't Get Latency Cell!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
+            }
+        }
+        #endregion
+
+        #region as CSV
+        private void asCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridView1.SelectedRows[0];
+                string selectedCell = $"\"{selectedRow.Cells["Provider"].Value}\", " +
+                                      $"\"{selectedRow.Cells["DNS"].Value}\", " +
+                                      $"\"{selectedRow.Cells["Status"].Value}\", " +
+                                      $"\"{selectedRow.Cells["Latency"].Value}\" ";
+                try
+                {
+                    Clipboard.SetText(selectedCell);
+                }
+                catch (Exception)
+                {
+                    using (MessageBoxForm form = new MessageBoxForm())
+                    {
+                        form.LabelText = "Check your Clipboard\n" +
+                                       "If it is not be copied, please try again";
+                        form.Caption = "Unknown Error!";
+                        form.Buttons = MessageBoxButtons.OK;
+                        form.Picture = MessageBoxIcon.Error;
+                        form.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.LabelText = "Please select a row";
+                    form.Caption = "Can't Get CSV!";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region Search 
+
+        #region by Provider
+        private void byProviderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (SearchForm form = new SearchForm(false))
             {
@@ -422,7 +574,7 @@ namespace _403unlocker.Ping
                     {
                         using (MessageBoxForm messageBox = new MessageBoxForm())
                         {
-                            messageBox.Title = $"\"{form.textBox1.Text}\" is not in table";
+                            messageBox.LabelText = $"\"{form.textBox1.Text}\" is not in table";
                             messageBox.Caption = "Provider Not Found";
                             messageBox.Buttons = MessageBoxButtons.OK;
                             messageBox.Picture = MessageBoxIcon.Information;
@@ -432,8 +584,10 @@ namespace _403unlocker.Ping
                 }
             }
         }
+        #endregion
 
-        private void dNSToolStripMenuItem_Click(object sender, EventArgs e)
+        #region by DNS
+        private void byDNSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (SearchForm form = new SearchForm(true))
             {
@@ -454,7 +608,7 @@ namespace _403unlocker.Ping
                     {
                         using (MessageBoxForm messageBox = new MessageBoxForm())
                         {
-                            messageBox.Title = $"\"{form.textBox1.Text}\" is not in table";
+                            messageBox.LabelText = $"\"{form.textBox1.Text}\" is not in table";
                             messageBox.Caption = "DNS Not Found";
                             messageBox.Buttons = MessageBoxButtons.OK;
                             messageBox.Picture = MessageBoxIcon.Information;
@@ -464,5 +618,61 @@ namespace _403unlocker.Ping
                 }
             }
         }
+        #endregion
+
+        #endregion
+
+        #region QR Code Gen
+        private void generateQRCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string selectedRowDns = dataGridView1.SelectedRows[0].Cells["DNS"].Value.ToString();
+
+                using (QrCodeForm f = new QrCodeForm(selectedRowDns))
+                {
+                    f.ShowDialog();
+                }
+            }
+            else
+            {
+                using (MessageBoxForm form = new MessageBoxForm())
+                {
+                    form.LabelText = "Please select a row";
+                    form.Caption = "Can't Create";
+                    form.Buttons = MessageBoxButtons.OK;
+                    form.Picture = MessageBoxIcon.Stop;
+                    form.ShowDialog();
+                }
+            }
+        }
+        #endregion
+
+        #region DNS Counter
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            labelDnsCount.Text = "Count: " + dataGridView1.RowCount;
+        }
+        #endregion
+
+        #region Task Tray
+
+        #region Reset DNS
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            buttonResetDns.PerformClick();
+        }
+        #endregion
+
+        #region Exit
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        #endregion
+
+        #endregion
+
+        
     }
 }
