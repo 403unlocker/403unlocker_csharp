@@ -73,6 +73,7 @@ namespace _403unlocker.Ping
                         form.Caption = error.Message;
                         form.Buttons = MessageBoxButtons.OK;
                         form.Picture = MessageBoxIcon.Error;
+                        form.StartPosition = FormStartPosition.CenterScreen;
                         form.ShowDialog();
                     }
                 }
@@ -84,6 +85,7 @@ namespace _403unlocker.Ping
                         form.Caption = "Error Occurred";
                         form.Buttons = MessageBoxButtons.OK;
                         form.Picture = MessageBoxIcon.Error;
+                        form.StartPosition = FormStartPosition.CenterScreen;
                         form.ShowDialog();
                     }
                 }
@@ -94,6 +96,7 @@ namespace _403unlocker.Ping
                     form.Caption = "No Worries";
                     form.Buttons = MessageBoxButtons.OK;
                     form.Picture = MessageBoxIcon.Information;
+                    form.StartPosition = FormStartPosition.CenterScreen;
                     form.ShowDialog();
                 }
             }
@@ -133,7 +136,7 @@ namespace _403unlocker.Ping
         }
 
         #region Ping
-        private void pingButton_Click(object sender, EventArgs e)
+        private void buttonPing_Click(object sender, EventArgs e)
         {
             var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(async() => await x.Ping())).ToList();
@@ -147,7 +150,7 @@ namespace _403unlocker.Ping
         #endregion
 
         #region ByPass
-        private void bypassButton_Click(object sender, EventArgs e)
+        private void buttonBypass_Click(object sender, EventArgs e)
         {
             string hostName = "";
             using (GetUrlForm form = new GetUrlForm())
@@ -174,13 +177,13 @@ namespace _403unlocker.Ping
         {
             var valid = dnsBinding
                 .Where(dns => dns.Latency >= 0)
-                .OrderBy(dns => dns.Latency)
-                .ThenBy(dns => dns.Status);
+                .OrderBy(dns => dns.Status)
+                .ThenBy(dns => dns.Latency);
 
             var invalid = dnsBinding
                 .Where(dns => dns.Latency == -1)
-                .OrderBy(dns => dns.Status)
-                .ThenBy(dns => dns.Provider);
+                .OrderBy(dns => dns.Provider)
+                .ThenBy(dns => dns.Status);
 
             List<DnsBenchmark> result = valid.Concat(invalid).ToList();
 
@@ -699,10 +702,11 @@ namespace _403unlocker.Ping
         }
 
 
-        #endregion
 
         #endregion
 
-       
+        #endregion
+
+        
     }
 }

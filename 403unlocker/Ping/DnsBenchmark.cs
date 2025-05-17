@@ -95,12 +95,12 @@ namespace _403unlocker.Ping
                 Latency = -1;
                 Status = "Ping Timeout";
             }
-
         }
 
         public async Task ByPass(string hostName)
         {
             ProgressReset();
+            DateTime now = DateTime.Now;
             try
             {
                 string[] resolvedIP = await NetworkUtility.ResolveHostName(DNS, hostName);
@@ -112,21 +112,8 @@ namespace _403unlocker.Ping
                 }
                 else
                 {
-                    DateTime now = DateTime.Now;
-                    var htmlreq = await NetworkUtility.HttpResponseMessage(hostName, resolvedIP[0]);
-                    DateTime after = DateTime.Now;
-
-                    TimeSpan timeSpan = after - now;
-
-                    Status = ((int)htmlreq.StatusCode).ToString();
-                    if (htmlreq.IsSuccessStatusCode)
-                    {
-                        Latency = (int)Math.Round(timeSpan.TotalMilliseconds / 1000);
-                    }
-                    else
-                    {
-                        Latency = -1;
-                    }
+                    var httpResponse = await NetworkUtility.HttpResponseMessage(hostName, resolvedIP[0]);
+                    Status = $"{(int)httpResponse.StatusCode} - {httpResponse.StatusCode}";
                 }
             }
             catch (DnsResponseException e)
@@ -143,19 +130,16 @@ namespace _403unlocker.Ping
                 {
                     Status = "Not Existent Domain";
                 }
-                Latency = -1;
             }
             catch (TaskCanceledException)
             {
                 Status = "HTTP TimeOut";
-                Latency = -1;
             }
             catch (Exception)
             {
                 Status = "Unknown Error";
-                Latency = -1;
             }
-
+            Latency = (int)Math.Round((DateTime.Now - now).TotalMilliseconds);
             ProgressIncreament();
         }
 

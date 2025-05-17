@@ -29,11 +29,11 @@ namespace _403unlocker.Ping
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DnsBenchmarkForm));
-            this.pcPingButton = new System.Windows.Forms.Button();
+            this.buttonPing = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDataGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -48,8 +48,8 @@ namespace _403unlocker.Ping
             this.byDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shareDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sortButton = new System.Windows.Forms.Button();
-            this.sitePingButton = new System.Windows.Forms.Button();
+            this.buttonSort = new System.Windows.Forms.Button();
+            this.buttonBypass = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,18 +78,18 @@ namespace _403unlocker.Ping
             this.contextMenuStripTray.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pcPingButton
+            // buttonPing
             // 
-            this.pcPingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.pcPingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.pcPingButton.ForeColor = System.Drawing.Color.Black;
-            this.pcPingButton.Location = new System.Drawing.Point(12, 371);
-            this.pcPingButton.Name = "pcPingButton";
-            this.pcPingButton.Size = new System.Drawing.Size(79, 23);
-            this.pcPingButton.TabIndex = 10;
-            this.pcPingButton.Text = "Ping";
-            this.pcPingButton.UseVisualStyleBackColor = false;
-            this.pcPingButton.Click += new System.EventHandler(this.pingButton_Click);
+            this.buttonPing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonPing.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonPing.ForeColor = System.Drawing.Color.Black;
+            this.buttonPing.Location = new System.Drawing.Point(12, 371);
+            this.buttonPing.Name = "buttonPing";
+            this.buttonPing.Size = new System.Drawing.Size(79, 23);
+            this.buttonPing.TabIndex = 10;
+            this.buttonPing.Text = "Ping";
+            this.buttonPing.UseVisualStyleBackColor = false;
+            this.buttonPing.Click += new System.EventHandler(this.buttonPing_Click);
             // 
             // label1
             // 
@@ -111,24 +111,24 @@ namespace _403unlocker.Ping
             this.dataGridView1.BackgroundColor = System.Drawing.Color.Black;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextMenuStripDataGridView;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.dataGridView1.Location = new System.Drawing.Point(13, 48);
@@ -137,14 +137,14 @@ namespace _403unlocker.Ping
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -257,31 +257,31 @@ namespace _403unlocker.Ping
             this.generateQRCodeToolStripMenuItem.Text = "Generate QR Code";
             this.generateQRCodeToolStripMenuItem.Click += new System.EventHandler(this.generateQRCodeToolStripMenuItem_Click);
             // 
-            // sortButton
+            // buttonSort
             // 
-            this.sortButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.sortButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.sortButton.ForeColor = System.Drawing.Color.Black;
-            this.sortButton.Location = new System.Drawing.Point(267, 371);
-            this.sortButton.Name = "sortButton";
-            this.sortButton.Size = new System.Drawing.Size(79, 23);
-            this.sortButton.TabIndex = 11;
-            this.sortButton.Text = "Sort";
-            this.sortButton.UseVisualStyleBackColor = false;
-            this.sortButton.Click += new System.EventHandler(this.sortButton_Click);
+            this.buttonSort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonSort.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonSort.ForeColor = System.Drawing.Color.Black;
+            this.buttonSort.Location = new System.Drawing.Point(267, 371);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(79, 23);
+            this.buttonSort.TabIndex = 11;
+            this.buttonSort.Text = "Sort";
+            this.buttonSort.UseVisualStyleBackColor = false;
+            this.buttonSort.Click += new System.EventHandler(this.sortButton_Click);
             // 
-            // sitePingButton
+            // buttonBypass
             // 
-            this.sitePingButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
-            this.sitePingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.sitePingButton.ForeColor = System.Drawing.Color.Black;
-            this.sitePingButton.Location = new System.Drawing.Point(97, 371);
-            this.sitePingButton.Name = "sitePingButton";
-            this.sitePingButton.Size = new System.Drawing.Size(79, 23);
-            this.sitePingButton.TabIndex = 13;
-            this.sitePingButton.Text = "Bypass";
-            this.sitePingButton.UseVisualStyleBackColor = false;
-            this.sitePingButton.Click += new System.EventHandler(this.bypassButton_Click);
+            this.buttonBypass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
+            this.buttonBypass.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonBypass.ForeColor = System.Drawing.Color.Black;
+            this.buttonBypass.Location = new System.Drawing.Point(97, 371);
+            this.buttonBypass.Name = "buttonBypass";
+            this.buttonBypass.Size = new System.Drawing.Size(79, 23);
+            this.buttonBypass.TabIndex = 13;
+            this.buttonBypass.Text = "Bypass";
+            this.buttonBypass.UseVisualStyleBackColor = false;
+            this.buttonBypass.Click += new System.EventHandler(this.buttonBypass_Click);
             // 
             // menuStrip1
             // 
@@ -502,9 +502,9 @@ namespace _403unlocker.Ping
             this.Controls.Add(this.buttonDnsSet);
             this.Controls.Add(this.buttonAddDns);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.sitePingButton);
-            this.Controls.Add(this.sortButton);
-            this.Controls.Add(this.pcPingButton);
+            this.Controls.Add(this.buttonBypass);
+            this.Controls.Add(this.buttonSort);
+            this.Controls.Add(this.buttonPing);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBoxDnsSet);
@@ -531,12 +531,12 @@ namespace _403unlocker.Ping
 
         #endregion
 
-        private System.Windows.Forms.Button pcPingButton;
+        private System.Windows.Forms.Button buttonPing;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button sortButton;
+        private System.Windows.Forms.Button buttonSort;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDataGridView;
-        private System.Windows.Forms.Button sitePingButton;
+        private System.Windows.Forms.Button buttonBypass;
         private System.Windows.Forms.ToolStripMenuItem copyDnsCellToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
