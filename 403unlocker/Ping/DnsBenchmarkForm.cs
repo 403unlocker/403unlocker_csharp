@@ -106,7 +106,7 @@ namespace _403unlocker.Ping
 
         private void DnsBenchmarkForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!doesNotifyClose)
+            if (!doesNotifyClose && showIconOnTaskTrayToolStripMenuItem.Checked)
             {
                 notifyIcon1_DoubleClick(sender, EventArgs.Empty);
                 e.Cancel = true;
@@ -173,7 +173,7 @@ namespace _403unlocker.Ping
         #endregion
 
         #region Sort
-        private void sortButton_Click(object sender, EventArgs e)
+        private void buttonSort_Click(object sender, EventArgs e)
         {
             var valid = dnsBinding
                 .Where(dns => dns.Latency >= 0)
@@ -670,7 +670,7 @@ namespace _403unlocker.Ping
 
         #region Task Tray
 
-        #region Click
+        #region ِDouble Click
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             if (ShowInTaskbar)
@@ -681,7 +681,7 @@ namespace _403unlocker.Ping
             else
             {
                 Show();
-                //Activate();
+                Activate();
                 ShowInTaskbar = true;
             }
         }
@@ -703,10 +703,10 @@ namespace _403unlocker.Ping
 
 
 
-        #endregion
 
         #endregion
 
-        
+        #endregion
+
     }
 }

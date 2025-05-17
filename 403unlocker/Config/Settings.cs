@@ -32,7 +32,7 @@ namespace _403unlocker.Config
     internal static class Settings
     {
         private static string path = $"{Application.ProductName}.config";
-        public static bool iconTray = true;
+        public static bool iconTray = false;
 
         internal static class Ping
         {
@@ -43,8 +43,8 @@ namespace _403unlocker.Config
 
         internal static class ByPass
         {
-            public static int DnsResolveTimeOutInMiliSeconds { get; set; } = 2000;
-            public static int HttpRequestTimeOutInMiliSeconds { get; set; } = 3000;
+            public static int DnsResolveTimeOutInMiliSeconds { get; set; } = 5000;
+            public static int HttpRequestTimeOutInMiliSeconds { get; set; } = 10000;
         }
 
         internal static class NetworkAdaptor
