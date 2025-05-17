@@ -31,6 +31,7 @@ namespace _403unlocker.Ping
     public partial class DnsBenchmarkForm : Form
     {
         private BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
+        private bool doesNotifyClose = false;
 
         public DnsBenchmarkForm()
         {
@@ -101,6 +102,15 @@ namespace _403unlocker.Ping
         }
 
         private void DnsBenchmarkForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!doesNotifyClose)
+            {
+                notifyIcon1_DoubleClick(sender, EventArgs.Empty);
+                e.Cancel = true;
+            }
+        }
+
+        private void DnsBenchmarkForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             DnsBenchmark.WriteJson(dnsBinding.ToList());
 
@@ -657,6 +667,23 @@ namespace _403unlocker.Ping
 
         #region Task Tray
 
+        #region Click
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            if (ShowInTaskbar)
+            {
+                Hide();
+                ShowInTaskbar = false;
+            }
+            else
+            {
+                Show();
+                //Activate();
+                ShowInTaskbar = true;
+            }
+        }
+        #endregion
+
         #region Reset DNS
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -667,12 +694,15 @@ namespace _403unlocker.Ping
         #region Exit
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            doesNotifyClose = true;
             Close();
         }
-        #endregion
+
 
         #endregion
 
-        
+        #endregion
+
+       
     }
 }
