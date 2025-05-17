@@ -30,7 +30,7 @@ namespace _403unlocker.Ping
 {
     public class DnsBenchmark
     {
-        private static string path = "DnsBenchmark.json";
+        private static string path = "dns.json";
         public string Provider { get; set; } = "";
         public string DNS { get; set; } = "";
         public string Status { get; set; } = "";

@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("403unlocker")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Checks which DNS server can bypass geo-restriction for a given hostname")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("403unlocker")]
 [assembly: AssemblyProduct("403unlocker")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCopyright("ALi Moradzade")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
