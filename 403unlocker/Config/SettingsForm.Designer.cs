@@ -446,6 +446,7 @@ namespace _403unlocker.Config
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "403 Setting";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPingTimeOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketCount)).EndInit();

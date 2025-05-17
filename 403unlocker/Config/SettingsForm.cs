@@ -16,6 +16,8 @@ namespace _403unlocker.Config
 {
     public partial class SettingsForm : Form
     {
+        private bool wantToSave = false;
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -23,7 +25,7 @@ namespace _403unlocker.Config
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            checkBoxAutoSelection.Checked = StartUp.isEnabled;
+            checkBoxStartWithWindows.Checked = StartUp.isEnabled;
 
             checkBoxAutoSelection.Checked = Settings.NetworkAdaptor.AutoSelection;
 
@@ -40,32 +42,39 @@ namespace _403unlocker.Config
             numericUpDownHttpRequestTimeOut.Value = Settings.ByPass.HttpRequestTimeOutInMiliSeconds;
         }
 
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (wantToSave)
+            {
+                StartUp.isEnabled = checkBoxStartWithWindows.Checked;
+
+                Settings.NetworkAdaptor.AutoSelection = checkBoxAutoSelection.Checked;
+
+                Settings.NetworkAdaptor.SelectedNetworkInterface = comboBoxNetworkInterfaces.SelectedItem as string;
+
+                Settings.Ping.PacketCount = (int)numericUpDownPacketCount.Value;
+                Settings.Ping.PacketSize = (ushort)numericUpDownPacketSize.Value;
+                Settings.Ping.TimeOutInMiliSeconds = (int)numericUpDownPingTimeOut.Value;
+
+                Settings.ByPass.DnsResolveTimeOutInMiliSeconds = (int)numericUpDownDnsResolveTimeOut.Value;
+                Settings.ByPass.HttpRequestTimeOutInMiliSeconds = (int)numericUpDownHttpRequestTimeOut.Value;
+            }
+        }
+
         private void buttonApply_Click(object sender, EventArgs e)
         {
-            StartUp.isEnabled = checkBoxAutoSelection.Checked;
+            wantToSave = true;
+            Close();
+        }
 
-            Settings.NetworkAdaptor.AutoSelection = checkBoxAutoSelection.Checked;
-
-            Settings.NetworkAdaptor.SelectedNetworkInterface = comboBoxNetworkInterfaces.SelectedItem as string;
-
-            Settings.Ping.PacketCount = (int)numericUpDownPacketCount.Value;
-            Settings.Ping.PacketSize = (ushort)numericUpDownPacketSize.Value;
-            Settings.Ping.TimeOutInMiliSeconds = (int)numericUpDownPingTimeOut.Value;
-
-            Settings.ByPass.DnsResolveTimeOutInMiliSeconds = (int)numericUpDownDnsResolveTimeOut.Value;
-            Settings.ByPass.HttpRequestTimeOutInMiliSeconds = (int)numericUpDownHttpRequestTimeOut.Value;
-
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
             Close();
         }
 
         private void checkBoxAutoSelection_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxNetworkInterfaces.Enabled = !checkBoxAutoSelection.Checked;
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 }
