@@ -1,25 +1,21 @@
 # 403unlocker
 
 ## Overview
-This application streamlines DNS management and testing by enabling users to check geo-restrictions, set preferred DNS servers, and optimize network configurations, all within a user-friendly interface that supports background execution for maximum efficiency.
+DNS Management & Testing App streamlines DNS testing & configuration, offering fast performance checks and seamless active DNS setup—all in an intuitive interface
 
-## Features
-### Core Functionality
-- **Parallel Ping to DNS Servers** – Perform fast, simultaneous DNS pings.
-- **Geo-Restriction Checking** – Test hostname accessibility across different DNS providers.
-- **Quick DNS Configuration** – Set a selected DNS server directly for the active network interface.
+## Core Features
+- **Parallel DNS Pinging** – Simultaneously ping multiple DNS servers for fast performance checks
+- **Geo-Restriction Testing** – Quickly evaluate hostname accessibility across regions using parallel testing
+- **Quick DNS Configuration** – Instantly apply your selected DNS server to the active network interface
 
-### UI & Usability Enhancements
-- **Predefined DNS List** – Includes a default list of well-known DNS servers.
-- **PublicDNS Scraper** – Fetch and update DNS servers from [publicdns.xyz](https://publicdns.xyz).
-- **Custom DNS Addition** – Manually add custom DNS entries.
-- **QR Code Sharing** – Easily share DNS configurations via QR code.
-- **Timeout Configuration** – Define timeouts for ping, DNS resolution, and HTTP requests.
-
-### System & Background Features
-- **Startup Support** – Optionally run at Windows startup.
-- **Background Execution** – Runs silently in the system tray.
-- **DNS List Management** – Import/export DNS lists in JSON format for easy sharing with other users.
+## Enhanced User Experience
+- **Predefined DNS List** – Comes with a default list of popular DNS servers
+- **PublicDNS Scraper** – Fetch & update the latest DNS entries from [publicdns.xyz](https://publicdns.xyz)
+- **Custom DNS Addition** – Manually add custom DNS entries
+- **QR Code Sharing for Mobile** – Easily generate QR codes to share your DNS configurations directly to your mobile
+- **Timeout Configuration** – Define specific timeouts for ping, DNS resolution, and HTTP requests
+- **Windows Startup & Background Operation** – Optionally launch at Windows startup and run silently in the task tray
+- **Import/Export Functionality** – Seamlessly share your DNS configurations by importing or exporting DNS lists as JSON files with other users
 
 ## Installation
 ### For Windows 7
