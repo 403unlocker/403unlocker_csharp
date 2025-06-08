@@ -83,7 +83,7 @@ namespace _403unlocker.Ping
             this.buttonPing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonPing.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonPing.ForeColor = System.Drawing.Color.Black;
-            this.buttonPing.Location = new System.Drawing.Point(12, 371);
+            this.buttonPing.Location = new System.Drawing.Point(255, 399);
             this.buttonPing.Name = "buttonPing";
             this.buttonPing.Size = new System.Drawing.Size(79, 23);
             this.buttonPing.TabIndex = 10;
@@ -262,7 +262,7 @@ namespace _403unlocker.Ping
             this.buttonSort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonSort.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonSort.ForeColor = System.Drawing.Color.Black;
-            this.buttonSort.Location = new System.Drawing.Point(254, 400);
+            this.buttonSort.Location = new System.Drawing.Point(97, 371);
             this.buttonSort.Name = "buttonSort";
             this.buttonSort.Size = new System.Drawing.Size(79, 23);
             this.buttonSort.TabIndex = 11;
@@ -275,7 +275,7 @@ namespace _403unlocker.Ping
             this.buttonBypass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonBypass.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonBypass.ForeColor = System.Drawing.Color.Black;
-            this.buttonBypass.Location = new System.Drawing.Point(97, 371);
+            this.buttonBypass.Location = new System.Drawing.Point(340, 400);
             this.buttonBypass.Name = "buttonBypass";
             this.buttonBypass.Size = new System.Drawing.Size(79, 23);
             this.buttonBypass.TabIndex = 13;
@@ -389,7 +389,7 @@ namespace _403unlocker.Ping
             this.buttonAddDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonAddDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonAddDns.ForeColor = System.Drawing.Color.Black;
-            this.buttonAddDns.Location = new System.Drawing.Point(339, 400);
+            this.buttonAddDns.Location = new System.Drawing.Point(12, 371);
             this.buttonAddDns.Name = "buttonAddDns";
             this.buttonAddDns.Size = new System.Drawing.Size(79, 23);
             this.buttonAddDns.TabIndex = 17;
