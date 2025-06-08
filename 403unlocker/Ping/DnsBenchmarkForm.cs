@@ -32,6 +32,7 @@ namespace _403unlocker.Ping
     {
         private BindingList<DnsBenchmark> dnsBinding = new BindingList<DnsBenchmark>();
         private bool doesNotifyClose = false;
+        private string previousUrl = "previousUrl.txt";
 
         public DnsBenchmarkForm()
         {
@@ -101,7 +102,12 @@ namespace _403unlocker.Ping
                 }
             }
 
-            showIconOnTaskTrayToolStripMenuItem.Checked = Settings.iconTray;
+            if (File.Exists(previousUrl))
+            {
+                string[] s = File.ReadAllText(previousUrl).Split(new string[] { "\n\r" }, StringSplitOptions.RemoveEmptyEntries);
+                labelUrl.Text = s[0];
+                labelUrl.Visible = bool.Parse(s[1]);
+            }
         }
 
         private void DnsBenchmarkForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -133,6 +139,8 @@ namespace _403unlocker.Ping
                     form.ShowDialog();
                 }
             }
+            
+            File.WriteAllText(previousUrl, $"{labelUrl.Text}\n\r{labelUrl.Visible}");
         }
 
         #region Ping
@@ -141,6 +149,7 @@ namespace _403unlocker.Ping
             var pingList = new List<DnsBenchmark>(dnsBinding);
             List<Task> tasks = pingList.Select(x => Task.Run(async() => await x.Ping())).ToList();
 
+            labelUrl.Hide();
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, Settings.Ping.PacketCount, Settings.Ping.TimeOutInMiliSeconds))
             {
                 form.ShowDialog();
@@ -163,6 +172,8 @@ namespace _403unlocker.Ping
                 hostName = form.comboBoxUrl.Text;
             }
 
+            labelUrl.Text = $"Bypassed URL: {hostName}";
+            labelUrl.Show();
             List<Task> tasks = dnsBinding.Select(x => Task.Run(async () => await x.ByPass(hostName))).ToList();
             using (MessageBoxProgress form = new MessageBoxProgress(tasks, 1, Settings.ByPass.DnsResolveTimeOutInMiliSeconds + Settings.ByPass.HttpRequestTimeOutInMiliSeconds))
             {

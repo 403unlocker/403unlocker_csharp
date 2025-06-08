@@ -72,6 +72,7 @@ namespace _403unlocker.Ping
             this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelUrl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStripDataGridView.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -491,12 +492,23 @@ namespace _403unlocker.Ping
             this.toolStripMenuItem2.Text = "Exit";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
+            // labelUrl
+            // 
+            this.labelUrl.AutoSize = true;
+            this.labelUrl.Location = new System.Drawing.Point(224, 31);
+            this.labelUrl.Name = "labelUrl";
+            this.labelUrl.Size = new System.Drawing.Size(84, 13);
+            this.labelUrl.TabIndex = 22;
+            this.labelUrl.Text = "Bypassed URL: ";
+            this.labelUrl.Visible = false;
+            // 
             // DnsBenchmarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(431, 435);
+            this.Controls.Add(this.labelUrl);
             this.Controls.Add(this.labelDnsCount);
             this.Controls.Add(this.buttonResetDns);
             this.Controls.Add(this.buttonDnsSet);
@@ -570,5 +582,6 @@ namespace _403unlocker.Ping
         private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem latencyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem asCSVToolStripMenuItem;
+        private System.Windows.Forms.Label labelUrl;
     }
 }

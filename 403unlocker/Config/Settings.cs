@@ -20,11 +20,14 @@ namespace _403unlocker.Config
     {
         public bool IconTray { get; set; }
         public bool StartUpIsEnabled { get; set; }
+
         public int PingPacketCount { get; set; }
         public ushort PingPacketSize { get; set; }
         public int PingTimeOutInMiliSeconds { get; set; }
+
         public int ByPassDnsResolveTimeOutInMiliSeconds { get; set; }
         public int ByPassHttpRequestTimeOutInMiliSeconds { get; set; }
+
         public bool NetworkAdaptorAutoSelection { get; set; }
         public string NetworkAdaptorSelectedNetworkInterface { get; set; }
     }
@@ -90,6 +93,7 @@ namespace _403unlocker.Config
                 SettingsAttributes a = (SettingsAttributes)serializer.Deserialize(stream);
 
                 Settings.iconTray = a.IconTray;
+                
                 Settings.Ping.PacketCount = a.PingPacketCount;
                 Settings.Ping.PacketSize = a.PingPacketSize;
                 Settings.Ping.TimeOutInMiliSeconds = a.PingTimeOutInMiliSeconds;
@@ -108,6 +112,7 @@ namespace _403unlocker.Config
             SettingsAttributes settings = new SettingsAttributes()
             {
                 IconTray = Settings.iconTray,
+
                 PingPacketCount = Settings.Ping.PacketCount,
                 PingPacketSize = Settings.Ping.PacketSize,
                 PingTimeOutInMiliSeconds = Settings.Ping.TimeOutInMiliSeconds,
