@@ -39,7 +39,7 @@ namespace _403unlocker
             }
         }
 
-        private static HttpClient SetHttpRequestHeaders(string hostName)
+        private static HttpClient SetHttpRequestHeaders()
         {
             HttpClientHandler handler = new HttpClientHandler();
             handler.UseCookies = false;
@@ -54,29 +54,32 @@ namespace _403unlocker
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0");
 
-            client.DefaultRequestHeaders.Host = hostName;
 
             return client;
         }
 
         public async static Task<HtmlDocument> HttpResponseHtml(string hostName)
         {
-            HttpClient client = SetHttpRequestHeaders(hostName);
+            using (HttpClient client = SetHttpRequestHeaders())
+            {
+                client.Timeout = TimeSpan.FromSeconds(60);
 
-            // get html as string
-            string htmlString = await client.GetStringAsync($"https://www.{hostName}");
+                // get html as string
+                string htmlString = await client.GetStringAsync($"https://www.{hostName}");
 
-            // convert html to tree
-            var htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(htmlString);
-            return htmlDocument;
+                // convert html to tree
+                var htmlDocument = new HtmlDocument();
+                htmlDocument.LoadHtml(htmlString);
+                return htmlDocument;
+            }
         }
 
         public async static Task<HttpResponseMessage> HttpResponseMessage(string hostName, string resolvedIp)
         {
-            using (HttpClient client = SetHttpRequestHeaders(hostName))
+            using (HttpClient client = SetHttpRequestHeaders())
             {
                 client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
+                client.DefaultRequestHeaders.Host = hostName;
 
                 // get html response
                 HttpResponseMessage htmlResponse = await client.GetAsync($"https://{resolvedIp}:443");

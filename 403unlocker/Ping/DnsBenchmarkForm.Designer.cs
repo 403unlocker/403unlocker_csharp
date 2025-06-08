@@ -262,7 +262,7 @@ namespace _403unlocker.Ping
             this.buttonSort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonSort.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonSort.ForeColor = System.Drawing.Color.Black;
-            this.buttonSort.Location = new System.Drawing.Point(267, 371);
+            this.buttonSort.Location = new System.Drawing.Point(254, 400);
             this.buttonSort.Name = "buttonSort";
             this.buttonSort.Size = new System.Drawing.Size(79, 23);
             this.buttonSort.TabIndex = 11;
@@ -389,11 +389,11 @@ namespace _403unlocker.Ping
             this.buttonAddDns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(212)))), ((int)(((byte)(191)))));
             this.buttonAddDns.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonAddDns.ForeColor = System.Drawing.Color.Black;
-            this.buttonAddDns.Location = new System.Drawing.Point(340, 400);
+            this.buttonAddDns.Location = new System.Drawing.Point(339, 400);
             this.buttonAddDns.Name = "buttonAddDns";
             this.buttonAddDns.Size = new System.Drawing.Size(79, 23);
             this.buttonAddDns.TabIndex = 17;
-            this.buttonAddDns.Text = "Add DNS";
+            this.buttonAddDns.Text = "Add";
             this.buttonAddDns.UseVisualStyleBackColor = false;
             this.buttonAddDns.Click += new System.EventHandler(this.buttonAddDns_Click);
             // 
