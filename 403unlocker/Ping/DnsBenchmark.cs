@@ -1,30 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Net;
-using System.Security.Policy;
-using System.Net.Http;
 using System.Net.NetworkInformation;
-using System.Diagnostics;
 using DnsClient;
-using System.Security.Cryptography;
-using System.Threading;
-using System.Text.RegularExpressions;
-using DnsClient.Protocol;
-using HtmlAgilityPack;
 using System.IO;
 using Newtonsoft.Json;
 using _403unlocker.Add;
 using System.Data;
 using _403unlocker.Config;
 using _403unlocker.Notification;
-using System.Reflection;
-using static _403unlocker.Data;
 using System.Net.Sockets;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace _403unlocker.Ping
 {

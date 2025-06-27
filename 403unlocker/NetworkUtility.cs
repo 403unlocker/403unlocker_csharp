@@ -1,16 +1,12 @@
 using DnsClient.Protocol;
 using DnsClient;
 using HtmlAgilityPack;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
 using _403unlocker.Config;
 

@@ -2,28 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Security.Policy;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 using _403unlocker.Config;
-using System.Security.Cryptography;
 using _403unlocker.Add;
 using System.Diagnostics;
-using static _403unlocker.Data;
 using System.IO;
 using _403unlocker.Notification;
 using _403unlocker.ByPass_Url;
-using System.Net;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using static System.Collections.Specialized.BitVector32;
 using _403unlocker.Ping.Search;
-using System.Runtime.InteropServices;
 using _403unlocker.QR_Code;
 
 namespace _403unlocker.Ping

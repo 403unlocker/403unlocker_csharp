@@ -1,18 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.NetworkInformation;
 using System.Windows.Forms;
-using _403unlocker.Ping;
-using System.Configuration;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Xml.Serialization;
-using Microsoft.Win32;
-using System.Windows.Input;
-using System.Windows.Documents;
 
 namespace _403unlocker.Config
 {
