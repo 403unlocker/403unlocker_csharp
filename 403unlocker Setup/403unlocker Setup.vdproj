@@ -15,32 +15,32 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_06DA89DA78A847EDB8598400E485CA40"
+        "MsmKey" = "8:_061CA981FACF40B092EB35105969B6E9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_12FE226472175E5C876BEC8F5C2FBCD7"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_1BF606D7DF53F2CB66BE20C096822CF5"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_1E1DC9813325DE7F12F3BA9EF05821BC"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_533313D615516B284F962EBE39EEB5CE"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -51,25 +51,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_76B116B1061D40B181AD835821C4EDBF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8AD474166895489C853B5F57445BF831"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9A42E09BDE2B7C32A2BA731172F0E79B"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9BFAFCAF9F7240359B6AD0F448C1450E"
+        "MsmKey" = "8:_9BC84A91F09A4DE9AC5465D41B4D2C4F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -82,19 +70,37 @@
         "Entry"
         {
         "MsmKey" = "8:_9FCDE2C480DCF4CF59E0EDC3588A5185"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "MsmKey" = "8:_A94E852196C74BC6A4F8908F6E11C73D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D2ED5E5F4D95461DBEB04D118D827079"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D9B374C1A8C742CCA185EE13A3B1F70D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F6C6713770FC30417539C05D1D099049"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,7 +118,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
+        "OwnerKey" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -175,6 +181,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -228,7 +250,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.8"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=863262"
                 }
@@ -236,10 +258,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06DA89DA78A847EDB8598400E485CA40"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_061CA981FACF40B092EB35105969B6E9"
             {
-            "SourcePath" = "8:..\\403unlocker\\Icon1.ico"
-            "TargetName" = "8:Icon1.ico"
+            "SourcePath" = "8:..\\403unlocker\\bin\\Release\\dns.json"
+            "TargetName" = "8:dns.json"
             "Tag" = "8:"
             "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
             "Condition" = "8:"
@@ -380,46 +402,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_76B116B1061D40B181AD835821C4EDBF"
-            {
-            "SourcePath" = "8:..\\403unlocker\\bin\\Release\\dns.json"
-            "TargetName" = "8:dns.json"
-            "Tag" = "8:"
-            "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8AD474166895489C853B5F57445BF831"
-            {
-            "SourcePath" = "8:..\\403unlocker\\bin\\Release\\HostName.json"
-            "TargetName" = "8:HostName.json"
-            "Tag" = "8:"
-            "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9A42E09BDE2B7C32A2BA731172F0E79B"
             {
             "AssemblyRegister" = "3:1"
@@ -451,10 +433,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9BFAFCAF9F7240359B6AD0F448C1450E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9BC84A91F09A4DE9AC5465D41B4D2C4F"
             {
-            "SourcePath" = "8:..\\403unlocker\\bin\\Release\\403unlocker.config"
-            "TargetName" = "8:403unlocker"
+            "SourcePath" = "8:..\\403unlocker\\icon128.ico"
+            "TargetName" = "8:icon128.ico"
             "Tag" = "8:"
             "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
             "Condition" = "8:"
@@ -500,6 +482,66 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A94E852196C74BC6A4F8908F6E11C73D"
+            {
+            "SourcePath" = "8:..\\403unlocker\\bin\\Release\\403unlocker.config"
+            "TargetName" = "8:403unlocker.config"
+            "Tag" = "8:"
+            "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D2ED5E5F4D95461DBEB04D118D827079"
+            {
+            "SourcePath" = "8:..\\403unlocker\\bin\\Release\\HostName.json"
+            "TargetName" = "8:HostName.json"
+            "Tag" = "8:"
+            "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D9B374C1A8C742CCA185EE13A3B1F70D"
+            {
+            "SourcePath" = "8:..\\403unlocker\\bin\\Release\\previousUrl.txt"
+            "TargetName" = "8:previousUrl.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F6C6713770FC30417539C05D1D099049"
@@ -741,46 +783,32 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_875372CF8BAA4E62BB7F7925917A789C"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0C29159E1AB44C11904D000CCFD5647B"
             {
             "Name" = "8:403unlocker"
-            "Arguments" = "8:"
-            "Description" = "8:Checks which DNS server can bypass geo-restriction for a given hostname"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
-            "Folder" = "8:_01F1196DC4504279B6FC6101D4A2B47B"
-            "WorkingFolder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
-            "Icon" = "8:_06DA89DA78A847EDB8598400E485CA40"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BE89E9A069DD456A9C3345AA348B58D7"
-            {
-            "Name" = "8:403unlocker"
-            "Arguments" = "8:"
-            "Description" = "8:Checks which DNS server can bypass geo-restriction for a given hostname"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
-            "Folder" = "8:_B5D7431839C74606AF2AFD81734F88C9"
-            "WorkingFolder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
-            "Icon" = "8:_06DA89DA78A847EDB8598400E485CA40"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D20CDE6523E64709B484B5B0413AE189"
-            {
-            "Name" = "8:Shortcut to %sPrimary output from 403unlocker (Active)"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_AB681BDC2F6F4EC5B720284E79C20179"
-            "Folder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
+            "Target" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
+            "Folder" = "8:_01F1196DC4504279B6FC6101D4A2B47B"
             "WorkingFolder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
-            "Icon" = "8:"
+            "Icon" = "8:_9BC84A91F09A4DE9AC5465D41B4D2C4F"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BD2E32E8263C431B857AA21FEF2B43BB"
+            {
+            "Name" = "8:403unlocker"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F4C0ACE989C84A9C80AF8B1BE967C97D"
+            "Folder" = "8:_B5D7431839C74606AF2AFD81734F88C9"
+            "WorkingFolder" = "8:_079C253D25484B83AA99CADD3BFD36EB"
+            "Icon" = "8:_9BC84A91F09A4DE9AC5465D41B4D2C4F"
             "Feature" = "8:"
             }
         }
@@ -1182,7 +1210,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_AB681BDC2F6F4EC5B720284E79C20179"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F4C0ACE989C84A9C80AF8B1BE967C97D"
             {
             "SourcePath" = "8:..\\403unlocker\\obj\\Release\\403unlocker.exe"
             "TargetName" = "8:"

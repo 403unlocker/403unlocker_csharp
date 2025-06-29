@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using _403unlocker.Ping;
 using _403unlocker.Notification;
-using System.Drawing;
-using System.Runtime.InteropServices;
 
 namespace _403unlocker
 {
