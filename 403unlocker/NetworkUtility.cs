@@ -9,6 +9,9 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using _403unlocker.Config;
+using System.IO;
+using System.Text;
+using System.ComponentModel;
 
 namespace _403unlocker
 {
@@ -35,51 +38,25 @@ namespace _403unlocker
             }
         }
 
-        private static HttpClient SetHttpRequestHeaders()
+        public static async Task<HttpResponseMessage> HttpResponseMessage(string url, string hostnameHeader)
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.UseCookies = false;
-            handler.AllowAutoRedirect = true;
-
-            HttpClient client = new HttpClient(handler);
-
-            // content to accept in response
-            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-
-            // OS, browser version, html layout rendering engine
-            client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0");
-
-
-            return client;
-        }
-
-        public async static Task<HtmlDocument> HttpResponseHtml(string hostName)
-        {
-            using (HttpClient client = SetHttpRequestHeaders())
+            using (HttpClientHandler handler = new HttpClientHandler())
             {
-                client.Timeout = TimeSpan.FromSeconds(60);
+                handler.UseCookies = false;
+                handler.AllowAutoRedirect = true;
+                using (HttpClient client = new HttpClient(handler))
+                {
+                    client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
 
-                // get html as string
-                string htmlString = await client.GetStringAsync($"https://www.{hostName}");
+                    // content to accept in response
+                    client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
-                // convert html to tree
-                var htmlDocument = new HtmlDocument();
-                htmlDocument.LoadHtml(htmlString);
-                return htmlDocument;
-            }
-        }
-
-        public async static Task<HttpResponseMessage> HttpResponseMessage(string hostName, string resolvedIp)
-        {
-            using (HttpClient client = SetHttpRequestHeaders())
-            {
-                client.Timeout = TimeSpan.FromMilliseconds(Settings.ByPass.HttpRequestTimeOutInMiliSeconds);
-                client.DefaultRequestHeaders.Host = hostName;
-
-                // get html response
-                HttpResponseMessage htmlResponse = await client.GetAsync($"https://{resolvedIp}:443");
-                return htmlResponse;
+                    // OS, browser version, html layout rendering engine
+                    client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
+                    client.DefaultRequestHeaders.Host = hostnameHeader;
+                    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0");
+                    return await client.GetAsync(url);
+                }
             }
         }
 

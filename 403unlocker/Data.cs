@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using HtmlAgilityPack;
 using _403unlocker.Add;
 using _403unlocker.ByPass_Url;
 
@@ -20,9 +23,18 @@ namespace _403unlocker
                 //https://www.getflix.com.au/setup/dns-servers/
                 try
                 {
-                    var htmlDocument = await NetworkUtility.HttpResponseHtml("publicdns.xyz");
+                    HtmlDocument htmlDoc = new HtmlDocument();
+                    HttpResponseMessage response = await NetworkUtility.HttpResponseMessage("https://www.publicdns.xyz", "publicdns.xyz");
+                    
+                    using (Stream stream = await response.Content.ReadAsStreamAsync())
+                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                    {
+                        string html = await reader.ReadToEndAsync();
+                        htmlDoc.LoadHtml(html);
+                    }
+
                     // get DNS table
-                    var table = htmlDocument.DocumentNode.SelectSingleNode("//table");
+                    var table = htmlDoc.DocumentNode.SelectSingleNode("//table");
 
                     // get rows of table
                     var rows = table.SelectNodes(".//tr");

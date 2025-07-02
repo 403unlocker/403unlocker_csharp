@@ -99,7 +99,7 @@ namespace _403unlocker.Ping
                 }
                 else
                 {
-                    var httpResponse = await NetworkUtility.HttpResponseMessage(hostName, resolvedIP[0]);
+                    var httpResponse = await NetworkUtility.HttpResponseMessage($"https://{resolvedIP[0]}:443", hostName);
                     Status = $"{(int)httpResponse.StatusCode} - {httpResponse.StatusCode}";
                 }
             }
