@@ -98,6 +98,7 @@ namespace _403unlocker
                     new DnsConfig{ Provider = "403.online/download", DNS = "10.202.10.102" },
                     new DnsConfig{ Provider = "begzar.ir", DNS = "185.55.226.26" },
                     new DnsConfig{ Provider = "begzar.ir", DNS = "185.55.225.25" },
+                    new DnsConfig{ Provider = "begzar.ir", DNS = "185.55.224.24" },
                     new DnsConfig{ Provider = "radar.game/#/dns", DNS = "10.202.10.10" },
                     new DnsConfig{ Provider = "radar.game/#/dns", DNS = "10.202.10.11" },
                     new DnsConfig{ Provider = "dnspro.ir", DNS = "87.107.110.109" },
