@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _403unlocker.Properties
+namespace _403Unlocker.Properties
 {
 
 

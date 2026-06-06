@@ -1,0 +1,509 @@
+namespace _403Unlocker
+{
+    partial class _403UnlockerForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(_403UnlockerForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.add403UnlockerDefaultDNSsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPublicdnsxyzDNSsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addCustomDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPv4AddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.providerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allFieldsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateIPv4QRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byIPv4AddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byProviderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip23 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonClearAll = new System.Windows.Forms.ToolStripButton();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showIcononTaskTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.about403UnlockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.websiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabelTotalDNSRecords = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
+            this.toolStrip23.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1,
+            this.toolStripButtonSave});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(335, 25);
+            this.toolStrip1.TabIndex = 26;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.add403UnlockerDefaultDNSsToolStripMenuItem,
+            this.addPublicdnsxyzDNSsToolStripMenuItem,
+            this.addCustomDNSToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Text = "Add DNS(s)";
+            // 
+            // add403UnlockerDefaultDNSsToolStripMenuItem
+            // 
+            this.add403UnlockerDefaultDNSsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("add403UnlockerDefaultDNSsToolStripMenuItem.Image")));
+            this.add403UnlockerDefaultDNSsToolStripMenuItem.Name = "add403UnlockerDefaultDNSsToolStripMenuItem";
+            this.add403UnlockerDefaultDNSsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.add403UnlockerDefaultDNSsToolStripMenuItem.Text = "Add 403Unlocker Default DNSs";
+            this.add403UnlockerDefaultDNSsToolStripMenuItem.Click += new System.EventHandler(this.add403UnlockerDefaultDNSsToolStripMenuItem_Click);
+            // 
+            // addPublicdnsxyzDNSsToolStripMenuItem
+            // 
+            this.addPublicdnsxyzDNSsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addPublicdnsxyzDNSsToolStripMenuItem.Image")));
+            this.addPublicdnsxyzDNSsToolStripMenuItem.Name = "addPublicdnsxyzDNSsToolStripMenuItem";
+            this.addPublicdnsxyzDNSsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.addPublicdnsxyzDNSsToolStripMenuItem.Text = "Add Publicdns.xyz DNSs";
+            this.addPublicdnsxyzDNSsToolStripMenuItem.Click += new System.EventHandler(this.addPublicdnsxyzDNSsToolStripMenuItem_Click);
+            // 
+            // addCustomDNSToolStripMenuItem
+            // 
+            this.addCustomDNSToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addCustomDNSToolStripMenuItem.Image")));
+            this.addCustomDNSToolStripMenuItem.Name = "addCustomDNSToolStripMenuItem";
+            this.addCustomDNSToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.addCustomDNSToolStripMenuItem.Text = "Add Custom DNS";
+            this.addCustomDNSToolStripMenuItem.Click += new System.EventHandler(this.addCustomDNSToolStripMenuItem_Click);
+            // 
+            // toolStripButtonSave
+            // 
+            this.toolStripButtonSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
+            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSave.Name = "toolStripButtonSave";
+            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSave.Text = "Save";
+            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSaveTable_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 49);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(335, 272);
+            this.dataGridView1.TabIndex = 27;
+            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewTotalDNSRecords_DataBindingComplete);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.shareToolStripMenuItem,
+            this.findToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 114);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iPv4AddressToolStripMenuItem,
+            this.providerToolStripMenuItem,
+            this.allFieldsCSVToolStripMenuItem});
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            // 
+            // iPv4AddressToolStripMenuItem
+            // 
+            this.iPv4AddressToolStripMenuItem.Name = "iPv4AddressToolStripMenuItem";
+            this.iPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.iPv4AddressToolStripMenuItem.Text = "IPv4 Address";
+            this.iPv4AddressToolStripMenuItem.Click += new System.EventHandler(this.iPv4AddressToolStripMenuItem_Click);
+            // 
+            // providerToolStripMenuItem
+            // 
+            this.providerToolStripMenuItem.Name = "providerToolStripMenuItem";
+            this.providerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.providerToolStripMenuItem.Text = "Provider";
+            this.providerToolStripMenuItem.Click += new System.EventHandler(this.providerToolStripMenuItem_Click);
+            // 
+            // allFieldsCSVToolStripMenuItem
+            // 
+            this.allFieldsCSVToolStripMenuItem.Name = "allFieldsCSVToolStripMenuItem";
+            this.allFieldsCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allFieldsCSVToolStripMenuItem.Text = "All Fields (CSV)";
+            this.allFieldsCSVToolStripMenuItem.Click += new System.EventHandler(this.allFieldsCSVToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editToolStripMenuItem.Image")));
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // shareToolStripMenuItem
+            // 
+            this.shareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generateIPv4QRCodeToolStripMenuItem});
+            this.shareToolStripMenuItem.Name = "shareToolStripMenuItem";
+            this.shareToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.shareToolStripMenuItem.Text = "Share";
+            // 
+            // generateIPv4QRCodeToolStripMenuItem
+            // 
+            this.generateIPv4QRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("generateIPv4QRCodeToolStripMenuItem.Image")));
+            this.generateIPv4QRCodeToolStripMenuItem.Name = "generateIPv4QRCodeToolStripMenuItem";
+            this.generateIPv4QRCodeToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.generateIPv4QRCodeToolStripMenuItem.Text = "Generate IPv4 to QR Code";
+            this.generateIPv4QRCodeToolStripMenuItem.Click += new System.EventHandler(this.generateIPv4QRCodeToolStripMenuItem_Click);
+            // 
+            // findToolStripMenuItem
+            // 
+            this.findToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.byIPv4AddressToolStripMenuItem,
+            this.byProviderToolStripMenuItem});
+            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.findToolStripMenuItem.Text = "Find";
+            // 
+            // byIPv4AddressToolStripMenuItem
+            // 
+            this.byIPv4AddressToolStripMenuItem.Name = "byIPv4AddressToolStripMenuItem";
+            this.byIPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byIPv4AddressToolStripMenuItem.Text = "by IPv4 Address";
+            this.byIPv4AddressToolStripMenuItem.Click += new System.EventHandler(this.byIPv4AddressToolStripMenuItem_Click);
+            // 
+            // byProviderToolStripMenuItem
+            // 
+            this.byProviderToolStripMenuItem.Name = "byProviderToolStripMenuItem";
+            this.byProviderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byProviderToolStripMenuItem.Text = "by Provider";
+            this.byProviderToolStripMenuItem.Click += new System.EventHandler(this.byProviderToolStripMenuItem_Click);
+            // 
+            // toolStrip23
+            // 
+            this.toolStrip23.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip23.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonClearAll});
+            this.toolStrip23.Location = new System.Drawing.Point(0, 346);
+            this.toolStrip23.Name = "toolStrip23";
+            this.toolStrip23.Size = new System.Drawing.Size(335, 25);
+            this.toolStrip23.TabIndex = 28;
+            this.toolStrip23.Text = "toolStrip2";
+            // 
+            // toolStripButtonClearAll
+            // 
+            this.toolStripButtonClearAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonClearAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClearAll.Image")));
+            this.toolStripButtonClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonClearAll.Name = "toolStripButtonClearAll";
+            this.toolStripButtonClearAll.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonClearAll.Text = "Clear All";
+            this.toolStripButtonClearAll.Click += new System.EventHandler(this.toolStripButtonClearAll_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(335, 24);
+            this.menuStrip1.TabIndex = 30;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importToolStripMenuItem,
+            this.exportToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showIcononTaskTrayToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // showIcononTaskTrayToolStripMenuItem
+            // 
+            this.showIcononTaskTrayToolStripMenuItem.Name = "showIcononTaskTrayToolStripMenuItem";
+            this.showIcononTaskTrayToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.showIcononTaskTrayToolStripMenuItem.Text = "Show Icon on Task Tray";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.about403UnlockerToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // about403UnlockerToolStripMenuItem
+            // 
+            this.about403UnlockerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sourceCodeToolStripMenuItem,
+            this.websiteToolStripMenuItem});
+            this.about403UnlockerToolStripMenuItem.Name = "about403UnlockerToolStripMenuItem";
+            this.about403UnlockerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.about403UnlockerToolStripMenuItem.Text = "About 403Unlocker";
+            // 
+            // sourceCodeToolStripMenuItem
+            // 
+            this.sourceCodeToolStripMenuItem.Name = "sourceCodeToolStripMenuItem";
+            this.sourceCodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sourceCodeToolStripMenuItem.Text = "Source Code";
+            this.sourceCodeToolStripMenuItem.Click += new System.EventHandler(this.sourceCodeToolStripMenuItem_Click);
+            // 
+            // websiteToolStripMenuItem
+            // 
+            this.websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
+            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.websiteToolStripMenuItem.Text = "Website";
+            this.websiteToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "JSON Files|*.json";
+            this.saveFileDialog1.Title = "Hit save and make it stay!";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "JSON Files|*.json|Text Files|*.txt";
+            this.openFileDialog1.Title = "Don\'t worry, I won\'t peek!😜";
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabelTotalDNSRecords,
+            this.toolStripLabel3});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 321);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(335, 25);
+            this.toolStrip2.TabIndex = 31;
+            this.toolStrip2.Text = "toolStrip3";
+            // 
+            // toolStripLabelTotalDNSRecords
+            // 
+            this.toolStripLabelTotalDNSRecords.Name = "toolStripLabelTotalDNSRecords";
+            this.toolStripLabelTotalDNSRecords.Size = new System.Drawing.Size(128, 22);
+            this.toolStripLabelTotalDNSRecords.Text = "Total DNS Records: 000";
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(132, 22);
+            this.toolStripLabel3.Text = "Hostname: google.com";
+            // 
+            // _403UnlockerForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(335, 371);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.toolStrip23);
+            this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "_403UnlockerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "403Unlocker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.toolStrip23.ResumeLayout(false);
+            this.toolStrip23.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStrip toolStrip23;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem add403UnlockerDefaultDNSsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addPublicdnsxyzDNSsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addCustomDNSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSave;
+        private System.Windows.Forms.ToolStripButton toolStripButtonClearAll;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem about403UnlockerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sourceCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem websiteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showIcononTaskTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shareToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generateIPv4QRCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iPv4AddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem providerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allFieldsCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byIPv4AddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byProviderToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelTotalDNSRecords;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+    }
+}
+

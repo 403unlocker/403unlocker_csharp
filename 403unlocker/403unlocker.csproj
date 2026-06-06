@@ -1,36 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{07817F22-439B-4CFF-A6B1-F76B4B1536E2}</ProjectGuid>
+    <ProjectGuid>{33467ECC-197D-4C5B-B2A4-39D61F700695}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>_403unlocker</RootNamespace>
-    <AssemblyName>403unlocker</AssemblyName>
+    <RootNamespace>_403Unlocker</RootNamespace>
+    <AssemblyName>403Unlocker</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <SupportUrl>https://github.com/ALiMoradzade/403unlocker</SupportUrl>
-    <ProductName>403unlocker</ProductName>
-    <PublisherName>ALi Moradzade</PublisherName>
-    <SuiteName>403unlocker</SuiteName>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,165 +34,68 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon256.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\Icon256.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DnsClient, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
-      <HintPath>..\packages\DnsClient.1.8.0\lib\net472\DnsClient.dll</HintPath>
+    <Reference Include="Clipboard Manager">
+      <HintPath>..\..\..\..\Library\Clipboard Manager\Clipboard Manager\bin\Release\Clipboard Manager.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.11.74.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.74\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.12.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.12.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.3\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
-      <HintPath>..\packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms.DataVisualization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Add\DnsConfig.cs" />
-    <Compile Include="Add\Custom DNS\DnsCustomForm.cs">
+    <Compile Include="403UnlockerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Add\Custom DNS\DnsCustomForm.Designer.cs">
-      <DependentUpon>DnsCustomForm.cs</DependentUpon>
+    <Compile Include="403UnlockerForm.Designer.cs">
+      <DependentUpon>403UnlockerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Add\DnsConfigForm.cs">
+    <Compile Include="Add DNS\CustomDnsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Add\DnsConfigForm.Designer.cs">
-      <DependentUpon>DnsConfigForm.cs</DependentUpon>
+    <Compile Include="Add DNS\CustomDnsForm.Designer.cs">
+      <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ByPass Url\GetUrlForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ByPass Url\GetUrlForm.Designer.cs">
-      <DependentUpon>GetUrlForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Config\StartUp.cs" />
-    <Compile Include="Data.cs" />
-    <Compile Include="DnsCommand.cs" />
-    <Compile Include="Extention.cs" />
-    <Compile Include="Notification\MessageBoxForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Notification\MessageBoxForm.Designer.cs">
-      <DependentUpon>MessageBoxForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Notification\MessageBoxWait.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Notification\MessageBoxWait.Designer.cs">
-      <DependentUpon>MessageBoxWait.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Notification\ProgressReport.cs" />
-    <Compile Include="Notification\MessageBoxProgress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Notification\MessageBoxProgress.Designer.cs">
-      <DependentUpon>MessageBoxProgress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Ping\DnsBenchmark.cs" />
-    <Compile Include="Ping\DnsBenchmarkForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ping\DnsBenchmarkForm.Designer.cs">
-      <DependentUpon>DnsBenchmarkForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NetworkUtility.cs" />
-    <Compile Include="ByPass Url\UrlConfig.cs" />
-    <Compile Include="Ping\Search\SearchForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ping\Search\SearchForm.Designer.cs">
-      <DependentUpon>SearchForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Add DNS\FetchDns.cs" />
+    <Compile Include="Configuration\AppSettings.cs" />
+    <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Data Models\DnsConfig.cs" />
+    <Compile Include="Data Models\DnsInfo.cs" />
+    <Compile Include="Data Models\IPAddressConverter.cs" />
+    <Compile Include="File\FileManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Config\Settings.cs" />
-    <Compile Include="Config\SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Config\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QR Code\QrCodeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QR Code\QrCodeForm.Designer.cs">
-      <DependentUpon>QrCodeForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Add\Custom DNS\DnsCustomForm.resx">
-      <DependentUpon>DnsCustomForm.cs</DependentUpon>
+    <EmbeddedResource Include="403UnlockerForm.resx">
+      <DependentUpon>403UnlockerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add\DnsConfigForm.resx">
-      <DependentUpon>DnsConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ByPass Url\GetUrlForm.resx">
-      <DependentUpon>GetUrlForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Notification\MessageBoxForm.resx">
-      <DependentUpon>MessageBoxForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Notification\MessageBoxProgress.resx">
-      <DependentUpon>MessageBoxProgress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Notification\MessageBoxWait.resx">
-      <DependentUpon>MessageBoxWait.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ping\DnsBenchmarkForm.resx">
-      <DependentUpon>DnsBenchmarkForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ping\Search\SearchForm.resx">
-      <DependentUpon>SearchForm.cs</DependentUpon>
+    <EmbeddedResource Include="Add DNS\CustomDnsForm.resx">
+      <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Config\SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QR Code\QrCodeForm.resx">
-      <DependentUpon>QrCodeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="app.manifest" />
+    <None Include="Assets\DefaultDns.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -221,19 +106,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon256.ico" />
+    <None Include="Icons\save_regular_icon32.png" />
+    <None Include="Icons\delete_regular_icon32.png" />
+    <None Include="Icons\add_regular_icon32.png" />
+    <None Include="Icons\addcircle_regular_icon32.png" />
+    <None Include="Icons\cloud_regular_icon32.png" />
+    <None Include="Icons\earth_regular_icon32.png" />
+    <None Include="Icons\edit_regular_icon32.png" />
+    <None Include="Icons\subtractdnd_regular_icon24.png" />
+    <Content Include="Icons\Icon256.ico" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <ProjectReference Include="..\Network Utilities\Network Utilities.csproj">
+      <Project>{bef25846-319f-4ec2-9e21-962cf06e04c1}</Project>
+      <Name>Network Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QR Code Generator\QR Code Generator.csproj">
+      <Project>{8b20af7a-2198-4e3d-9f7e-8cce7f3902f2}</Project>
+      <Name>QR Code Generator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

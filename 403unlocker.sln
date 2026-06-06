@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.6.33829.357
+VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "403unlocker", "403unlocker\403unlocker.csproj", "{07817F22-439B-4CFF-A6B1-F76B4B1536E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "403Unlocker", "403Unlocker\403Unlocker.csproj", "{33467ECC-197D-4C5B-B2A4-39D61F700695}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "403unlocker Setup", "403unlocker Setup\403unlocker Setup.vdproj", "{08D3BD8D-FA46-E8D5-E313-E6058E69F3F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network Utilities", "Network Utilities\Network Utilities.csproj", "{BEF25846-319F-4EC2-9E21-962CF06E04C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QR Code Generator", "QR Code Generator\QR Code Generator.csproj", "{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,17 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{07817F22-439B-4CFF-A6B1-F76B4B1536E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07817F22-439B-4CFF-A6B1-F76B4B1536E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07817F22-439B-4CFF-A6B1-F76B4B1536E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07817F22-439B-4CFF-A6B1-F76B4B1536E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08D3BD8D-FA46-E8D5-E313-E6058E69F3F0}.Debug|Any CPU.ActiveCfg = Debug
-		{08D3BD8D-FA46-E8D5-E313-E6058E69F3F0}.Release|Any CPU.ActiveCfg = Release
+		{33467ECC-197D-4C5B-B2A4-39D61F700695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33467ECC-197D-4C5B-B2A4-39D61F700695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33467ECC-197D-4C5B-B2A4-39D61F700695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33467ECC-197D-4C5B-B2A4-39D61F700695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEF25846-319F-4EC2-9E21-962CF06E04C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF25846-319F-4EC2-9E21-962CF06E04C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEF25846-319F-4EC2-9E21-962CF06E04C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEF25846-319F-4EC2-9E21-962CF06E04C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {774E273A-704C-48D0-8047-5428F5F96224}
+		SolutionGuid = {618D2A47-0942-4500-9F7C-6A6BD8059C83}
 	EndGlobalSection
 EndGlobal

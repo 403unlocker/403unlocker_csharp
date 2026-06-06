@@ -1,0 +1,221 @@
+{
+  "Version": "2.0",
+  "IPv4_Servers": [
+    {
+      "IPv4": "178.22.122.100",
+      "Provider": "shecan.ir"
+    },
+    {
+      "IPv4": "185.51.200.2",
+      "Provider": "shecan.ir"
+    },
+    {
+      "IPv4": "192.104.158.78",
+      "Provider": "server.ir/IPv4-proxy"
+    },
+    {
+      "IPv4": "194.104.158.48",
+      "Provider": "server.ir/IPv4-proxy"
+    },
+    {
+      "IPv4": "172.29.0.100",
+      "Provider": "hostiran.net/landing/proxy"
+    },
+    {
+      "IPv4": "172.29.2.100",
+      "Provider": "hostiran.net/landing/proxy"
+    },
+    {
+      "IPv4": "78.157.42.101",
+      "Provider": "electrotm.org"
+    },
+    {
+      "IPv4": "78.157.42.100",
+      "Provider": "electrotm.org"
+    },
+    {
+      "IPv4": "10.202.10.202",
+      "Provider": "403.online/download"
+    },
+    {
+      "IPv4": "10.202.10.102",
+      "Provider": "403.online/download"
+    },
+    {
+      "IPv4": "185.55.226.26",
+      "Provider": "begzar.ir"
+    },
+    {
+      "IPv4": "185.55.225.25",
+      "Provider": "begzar.ir"
+    },
+    {
+      "IPv4": "185.55.225.24",
+      "Provider": "begzar.ir"
+    },
+    {
+      "IPv4": "10.202.10.10",
+      "Provider": "radar.game/#/IPv4"
+    },
+    {
+      "IPv4": "10.202.10.11",
+      "Provider": "radar.game/#/IPv4"
+    },
+    {
+      "IPv4": "87.107.110.109",
+      "Provider": "IPv4pro.ir"
+    },
+    {
+      "IPv4": "87.107.110.110",
+      "Provider": "IPv4pro.ir"
+    },
+    {
+      "IPv4": "87.107.52.11",
+      "Provider": "LinkedIn Suggested"
+    },
+    {
+      "IPv4": "87.107.52.13",
+      "Provider": "LinkedIn Suggested"
+    },
+    {
+      "IPv4": "5.202.100.101",
+      "Provider": "pishgaman"
+    },
+    {
+      "IPv4": "94.103.125.157",
+      "Provider": "sheltertm.com"
+    },
+    {
+      "IPv4": "94.103.125.158",
+      "Provider": "sheltertm.com"
+    },
+    {
+      "IPv4": "85.15.1.15",
+      "Provider": "shatel.ir (rasana)"
+    },
+    {
+      "IPv4": "85.15.1.14",
+      "Provider": "shatel.ir (rasana)"
+    },
+    {
+      "IPv4": "185.228.168.168",
+      "Provider": "cleanbrowsing.org/filters"
+    },
+    {
+      "IPv4": "185.228.169.168",
+      "Provider": "cleanbrowsing.org/filters"
+    },
+    {
+      "IPv4": "76.76.19.19",
+      "Provider": "alternate-IPv4.com"
+    },
+    {
+      "IPv4": "76.223.122.150",
+      "Provider": "alternate-IPv4.com"
+    },
+    {
+      "IPv4": "185.37.37.37",
+      "Provider": "Unlocator"
+    },
+    {
+      "IPv4": "185.37.39.39",
+      "Provider": "Unlocator"
+    },
+    {
+      "IPv4": "77.88.8.88",
+      "Provider": "Yandex.IPv4 (Safe)"
+    },
+    {
+      "IPv4": "77.88.8.2",
+      "Provider": "Yandex.IPv4 (Safe)"
+    },
+    {
+      "IPv4": "77.88.8.7",
+      "Provider": "Yandex.IPv4 (Family)"
+    },
+    {
+      "IPv4": "77.88.8.3",
+      "Provider": "Yandex.IPv4 (Family)"
+    },
+    {
+      "IPv4": "198.54.117.10",
+      "Provider": "namecheap.com (SafeServe)"
+    },
+    {
+      "IPv4": "198.54.117.11",
+      "Provider": "namecheap.com (SafeServe)"
+    },
+    {
+      "IPv4": "76.76.2.0",
+      "Provider": "controld.com/free-IPv4 (Unfiltered)"
+    },
+    {
+      "IPv4": "76.76.10.0",
+      "Provider": "controld.com/free-IPv4 (Unfiltered)"
+    },
+    {
+      "IPv4": "76.76.2.1",
+      "Provider": "controld.com/free-IPv4 (Malware)"
+    },
+    {
+      "IPv4": "76.76.10.1",
+      "Provider": "controld.com/free-IPv4 (Malware)"
+    },
+    {
+      "IPv4": "76.76.2.2",
+      "Provider": "controld.com/free-IPv4 (Ads & Tracking)"
+    },
+    {
+      "IPv4": "76.76.10.2",
+      "Provider": "controld.com/free-IPv4 (Ads & Tracking)"
+    },
+    {
+      "IPv4": "76.76.2.3",
+      "Provider": "controld.com/free-IPv4 (Social)"
+    },
+    {
+      "IPv4": "76.76.10.3",
+      "Provider": "controld.com/free-IPv4 (Social)"
+    },
+    {
+      "IPv4": "76.76.2.4",
+      "Provider": "controld.com/free-IPv4 (Family Friendly)"
+    },
+    {
+      "IPv4": "76.76.10.4",
+      "Provider": "controld.com/free-IPv4 (Family Friendly)"
+    },
+    {
+      "IPv4": "76.76.2.5",
+      "Provider": "controld.com/free-IPv4 (Uncensored)"
+    },
+    {
+      "IPv4": "76.76.10.5",
+      "Provider": "controld.com/free-IPv4 (Uncensored)"
+    },
+    {
+      "IPv4": "10.0.0.242",
+      "Provider": "Private Internet Access (IPv4)"
+    },
+    {
+      "IPv4": "10.0.0.243",
+      "Provider": "Private Internet Access (IPv4+Stream)"
+    },
+    {
+      "IPv4": "10.0.0.244",
+      "Provider": "Private Internet Access (IPv4+Mace)"
+    },
+    {
+      "IPv4": "10.0.0.241",
+      "Provider": "Private Internet Access (IPv4+Strem+Mace)"
+    },
+    {
+      "IPv4": "103.86.96.100",
+      "Provider": "NordVPN"
+    },
+    {
+      "IPv4": "103.86.99.100",
+      "Provider": "NordVPN"
+    }
+  ]
+}
