@@ -88,22 +88,12 @@ namespace _403Unlocker
 
         private static DialogResult MessageBoxDnsDeleteChoice(string selectedDns)
         {
-            var r = MessageBox.Show($"Are you sure you want to delete \"{selectedDns}\" DNS?",
+            var r = MessageBox.Show($"Are you sure you want to delete {selectedDns} DNS?",
                                     "Confirm Delete",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question);
             return r;
         }
-
-        private static DialogResult MessageBoxDnsDeleteSelectionError(string selectedDns)
-        {
-            var r = MessageBox.Show("Please select a DNS row before deleting it",
-                                    "Can't Delete!",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Stop);
-            return r;
-        }
-
         #endregion
 
         #region Form Events
@@ -151,6 +141,11 @@ namespace _403Unlocker
                 dnsInfo,
             };
             return AddListToTable(dnsList);
+        }
+
+        private void RemoveDnsIndexFromTable(int index)
+        {
+            dnsTable.RemoveAt(index);
         }
 
         private (int,int) AddListToTable(List<DnsInfo> listToBeAdded)
@@ -300,7 +295,13 @@ namespace _403Unlocker
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string selectedDns = dataGridView1.SelectedRows[0].Cells["IPv4"].Value.ToString();
 
+            if (MessageBoxDnsDeleteChoice(selectedDns) == DialogResult.Yes)
+            {
+                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                RemoveDnsIndexFromTable(selectedRowIndex);
+            }
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
