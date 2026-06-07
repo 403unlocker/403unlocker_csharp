@@ -1,17 +1,18 @@
 using _403Unlocker.Add_DNS;
 using _403Unlocker.Data_Models;
 using _403Unlocker.File;
+using Clipboard_Manager;
 using QR_Code_Generator;
+using Registry_Manager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using Clipboard_Manager;
-using System.Drawing;
-using System.IO;
 
 namespace _403Unlocker
 {
@@ -24,10 +25,13 @@ namespace _403Unlocker
         {
             InitializeComponent();
 
-            dataGridView1.DataSource = dnsTable; // Links dataGridView to BindingList variable
+            LoadToTable();
 
             dataGridView1.Columns["IPv4"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridView1.Columns["PacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["ByPass"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         #region Message Boxes
@@ -99,17 +103,37 @@ namespace _403Unlocker
         #region Form Events
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (!System.IO.File.Exists(pathTable)) return;
-            LoadTpTable(pathTable);
-        }
+            RegistryForm formSettings = new RegistryForm(Application.ProductName);
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
+            if (!formSettings.IsExisted)
+            {
+                formSettings.FormSize = new Size(686, 471);
+                formSettings.FormLocation = new Point(457, 190);
+                formSettings.FormWindowState = FormWindowState.Normal;
+                formSettings.Write();
+            }
+
+            formSettings.Read();
+            Size = formSettings.FormSize;
+            Location = formSettings.FormLocation;
+            WindowState = formSettings.FormWindowState;
+
+            if (!System.IO.File.Exists(pathTable)) return;
+            LoadToTable(pathTable);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             SaveAsJson(pathTable);
+
+            if (WindowState == FormWindowState.Normal)
+            {
+                RegistryForm formSettings = new RegistryForm(Application.ProductName);
+                formSettings.FormSize = Size;
+                formSettings.FormLocation = Location;
+                formSettings.FormWindowState = WindowState;
+                formSettings.Write();
+            }
         }
         #endregion
 
@@ -122,7 +146,12 @@ namespace _403Unlocker
             ShowLastRow();
         }
 
-        private async void LoadTpTable(string path)
+        private void LoadToTable()
+        {
+            dataGridView1.DataSource = dnsTable;
+        }
+
+        private async void LoadToTable(string path)
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
             AddListToTable(result.IPv4_Servers);
@@ -177,8 +206,13 @@ namespace _403Unlocker
                 dataGridView1.ClearSelection();
             }
         }
+
+        private void dataGridViewTotalDNSRecords_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            toolStripLabelTotalDNSRecords.Text = $"Total DNS Records: {dataGridView1.RowCount}";
+        }
         #endregion
-        
+
         #region File Tab
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -223,7 +257,7 @@ namespace _403Unlocker
         }
         #endregion
 
-        #region Upper Tool Strip
+        #region Add DNS
         private void add403UnlockerDefaultDNSsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ImportToTable("DefaultDns.json");
@@ -250,7 +284,49 @@ namespace _403Unlocker
         }
         #endregion
 
-        #region Lower Tool Strip
+        #region Sort DNS
+        private void sortIPv4AscToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dnsTable = new BindingList<DnsInfo>
+            (
+                dnsTable.OrderBy(row =>
+                {
+                    byte[] bytes = row.IPv4.GetAddressBytes();
+                    return BitConverter.ToUInt32(bytes.Reverse().ToArray(), 0);
+                }).ToList()
+            );
+
+            LoadToTable();
+        }
+
+        private void sortIPv4DescToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dnsTable = new BindingList<DnsInfo>
+            (
+                dnsTable.OrderByDescending(row =>
+                {
+                    byte[] bytes = row.IPv4.GetAddressBytes();
+                    return BitConverter.ToUInt32(bytes.Reverse().ToArray(), 0);
+                }).ToList()
+            );
+
+            LoadToTable();
+        }
+
+        private void sortLatencyAscToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dnsTable = new BindingList<DnsInfo>
+            (
+                dnsTable.OrderBy(row => row.Latency == -1)
+                        .ThenBy(row => row.Latency)
+                        .ToList()
+            );
+
+            LoadToTable();
+        }
+        #endregion
+
+        #region Clear All
         private void toolStripButtonClearAll_Click(object sender, EventArgs e)
         {
             if (MessageBoxDnsClearChoice() == DialogResult.Yes)
@@ -258,16 +334,6 @@ namespace _403Unlocker
                 ClearTable();
             }
         }
-
-        private void dataGridViewTotalDNSRecords_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            toolStripLabelTotalDNSRecords.Text = $"Total DNS Records: {dataGridView1.RowCount}";
-        }
-
-
-
-
-
         #endregion
 
         #region Right Click
@@ -329,6 +395,6 @@ namespace _403Unlocker
 
         #endregion
 
-        
+
     }
 }

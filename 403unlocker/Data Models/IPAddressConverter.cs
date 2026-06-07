@@ -10,18 +10,12 @@ namespace _403Unlocker.Data_Models
 {
     public class IPAddressConverter : JsonConverter<IPAddress>
     {
-        public override IPAddress ReadJson(JsonReader reader,
-            Type objectType,
-            IPAddress existingValue,
-            bool hasExistingValue,
-            JsonSerializer serializer)
+        public override IPAddress ReadJson(JsonReader reader, Type objectType, IPAddress existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             return IPAddress.Parse((string)reader.Value);
         }
 
-        public override void WriteJson(JsonWriter writer,
-            IPAddress value,
-            JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, IPAddress value, JsonSerializer serializer)
         {
             writer.WriteValue(value.ToString());
         }

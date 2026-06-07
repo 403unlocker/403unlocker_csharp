@@ -30,8 +30,8 @@ namespace _403Unlocker
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(_403UnlockerForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.add403UnlockerDefaultDNSsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,18 +45,19 @@ namespace _403Unlocker
             this.toolStripBypass = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iPv4AddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.providerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allFieldsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shareQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byIPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byProviderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shareQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonClearAll = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -77,7 +78,6 @@ namespace _403Unlocker
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelTotalDNSRecords = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -95,7 +95,7 @@ namespace _403Unlocker
             this.toolStripBypass});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(335, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(670, 25);
             this.toolStrip1.TabIndex = 26;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -153,22 +153,25 @@ namespace _403Unlocker
             // 
             this.sortIPv4AscToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortIPv4AscToolStripMenuItem.Image")));
             this.sortIPv4AscToolStripMenuItem.Name = "sortIPv4AscToolStripMenuItem";
-            this.sortIPv4AscToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.sortIPv4AscToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sortIPv4AscToolStripMenuItem.Text = "Sort IPv4 (Asc)";
+            this.sortIPv4AscToolStripMenuItem.Click += new System.EventHandler(this.sortIPv4AscToolStripMenuItem_Click);
             // 
             // sortIPv4DescToolStripMenuItem
             // 
             this.sortIPv4DescToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortIPv4DescToolStripMenuItem.Image")));
             this.sortIPv4DescToolStripMenuItem.Name = "sortIPv4DescToolStripMenuItem";
-            this.sortIPv4DescToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.sortIPv4DescToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sortIPv4DescToolStripMenuItem.Text = "Sort IPv4 (Desc)";
+            this.sortIPv4DescToolStripMenuItem.Click += new System.EventHandler(this.sortIPv4DescToolStripMenuItem_Click);
             // 
             // sortLatencyAscToolStripMenuItem
             // 
             this.sortLatencyAscToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortLatencyAscToolStripMenuItem.Image")));
             this.sortLatencyAscToolStripMenuItem.Name = "sortLatencyAscToolStripMenuItem";
-            this.sortLatencyAscToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.sortLatencyAscToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sortLatencyAscToolStripMenuItem.Text = "Sort Latency (Asc)";
+            this.sortLatencyAscToolStripMenuItem.Click += new System.EventHandler(this.sortLatencyAscToolStripMenuItem_Click);
             // 
             // toolStripPing
             // 
@@ -197,24 +200,24 @@ namespace _403Unlocker
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(0, 49);
@@ -225,7 +228,7 @@ namespace _403Unlocker
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(335, 272);
+            this.dataGridView1.Size = new System.Drawing.Size(670, 333);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewTotalDNSRecords_DataBindingComplete);
             // 
@@ -240,7 +243,15 @@ namespace _403Unlocker
             this.toolStripSeparator3,
             this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 148);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(154, 126);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editToolStripMenuItem.Image")));
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // copyToolStripMenuItem
             // 
@@ -250,50 +261,51 @@ namespace _403Unlocker
             this.allFieldsCSVToolStripMenuItem});
             this.copyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripMenuItem.Image")));
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             // 
             // iPv4AddressToolStripMenuItem
             // 
             this.iPv4AddressToolStripMenuItem.Name = "iPv4AddressToolStripMenuItem";
-            this.iPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.iPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.iPv4AddressToolStripMenuItem.Text = "IPv4 Address";
             this.iPv4AddressToolStripMenuItem.Click += new System.EventHandler(this.iPv4AddressToolStripMenuItem_Click);
             // 
             // providerToolStripMenuItem
             // 
             this.providerToolStripMenuItem.Name = "providerToolStripMenuItem";
-            this.providerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.providerToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.providerToolStripMenuItem.Text = "Provider";
             this.providerToolStripMenuItem.Click += new System.EventHandler(this.providerToolStripMenuItem_Click);
             // 
             // allFieldsCSVToolStripMenuItem
             // 
             this.allFieldsCSVToolStripMenuItem.Name = "allFieldsCSVToolStripMenuItem";
-            this.allFieldsCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allFieldsCSVToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.allFieldsCSVToolStripMenuItem.Text = "All Fields (CSV)";
             this.allFieldsCSVToolStripMenuItem.Click += new System.EventHandler(this.allFieldsCSVToolStripMenuItem_Click);
             // 
-            // deleteToolStripMenuItem
+            // shareQRCodeToolStripMenuItem
             // 
-            this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.shareQRCodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iPv4ToolStripMenuItem});
+            this.shareQRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shareQRCodeToolStripMenuItem.Image")));
+            this.shareQRCodeToolStripMenuItem.Name = "shareQRCodeToolStripMenuItem";
+            this.shareQRCodeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.shareQRCodeToolStripMenuItem.Text = "Share QR Code";
+            // 
+            // iPv4ToolStripMenuItem
+            // 
+            this.iPv4ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("iPv4ToolStripMenuItem.Image")));
+            this.iPv4ToolStripMenuItem.Name = "iPv4ToolStripMenuItem";
+            this.iPv4ToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+            this.iPv4ToolStripMenuItem.Text = "IPv4";
+            this.iPv4ToolStripMenuItem.Click += new System.EventHandler(this.generateIPv4QRCodeToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editToolStripMenuItem.Image")));
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(150, 6);
             // 
             // findToolStripMenuItem
             // 
@@ -302,48 +314,44 @@ namespace _403Unlocker
             this.byProviderToolStripMenuItem});
             this.findToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("findToolStripMenuItem.Image")));
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.findToolStripMenuItem.Text = "Find";
             // 
             // byIPv4ToolStripMenuItem
             // 
             this.byIPv4ToolStripMenuItem.Name = "byIPv4ToolStripMenuItem";
-            this.byIPv4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byIPv4ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.byIPv4ToolStripMenuItem.Text = "by IPv4";
             this.byIPv4ToolStripMenuItem.Click += new System.EventHandler(this.findByIPv4ToolStripMenuItem_Click);
             // 
             // byProviderToolStripMenuItem
             // 
             this.byProviderToolStripMenuItem.Name = "byProviderToolStripMenuItem";
-            this.byProviderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byProviderToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.byProviderToolStripMenuItem.Text = "by Provider";
             this.byProviderToolStripMenuItem.Click += new System.EventHandler(this.findByProviderToolStripMenuItem_Click);
             // 
-            // shareQRCodeToolStripMenuItem
+            // toolStripSeparator3
             // 
-            this.shareQRCodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iPv4ToolStripMenuItem});
-            this.shareQRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shareQRCodeToolStripMenuItem.Image")));
-            this.shareQRCodeToolStripMenuItem.Name = "shareQRCodeToolStripMenuItem";
-            this.shareQRCodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.shareQRCodeToolStripMenuItem.Text = "Share QR Code";
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(150, 6);
             // 
-            // iPv4ToolStripMenuItem
+            // deleteToolStripMenuItem
             // 
-            this.iPv4ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("iPv4ToolStripMenuItem.Image")));
-            this.iPv4ToolStripMenuItem.Name = "iPv4ToolStripMenuItem";
-            this.iPv4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.iPv4ToolStripMenuItem.Text = "IPv4";
-            this.iPv4ToolStripMenuItem.Click += new System.EventHandler(this.generateIPv4QRCodeToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // toolStrip3
             // 
             this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonClearAll});
-            this.toolStrip3.Location = new System.Drawing.Point(0, 346);
+            this.toolStrip3.Location = new System.Drawing.Point(0, 407);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(335, 25);
+            this.toolStrip3.Size = new System.Drawing.Size(670, 25);
             this.toolStrip3.TabIndex = 28;
             this.toolStrip3.Text = "toolStrip2";
             // 
@@ -365,7 +373,7 @@ namespace _403Unlocker
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(335, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(670, 24);
             this.menuStrip1.TabIndex = 30;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -473,9 +481,9 @@ namespace _403Unlocker
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabelTotalDNSRecords,
             this.toolStripLabel3});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 321);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 382);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(335, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(670, 25);
             this.toolStrip2.TabIndex = 31;
             this.toolStrip2.Text = "toolStrip3";
             // 
@@ -493,16 +501,11 @@ namespace _403Unlocker
             this.toolStripLabel3.Text = "Host: google.com";
             this.toolStripLabel3.Visible = false;
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
-            // 
             // _403UnlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(335, 371);
+            this.ClientSize = new System.Drawing.Size(670, 432);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);

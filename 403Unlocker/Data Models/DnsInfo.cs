@@ -17,13 +17,14 @@ namespace _403Unlocker.Data_Models
         private string provider;
 
         [JsonConverter(typeof(IPAddressConverter))]
+        [JsonProperty("IPv4")]
         public IPAddress IPv4 { get => ipv4; set => ipv4 = value; }
 
         [JsonProperty("Provider")]
         public string Provider { get => provider; set => provider = value; }
 
         [JsonProperty("Latency")]
-        public string Latency { get; set; }
+        public double? Latency { get; set; }
 
         [JsonProperty("PacketLoss")]
         [DisplayName("Packet Loss")]
