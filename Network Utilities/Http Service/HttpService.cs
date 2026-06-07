@@ -2,9 +2,9 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Network_Utilities.Http_Services
+namespace Network_Utilities.Http_Service
 {
-    public static class HttpServices
+    public static class HttpService
     {
         private static readonly HttpClientHandler handler = new HttpClientHandler()
         {
@@ -18,7 +18,7 @@ namespace Network_Utilities.Http_Services
             // hostname = asus.com
             using (HttpClient client = new HttpClient(handler))
             {
-                client.Timeout = TimeSpan.FromMilliseconds(5000);
+                client.Timeout = TimeSpan.FromMilliseconds(HttpSettings.HttpRequestTimeout);
 
                 // content to accept in response
                 client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");

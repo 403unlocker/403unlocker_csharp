@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("QR Code Generator")]
-[assembly: AssemblyCopyright("Copyright ©  2026 Ali Moradzade")]
+[assembly: AssemblyCopyright("Copyright ©  2026 Ali Moradzadeh")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
