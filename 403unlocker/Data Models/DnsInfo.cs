@@ -1,12 +1,13 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace _403Unlocker.Data_Models
 {
@@ -17,8 +18,19 @@ namespace _403Unlocker.Data_Models
 
         [JsonConverter(typeof(IPAddressConverter))]
         public IPAddress IPv4 { get => ipv4; set => ipv4 = value; }
+
         [JsonProperty("Provider")]
         public string Provider { get => provider; set => provider = value; }
+
+        [JsonProperty("Latency")]
+        public string Latency { get; set; }
+
+        [JsonProperty("PacketLoss")]
+        [DisplayName("Packet Loss")]
+        public string PacketLoss { get; set; }
+
+        [JsonProperty("By Pass")]
+        public string ByPass { get; set; }
 
         [JsonConstructor]
         public DnsInfo(IPAddress ipv4, string provider)
