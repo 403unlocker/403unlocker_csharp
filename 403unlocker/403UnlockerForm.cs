@@ -18,7 +18,6 @@ namespace _403Unlocker
     public partial class _403UnlockerForm : Form
     {
         private string pathTable = "DnsTable.json";
-        private bool isTableChangedFlag = false;
         private BindingList<DnsInfo> dnsTable = new BindingList<DnsInfo>();
         
         public _403UnlockerForm()
@@ -32,26 +31,6 @@ namespace _403Unlocker
         }
 
         #region Message Boxes
-        private DialogResult MessageBoxSaveChoice()
-        {
-            var r = MessageBox.Show("Do you want to save your changes?",
-                                        "Save Changes",
-                                        MessageBoxButtons.YesNo,
-                                        MessageBoxIcon.Question,
-                                        MessageBoxDefaultButton.Button3);
-            return r;
-        }
-
-        private DialogResult MessageBoxDiscardOrSaveChoice()
-        {
-            var r = MessageBox.Show("Do you want to save your changes before closing?",
-                                        "Unsaved Changes",
-                                        MessageBoxButtons.YesNoCancel,
-                                        MessageBoxIcon.Question,
-                                        MessageBoxDefaultButton.Button3);
-            return r;
-        }
-
         private static DialogResult MessageBoxShowAddToTableResult(int newCount, int duplicationCount)
         {
             if (newCount > 0) return MessageBoxDnsAddedSuccessful(newCount, duplicationCount);
@@ -136,22 +115,11 @@ namespace _403Unlocker
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isTableChangedFlag)
-            {
-                var r = MessageBoxDiscardOrSaveChoice();
-                if (r == DialogResult.Yes)
-                {
-                    SaveAsJson(pathTable);
-                }
-                else if (r == DialogResult.Cancel)
-                {
-                    e.Cancel = true;
-                }
-            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            SaveAsJson(pathTable);
         }
         #endregion
 
@@ -160,7 +128,6 @@ namespace _403Unlocker
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
             (int newCount, int duplicationCount) = AddListToTable(result.IPv4_Servers);
-            isTableChangedFlag = true;
             MessageBoxShowAddToTableResult(newCount, duplicationCount);
             ShowLastRow();
         }
@@ -175,7 +142,6 @@ namespace _403Unlocker
         {
             DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
             await FileManager.WriteJsonAsync(path, dnsConfig);
-            isTableChangedFlag = false;
         }
 
         private (int, int) AddCustomToTable(DnsInfo dnsInfo)
@@ -184,7 +150,6 @@ namespace _403Unlocker
             {
                 dnsInfo,
             };
-            isTableChangedFlag = true;
             return AddListToTable(dnsList);
         }
 
@@ -206,7 +171,6 @@ namespace _403Unlocker
         private void ClearTable()
         {
             dnsTable.Clear();
-            isTableChangedFlag = true;
         }
 
         private void ShowLastRow()
@@ -289,14 +253,6 @@ namespace _403Unlocker
                 }
             }
         }
-
-        private void toolStripButtonSaveTable_Click(object sender, EventArgs e)
-        {
-            if (MessageBoxSaveChoice() == DialogResult.Yes)
-            {
-                SaveAsJson(pathTable);
-            }
-        }
         #endregion
 
         #region Lower Tool Strip
@@ -359,17 +315,19 @@ namespace _403Unlocker
             form.ShowDialog();
         }
 
-        private void byIPv4AddressToolStripMenuItem_Click(object sender, EventArgs e)
+        private void findByIPv4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void byProviderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void findByProviderToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+
+
         #endregion
 
-
+        
     }
 }

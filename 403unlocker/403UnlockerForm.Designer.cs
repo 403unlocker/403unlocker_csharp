@@ -37,7 +37,12 @@ namespace _403Unlocker
             this.add403UnlockerDefaultDNSsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addPublicdnsxyzDNSsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCustomDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.sortIPv4AscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortIPv4DescToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortLatencyAscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripPing = new System.Windows.Forms.ToolStripButton();
+            this.toolStripBypass = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,13 +50,14 @@ namespace _403Unlocker
             this.providerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allFieldsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateIPv4QRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.byIPv4AddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byIPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byProviderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip23 = new System.Windows.Forms.ToolStrip();
+            this.shareQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonClearAll = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,10 +77,11 @@ namespace _403Unlocker
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelTotalDNSRecords = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
-            this.toolStrip23.SuspendLayout();
+            this.toolStrip3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -83,7 +90,9 @@ namespace _403Unlocker
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
-            this.toolStripButtonSave});
+            this.toolStripDropDownButton2,
+            this.toolStripPing,
+            this.toolStripBypass});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(335, 25);
@@ -127,16 +136,59 @@ namespace _403Unlocker
             this.addCustomDNSToolStripMenuItem.Text = "Add Custom DNS";
             this.addCustomDNSToolStripMenuItem.Click += new System.EventHandler(this.addCustomDNSToolStripMenuItem_Click);
             // 
-            // toolStripButtonSave
+            // toolStripDropDownButton2
             // 
-            this.toolStripButtonSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSave.Name = "toolStripButtonSave";
-            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSave.Text = "Save";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSaveTable_Click);
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortIPv4AscToolStripMenuItem,
+            this.sortIPv4DescToolStripMenuItem,
+            this.sortLatencyAscToolStripMenuItem});
+            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton2.Text = "Sort";
+            // 
+            // sortIPv4AscToolStripMenuItem
+            // 
+            this.sortIPv4AscToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortIPv4AscToolStripMenuItem.Image")));
+            this.sortIPv4AscToolStripMenuItem.Name = "sortIPv4AscToolStripMenuItem";
+            this.sortIPv4AscToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.sortIPv4AscToolStripMenuItem.Text = "Sort IPv4 (Asc)";
+            // 
+            // sortIPv4DescToolStripMenuItem
+            // 
+            this.sortIPv4DescToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortIPv4DescToolStripMenuItem.Image")));
+            this.sortIPv4DescToolStripMenuItem.Name = "sortIPv4DescToolStripMenuItem";
+            this.sortIPv4DescToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.sortIPv4DescToolStripMenuItem.Text = "Sort IPv4 (Desc)";
+            // 
+            // sortLatencyAscToolStripMenuItem
+            // 
+            this.sortLatencyAscToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortLatencyAscToolStripMenuItem.Image")));
+            this.sortLatencyAscToolStripMenuItem.Name = "sortLatencyAscToolStripMenuItem";
+            this.sortLatencyAscToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.sortLatencyAscToolStripMenuItem.Text = "Sort Latency (Asc)";
+            // 
+            // toolStripPing
+            // 
+            this.toolStripPing.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripPing.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripPing.Image = ((System.Drawing.Image)(resources.GetObject("toolStripPing.Image")));
+            this.toolStripPing.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripPing.Name = "toolStripPing";
+            this.toolStripPing.Size = new System.Drawing.Size(35, 22);
+            this.toolStripPing.Text = "Ping";
+            // 
+            // toolStripBypass
+            // 
+            this.toolStripBypass.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripBypass.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripBypass.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBypass.Image")));
+            this.toolStripBypass.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBypass.Name = "toolStripBypass";
+            this.toolStripBypass.Size = new System.Drawing.Size(47, 22);
+            this.toolStripBypass.Text = "Bypass";
             // 
             // dataGridView1
             // 
@@ -180,13 +232,15 @@ namespace _403Unlocker
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem,
-            this.deleteToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.shareToolStripMenuItem,
-            this.findToolStripMenuItem});
+            this.copyToolStripMenuItem,
+            this.shareQRCodeToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.findToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 148);
             // 
             // copyToolStripMenuItem
             // 
@@ -194,8 +248,9 @@ namespace _403Unlocker
             this.iPv4AddressToolStripMenuItem,
             this.providerToolStripMenuItem,
             this.allFieldsCSVToolStripMenuItem});
+            this.copyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripMenuItem.Image")));
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             // 
             // iPv4AddressToolStripMenuItem
@@ -223,75 +278,81 @@ namespace _403Unlocker
             // 
             this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editToolStripMenuItem.Image")));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
-            // shareToolStripMenuItem
-            // 
-            this.shareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generateIPv4QRCodeToolStripMenuItem});
-            this.shareToolStripMenuItem.Name = "shareToolStripMenuItem";
-            this.shareToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.shareToolStripMenuItem.Text = "Share";
-            // 
-            // generateIPv4QRCodeToolStripMenuItem
-            // 
-            this.generateIPv4QRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("generateIPv4QRCodeToolStripMenuItem.Image")));
-            this.generateIPv4QRCodeToolStripMenuItem.Name = "generateIPv4QRCodeToolStripMenuItem";
-            this.generateIPv4QRCodeToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.generateIPv4QRCodeToolStripMenuItem.Text = "Generate IPv4 to QR Code";
-            this.generateIPv4QRCodeToolStripMenuItem.Click += new System.EventHandler(this.generateIPv4QRCodeToolStripMenuItem_Click);
             // 
             // findToolStripMenuItem
             // 
             this.findToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.byIPv4AddressToolStripMenuItem,
+            this.byIPv4ToolStripMenuItem,
             this.byProviderToolStripMenuItem});
+            this.findToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("findToolStripMenuItem.Image")));
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.findToolStripMenuItem.Text = "Find";
             // 
-            // byIPv4AddressToolStripMenuItem
+            // byIPv4ToolStripMenuItem
             // 
-            this.byIPv4AddressToolStripMenuItem.Name = "byIPv4AddressToolStripMenuItem";
-            this.byIPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.byIPv4AddressToolStripMenuItem.Text = "by IPv4 Address";
-            this.byIPv4AddressToolStripMenuItem.Click += new System.EventHandler(this.byIPv4AddressToolStripMenuItem_Click);
+            this.byIPv4ToolStripMenuItem.Name = "byIPv4ToolStripMenuItem";
+            this.byIPv4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byIPv4ToolStripMenuItem.Text = "by IPv4";
+            this.byIPv4ToolStripMenuItem.Click += new System.EventHandler(this.findByIPv4ToolStripMenuItem_Click);
             // 
             // byProviderToolStripMenuItem
             // 
             this.byProviderToolStripMenuItem.Name = "byProviderToolStripMenuItem";
             this.byProviderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.byProviderToolStripMenuItem.Text = "by Provider";
-            this.byProviderToolStripMenuItem.Click += new System.EventHandler(this.byProviderToolStripMenuItem_Click);
+            this.byProviderToolStripMenuItem.Click += new System.EventHandler(this.findByProviderToolStripMenuItem_Click);
             // 
-            // toolStrip23
+            // shareQRCodeToolStripMenuItem
             // 
-            this.toolStrip23.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip23.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.shareQRCodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iPv4ToolStripMenuItem});
+            this.shareQRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shareQRCodeToolStripMenuItem.Image")));
+            this.shareQRCodeToolStripMenuItem.Name = "shareQRCodeToolStripMenuItem";
+            this.shareQRCodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.shareQRCodeToolStripMenuItem.Text = "Share QR Code";
+            // 
+            // iPv4ToolStripMenuItem
+            // 
+            this.iPv4ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("iPv4ToolStripMenuItem.Image")));
+            this.iPv4ToolStripMenuItem.Name = "iPv4ToolStripMenuItem";
+            this.iPv4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.iPv4ToolStripMenuItem.Text = "IPv4";
+            this.iPv4ToolStripMenuItem.Click += new System.EventHandler(this.generateIPv4QRCodeToolStripMenuItem_Click);
+            // 
+            // toolStrip3
+            // 
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonClearAll});
-            this.toolStrip23.Location = new System.Drawing.Point(0, 346);
-            this.toolStrip23.Name = "toolStrip23";
-            this.toolStrip23.Size = new System.Drawing.Size(335, 25);
-            this.toolStrip23.TabIndex = 28;
-            this.toolStrip23.Text = "toolStrip2";
+            this.toolStrip3.Location = new System.Drawing.Point(0, 346);
+            this.toolStrip3.Name = "toolStrip3";
+            this.toolStrip3.Size = new System.Drawing.Size(335, 25);
+            this.toolStrip3.TabIndex = 28;
+            this.toolStrip3.Text = "toolStrip2";
             // 
             // toolStripButtonClearAll
             // 
-            this.toolStripButtonClearAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonClearAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClearAll.Image")));
             this.toolStripButtonClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonClearAll.Name = "toolStripButtonClearAll";
-            this.toolStripButtonClearAll.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonClearAll.Size = new System.Drawing.Size(71, 22);
             this.toolStripButtonClearAll.Text = "Clear All";
             this.toolStripButtonClearAll.Click += new System.EventHandler(this.toolStripButtonClearAll_Click);
             // 
@@ -322,26 +383,26 @@ namespace _403Unlocker
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.importToolStripMenuItem.Text = "Import";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(107, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -379,20 +440,20 @@ namespace _403Unlocker
             this.sourceCodeToolStripMenuItem,
             this.websiteToolStripMenuItem});
             this.about403UnlockerToolStripMenuItem.Name = "about403UnlockerToolStripMenuItem";
-            this.about403UnlockerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.about403UnlockerToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.about403UnlockerToolStripMenuItem.Text = "About 403Unlocker";
             // 
             // sourceCodeToolStripMenuItem
             // 
             this.sourceCodeToolStripMenuItem.Name = "sourceCodeToolStripMenuItem";
-            this.sourceCodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sourceCodeToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.sourceCodeToolStripMenuItem.Text = "Source Code";
             this.sourceCodeToolStripMenuItem.Click += new System.EventHandler(this.sourceCodeToolStripMenuItem_Click);
             // 
             // websiteToolStripMenuItem
             // 
             this.websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
-            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.websiteToolStripMenuItem.Text = "Website";
             this.websiteToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
             // 
@@ -421,14 +482,21 @@ namespace _403Unlocker
             // toolStripLabelTotalDNSRecords
             // 
             this.toolStripLabelTotalDNSRecords.Name = "toolStripLabelTotalDNSRecords";
-            this.toolStripLabelTotalDNSRecords.Size = new System.Drawing.Size(128, 22);
-            this.toolStripLabelTotalDNSRecords.Text = "Total DNS Records: 000";
+            this.toolStripLabelTotalDNSRecords.Size = new System.Drawing.Size(99, 22);
+            this.toolStripLabelTotalDNSRecords.Text = "DNS Records: 000";
             // 
             // toolStripLabel3
             // 
+            this.toolStripLabel3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(132, 22);
-            this.toolStripLabel3.Text = "Hostname: google.com";
+            this.toolStripLabel3.Size = new System.Drawing.Size(102, 22);
+            this.toolStripLabel3.Text = "Host: google.com";
+            this.toolStripLabel3.Visible = false;
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // _403UnlockerForm
             // 
@@ -438,23 +506,21 @@ namespace _403Unlocker
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.toolStrip23);
+            this.Controls.Add(this.toolStrip3);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "_403UnlockerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "403Unlocker";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.toolStrip23.ResumeLayout(false);
-            this.toolStrip23.PerformLayout();
+            this.toolStrip3.ResumeLayout(false);
+            this.toolStrip3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -467,7 +533,7 @@ namespace _403Unlocker
         #endregion
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ToolStrip toolStrip23;
+        private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -477,7 +543,6 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem add403UnlockerDefaultDNSsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addPublicdnsxyzDNSsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCustomDNSToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButtonSave;
         private System.Windows.Forms.ToolStripButton toolStripButtonClearAll;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
@@ -492,18 +557,26 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showIcononTaskTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shareToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generateIPv4QRCodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iPv4AddressToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem providerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allFieldsCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem byIPv4AddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byIPv4ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byProviderToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripLabel toolStripLabelTotalDNSRecords;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripMenuItem sortIPv4AscToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sortIPv4DescToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sortLatencyAscToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripPing;
+        private System.Windows.Forms.ToolStripButton toolStripBypass;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem shareQRCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iPv4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 
