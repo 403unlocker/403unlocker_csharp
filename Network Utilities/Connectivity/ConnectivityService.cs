@@ -7,43 +7,42 @@ using System.Threading.Tasks;
 
 namespace Network_Utilities.Connectivity
 {
-    internal class ConnectivityService
+    public class ConnectivityService
     {
-        private List<PingReply> pingReplies = new List<PingReply>();
+        public int SentPacketCount { get; } 
+        public int PacketSize { get; } 
+        public int Timeout { get; } 
 
-        public ConnectivitySettings Settings { get; set; }
-        public int SentPacketCount { get; } = ConnectivitySettings.PacketCount;
-        public int ReceivedPacketCount { get => pingReplies.Count(reply => reply.Status == IPStatus.Success); }
-        public int PacketSize { get; } = ConnectivitySettings.PacketSize;
-        public int Timeout { get; } = ConnectivitySettings.TimeoutInMiliSeconds;
-        public string Status
+
+        public ConnectivityService()
         {
-            get
-            {
-                double lossPercentage = ReceivedPacketCount / (double)SentPacketCount;
-                string status = $"{lossPercentage * 100}";
-                return status;
-            }
+            SentPacketCount = ConnectivitySettings.PacketCount;
+            PacketSize = ConnectivitySettings.PacketSize;
+            Timeout = ConnectivitySettings.TimeoutInMiliSeconds;
         }
 
-        public int Latency
+        public async Task<PingResult> PingHostAsync(IPAddress dns)
         {
-            get
-            {
-                if (ReceivedPacketCount == 0) return -1;
-                double avg = pingReplies.Average(reply => reply.RoundtripTime) * 100;
-                return Convert.ToInt32(avg);
-            }
-        }
-
-        public async Task PingHost(IPAddress dns)
-        {
-            pingReplies.Clear();
-            for (int i = 1; i <= SentPacketCount; i++)
+            List<PingReply> replyList = new List<PingReply>();
+            for (int i = 0; i < SentPacketCount; i++)
             {
                 PingReply reply = await GetPing(dns);
-                pingReplies.Add(reply);
+                replyList.Add(reply);
             }
+
+            return SetValues(replyList);
+        }
+
+        private PingResult SetValues(List<PingReply> replyList)
+        {
+            var successfulReplies = replyList.Where(reply => reply.Status == IPStatus.Success);
+            PingResult pingResult = new PingResult()
+            {
+                Sent = SentPacketCount,
+                Received = successfulReplies.Count(),
+                Latency = successfulReplies.Count() > 0 ? successfulReplies.Average(reply => reply.RoundtripTime) : -1,
+            };
+            return pingResult;
         }
 
         private async Task<PingReply> GetPing(IPAddress dns)

@@ -47,15 +47,19 @@
   <ItemGroup>
     <Compile Include="Connectivity\ConnectivityService.cs" />
     <Compile Include="Connectivity\ConnectivitySettings.cs" />
-    <Compile Include="DNS Testing\DnsBypassTester.cs" />
-    <Compile Include="DNS Testing\DnsResolverService.cs" />
-    <Compile Include="DNS Testing\DnsResolverSettings.cs" />
-    <Compile Include="Http Services\HttpServices.cs" />
+    <Compile Include="Connectivity\PingResult.cs" />
+    <Compile Include="DNS Testing\ByPass\DnsBypassResult.cs" />
+    <Compile Include="DNS Testing\ByPass\DnsBypassService.cs" />
+    <Compile Include="DNS Testing\Resolver\DnsResolverService.cs" />
+    <Compile Include="DNS Testing\Resolver\DnsResolverSettings.cs" />
+    <Compile Include="Http Service\HttpService.cs" />
+    <Compile Include="Http Service\HttpSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

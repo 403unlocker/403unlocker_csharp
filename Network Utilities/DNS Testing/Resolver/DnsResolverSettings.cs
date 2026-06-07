@@ -1,7 +1,7 @@
 
-namespace Network_Utilities.DNS_Testing
+namespace Network_Utilities.DNS_Testing.Resolver
 {
-    internal static class DnsResolverSettings
+    public class DnsResolverSettings
     {
         public static double TimeoutInMilliSeconds { get; set; } = 2000;
     }

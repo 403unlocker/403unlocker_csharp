@@ -6,9 +6,9 @@ using System.Net;
 using DnsClient;
 using DnsClient.Protocol;
 
-namespace Network_Utilities.DNS_Testing
+namespace Network_Utilities.DNS_Testing.Resolver
 {
-    internal class DnsResolverService
+    public class DnsResolverService
     {
         private static LookupClientOptions CreateLookupOptions(IPAddress dns)
         {

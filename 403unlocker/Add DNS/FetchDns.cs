@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Network_Utilities.Http_Services;
+using Network_Utilities.Http_Service;
 
 namespace _403Unlocker.Add_DNS
 {
@@ -21,7 +21,7 @@ namespace _403Unlocker.Add_DNS
             //https://www.getflix.com.au/setup/dns-servers/
             //https://www.publicdns.xyz
             HtmlDocument htmlDocument = new HtmlDocument();
-            HttpResponseMessage response = await HttpServices.SendRequestAsync(url);
+            HttpResponseMessage response = await HttpService.SendRequestAsync(url);
 
             using (Stream stream = await response.Content.ReadAsStreamAsync())
             using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
