@@ -1,6 +1,7 @@
 using _403Unlocker.Add_DNS;
 using _403Unlocker.Data_Models;
 using _403Unlocker.File;
+using _403Unlocker.Network_Interface_Configuration;
 using Clipboard_Manager;
 using QR_Code_Generator;
 using Registry_Manager;
@@ -393,8 +394,28 @@ namespace _403Unlocker
         }
 
 
+
         #endregion
 
+        #region By Pass
+        private void toolStripBypass_Click(object sender, EventArgs e)
+        {
 
+        }
+        #endregion
+
+        #region Ping
+        private void toolStripPing_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            string selectedDns = dataGridView1.SelectedRows[0].Cells["IPv4"].Value.ToString();
+            NetworkInterfaceConfigurationForm form = new NetworkInterfaceConfigurationForm(IPAddress.Parse(selectedDns));
+            form.ShowDialog();
+        }
     }
 }

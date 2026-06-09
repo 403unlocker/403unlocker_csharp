@@ -36,6 +36,9 @@
   <PropertyGroup>
     <ApplicationIcon>Icons\Icon256.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Clipboard Manager">
       <HintPath>..\..\..\..\Library\Clipboard Manager\Clipboard Manager\bin\Release\Clipboard Manager.dll</HintPath>
@@ -46,11 +49,18 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Registry Manager">
+      <HintPath>..\..\..\Library\Registry Manager\Registry Manager\bin\Release\Registry Manager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Windows Services">
+      <HintPath>..\..\..\Library\Windows Services\Windows Services\bin\Release\Windows Services.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="403UnlockerForm.cs">
@@ -68,10 +78,22 @@
     <Compile Include="Add DNS\FetchDns.cs" />
     <Compile Include="Configuration\AppSettings.cs" />
     <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Configuration\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data Models\DnsConfig.cs" />
     <Compile Include="Data Models\DnsInfo.cs" />
     <Compile Include="Data Models\IPAddressConverter.cs" />
     <Compile Include="File\FileManager.cs" />
+    <Compile Include="Network Interface Configuration\NetworkInterfaceConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Network Interface Configuration\NetworkInterfaceConfigurationForm.Designer.cs">
+      <DependentUpon>NetworkInterfaceConfigurationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="403UnlockerForm.resx">
@@ -80,11 +102,18 @@
     <EmbeddedResource Include="Add DNS\CustomDnsForm.resx">
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Network Interface Configuration\NetworkInterfaceConfigurationForm.resx">
+      <DependentUpon>NetworkInterfaceConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Assets\DefaultDns.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
