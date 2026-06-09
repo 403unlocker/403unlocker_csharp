@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -24,18 +25,36 @@ namespace _403Unlocker.Network_Interface_Configuration
         {
             InitializeComponent();
 
-            this.selectedDns = dns;
+            selectedDns = dns;
 
             comboBox1.DataSource = NetworkInterfaceService.GetAllNetworkInterfaces()
-                                                          .Where(x => x.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
+                                                          .Where(x => x.GetIPProperties().IsDynamicDnsEnabled && x.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
                                                           .Select(networkInterface => networkInterface.Name)
                                                           .ToArray();
             comboBox1.SelectedIndex = -1;
 
-            labelSelectedDns.Text = dns.ToString();
+            labelSelectedDns.Text = $"Selected DNS: {dns}";
         }
 
-        private NetworkInterface Interface { get => NetworkInterfaceService.GetAllNetworkInterfaces().First(x => x.Name == comboBox1.SelectedItem.ToString()); }
+        private NetworkInterface Interface
+        {
+            get
+            {
+                return NetworkInterfaceService.GetAllNetworkInterfaces()
+                                              .First(x => x.Name == comboBox1.SelectedItem.ToString());
+            }
+        }
+
+        private NetworkInterface ActiveInterface 
+        {
+            get
+            {
+                return NetworkInterfaceService.GetAllNetworkInterfaces()
+                                              .First(@interface => @interface.GetIPProperties().GatewayAddresses
+                                              .Any(getaway => getaway.Address.AddressFamily == AddressFamily.InterNetwork));
+            }
+        }
+
         private IPAddress[] InterfaceDnsServers { get => NetworkInterfaceService.GetIPv4DnsServersConfiguration(Interface).Take(2).ToArray(); }
         private IPAddress[] InterfaceDhcpServers { get => NetworkInterfaceService.GetIPv4DhcpServersConfiguration(Interface).Take(2).ToArray(); }
 
@@ -188,5 +207,19 @@ namespace _403Unlocker.Network_Interface_Configuration
                 buttonSetAsSecondary.Enabled = true;
             }
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                comboBox1.Enabled = false;
+                comboBox1.SelectedIndex = comboBox1.Items.IndexOf(ActiveInterface.Name);
+            }
+            else
+            {
+                comboBox1.Enabled = true;
+            }
+        }
+        
     }
 }
