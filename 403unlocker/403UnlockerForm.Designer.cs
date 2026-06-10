@@ -41,9 +41,9 @@ namespace _403Unlocker
             this.sortIPv4AscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortIPv4DescToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortLatencyAscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripPing = new System.Windows.Forms.ToolStripButton();
-            this.toolStripBypass = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripBypass = new System.Windows.Forms.ToolStripButton();
+            this.toolStripPing = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,8 +67,6 @@ namespace _403Unlocker
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showIcononTaskTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.about403UnlockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -155,7 +153,7 @@ namespace _403Unlocker
             // 
             this.sortIPv4AscToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortIPv4AscToolStripMenuItem.Image")));
             this.sortIPv4AscToolStripMenuItem.Name = "sortIPv4AscToolStripMenuItem";
-            this.sortIPv4AscToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sortIPv4AscToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.sortIPv4AscToolStripMenuItem.Text = "Sort IPv4 (Asc)";
             this.sortIPv4AscToolStripMenuItem.Click += new System.EventHandler(this.sortIPv4AscToolStripMenuItem_Click);
             // 
@@ -163,7 +161,7 @@ namespace _403Unlocker
             // 
             this.sortIPv4DescToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortIPv4DescToolStripMenuItem.Image")));
             this.sortIPv4DescToolStripMenuItem.Name = "sortIPv4DescToolStripMenuItem";
-            this.sortIPv4DescToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sortIPv4DescToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.sortIPv4DescToolStripMenuItem.Text = "Sort IPv4 (Desc)";
             this.sortIPv4DescToolStripMenuItem.Click += new System.EventHandler(this.sortIPv4DescToolStripMenuItem_Click);
             // 
@@ -171,20 +169,20 @@ namespace _403Unlocker
             // 
             this.sortLatencyAscToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sortLatencyAscToolStripMenuItem.Image")));
             this.sortLatencyAscToolStripMenuItem.Name = "sortLatencyAscToolStripMenuItem";
-            this.sortLatencyAscToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sortLatencyAscToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.sortLatencyAscToolStripMenuItem.Text = "Sort Latency (Asc)";
             this.sortLatencyAscToolStripMenuItem.Click += new System.EventHandler(this.sortLatencyAscToolStripMenuItem_Click);
             // 
-            // toolStripPing
+            // toolStripButton1
             // 
-            this.toolStripPing.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripPing.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripPing.Image = ((System.Drawing.Image)(resources.GetObject("toolStripPing.Image")));
-            this.toolStripPing.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripPing.Name = "toolStripPing";
-            this.toolStripPing.Size = new System.Drawing.Size(35, 22);
-            this.toolStripPing.Text = "Ping";
-            this.toolStripPing.Click += new System.EventHandler(this.toolStripPing_Click);
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(77, 22);
+            this.toolStripButton1.Text = "Apply DNS...";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripBypass
             // 
@@ -197,16 +195,16 @@ namespace _403Unlocker
             this.toolStripBypass.Text = "Bypass";
             this.toolStripBypass.Click += new System.EventHandler(this.toolStripBypass_Click);
             // 
-            // toolStripButton1
+            // toolStripPing
             // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(77, 22);
-            this.toolStripButton1.Text = "Apply DNS...";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripPing.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripPing.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripPing.Image = ((System.Drawing.Image)(resources.GetObject("toolStripPing.Image")));
+            this.toolStripPing.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripPing.Name = "toolStripPing";
+            this.toolStripPing.Size = new System.Drawing.Size(35, 22);
+            this.toolStripPing.Text = "Ping";
+            this.toolStripPing.Click += new System.EventHandler(this.toolStripPing_Click);
             // 
             // dataGridView1
             // 
@@ -383,7 +381,6 @@ namespace _403Unlocker
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -429,25 +426,12 @@ namespace _403Unlocker
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showIcononTaskTrayToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // showIcononTaskTrayToolStripMenuItem
-            // 
-            this.showIcononTaskTrayToolStripMenuItem.Name = "showIcononTaskTrayToolStripMenuItem";
-            this.showIcononTaskTrayToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.showIcononTaskTrayToolStripMenuItem.Text = "Show Icon on Task Tray";
-            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -572,8 +556,6 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem about403UnlockerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourceCodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem websiteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showIcononTaskTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iPv4AddressToolStripMenuItem;

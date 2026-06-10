@@ -1,3 +1,4 @@
+using _403Unlocker.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -26,14 +28,24 @@ namespace _403Unlocker.Network_Interface_Configuration
             InitializeComponent();
 
             selectedDns = dns;
+        }
 
+        private void NetworkInterfaceConfigurationForm_Load(object sender, EventArgs e)
+        {
             comboBox1.DataSource = NetworkInterfaceService.GetAllNetworkInterfaces()
                                                           .Where(x => x.GetIPProperties().IsDynamicDnsEnabled && x.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
                                                           .Select(networkInterface => networkInterface.Name)
                                                           .ToArray();
             comboBox1.SelectedIndex = -1;
 
-            labelSelectedDns.Text = $"Selected DNS: {dns}";
+            labelSelectedDns.Text = $"Selected DNS: {selectedDns}";
+
+            checkBoxAutoSelect.Checked = Configuration.Settings.NetworkAdapterAutoSelection;
+        }
+
+        private void NetworkInterfaceConfigurationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Configuration.Settings.NetworkAdapterAutoSelection = checkBoxAutoSelect.Checked;
         }
 
         private NetworkInterface Interface
@@ -58,6 +70,7 @@ namespace _403Unlocker.Network_Interface_Configuration
         private IPAddress[] InterfaceDnsServers { get => NetworkInterfaceService.GetIPv4DnsServersConfiguration(Interface).Take(2).ToArray(); }
         private IPAddress[] InterfaceDhcpServers { get => NetworkInterfaceService.GetIPv4DhcpServersConfiguration(Interface).Take(2).ToArray(); }
 
+        #region Message Box
         private static DialogResult MessageBoxAlreadySet(IPAddress dns)
         {
             var r = MessageBox.Show($"DNS server {dns} is already configured on the selected network adapter",
@@ -93,6 +106,7 @@ namespace _403Unlocker.Network_Interface_Configuration
                                     MessageBoxIcon.Information);
             return r;
         }
+        #endregion
 
         private void SetButtonsEnabilityState(bool state)
         {
@@ -143,11 +157,6 @@ namespace _403Unlocker.Network_Interface_Configuration
             await NetworkInterfaceService.SetInterfaceDnsAsync(Interface.Name, secondary, 2, false);
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem == null)
@@ -161,6 +170,32 @@ namespace _403Unlocker.Network_Interface_Configuration
             DisplayDnsConfiguration();
         }
 
+        private void labelDns_TextChanged(object sender, EventArgs e)
+        {
+            if (!labelDns.Text.Contains("Primary"))
+            {
+                buttonSetAsSecondary.Enabled = false;
+            }
+            else
+            {
+                buttonSetAsSecondary.Enabled = true;
+            }
+        }
+
+        private void checkBoxAutoSelect_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxAutoSelect.Checked)
+            {
+                comboBox1.Enabled = false;
+                comboBox1.SelectedIndex = comboBox1.Items.IndexOf(ActiveInterface.Name);
+            }
+            else
+            {
+                comboBox1.Enabled = true;
+            }
+        }
+
+        #region Button
         private async void buttonSetAsPrimary_Click(object sender, EventArgs e)
         {
             if (InterfaceDnsServers.Contains(selectedDns))
@@ -196,30 +231,11 @@ namespace _403Unlocker.Network_Interface_Configuration
             MessageBoxResetSuccess(Interface);
         }
 
-        private void labelDns_TextChanged(object sender, EventArgs e)
+        private void buttonClose_Click(object sender, EventArgs e)
         {
-            if (!labelDns.Text.Contains("Primary"))
-            {
-                buttonSetAsSecondary.Enabled = false;
-            }
-            else
-            {
-                buttonSetAsSecondary.Enabled = true;
-            }
+            Close();
         }
+        #endregion
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-            {
-                comboBox1.Enabled = false;
-                comboBox1.SelectedIndex = comboBox1.Items.IndexOf(ActiveInterface.Name);
-            }
-            else
-            {
-                comboBox1.Enabled = true;
-            }
-        }
-        
     }
 }

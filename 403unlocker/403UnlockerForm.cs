@@ -2,6 +2,7 @@ using _403Unlocker.Add_DNS;
 using _403Unlocker.Data_Models;
 using _403Unlocker.File;
 using _403Unlocker.Network_Interface_Configuration;
+using _403Unlocker.Properties;
 using Clipboard_Manager;
 using QR_Code_Generator;
 using Registry_Manager;
@@ -104,9 +105,11 @@ namespace _403Unlocker
         #region Form Events
         private void Form1_Load(object sender, EventArgs e)
         {
+            Configuration.Settings.Load();
+
             RegistryForm formSettings = new RegistryForm(Application.ProductName);
 
-            if (!formSettings.IsExisted)
+            if (!formSettings.Exists)
             {
                 formSettings.FormSize = new Size(686, 471);
                 formSettings.FormLocation = new Point(457, 190);
@@ -125,6 +128,8 @@ namespace _403Unlocker
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Configuration.Settings.Save();
+
             SaveAsJson(pathTable);
 
             if (WindowState == FormWindowState.Normal)
@@ -241,6 +246,14 @@ namespace _403Unlocker
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        #endregion
+
+        #region
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Configuration.SettingsForm form = new Configuration.SettingsForm();
+            form.ShowDialog();
         }
         #endregion
 
@@ -417,5 +430,7 @@ namespace _403Unlocker
             NetworkInterfaceConfigurationForm form = new NetworkInterfaceConfigurationForm(IPAddress.Parse(selectedDns));
             form.ShowDialog();
         }
+
+       
     }
 }

@@ -76,7 +76,6 @@
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Add DNS\FetchDns.cs" />
-    <Compile Include="Configuration\AppSettings.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\SettingsForm.cs">
       <SubType>Form</SubType>

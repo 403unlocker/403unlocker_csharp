@@ -18,7 +18,7 @@ namespace Network_Utilities.Http_Service
             // hostname = asus.com
             using (HttpClient client = new HttpClient(handler))
             {
-                client.Timeout = TimeSpan.FromMilliseconds(HttpSettings.HttpRequestTimeout);
+                client.Timeout = TimeSpan.FromMilliseconds(HttpSettings.TimeoutInMilliseconds);
 
                 // content to accept in response
                 client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");

@@ -8,6 +8,6 @@ namespace Network_Utilities.Http_Service
 {
     public class HttpSettings
     {
-        public static double HttpRequestTimeout { get; set; } = 3000;
+        public static double TimeoutInMilliseconds { get; set; } = 3000;
     }
 }
