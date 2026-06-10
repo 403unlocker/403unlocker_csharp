@@ -28,13 +28,14 @@ namespace _403Unlocker
     {
         private string pathTable = "DnsTable.json";
         private BindingList<DnsInfo> dnsTable = new BindingList<DnsInfo>();
-        private CancellationTokenSource taskCancellation;
+        private CancellationTokenSource cancellationToken;
+        private bool sortBindingFlag = false;
 
         public _403UnlockerForm()
         {
             InitializeComponent();
 
-            LoadToTable();
+            ReloadTable();
 
             dataGridView1.Columns["IPv4"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -182,6 +183,12 @@ namespace _403Unlocker
             toolStripLabel3.Text = $"Failed: {failedCount}";
         }
 
+        private void ResetCheckStatistics()
+        {
+            toolStripLabel2.Text = "";
+            toolStripLabel3.Text = "";
+        }
+
         private void SetCheckStatisticsVisible(bool state)
         {
             toolStripSeparator4.Visible = state;
@@ -192,7 +199,7 @@ namespace _403Unlocker
 
         private void toolStripButtonCancelTask_Click(object sender, EventArgs e)
         {
-            taskCancellation.Cancel();
+            cancellationToken.Cancel();
         }
 
         private void ResetProgressBar(int maxValue)
@@ -215,7 +222,7 @@ namespace _403Unlocker
             MessageBoxShowAddToTableResult(newCount, duplicationCount);
         }
 
-        private void LoadToTable()
+        private void ReloadTable()
         {
             dataGridView1.DataSource = dnsTable;
         }
@@ -294,7 +301,7 @@ namespace _403Unlocker
 
         private void dataGridViewTotalDNSRecords_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            SetCheckStatisticsVisible(false);
+            if (!sortBindingFlag) SetCheckStatisticsVisible(false);
             toolStripLabelTotalDNSRecords.Text = $"Total DNS Records: {dataGridView1.RowCount}";
         }
         #endregion
@@ -389,7 +396,9 @@ namespace _403Unlocker
                 }).ToList()
             );
 
-            LoadToTable();
+            sortBindingFlag = true;
+            ReloadTable();
+            sortBindingFlag = false;
         }
 
         private void sortIPv4DescToolStripMenuItem_Click(object sender, EventArgs e)
@@ -403,19 +412,23 @@ namespace _403Unlocker
                 }).ToList()
             );
 
-            LoadToTable();
+            sortBindingFlag = true;
+            ReloadTable();
+            sortBindingFlag = false;
         }
 
         private void sortLatencyAscToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dnsTable = new BindingList<DnsInfo>
             (
-                dnsTable.OrderBy(row => row.Latency == "-1ms")
-                        .ThenBy(row => int.Parse(row.Latency.Replace("ms", "")))
+                dnsTable.OrderBy(row => row.Latency == "-1ms" || row.Latency.Contains("Canceled"))
+                        .ThenBy(row => row.Latency.Contains("Canceled")? 0 : int.Parse(row.Latency.Replace("ms", "")))
                         .ToList()
             );
 
-            LoadToTable();
+            sortBindingFlag = true;
+            ReloadTable();
+            sortBindingFlag = false;
         }
         #endregion
 
@@ -501,7 +514,7 @@ namespace _403Unlocker
         #region Ping
         private async void toolStripPing_Click(object sender, EventArgs e)
         {
-            taskCancellation = new CancellationTokenSource();
+            cancellationToken = new CancellationTokenSource();
             ResetTableResults();
             ResetProgressBar(dnsTable.Count);
             SetCheckingState(true);
@@ -515,7 +528,7 @@ namespace _403Unlocker
 
                     try
                     {
-                        PingResult pingResult = await new ConnectivityService().PingHostAsync(dns.IPv4 , taskCancellation.Token);
+                        PingResult pingResult = await new ConnectivityService().PingHostAsync(dns.IPv4 , cancellationToken.Token);
 
                         dns.Latency = $"{pingResult.Latency:F0}ms";
                         dns.PacketLoss = $"{pingResult.PacketLoss:F0}%";
@@ -535,6 +548,12 @@ namespace _403Unlocker
             );
             SetCheckingState(false);
 
+            if (cancellationToken.IsCancellationRequested)
+            {
+                SetCheckStatisticsVisible(false);
+                ResetCheckStatistics();
+                return;
+            }
             SetCheckStatisticsVisible(true);
             RefreshCheckStatistics();
         }

@@ -325,21 +325,21 @@ namespace _403Unlocker
             // iPv4AddressToolStripMenuItem
             // 
             this.iPv4AddressToolStripMenuItem.Name = "iPv4AddressToolStripMenuItem";
-            this.iPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.iPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.iPv4AddressToolStripMenuItem.Text = "IPv4 Address";
             this.iPv4AddressToolStripMenuItem.Click += new System.EventHandler(this.iPv4AddressToolStripMenuItem_Click);
             // 
             // providerToolStripMenuItem
             // 
             this.providerToolStripMenuItem.Name = "providerToolStripMenuItem";
-            this.providerToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.providerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.providerToolStripMenuItem.Text = "Provider";
             this.providerToolStripMenuItem.Click += new System.EventHandler(this.providerToolStripMenuItem_Click);
             // 
             // allFieldsCSVToolStripMenuItem
             // 
             this.allFieldsCSVToolStripMenuItem.Name = "allFieldsCSVToolStripMenuItem";
-            this.allFieldsCSVToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.allFieldsCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.allFieldsCSVToolStripMenuItem.Text = "All Fields (CSV)";
             this.allFieldsCSVToolStripMenuItem.Click += new System.EventHandler(this.allFieldsCSVToolStripMenuItem_Click);
             // 
