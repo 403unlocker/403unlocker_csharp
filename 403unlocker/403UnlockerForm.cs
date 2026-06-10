@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _403Unlocker
@@ -103,7 +104,7 @@ namespace _403Unlocker
         #endregion
 
         #region Form Events
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             Configuration.Settings.Load();
 
@@ -123,14 +124,14 @@ namespace _403Unlocker
             WindowState = formSettings.FormWindowState;
 
             if (!System.IO.File.Exists(pathTable)) return;
-            LoadToTable(pathTable);
+            await LoadToTable(pathTable);
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private async Task Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Configuration.Settings.Save();
 
-            SaveAsJson(pathTable);
+            await SaveAsJson(pathTable);
 
             if (WindowState == FormWindowState.Normal)
             {
@@ -144,7 +145,7 @@ namespace _403Unlocker
         #endregion
 
         #region Table Methods
-        private async void ImportToTable(string path)
+        private async Task ImportToTable(string path)
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
             (int newCount, int duplicationCount) = AddListToTable(result.IPv4_Servers);
@@ -157,13 +158,13 @@ namespace _403Unlocker
             dataGridView1.DataSource = dnsTable;
         }
 
-        private async void LoadToTable(string path)
+        private async Task LoadToTable(string path)
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
             AddListToTable(result.IPv4_Servers);
         }
 
-        private async void SaveAsJson(string path)
+        private async Task SaveAsJson(string path)
         {
             DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
             await FileManager.WriteJsonAsync(path, dnsConfig);
@@ -220,14 +221,14 @@ namespace _403Unlocker
         #endregion
 
         #region File Tab
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string fileExtension = Path.GetExtension(openFileDialog1.SafeFileName);
                 if (fileExtension == ".json")
                 {
-                    ImportToTable(openFileDialog1.FileName);
+                    await ImportToTable(openFileDialog1.FileName);
                 }
                 else if (fileExtension == ".txt")
                 {
@@ -235,11 +236,11 @@ namespace _403Unlocker
             }
         }
 
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                SaveAsJson(saveFileDialog1.FileName);
+                await SaveAsJson(saveFileDialog1.FileName);
             }
         }
 
@@ -272,9 +273,9 @@ namespace _403Unlocker
         #endregion
 
         #region Add DNS
-        private void add403UnlockerDefaultDNSsToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void add403UnlockerDefaultDNSsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImportToTable("DefaultDns.json");
+            await ImportToTable("DefaultDns.json");
         }
 
         private async void addPublicdnsxyzDNSsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -424,13 +425,14 @@ namespace _403Unlocker
         }
         #endregion
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        #region Apply DNS
+        private void toolStripButtonApplyDns_Click(object sender, EventArgs e)
         {
             string selectedDns = dataGridView1.SelectedRows[0].Cells["IPv4"].Value.ToString();
             NetworkInterfaceConfigurationForm form = new NetworkInterfaceConfigurationForm(IPAddress.Parse(selectedDns));
             form.ShowDialog();
         }
+        #endregion
 
-       
     }
 }
