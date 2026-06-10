@@ -37,10 +37,12 @@ namespace _403Unlocker
             LoadToTable();
 
             dataGridView1.Columns["IPv4"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridView1.Columns["PacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["PacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridView1.Columns["PacketLoss"].HeaderText = "Packet Loss";
             dataGridView1.Columns["ByPass"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["ByPass"].HeaderText = "Bypass";
         }
 
         #region Message Boxes
@@ -211,7 +213,6 @@ namespace _403Unlocker
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
             (int newCount, int duplicationCount) = AddListToTable(result.IPv4_Servers);
             MessageBoxShowAddToTableResult(newCount, duplicationCount);
-            ShowLastRow();
         }
 
         private void LoadToTable()
@@ -287,7 +288,7 @@ namespace _403Unlocker
             {
                 int lastRowIndex = dataGridView1.RowCount - 1;
                 dataGridView1.FirstDisplayedScrollingRowIndex = lastRowIndex;
-                dataGridView1.ClearSelection();
+                dataGridView1.Rows[lastRowIndex].Selected = true;
             }
         }
 
@@ -360,7 +361,6 @@ namespace _403Unlocker
         {
             DnsConfig dnsConfig = await FetchDns.ScrapDnsServersAsync();
             AddListToTable(dnsConfig.IPv4_Servers);
-            ShowLastRow();
         }
 
         private void addCustomDNSToolStripMenuItem_Click(object sender, EventArgs e)
