@@ -24,7 +24,7 @@ namespace _403Unlocker.Data_Models
         public string Provider { get => provider; set => provider = value; }
 
         [JsonProperty("Latency")]
-        public double? Latency { get; set; }
+        public string Latency { get; set; }
 
         [JsonProperty("PacketLoss")]
         [DisplayName("Packet Loss")]

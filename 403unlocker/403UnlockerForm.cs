@@ -332,8 +332,8 @@ namespace _403Unlocker
         {
             dnsTable = new BindingList<DnsInfo>
             (
-                dnsTable.OrderBy(row => row.Latency == -1)
-                        .ThenBy(row => row.Latency)
+                dnsTable.OrderBy(row => row.Latency == "-1ms")
+                        .ThenBy(row => int.Parse(row.Latency.Replace("ms", "")))
                         .ToList()
             );
 
