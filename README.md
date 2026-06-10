@@ -1,60 +1,74 @@
-# 403unlocker
+# 403Unlocker
 
-## Overview
-DNS Management & Testing App streamlines DNS testing & configuration, offering fast performance checks and seamless active DNS setup—all in an intuitive interface
-
-## Core Features
-- **Parallel DNS Pinging** – Simultaneously ping multiple DNS servers for fast performance checks
-
+## 403unlocker (v1.0.0-alpha)
+### Ping Started
 ![image](https://github.com/user-attachments/assets/2b7c2f4a-c495-408f-8a46-f9d27a839c89)
+
+### Ping Completed 
 ![image](https://github.com/user-attachments/assets/b7247f99-e9e9-47c3-9276-33d3e3ecd770)
 
-
-- **Geo-Restriction Testing** – Quickly evaluate hostname accessibility across regions using parallel testing
-
+### Bypass Started
 ![image](https://github.com/user-attachments/assets/0f609445-b809-4e30-a780-ab8e2d7d7205)
-![image](https://github.com/user-attachments/assets/ac2c0cad-7247-46f3-8225-7e37205573d8)
+
+### Bypass Completed
 ![image](https://github.com/user-attachments/assets/84465e51-9745-4782-8e96-7b22f5fc94b3)
-![image](https://github.com/user-attachments/assets/c96955d0-b7ff-4e83-bbfa-eaec6d28c009)
 
-
-- **Quick DNS Configuration** – Instantly apply your selected DNS server to the active network interface
-
-![image](https://github.com/user-attachments/assets/66b17e69-2a8a-4e0a-8d87-35bc73972955)
-![image](https://github.com/user-attachments/assets/837df5de-2d6e-4cc3-b499-8708a25f8e42)
-
-
-## Enhanced User Experience
-- **Predefined DNS List** – Comes with a default list of popular DNS servers
-
-![image](https://github.com/user-attachments/assets/9952b639-4d01-4485-9120-a39128f53622)
-
-- **PublicDNS Scraper** – Fetch & update the latest DNS entries from [publicdns.xyz](https://publicdns.xyz)
-
-![image](https://github.com/user-attachments/assets/2e4267f5-cd37-4569-80e1-439f534877d6)
-
-- **Custom DNS Addition** – Manually add custom DNS entries
-
-![image](https://github.com/user-attachments/assets/a80d34fb-ee3d-4892-ada1-2dbf8da6b338)
-
-- **QR Code Sharing for Mobile** – Easily generate QR codes to share your DNS configurations directly to your mobile
-
+### QR Code Sharing
 ![image](https://github.com/user-attachments/assets/cabae590-a74c-464d-9183-7d05a3bb0549)
 ![image](https://github.com/user-attachments/assets/1607f862-41b8-4546-9791-2aefe1cab520)
 
-- **Timeout Configuration** – Define specific timeouts for ping, DNS resolution, and HTTP requests
+### Set DNS Configuration
+![image](https://github.com/user-attachments/assets/66b17e69-2a8a-4e0a-8d87-35bc73972955)
 
-![image](https://github.com/user-attachments/assets/435c1dad-7819-4123-907a-bfafa56a1ba0)
-![image](https://github.com/user-attachments/assets/567b0617-2503-47f3-ba07-0cbd5fb7dfdb)
+### Reset DNS Configuration
+![image](https://github.com/user-attachments/assets/837df5de-2d6e-4cc3-b499-8708a25f8e42)
+
+## 403Unlocker (v2.1.0)
+### Ping Started
+<img width="672" height="464" alt="image" src="https://github.com/user-attachments/assets/9575c58b-a3a4-4a1e-aabf-3c2ed8a1cead" />
+
+### Ping Completed
+<img width="672" height="464" alt="image" src="https://github.com/user-attachments/assets/f7b58a30-e0bb-4c21-986c-34ae34de93fc" />
+
+### Bypass Started
+### Bypass Completed
+
+### QR Code Sharing
+<img width="672" height="464" alt="image" src="https://github.com/user-attachments/assets/0d1b022a-c957-4c0b-bf54-0bce610519df" />
+<img width="670" height="462" alt="image" src="https://github.com/user-attachments/assets/2f3fe2d1-c63e-41fd-ba90-005fdeaf88bf" />
 
 
-- **Windows Startup & Background Operation** – Optionally launch at Windows startup and run silently in the task tray
-- **Import/Export Functionality** – Seamlessly share your DNS configurations by importing or exporting DNS lists as JSON files with other users
+### Set DNS Configuration
+<img width="670" height="463" alt="image" src="https://github.com/user-attachments/assets/75dc568b-7006-4ace-b7e6-5f5b6b8a270a" />
+
+### Reset DNS Configuration
+<img width="670" height="462" alt="image" src="https://github.com/user-attachments/assets/251b0873-8de8-4b13-ac76-e0856ce8dead" />
+
+
+## Overview
+
+403unlocker is a Windows DNS management and testing utility that helps users discover, benchmark, and configure DNS servers for improved accessibility and performance.
+
+## Core Features
+
+* **Parallel DNS Latency Testing** – Measure the response time of multiple DNS servers simultaneously with configurable concurrency.
+* **Geo-Restriction Bypass Testing** – Verify hostname accessibility using custom DNS resolution and HTTP connectivity tests.
+* **One-Click DNS Configuration** – Quickly set the selected DNS server as the active network adapter's primary or secondary DNS.
+
+## Enhanced User Experience
+
+* **Built-in Public DNS Collection** – Includes a curated list of popular public DNS providers.
+* **PublicDNS Integration** – Fetch and update the latest public DNS records from [publicdns.xyz](https://publicdns.xyz)
+* **Custom DNS Management** – Add, remove, and organize your own DNS entries.
+* **QR Code Sharing** – Generate QR codes to transfer DNS configurations to mobile devices.
+* **Advanced Timeout Configuration** – Configure independent timeout values for ping, DNS resolution, and HTTP requests.
+* **Background Operation** – Optionally start with Windows and continue running silently in the system tray.
+* **Import & Export Support** – Share DNS lists with others using JSON import and export.
 
 ## Installation
 ### For Windows 7
 1. ِDownload & install [.Net Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-offline-installer)
-2. Download & Install [403unlocker](https://github.com/ALiMoradzade/403unlocker/releases)
+2. Download & Install [403Unlocker](https://github.com/ALiMoradzade/403unlocker/releases)
 
 ### For Windows 10 & 11
-- Download & Install [403unlocker](https://github.com/ALiMoradzade/403unlocker/releases)
+- Download & Install [403Unlocker](https://github.com/ALiMoradzade/403unlocker/releases)
