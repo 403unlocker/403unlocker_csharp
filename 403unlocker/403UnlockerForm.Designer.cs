@@ -41,9 +41,14 @@ namespace _403Unlocker
             this.sortIPv4AscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortIPv4DescToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortLatencyAscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButtonApplyDns = new System.Windows.Forms.ToolStripButton();
-            this.toolStripBypass = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripPing = new System.Windows.Forms.ToolStripButton();
+            this.toolStripBypass = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonApplyDns = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonCancelTask = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabelProgressBar = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripProgressBarDns = new System.Windows.Forms.ToolStripProgressBar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,8 +81,11 @@ namespace _403Unlocker
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelTotalDNSRecords = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -91,10 +99,14 @@ namespace _403Unlocker
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
             this.toolStripDropDownButton2,
-            this.toolStripButtonApplyDns,
-            this.toolStripBypass,
+            this.toolStripSeparator6,
             this.toolStripPing,
-            this.toolStripProgressBar1});
+            this.toolStripBypass,
+            this.toolStripSeparator7,
+            this.toolStripButtonApplyDns,
+            this.toolStripButtonCancelTask,
+            this.toolStripLabelProgressBar,
+            this.toolStripProgressBarDns});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(670, 25);
@@ -103,7 +115,6 @@ namespace _403Unlocker
             // 
             // toolStripDropDownButton1
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.add403UnlockerDefaultDNSsToolStripMenuItem,
             this.addPublicdnsxyzDNSsToolStripMenuItem,
@@ -111,7 +122,7 @@ namespace _403Unlocker
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(97, 22);
             this.toolStripDropDownButton1.Text = "Add DNS(s)";
             // 
             // add403UnlockerDefaultDNSsToolStripMenuItem
@@ -140,7 +151,6 @@ namespace _403Unlocker
             // 
             // toolStripDropDownButton2
             // 
-            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sortIPv4AscToolStripMenuItem,
             this.sortIPv4DescToolStripMenuItem,
@@ -148,7 +158,7 @@ namespace _403Unlocker
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(57, 22);
             this.toolStripDropDownButton2.Text = "Sort";
             // 
             // sortIPv4AscToolStripMenuItem
@@ -175,20 +185,23 @@ namespace _403Unlocker
             this.sortLatencyAscToolStripMenuItem.Text = "Sort Latency (Asc)";
             this.sortLatencyAscToolStripMenuItem.Click += new System.EventHandler(this.sortLatencyAscToolStripMenuItem_Click);
             // 
-            // toolStripButtonApplyDns
+            // toolStripSeparator6
             // 
-            this.toolStripButtonApplyDns.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButtonApplyDns.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonApplyDns.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonApplyDns.Image")));
-            this.toolStripButtonApplyDns.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonApplyDns.Name = "toolStripButtonApplyDns";
-            this.toolStripButtonApplyDns.Size = new System.Drawing.Size(77, 22);
-            this.toolStripButtonApplyDns.Text = "Apply DNS...";
-            this.toolStripButtonApplyDns.Click += new System.EventHandler(this.toolStripButtonApplyDns_Click);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripPing
+            // 
+            this.toolStripPing.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripPing.Image = ((System.Drawing.Image)(resources.GetObject("toolStripPing.Image")));
+            this.toolStripPing.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripPing.Name = "toolStripPing";
+            this.toolStripPing.Size = new System.Drawing.Size(35, 22);
+            this.toolStripPing.Text = "Ping";
+            this.toolStripPing.Click += new System.EventHandler(this.toolStripPing_Click);
             // 
             // toolStripBypass
             // 
-            this.toolStripBypass.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripBypass.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripBypass.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBypass.Image")));
             this.toolStripBypass.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -197,16 +210,46 @@ namespace _403Unlocker
             this.toolStripBypass.Text = "Bypass";
             this.toolStripBypass.Click += new System.EventHandler(this.toolStripBypass_Click);
             // 
-            // toolStripPing
+            // toolStripSeparator7
             // 
-            this.toolStripPing.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripPing.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripPing.Image = ((System.Drawing.Image)(resources.GetObject("toolStripPing.Image")));
-            this.toolStripPing.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripPing.Name = "toolStripPing";
-            this.toolStripPing.Size = new System.Drawing.Size(35, 22);
-            this.toolStripPing.Text = "Ping";
-            this.toolStripPing.Click += new System.EventHandler(this.toolStripPing_Click);
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButtonApplyDns
+            // 
+            this.toolStripButtonApplyDns.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonApplyDns.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonApplyDns.Image")));
+            this.toolStripButtonApplyDns.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonApplyDns.Name = "toolStripButtonApplyDns";
+            this.toolStripButtonApplyDns.Size = new System.Drawing.Size(77, 22);
+            this.toolStripButtonApplyDns.Text = "Apply DNS...";
+            this.toolStripButtonApplyDns.Click += new System.EventHandler(this.toolStripButtonApplyDns_Click);
+            // 
+            // toolStripButtonCancelTask
+            // 
+            this.toolStripButtonCancelTask.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButtonCancelTask.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCancelTask.Image")));
+            this.toolStripButtonCancelTask.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCancelTask.Name = "toolStripButtonCancelTask";
+            this.toolStripButtonCancelTask.Size = new System.Drawing.Size(63, 22);
+            this.toolStripButtonCancelTask.Text = "Cancel";
+            this.toolStripButtonCancelTask.Visible = false;
+            this.toolStripButtonCancelTask.Click += new System.EventHandler(this.toolStripButtonCancelTask_Click);
+            // 
+            // toolStripLabelProgressBar
+            // 
+            this.toolStripLabelProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabelProgressBar.Name = "toolStripLabelProgressBar";
+            this.toolStripLabelProgressBar.Size = new System.Drawing.Size(97, 22);
+            this.toolStripLabelProgressBar.Text = "00/00 DNS tested";
+            this.toolStripLabelProgressBar.Visible = false;
+            // 
+            // toolStripProgressBarDns
+            // 
+            this.toolStripProgressBarDns.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripProgressBarDns.Name = "toolStripProgressBarDns";
+            this.toolStripProgressBarDns.Size = new System.Drawing.Size(100, 22);
+            this.toolStripProgressBarDns.Visible = false;
             // 
             // dataGridView1
             // 
@@ -481,6 +524,10 @@ namespace _403Unlocker
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabelTotalDNSRecords,
+            this.toolStripLabel1,
+            this.toolStripSeparator4,
+            this.toolStripLabel2,
+            this.toolStripSeparator5,
             this.toolStripLabel3});
             this.toolStrip2.Location = new System.Drawing.Point(0, 382);
             this.toolStrip2.Name = "toolStrip2";
@@ -494,20 +541,39 @@ namespace _403Unlocker
             this.toolStripLabelTotalDNSRecords.Size = new System.Drawing.Size(99, 22);
             this.toolStripLabelTotalDNSRecords.Text = "DNS Records: 000";
             // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(102, 22);
+            this.toolStripLabel1.Text = "Host: google.com";
+            this.toolStripLabel1.Visible = false;
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Visible = false;
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(66, 22);
+            this.toolStripLabel2.Text = "Success: 00";
+            this.toolStripLabel2.Visible = false;
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Visible = false;
+            // 
             // toolStripLabel3
             // 
-            this.toolStripLabel3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(102, 22);
-            this.toolStripLabel3.Text = "Host: google.com";
+            this.toolStripLabel3.Size = new System.Drawing.Size(56, 22);
+            this.toolStripLabel3.Text = "Failed: 00";
             this.toolStripLabel3.Visible = false;
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 22);
-            this.toolStripProgressBar1.Visible = false;
             // 
             // _403UnlockerForm
             // 
@@ -575,7 +641,7 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem byProviderToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripLabel toolStripLabelTotalDNSRecords;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripMenuItem sortIPv4AscToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortIPv4DescToolStripMenuItem;
@@ -587,7 +653,15 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem iPv4ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButtonApplyDns;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBarDns;
+        private System.Windows.Forms.ToolStripButton toolStripButtonCancelTask;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelProgressBar;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }
 
