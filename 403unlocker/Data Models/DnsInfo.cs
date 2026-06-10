@@ -27,11 +27,9 @@ namespace _403Unlocker.Data_Models
         public string Latency { get; set; }
 
         [JsonProperty("PacketLoss")]
-        [DisplayName("Packet Loss")]
         public string PacketLoss { get; set; }
 
         [JsonProperty("ByPass")]
-        [DisplayName("By Pass")]
         public string ByPass { get; set; }
 
         [JsonConstructor]

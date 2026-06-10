@@ -37,10 +37,12 @@ namespace _403Unlocker
             LoadToTable();
 
             dataGridView1.Columns["IPv4"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridView1.Columns["PacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["PacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridView1.Columns["PacketLoss"].HeaderText = "Packet Loss";
             dataGridView1.Columns["ByPass"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["ByPass"].HeaderText = "Bypass";
         }
 
         #region Message Boxes
