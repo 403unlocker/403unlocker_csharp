@@ -19,6 +19,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace _403Unlocker
@@ -27,7 +28,8 @@ namespace _403Unlocker
     {
         private string pathTable = "DnsTable.json";
         private BindingList<DnsInfo> dnsTable = new BindingList<DnsInfo>();
-        
+        private CancellationTokenSource taskCancellation;
+
         public _403UnlockerForm()
         {
             InitializeComponent();
@@ -148,25 +150,60 @@ namespace _403Unlocker
         }
         #endregion
 
+        #region Progress Bar Methods
         private void SetCheckingState(bool isChecking)
         {
-            toolStripProgressBar1.Visible = isChecking;
-            contextMenuStrip1.Enabled = !isChecking;
+            toolStripProgressBarDns.Visible = isChecking;
+            toolStripButtonCancelTask.Visible = isChecking;
+            toolStripLabelProgressBar.Visible = isChecking;
+
             menuStrip1.Enabled = !isChecking;
-            toolStrip1.Enabled = !isChecking;
+            
+            contextMenuStrip1.Enabled = !isChecking;
+
+            toolStripDropDownButton1.Enabled = !isChecking;
+            toolStripDropDownButton2.Enabled = !isChecking;
+            toolStripPing.Enabled = !isChecking;
+            toolStripBypass.Enabled = !isChecking;
+            toolStripButtonApplyDns.Enabled = !isChecking;
+
             toolStrip2.Enabled = !isChecking;
             toolStrip3.Enabled = !isChecking;
         }
 
-        private void ResetDnsResults()
+        private void RefreshCheckStatistics()
         {
-            foreach (var dns in dnsTable)
-            {
-                dns.Latency = "";
-                dns.PacketLoss = "";
-                dns.ByPass = "";
-            }
+            SetCheckStatisticsVisible(true);
+            int failedCount = dnsTable.Count(dns => int.Parse(dns.Latency.Replace("ms", "")) == -1);
+            int successCount = dnsTable.Count(dns => int.Parse(dns.Latency.Replace("ms", "")) != -1);
+            toolStripLabel2.Text = $"Success: {successCount}";
+            toolStripLabel3.Text = $"Failed: {failedCount}";
         }
+
+        private void SetCheckStatisticsVisible(bool state)
+        {
+            toolStripSeparator4.Visible = state;
+            toolStripLabel2.Visible = state;
+            toolStripSeparator5.Visible = state;
+            toolStripLabel3.Visible = state;
+        }
+
+        private void toolStripButtonCancelTask_Click(object sender, EventArgs e)
+        {
+            taskCancellation.Cancel();
+        }
+
+        private void ResetProgressBar(int maxValue)
+        {
+            toolStripProgressBarDns.Maximum = maxValue;
+            toolStripProgressBarDns.Value = 0;
+        }
+
+        private void RefreshProgressBarLabel()
+        {
+            toolStripLabelProgressBar.Text = $"{toolStripProgressBarDns.Value}/{toolStripProgressBarDns.Maximum} DNS tested";
+        }
+        #endregion
 
         #region Table Methods
         private async Task ImportToTable(string path)
@@ -233,6 +270,17 @@ namespace _403Unlocker
             dnsTable.Clear();
         }
 
+        private void ResetTableResults()
+        {
+            foreach (var dns in dnsTable)
+            {
+                dns.Latency = "";
+                dns.PacketLoss = "";
+                dns.ByPass = "";
+            }
+        }
+
+
         private void ShowLastRow()
         {
             if (dataGridView1.RowCount > 0)
@@ -245,6 +293,7 @@ namespace _403Unlocker
 
         private void dataGridViewTotalDNSRecords_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            SetCheckStatisticsVisible(false);
             toolStripLabelTotalDNSRecords.Text = $"Total DNS Records: {dataGridView1.RowCount}";
         }
         #endregion
@@ -376,6 +425,8 @@ namespace _403Unlocker
             if (MessageBoxDnsClearChoice() == DialogResult.Yes)
             {
                 ClearTable();
+                toolStripLabel3.Visible = false;
+                toolStripLabel2.Visible = false;
             }
         }
         #endregion
@@ -450,9 +501,9 @@ namespace _403Unlocker
         #region Ping
         private async void toolStripPing_Click(object sender, EventArgs e)
         {
-            ResetDnsResults();
-            toolStripProgressBar1.Maximum = dnsTable.Count;
-            toolStripProgressBar1.Value = 0;
+            taskCancellation = new CancellationTokenSource();
+            ResetTableResults();
+            ResetProgressBar(dnsTable.Count);
             SetCheckingState(true);
 
             SemaphoreSlim semaphore = new SemaphoreSlim(4);
@@ -464,21 +515,28 @@ namespace _403Unlocker
 
                     try
                     {
-                        PingResult pingResult = await new ConnectivityService().PingHostAsync(dns.IPv4);
+                        PingResult pingResult = await new ConnectivityService().PingHostAsync(dns.IPv4 , taskCancellation.Token);
 
-                        dns.Latency = $"{pingResult.Latency}ms";
-                        dns.PacketLoss = $"{pingResult.PacketLoss}%";
+                        dns.Latency = $"{pingResult.Latency:F0}ms";
+                        dns.PacketLoss = $"{pingResult.PacketLoss:F0}%";
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        dns.Latency = "Canceled";
                     }
                     finally
                     {
                         semaphore.Release();
                         RefreshTable();
                     }
-                    toolStripProgressBar1.Value++;
+                    toolStripProgressBarDns.Value++;
+                    RefreshProgressBarLabel();
                 })
             );
-
             SetCheckingState(false);
+
+            SetCheckStatisticsVisible(true);
+            RefreshCheckStatistics();
         }
         #endregion
 
@@ -489,7 +547,7 @@ namespace _403Unlocker
             NetworkInterfaceConfigurationForm form = new NetworkInterfaceConfigurationForm(IPAddress.Parse(selectedDns));
             form.ShowDialog();
         }
-        #endregion
 
+        #endregion
     }
 }

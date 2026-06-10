@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Network_Utilities.Connectivity
@@ -21,11 +22,12 @@ namespace Network_Utilities.Connectivity
             Timeout = ConnectivitySettings.TimeoutInMiliSeconds;
         }
 
-        public async Task<PingResult> PingHostAsync(IPAddress dns)
+        public async Task<PingResult> PingHostAsync(IPAddress dns, CancellationToken cancellationToken)
         {
             List<PingReply> replyList = new List<PingReply>();
             for (int i = 0; i < SentPacketCount; i++)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 PingReply reply = await GetPing(dns);
                 replyList.Add(reply);
             }
