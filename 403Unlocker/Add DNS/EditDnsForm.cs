@@ -1,16 +1,30 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _403Unlocker.Add_DNS
 {
-    public partial class CustomDnsForm : Form
+    public partial class EditDnsForm : Form
     {
-        public CustomDnsForm()
+
+        public EditDnsForm(IPAddress ipv4, string provider)
         {
             InitializeComponent();
+
+            string[] octets = ipv4.ToString().Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            textBoxOctet1.Text = octets[0];
+            textBoxOctet2.Text = octets[1];
+            textBoxOctet3.Text = octets[2];
+            textBoxOctet4.Text = octets[3];
+
+            textBoxProvider.Text = provider;
         }
 
         public IPAddress IPv4 { get => IPAddress.Parse($"{textBoxOctet1.Text}.{textBoxOctet2.Text}.{textBoxOctet3.Text}.{textBoxOctet4.Text}"); }
@@ -32,7 +46,7 @@ namespace _403Unlocker.Add_DNS
 
         private bool IsAllOctetsValid()
         {
-            return Octets.All(textBox => textBox.BackColor == Color.White && !string.IsNullOrEmpty(textBox.Text) );
+            return Octets.All(textBox => textBox.BackColor == Color.White && !string.IsNullOrEmpty(textBox.Text));
         }
 
         private void MoveToOctet(TextBox octet)
@@ -41,14 +55,14 @@ namespace _403Unlocker.Add_DNS
             octet.SelectAll();
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -102,7 +116,7 @@ namespace _403Unlocker.Add_DNS
                 }
             }
 
-            buttonAdd.Enabled = IsAllOctetsValid() ? true : false;
+            buttonOk.Enabled = IsAllOctetsValid() ? true : false;
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)

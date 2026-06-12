@@ -31,7 +31,7 @@ namespace _403Unlocker.Add_DNS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomDnsForm));
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOctet1 = new System.Windows.Forms.TextBox();
@@ -59,18 +59,18 @@ namespace _403Unlocker.Add_DNS
             this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // buttonOk
+            // buttonAdd
             // 
-            this.buttonOk.BackColor = System.Drawing.Color.White;
-            this.buttonOk.Enabled = false;
-            this.buttonOk.ForeColor = System.Drawing.Color.Black;
-            this.buttonOk.Location = new System.Drawing.Point(305, 68);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
-            this.buttonOk.TabIndex = 6;
-            this.buttonOk.Text = "Add";
-            this.buttonOk.UseVisualStyleBackColor = false;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            this.buttonAdd.BackColor = System.Drawing.Color.White;
+            this.buttonAdd.Enabled = false;
+            this.buttonAdd.ForeColor = System.Drawing.Color.Black;
+            this.buttonAdd.Location = new System.Drawing.Point(305, 68);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 6;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = false;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // label2
             // 
@@ -216,7 +216,7 @@ namespace _403Unlocker.Add_DNS
             this.Controls.Add(this.textBoxOctet3);
             this.Controls.Add(this.textBoxOctet2);
             this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxOctet1);
@@ -239,7 +239,7 @@ namespace _403Unlocker.Add_DNS
         #endregion
 
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;

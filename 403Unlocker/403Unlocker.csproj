@@ -75,6 +75,12 @@
     <Compile Include="Add DNS\CustomDnsForm.Designer.cs">
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Add DNS\EditDnsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add DNS\EditDnsForm.Designer.cs">
+      <DependentUpon>EditDnsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Add DNS\FetchDns.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\SettingsForm.cs">
@@ -100,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Add DNS\CustomDnsForm.resx">
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Add DNS\EditDnsForm.resx">
+      <DependentUpon>EditDnsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
