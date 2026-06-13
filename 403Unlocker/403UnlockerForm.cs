@@ -1,10 +1,13 @@
 using _403Unlocker.Add_DNS;
+using _403Unlocker.Edit_DNS;
 using _403Unlocker.Data_Models;
 using _403Unlocker.File;
 using _403Unlocker.Network_Interface_Configuration;
 using _403Unlocker.Properties;
 using Clipboard_Manager;
 using Network_Utilities.Connectivity;
+using Network_Utilities.DNS_Testing.ByPass;
+using Network_Utilities.DNS_Testing.Resolver;
 using QR_Code_Generator;
 using Registry_Manager;
 using System;
@@ -15,12 +18,16 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using _403Unlocker.Bypass_Hostname;
+using _403Unlocker.Find_DNS;
 
 namespace _403Unlocker
 {
@@ -61,7 +68,6 @@ namespace _403Unlocker
                                     "Successfully Updated 🎉",
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Information);
-
 
             return r;
         }
@@ -108,6 +114,33 @@ namespace _403Unlocker
                                     "Confirm Delete",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question);
+            return r;
+        }
+        
+        private static DialogResult MessageBoxDnsIPv4NotFound()
+        {
+            var r = MessageBox.Show("The specified IPv4 address was not found in the DNS list",
+                                    "DNS Server Not Found",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+            return r;
+        }
+
+        private static DialogResult MessageBoxDnsProviderNotFound()
+        {
+            var r = MessageBox.Show("The specified DNS provider was not found in the DNS list",
+                                    "DNS Provider Not Found",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+            return r;
+        }
+
+        private static DialogResult MessageBoxDnsFound(int foundDns)
+        {
+            var r = MessageBox.Show($"{foundDns} DNS servers match your search criteria",
+                                    "Multiple DNS Servers Found",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
             return r;
         }
         #endregion
@@ -253,11 +286,6 @@ namespace _403Unlocker
             return AddListToTable(dnsList);
         }
 
-        private void RemoveDnsIndexFromTable(int index)
-        {
-            dnsTable.RemoveAt(index);
-        }
-
         private (int,int) AddListToTable(List<DnsInfo> listToBeAdded)
         {
             List<DnsInfo> newDns = listToBeAdded.Except(dnsTable).ToList();
@@ -288,20 +316,22 @@ namespace _403Unlocker
             }
         }
 
-
-        private void ShowLastRow()
+        private void ShowRow(int index)
         {
-            if (dataGridView1.RowCount > 0)
+            dataGridView1.Rows[index].Selected = true;
+            if (!dataGridView1.Rows[index].Displayed)
             {
-                int lastRowIndex = dataGridView1.RowCount - 1;
-                dataGridView1.FirstDisplayedScrollingRowIndex = lastRowIndex;
-                dataGridView1.Rows[lastRowIndex].Selected = true;
+                dataGridView1.FirstDisplayedScrollingRowIndex = index;
             }
         }
 
         private void dataGridViewTotalDNSRecords_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            if (!sortBindingFlag) SetCheckStatisticsVisible(false);
+            if (!sortBindingFlag)
+            {
+                SetCheckStatisticsVisible(false);
+                toolStripLabelTargetHost.Visible = false;
+            }
             toolStripLabelTotalDNSRecords.Text = $"Total DNS Records: {dataGridView1.RowCount}";
         }
         #endregion
@@ -376,9 +406,11 @@ namespace _403Unlocker
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    DnsInfo dnsInfo = new DnsInfo(IPAddress.Parse(form.IPv4), form.Provider);
+                    DnsInfo dnsInfo = new DnsInfo(form.IPv4, form.Provider);
                     AddCustomToTable(dnsInfo);
-                    ShowLastRow();
+
+                    int lastIndex = dnsTable.Count - 1;
+                    ShowRow(lastIndex);
                 }
             }
         }
@@ -474,13 +506,25 @@ namespace _403Unlocker
             if (MessageBoxDnsDeleteChoice(selectedDns) == DialogResult.Yes)
             {
                 int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                RemoveDnsIndexFromTable(selectedRowIndex);
+                dnsTable.RemoveAt(selectedRowIndex);
             }
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var selectedDns = dataGridView1.SelectedRows[0];
 
+            IPAddress ipv4 = IPAddress.Parse(selectedDns.Cells["IPv4"].Value.ToString());
+            string provider = selectedDns.Cells["Provider"].Value.ToString();
+
+            EditDnsForm form = new EditDnsForm(ipv4, provider);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                dnsTable[selectedRowIndex].IPv4 = form.IPv4;
+                dnsTable[selectedRowIndex].Provider = form.Provider;
+                RefreshTable();
+            }
         }
 
         private void generateIPv4QRCodeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -490,24 +534,90 @@ namespace _403Unlocker
             form.ShowDialog();
         }
 
+
+        public void ShowFoundDns(DnsInfo foundDns)
+        {
+            int index = dnsTable.IndexOf(foundDns);
+            ShowRow(index);
+        }
+
+        public DnsInfo[] FindDnsByIPv4(string octec1, string octec2, string octec3, string octec4)
+        {
+            DnsInfo[] foundDns = dnsTable.ToList().FindAll(row =>
+            {
+                string currenctRowIPv4 = row.IPv4.ToString();
+                int[] octets = currenctRowIPv4.Split('.').Select(int.Parse).ToArray();
+                bool isMatch = false;
+
+                if (octec1 != "" && octets[0] == int.Parse(octec1)) isMatch = true;
+                if (octec2 != "" && octets[2] == int.Parse(octec2)) isMatch = true;
+                if (octec3 != "" && octets[3] == int.Parse(octec3)) isMatch = true;
+                if (octec4 != "" && octets[4] == int.Parse(octec4)) isMatch = true;
+
+                return isMatch;
+            }).ToArray();
+
+            if (foundDns.Length > 0) MessageBoxDnsFound(foundDns.Length);
+            else MessageBoxDnsProviderNotFound();
+         
+            return foundDns;
+        }
+
+        public DnsInfo[] FindDnsByProvider(string Provider)
+        {
+            DnsInfo[] foundDns = dnsTable.ToList().FindAll(row =>
+            {
+                int index = row.Provider.IndexOf(Provider, StringComparison.OrdinalIgnoreCase);
+                return index >= 0;
+            }).ToArray();
+
+            if (foundDns.Length > 0) MessageBoxDnsFound(foundDns.Length);
+            else MessageBoxDnsProviderNotFound();
+
+            return foundDns;
+        }
+
         private void findByIPv4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FindByIPv4Form form = new FindByIPv4Form(this);
+            form.Show();
         }
 
         private void findByProviderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FindByProviderForm form = new FindByProviderForm(this);
+            form.Show();
         }
-
-
-
         #endregion
 
         #region By Pass
-        private void toolStripBypass_Click(object sender, EventArgs e)
+        private async void toolStripBypass_Click(object sender, EventArgs e)
         {
+          
+         
+            BypassHostnameForm form = new BypassHostnameForm();
+            
+                foreach (var dns in dnsTable)
+                {
+                    try
+                    {
+                        //List<string> resolvedIP = await DnsResolverService.ResolveHostAsync(dns, new Uri("https://www.lenovo.com:443"));
+                        DnsBypassService dnsBypassService = new DnsBypassService();
+                        DnsBypassResult bypassResult = await dnsBypassService.TestAsync(dns.IPv4, new Uri("https://www.lenovo.com:443"), cancellationToken.Token);
 
+                        dns.Latency = $"{bypassResult.Latency:F0}ms";
+                        dns.ByPass = bypassResult.Status.ToString();
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        dns.Latency = "Canceled";
+                    }
+                    finally
+                    {
+                        RefreshTable();
+                    }
+                }
+            
         }
         #endregion
 
@@ -528,8 +638,8 @@ namespace _403Unlocker
 
                     try
                     {
-                        PingResult pingResult = await new ConnectivityService().PingHostAsync(dns.IPv4 , cancellationToken.Token);
-
+                        ConnectivityService connectivityService = new ConnectivityService();
+                        PingResult pingResult = await connectivityService.PingHostAsync(dns.IPv4, cancellationToken.Token);
                         dns.Latency = $"{pingResult.Latency:F0}ms";
                         dns.PacketLoss = $"{pingResult.PacketLoss:F0}%";
                     }
