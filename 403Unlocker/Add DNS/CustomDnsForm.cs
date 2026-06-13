@@ -32,7 +32,7 @@ namespace _403Unlocker.Add_DNS
 
         private bool IsAllOctetsValid()
         {
-            return Octets.All(textBox => textBox.BackColor == Color.White && !string.IsNullOrEmpty(textBox.Text) );
+            return !Octets.Any(textBox => string.IsNullOrEmpty(textBox.Text)) && Octets.All(textBox => int.Parse(textBox.Text) < 255);
         }
 
         private void MoveToOctet(TextBox octet)
