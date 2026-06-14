@@ -37,12 +37,16 @@ namespace _403Unlocker
         private BindingList<DnsInfo> dnsTable = new BindingList<DnsInfo>();
         private CancellationTokenSource cancellationToken;
         private bool sortBindingFlag = false;
+        private bool tableBindingFlag = false;
+        public bool isTabelChangedFlag = false;
 
         public _403UnlockerForm()
         {
             InitializeComponent();
 
+            tableBindingFlag = true;
             ReloadTable();
+            tableBindingFlag = false;
 
             dataGridView1.Columns["IPv4"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -165,15 +169,16 @@ namespace _403Unlocker
             Location = formSettings.FormLocation;
             WindowState = formSettings.FormWindowState;
 
-            if (!System.IO.File.Exists(pathTable)) return;
-            await LoadToTable(pathTable);
+            tableBindingFlag = true;
+            if (System.IO.File.Exists(pathTable)) await LoadToTable(pathTable);
+            tableBindingFlag = false;
         }
 
         private async void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Configuration.Settings.Save();
 
-            await SaveAsJson(pathTable);
+            await SaveAsJsonFile(pathTable);
 
             if (WindowState == FormWindowState.Normal)
             {
@@ -248,10 +253,10 @@ namespace _403Unlocker
         #endregion
 
         #region Table Methods
-        private async Task ImportToTable(string path)
+        private async Task ImportFileToTable(string path)
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
-            (int newCount, int duplicationCount) = AddListToTable(result.IPv4_Servers);
+            (int newCount, int duplicationCount) = AddToTable(result.IPv4_Servers);
             MessageBoxShowAddToTableResult(newCount, duplicationCount);
         }
 
@@ -268,25 +273,25 @@ namespace _403Unlocker
         private async Task LoadToTable(string path)
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
-            AddListToTable(result.IPv4_Servers);
+            AddToTable(result.IPv4_Servers);
         }
 
-        private async Task SaveAsJson(string path)
+        private async Task SaveAsJsonFile(string path)
         {
             DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
             await FileManager.WriteJsonAsync(path, dnsConfig);
         }
 
-        private (int, int) AddCustomToTable(DnsInfo dnsInfo)
+        private (int, int) AddToTable(DnsInfo dnsInfo)
         {
             List<DnsInfo> dnsList = new List<DnsInfo>
             {
                 dnsInfo,
             };
-            return AddListToTable(dnsList);
+            return AddToTable(dnsList);
         }
 
-        private (int,int) AddListToTable(List<DnsInfo> listToBeAdded)
+        private (int,int) AddToTable(List<DnsInfo> listToBeAdded)
         {
             List<DnsInfo> newDns = listToBeAdded.Except(dnsTable).ToList();
             
@@ -299,6 +304,11 @@ namespace _403Unlocker
             }
 
             return (newCount, duplicationCount);
+        }
+
+        private void RemoveAtTable(int index)
+        {
+            dnsTable.RemoveAt(index);
         }
 
         private void ClearTable()
@@ -327,11 +337,12 @@ namespace _403Unlocker
 
         private void dataGridViewTotalDNSRecords_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            if (!sortBindingFlag)
-            {
-                SetCheckStatisticsVisible(false);
-                toolStripLabelTargetHost.Visible = false;
-            }
+            if (sortBindingFlag || tableBindingFlag) isTabelChangedFlag = false;
+            else isTabelChangedFlag = true;
+
+            if (sortBindingFlag) return;
+            SetCheckStatisticsVisible(false);
+            toolStripLabelTargetHost.Visible = false;
             toolStripLabelTotalDNSRecords.Text = $"Total DNS Records: {dataGridView1.RowCount}";
         }
         #endregion
@@ -344,7 +355,7 @@ namespace _403Unlocker
                 string fileExtension = Path.GetExtension(openFileDialog1.SafeFileName);
                 if (fileExtension == ".json")
                 {
-                    await ImportToTable(openFileDialog1.FileName);
+                    await ImportFileToTable(openFileDialog1.FileName);
                 }
                 else if (fileExtension == ".txt")
                 {
@@ -356,7 +367,7 @@ namespace _403Unlocker
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                await SaveAsJson(saveFileDialog1.FileName);
+                await SaveAsJsonFile(saveFileDialog1.FileName);
             }
         }
 
@@ -391,13 +402,13 @@ namespace _403Unlocker
         #region Add DNS
         private async void add403UnlockerDefaultDNSsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await ImportToTable("DefaultDns.json");
+            await ImportFileToTable("DefaultDns.json");
         }
 
         private async void addPublicdnsxyzDNSsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DnsConfig dnsConfig = await FetchDns.ScrapDnsServersAsync();
-            AddListToTable(dnsConfig.IPv4_Servers);
+            AddToTable(dnsConfig.IPv4_Servers);
         }
 
         private void addCustomDNSToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,7 +418,7 @@ namespace _403Unlocker
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     DnsInfo dnsInfo = new DnsInfo(form.IPv4, form.Provider);
-                    AddCustomToTable(dnsInfo);
+                    AddToTable(dnsInfo);
 
                     int lastIndex = dnsTable.Count - 1;
                     ShowRow(lastIndex);
@@ -506,7 +517,7 @@ namespace _403Unlocker
             if (MessageBoxDnsDeleteChoice(selectedDns) == DialogResult.Yes)
             {
                 int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                dnsTable.RemoveAt(selectedRowIndex);
+                RemoveAtTable(selectedRowIndex);
             }
         }
 
@@ -558,7 +569,7 @@ namespace _403Unlocker
             }).ToArray();
 
             if (foundDns.Length > 0) MessageBoxDnsFound(foundDns.Length);
-            else MessageBoxDnsProviderNotFound();
+            else MessageBoxDnsIPv4NotFound();
          
             return foundDns;
         }
@@ -580,13 +591,13 @@ namespace _403Unlocker
         private void findByIPv4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FindByIPv4Form form = new FindByIPv4Form(this);
-            form.Show();
+            form.Show(this);
         }
 
         private void findByProviderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FindByProviderForm form = new FindByProviderForm(this);
-            form.Show();
+            form.Show(this);
         }
         #endregion
 

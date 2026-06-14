@@ -75,13 +75,19 @@
     <Compile Include="Add DNS\CustomDnsForm.Designer.cs">
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Add DNS\EditDnsForm.cs">
+    <Compile Include="Edit DNS\EditDnsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Add DNS\EditDnsForm.Designer.cs">
+    <Compile Include="Edit DNS\EditDnsForm.Designer.cs">
       <DependentUpon>EditDnsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Add DNS\FetchDns.cs" />
+    <Compile Include="Bypass Hostname\BypassHostnameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bypass Hostname\BypassHostnameForm.Designer.cs">
+      <DependentUpon>BypassHostnameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\SettingsForm.cs">
       <SubType>Form</SubType>
@@ -93,6 +99,18 @@
     <Compile Include="Data Models\DnsInfo.cs" />
     <Compile Include="Data Models\IPAddressConverter.cs" />
     <Compile Include="File\FileManager.cs" />
+    <Compile Include="Find DNS\FindByIPv4Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Find DNS\FindByIPv4Form.Designer.cs">
+      <DependentUpon>FindByIPv4Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Find DNS\FindByProviderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Find DNS\FindByProviderForm.Designer.cs">
+      <DependentUpon>FindByProviderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Network Interface Configuration\NetworkInterfaceConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,11 +125,20 @@
     <EmbeddedResource Include="Add DNS\CustomDnsForm.resx">
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add DNS\EditDnsForm.resx">
+    <EmbeddedResource Include="Edit DNS\EditDnsForm.resx">
       <DependentUpon>EditDnsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bypass Hostname\BypassHostnameForm.resx">
+      <DependentUpon>BypassHostnameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Find DNS\FindByIPv4Form.resx">
+      <DependentUpon>FindByIPv4Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Find DNS\FindByProviderForm.resx">
+      <DependentUpon>FindByProviderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Network Interface Configuration\NetworkInterfaceConfigurationForm.resx">
       <DependentUpon>NetworkInterfaceConfigurationForm.cs</DependentUpon>
@@ -146,7 +173,6 @@
     <None Include="Icons\save_regular_icon32.png" />
     <None Include="Icons\delete_regular_icon32.png" />
     <None Include="Icons\add_regular_icon32.png" />
-    <None Include="Icons\addcircle_regular_icon32.png" />
     <None Include="Icons\cloud_regular_icon32.png" />
     <None Include="Icons\earth_regular_icon32.png" />
     <None Include="Icons\edit_regular_icon32.png" />
@@ -163,5 +189,6 @@
       <Name>QR Code Generator</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

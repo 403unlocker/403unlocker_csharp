@@ -49,7 +49,7 @@ namespace _403Unlocker.Data_Models
         {
             if (obj is DnsInfo dnsInfo)
             {
-                return ipv4 == dnsInfo.ipv4;
+                return ipv4.Equals(dnsInfo.ipv4);
             }
             return false;
         }

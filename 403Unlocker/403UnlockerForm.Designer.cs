@@ -81,7 +81,7 @@ namespace _403Unlocker
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelTotalDNSRecords = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabelTargetHost = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -325,21 +325,21 @@ namespace _403Unlocker
             // iPv4AddressToolStripMenuItem
             // 
             this.iPv4AddressToolStripMenuItem.Name = "iPv4AddressToolStripMenuItem";
-            this.iPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.iPv4AddressToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.iPv4AddressToolStripMenuItem.Text = "IPv4 Address";
             this.iPv4AddressToolStripMenuItem.Click += new System.EventHandler(this.iPv4AddressToolStripMenuItem_Click);
             // 
             // providerToolStripMenuItem
             // 
             this.providerToolStripMenuItem.Name = "providerToolStripMenuItem";
-            this.providerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.providerToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.providerToolStripMenuItem.Text = "Provider";
             this.providerToolStripMenuItem.Click += new System.EventHandler(this.providerToolStripMenuItem_Click);
             // 
             // allFieldsCSVToolStripMenuItem
             // 
             this.allFieldsCSVToolStripMenuItem.Name = "allFieldsCSVToolStripMenuItem";
-            this.allFieldsCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allFieldsCSVToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.allFieldsCSVToolStripMenuItem.Text = "All Fields (CSV)";
             this.allFieldsCSVToolStripMenuItem.Click += new System.EventHandler(this.allFieldsCSVToolStripMenuItem_Click);
             // 
@@ -524,7 +524,7 @@ namespace _403Unlocker
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabelTotalDNSRecords,
-            this.toolStripLabel1,
+            this.toolStripLabelTargetHost,
             this.toolStripSeparator4,
             this.toolStripLabel2,
             this.toolStripSeparator5,
@@ -541,13 +541,13 @@ namespace _403Unlocker
             this.toolStripLabelTotalDNSRecords.Size = new System.Drawing.Size(99, 22);
             this.toolStripLabelTotalDNSRecords.Text = "DNS Records: 000";
             // 
-            // toolStripLabel1
+            // toolStripLabelTargetHost
             // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(102, 22);
-            this.toolStripLabel1.Text = "Host: google.com";
-            this.toolStripLabel1.Visible = false;
+            this.toolStripLabelTargetHost.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabelTargetHost.Name = "toolStripLabelTargetHost";
+            this.toolStripLabelTargetHost.Size = new System.Drawing.Size(137, 22);
+            this.toolStripLabelTargetHost.Text = "Target Host: lenovo.com";
+            this.toolStripLabelTargetHost.Visible = false;
             // 
             // toolStripSeparator4
             // 
@@ -641,7 +641,7 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem byProviderToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripLabel toolStripLabelTotalDNSRecords;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelTargetHost;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripMenuItem sortIPv4AscToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortIPv4DescToolStripMenuItem;
