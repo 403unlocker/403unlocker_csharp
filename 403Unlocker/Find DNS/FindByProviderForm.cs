@@ -14,70 +14,119 @@ namespace _403Unlocker.Find_DNS
     public partial class FindByProviderForm : Form
     {
         private _403UnlockerForm mainForm;
-        private bool isChangedFlag = true;
+        private bool isTextBoxChangedFlag = true;
         private DnsInfo[] foundList;
         private int currentIndex = 0;
 
         public FindByProviderForm(_403UnlockerForm form)
         {
             InitializeComponent();
+
             mainForm = form;
-            labelResult.Visible = false;
+            SetFindAndClearButtonsEnable(false);
         }
 
-        private void ShowCurrent()
+        private void SetFindAndClearButtonsEnable(bool visible)
+        {
+            buttonFind.Enabled = visible;
+            buttonClear.Enabled = visible;
+        }
+
+        private void SetResultVisible(bool visible)
+        {
+            labelResult.Visible = visible;
+        }
+
+        private void SetPreviousAndNextVisible(bool visible)
+        {
+            buttonPrevious.Visible = visible;
+            buttonNext.Visible = visible;
+        }
+
+        private void UpdateResultAndShow()
         {
             labelResult.Text = $"Result: {currentIndex + 1} of {foundList.Length}";
             mainForm.ShowFoundDns(foundList[currentIndex]);
         }
 
-        private void ShowNext()
+        private void ResetIndex()
         {
-            labelResult.Text = $"Result: {currentIndex + 1} of {foundList.Length}";
-            currentIndex = (currentIndex + 1) % foundList.Length;
-            mainForm.ShowFoundDns(foundList[currentIndex]);
+            currentIndex = 0;
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ResultNotFound()
         {
-            Close();
+            labelResult.Text = "DNS Not Found";
+        }
+        private void textBoxProvider_TextChanged(object sender, EventArgs e)
+        {
+            isTextBoxChangedFlag = true;
+           
+            if (string.IsNullOrEmpty(textBoxProvider.Text)) SetFindAndClearButtonsEnable(false);
+            else SetFindAndClearButtonsEnable(true);
+
+            SetResultVisible(false);
+            ResetIndex();
         }
 
         private void buttonFind_Click(object sender, EventArgs e)
         {
-            labelResult.Visible = true;
+            isTextBoxChangedFlag = false;
+            mainForm.isTabelChangedFlag = false;
 
-            if (isChangedFlag)
+            foundList = mainForm.FindDnsByProvider(textBoxProvider.Text);
+            SetResultVisible(true);
+            if (foundList.Length == 0)
             {
-                isChangedFlag = false;
-                foundList = mainForm.FindDnsByProvider(textBoxProvider.Text);
-                if (foundList.Length > 0)
-                {
-                    buttonFind.Text = "Find Next";
-                    ShowCurrent();
-                }
-                else labelResult.Text = "Not Found";
+                ResultNotFound();
+                SetPreviousAndNextVisible(false);
             }
-            else
+            else // foundList.Length > 1
             {
-                if (foundList.Length > 0) ShowNext();
+                ResetIndex();
+                UpdateResultAndShow();
+
+                if (foundList.Length == 1) SetPreviousAndNextVisible(false);
+                else SetPreviousAndNextVisible(true);
             }
         }
 
-        private void textBoxProvider_TextChanged(object sender, EventArgs e)
+        private void buttonClear_Click(object sender, EventArgs e)
         {
-            isChangedFlag = true;
-            currentIndex = 0;
+            textBoxProvider.Clear();
+        }
 
-            buttonFind.Text = "Find";
+        private void buttonPrevious_Click(object sender, EventArgs e)
+        {
+            if (isTextBoxChangedFlag || mainForm.isTabelChangedFlag)
+            {
+                ResetIndex();
+                SetResultVisible(false);
+                return;
+            }
+            currentIndex--;
+            if (currentIndex < 0) currentIndex += foundList.Length;
+            currentIndex %= foundList.Length;
+            UpdateResultAndShow();
+        }
 
-            if (string.IsNullOrEmpty(textBoxProvider.Text)) buttonFind.Enabled = false;
-            else buttonFind.Enabled = true;
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            if (isTextBoxChangedFlag || mainForm.isTabelChangedFlag)
+            {
+                ResetIndex();
+                SetResultVisible(false);
+                return;
+            }
+            currentIndex++;
+            currentIndex %= foundList.Length;
+            UpdateResultAndShow();
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBoxProvider.Paste();
         }
+        
     }
 }

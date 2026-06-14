@@ -30,39 +30,17 @@ namespace _403Unlocker.Find_DNS
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FindByProviderForm));
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonFind = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProvider = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelResult = new System.Windows.Forms.Label();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonPrevious = new System.Windows.Forms.Button();
+            this.buttonFind = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonClose
-            // 
-            this.buttonClose.BackColor = System.Drawing.Color.White;
-            this.buttonClose.ForeColor = System.Drawing.Color.Black;
-            this.buttonClose.Location = new System.Drawing.Point(383, 40);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
-            this.buttonClose.TabIndex = 42;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = false;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // buttonFind
-            // 
-            this.buttonFind.BackColor = System.Drawing.Color.White;
-            this.buttonFind.ForeColor = System.Drawing.Color.Black;
-            this.buttonFind.Location = new System.Drawing.Point(302, 40);
-            this.buttonFind.Name = "buttonFind";
-            this.buttonFind.Size = new System.Drawing.Size(75, 23);
-            this.buttonFind.TabIndex = 41;
-            this.buttonFind.Text = "Find";
-            this.buttonFind.UseVisualStyleBackColor = false;
-            this.buttonFind.Click += new System.EventHandler(this.buttonFind_Click);
             // 
             // label1
             // 
@@ -109,15 +87,70 @@ namespace _403Unlocker.Find_DNS
             this.labelResult.Size = new System.Drawing.Size(82, 13);
             this.labelResult.TabIndex = 44;
             this.labelResult.Text = "Result: 00 of 00";
+            this.labelResult.Visible = false;
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.BackColor = System.Drawing.Color.White;
+            this.buttonClear.Enabled = false;
+            this.buttonClear.ForeColor = System.Drawing.Color.Red;
+            this.buttonClear.Location = new System.Drawing.Point(500, 12);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(30, 22);
+            this.buttonClear.TabIndex = 62;
+            this.buttonClear.Text = "❌";
+            this.buttonClear.UseVisualStyleBackColor = false;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.BackColor = System.Drawing.Color.White;
+            this.buttonNext.ForeColor = System.Drawing.Color.Black;
+            this.buttonNext.Location = new System.Drawing.Point(100, 40);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(30, 22);
+            this.buttonNext.TabIndex = 61;
+            this.buttonNext.Text = "▼";
+            this.buttonNext.UseVisualStyleBackColor = false;
+            this.buttonNext.Visible = false;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
+            // buttonPrevious
+            // 
+            this.buttonPrevious.BackColor = System.Drawing.Color.White;
+            this.buttonPrevious.ForeColor = System.Drawing.Color.Black;
+            this.buttonPrevious.Location = new System.Drawing.Point(136, 40);
+            this.buttonPrevious.Name = "buttonPrevious";
+            this.buttonPrevious.Size = new System.Drawing.Size(30, 22);
+            this.buttonPrevious.TabIndex = 60;
+            this.buttonPrevious.Text = "▲";
+            this.buttonPrevious.UseVisualStyleBackColor = false;
+            this.buttonPrevious.Visible = false;
+            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
+            // 
+            // buttonFind
+            // 
+            this.buttonFind.BackColor = System.Drawing.Color.White;
+            this.buttonFind.Enabled = false;
+            this.buttonFind.ForeColor = System.Drawing.Color.Black;
+            this.buttonFind.Image = ((System.Drawing.Image)(resources.GetObject("buttonFind.Image")));
+            this.buttonFind.Location = new System.Drawing.Point(464, 12);
+            this.buttonFind.Name = "buttonFind";
+            this.buttonFind.Size = new System.Drawing.Size(30, 22);
+            this.buttonFind.TabIndex = 58;
+            this.buttonFind.UseVisualStyleBackColor = false;
+            this.buttonFind.Click += new System.EventHandler(this.buttonFind_Click);
             // 
             // FindByProviderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 75);
-            this.Controls.Add(this.labelResult);
-            this.Controls.Add(this.buttonClose);
+            this.ClientSize = new System.Drawing.Size(542, 74);
+            this.Controls.Add(this.buttonClear);
+            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.buttonFind);
+            this.Controls.Add(this.labelResult);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxProvider);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -133,13 +166,14 @@ namespace _403Unlocker.Find_DNS
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonFind;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxProvider;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.Label labelResult;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonPrevious;
+        private System.Windows.Forms.Button buttonFind;
     }
 }

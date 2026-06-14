@@ -16,7 +16,7 @@ namespace _403Unlocker.Find_DNS
     public partial class FindByIPv4Form : Form
     {
         private _403UnlockerForm mainForm;
-        private bool isChangedFlag = true;
+        private bool isIPv4ChangedFlag = true;
         private DnsInfo[] foundList;
         private int currentIndex = 0;
 
@@ -25,7 +25,6 @@ namespace _403Unlocker.Find_DNS
             InitializeComponent();
 
             mainForm = form;
-            labelResult.Visible = false;
         }
 
         private TextBox[] Octets
@@ -54,17 +53,37 @@ namespace _403Unlocker.Find_DNS
             octet.SelectAll();
         }
 
-        private void ShowCurrent()
+        private void SetFindAndClearButtonsEnable(bool visible)
+        {
+            buttonFind.Enabled = visible;
+            buttonClear.Enabled = visible;
+        }
+
+        private void SetResultVisible(bool visible)
+        {
+            labelResult.Visible = visible;
+        }
+
+        private void SetPreviousAndNextVisible(bool visible)
+        {
+            buttonPrevious.Visible = visible;
+            buttonNext.Visible = visible;
+        }
+
+        private void UpdateResultAndShow()
         {
             labelResult.Text = $"Result: {currentIndex + 1} of {foundList.Length}";
             mainForm.ShowFoundDns(foundList[currentIndex]);
         }
 
-        private void ShowNext()
+        private void ResetIndex()
         {
-            labelResult.Text = $"Result: {currentIndex + 1} of {foundList.Length}";
-            currentIndex = (currentIndex + 1) % foundList.Length;
-            mainForm.ShowFoundDns(foundList[currentIndex]);
+            currentIndex = 0;
+        }
+
+        private void ResultNotFound()
+        {
+            labelResult.Text = "DNS Not Found";
         }
 
         private void textBoxOctets_KeyPress(object sender, KeyPressEventArgs e)
@@ -118,42 +137,75 @@ namespace _403Unlocker.Find_DNS
             }
         }
 
+
+        private void textBoxOctet_TextChanged(object sender, EventArgs e)
+        {
+            isIPv4ChangedFlag = true;
+
+            if (Octets.All(textBox => string.IsNullOrEmpty(textBox.Text)) || !IsAllOctetsValid()) SetFindAndClearButtonsEnable(false);
+            else SetFindAndClearButtonsEnable(true);
+
+            SetResultVisible(false);
+            SetPreviousAndNextVisible(false);
+            ResetIndex();
+        }
+
         private void buttonFind_Click(object sender, EventArgs e)
         {
-            labelResult.Visible = true;
+            isIPv4ChangedFlag = false;
+            mainForm.isTabelChangedFlag = false;
+            SetResultVisible(true);
 
-            if (isChangedFlag)
+            foundList = mainForm.FindDnsByIPv4(textBoxOctet1.Text, textBoxOctet2.Text, textBoxOctet3.Text, textBoxOctet4.Text);
+            if (foundList.Length == 0)
             {
-                isChangedFlag = false;
-                foundList = mainForm.FindDnsByIPv4(textBoxOctet1.Text, textBoxOctet2.Text, textBoxOctet3.Text, textBoxOctet4.Text);
-                if (foundList.Length > 0)
-                {
-
-                    buttonFind.Text = "Find Next";
-                    ShowCurrent();
-                }
-                else labelResult.Text = "Not Found";
+                ResultNotFound();
+                SetPreviousAndNextVisible(false);
             }
-            else
+            else // foundList.Length > 1
             {
-                if (foundList.Length > 0) ShowNext();
+                ResetIndex();
+                UpdateResultAndShow();
+
+                if (foundList.Length == 1) SetPreviousAndNextVisible(false);
+                else SetPreviousAndNextVisible(true);
             }
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void buttonClear_Click(object sender, EventArgs e)
         {
-            Close();
+            foreach (TextBox octet in Octets)
+            {
+                octet.Clear();
+            }
         }
 
-        private void textBoxOctet1_TextChanged(object sender, EventArgs e)
+        private void buttonPrevious_Click(object sender, EventArgs e)
         {
-            isChangedFlag = true;
-            currentIndex = 0;
-
-            buttonFind.Text = "Find";
-
-            if (Octets.All(textBox=>string.IsNullOrEmpty(textBox.Text))|| !IsAllOctetsValid()) buttonFind.Enabled = false;
-            else buttonFind.Enabled = true;
+            if (isIPv4ChangedFlag || mainForm.isTabelChangedFlag)
+            {
+                ResetIndex();
+                SetResultVisible(false);
+                return;
+            }
+            currentIndex--;
+            if (currentIndex < 0) currentIndex += foundList.Length;
+            currentIndex %= foundList.Length;
+            UpdateResultAndShow();
         }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            if (isIPv4ChangedFlag || mainForm.isTabelChangedFlag)
+            {
+                ResetIndex();
+                SetResultVisible(false);
+                return;
+            }
+            currentIndex++;
+            currentIndex %= foundList.Length;
+            UpdateResultAndShow();
+        }
+
     }
 }

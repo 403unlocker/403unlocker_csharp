@@ -32,7 +32,6 @@ namespace _403Unlocker.Find_DNS
             this.textBoxOctet4 = new System.Windows.Forms.TextBox();
             this.textBoxOctet3 = new System.Windows.Forms.TextBox();
             this.textBoxOctet2 = new System.Windows.Forms.TextBox();
-            this.buttonClose = new System.Windows.Forms.Button();
             this.buttonFind = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxOctet1 = new System.Windows.Forms.TextBox();
@@ -40,6 +39,9 @@ namespace _403Unlocker.Find_DNS
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelResult = new System.Windows.Forms.Label();
+            this.buttonPrevious = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxOctet4
@@ -54,7 +56,7 @@ namespace _403Unlocker.Find_DNS
             this.textBoxOctet4.ShortcutsEnabled = false;
             this.textBoxOctet4.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet4.TabIndex = 47;
-            this.textBoxOctet4.TextChanged += new System.EventHandler(this.textBoxOctet1_TextChanged);
+            this.textBoxOctet4.TextChanged += new System.EventHandler(this.textBoxOctet_TextChanged);
             this.textBoxOctet4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
             this.textBoxOctet4.Validated += new System.EventHandler(this.textBoxOctets_Validated);
             // 
@@ -70,7 +72,7 @@ namespace _403Unlocker.Find_DNS
             this.textBoxOctet3.ShortcutsEnabled = false;
             this.textBoxOctet3.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet3.TabIndex = 46;
-            this.textBoxOctet3.TextChanged += new System.EventHandler(this.textBoxOctet1_TextChanged);
+            this.textBoxOctet3.TextChanged += new System.EventHandler(this.textBoxOctet_TextChanged);
             this.textBoxOctet3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
             this.textBoxOctet3.Validated += new System.EventHandler(this.textBoxOctets_Validated);
             // 
@@ -86,32 +88,20 @@ namespace _403Unlocker.Find_DNS
             this.textBoxOctet2.ShortcutsEnabled = false;
             this.textBoxOctet2.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet2.TabIndex = 45;
-            this.textBoxOctet2.TextChanged += new System.EventHandler(this.textBoxOctet1_TextChanged);
+            this.textBoxOctet2.TextChanged += new System.EventHandler(this.textBoxOctet_TextChanged);
             this.textBoxOctet2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
             this.textBoxOctet2.Validated += new System.EventHandler(this.textBoxOctets_Validated);
-            // 
-            // buttonClose
-            // 
-            this.buttonClose.BackColor = System.Drawing.Color.White;
-            this.buttonClose.ForeColor = System.Drawing.Color.Black;
-            this.buttonClose.Location = new System.Drawing.Point(181, 40);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
-            this.buttonClose.TabIndex = 49;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = false;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // buttonFind
             // 
             this.buttonFind.BackColor = System.Drawing.Color.White;
             this.buttonFind.Enabled = false;
             this.buttonFind.ForeColor = System.Drawing.Color.Black;
-            this.buttonFind.Location = new System.Drawing.Point(100, 40);
+            this.buttonFind.Image = ((System.Drawing.Image)(resources.GetObject("buttonFind.Image")));
+            this.buttonFind.Location = new System.Drawing.Point(232, 12);
             this.buttonFind.Name = "buttonFind";
-            this.buttonFind.Size = new System.Drawing.Size(75, 23);
+            this.buttonFind.Size = new System.Drawing.Size(30, 22);
             this.buttonFind.TabIndex = 48;
-            this.buttonFind.Text = "Find";
             this.buttonFind.UseVisualStyleBackColor = false;
             this.buttonFind.Click += new System.EventHandler(this.buttonFind_Click);
             // 
@@ -136,7 +126,7 @@ namespace _403Unlocker.Find_DNS
             this.textBoxOctet1.ShortcutsEnabled = false;
             this.textBoxOctet1.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet1.TabIndex = 44;
-            this.textBoxOctet1.TextChanged += new System.EventHandler(this.textBoxOctet1_TextChanged);
+            this.textBoxOctet1.TextChanged += new System.EventHandler(this.textBoxOctet_TextChanged);
             this.textBoxOctet1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
             this.textBoxOctet1.Validated += new System.EventHandler(this.textBoxOctets_Validated);
             // 
@@ -178,17 +168,59 @@ namespace _403Unlocker.Find_DNS
             this.labelResult.Size = new System.Drawing.Size(82, 13);
             this.labelResult.TabIndex = 54;
             this.labelResult.Text = "Result: 00 of 00";
+            this.labelResult.Visible = false;
+            // 
+            // buttonPrevious
+            // 
+            this.buttonPrevious.BackColor = System.Drawing.Color.White;
+            this.buttonPrevious.ForeColor = System.Drawing.Color.Black;
+            this.buttonPrevious.Location = new System.Drawing.Point(136, 40);
+            this.buttonPrevious.Name = "buttonPrevious";
+            this.buttonPrevious.Size = new System.Drawing.Size(30, 22);
+            this.buttonPrevious.TabIndex = 55;
+            this.buttonPrevious.Text = "▲";
+            this.buttonPrevious.UseVisualStyleBackColor = false;
+            this.buttonPrevious.Visible = false;
+            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.BackColor = System.Drawing.Color.White;
+            this.buttonNext.ForeColor = System.Drawing.Color.Black;
+            this.buttonNext.Location = new System.Drawing.Point(100, 40);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(30, 22);
+            this.buttonNext.TabIndex = 56;
+            this.buttonNext.Text = "▼";
+            this.buttonNext.UseVisualStyleBackColor = false;
+            this.buttonNext.Visible = false;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.BackColor = System.Drawing.Color.White;
+            this.buttonClear.Enabled = false;
+            this.buttonClear.ForeColor = System.Drawing.Color.Red;
+            this.buttonClear.Location = new System.Drawing.Point(268, 12);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(30, 22);
+            this.buttonClear.TabIndex = 57;
+            this.buttonClear.Text = "❌";
+            this.buttonClear.UseVisualStyleBackColor = false;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // FindByIPv4Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(268, 75);
+            this.ClientSize = new System.Drawing.Size(310, 74);
+            this.Controls.Add(this.buttonClear);
+            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.labelResult);
             this.Controls.Add(this.textBoxOctet4);
             this.Controls.Add(this.textBoxOctet3);
             this.Controls.Add(this.textBoxOctet2);
-            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonFind);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxOctet1);
@@ -211,7 +243,6 @@ namespace _403Unlocker.Find_DNS
         private System.Windows.Forms.TextBox textBoxOctet4;
         private System.Windows.Forms.TextBox textBoxOctet3;
         private System.Windows.Forms.TextBox textBoxOctet2;
-        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonFind;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxOctet1;
@@ -219,5 +250,8 @@ namespace _403Unlocker.Find_DNS
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelResult;
+        private System.Windows.Forms.Button buttonPrevious;
+        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
