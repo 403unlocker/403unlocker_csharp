@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Network_Utilities.DNS_Testing.ByPass
 {
-    public class DnsBypassResult
+    public class BypassResult
     {
         public enum BypassStatus
         {

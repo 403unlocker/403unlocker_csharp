@@ -54,11 +54,11 @@ namespace _403Unlocker.Configuration
         {
             get
             {
-                return DnsResolverSettings.TimeoutInMilliSeconds;
+                return ResolverSettings.TimeoutInMilliSeconds;
             }
             set
             {
-                DnsResolverSettings.TimeoutInMilliSeconds = value;
+                ResolverSettings.TimeoutInMilliSeconds = value;
             }
         }
         public static double HttpRequestTimeoutInMiliSeconds

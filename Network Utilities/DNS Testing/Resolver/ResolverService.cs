@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Network_Utilities.DNS_Testing.Resolver
 {
-    public static class DnsResolverService
+    public static class ResolverService
     {
         private static LookupClientOptions CreateLookupOptions(IPAddress dns)
         {
@@ -19,19 +19,19 @@ namespace Network_Utilities.DNS_Testing.Resolver
                 ContinueOnDnsError = false,
                 UseCache = false,
                 UseTcpOnly = false,
-                Timeout = TimeSpan.FromMilliseconds(DnsResolverSettings.TimeoutInMilliSeconds),
+                Timeout = TimeSpan.FromMilliseconds(ResolverSettings.TimeoutInMilliSeconds),
                 ThrowDnsErrors = true,
                 Retries = 0
             };
             return lookupClientOptions;
         }
 
-        public async static Task<DnsResolverResult> ResolveHostAsync(IPAddress dns, Uri uri)
+        public async static Task<ResolverResult> ResolveHostAsync(IPAddress dns, Uri uri)
         {
             LookupClientOptions options = CreateLookupOptions(dns);
             LookupClient lookup = new LookupClient(options);
 
-            DnsResolverResult resolverResult = new DnsResolverResult();
+            ResolverResult resolverResult = new ResolverResult();
             DateTime now = DateTime.Now;
             DateTime end;
             try
@@ -52,17 +52,17 @@ namespace Network_Utilities.DNS_Testing.Resolver
                 {
                     if (error.InnerException is OperationCanceledException)
                     {
-                        resolverResult.Status = DnsResolverResult.ResolverStatus.TimedOut;
+                        resolverResult.Status = ResolverResult.ResolverStatus.TimedOut;
                     }
                     else
                     {
-                        resolverResult.Status = DnsResolverResult.ResolverStatus.Failed;
+                        resolverResult.Status = ResolverResult.ResolverStatus.Failed;
                     }
                 }
-                resolverResult.Status = DnsResolverResult.ResolverStatus.TimedOut;
+                resolverResult.Status = ResolverResult.ResolverStatus.TimedOut;
             }
 
-            if (resolverResult.IPv4.Length == 0) resolverResult.Status = DnsResolverResult.ResolverStatus.NoIpReturned;
+            if (resolverResult.IPv4.Length == 0) resolverResult.Status = ResolverResult.ResolverStatus.NoIpReturned;
 
             resolverResult.Latency = (end - now).TotalMilliseconds;
             return resolverResult;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Network_Utilities.DNS_Testing.Resolver
 {
-    public class DnsResolverResult
+    public class ResolverResult
     {
         public enum ResolverStatus
         {

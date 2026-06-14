@@ -18,7 +18,7 @@ using static System.Net.WebRequestMethods;
 
 namespace Network_Utilities.DNS_Testing.ByPass
 {
-    public static class DnsBypassService
+    public static class BypassService
     {
         private static string HttpRequestHeader(Uri uri)
         {
@@ -29,10 +29,10 @@ namespace Network_Utilities.DNS_Testing.ByPass
                    "Connection: close\r\n\r\n";
         }
 
-        public async static Task<DnsBypassResult> SendRequestAsync(IPAddress dns, Uri uri, CancellationToken cancellationToken)
+        public async static Task<BypassResult> SendRequestAsync(IPAddress dns, Uri uri, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            DnsBypassResult bypassResult = new DnsBypassResult();
+            BypassResult bypassResult = new BypassResult();
             DateTime now;
             DateTime end;
 
@@ -40,7 +40,7 @@ namespace Network_Utilities.DNS_Testing.ByPass
             {
                 now = DateTime.Now;
 
-                DnsResolverResult resolverResult = await DnsResolverService.ResolveHostAsync(dns, uri);
+                ResolverResult resolverResult = await ResolverService.ResolveHostAsync(dns, uri);
                 await tcp.ConnectAsync(resolverResult.IPv4.First(), uri.Port); // TCP Handshake
 
                 using (SslStream ssl = new SslStream(tcp.GetStream(), false, (sender, cert, chain, errors) => true)) // Create TLS/SSL stream
@@ -55,7 +55,7 @@ namespace Network_Utilities.DNS_Testing.ByPass
                     end = DateTime.Now;
                     bypassResult.Latency = (end - now).TotalMilliseconds;
                     bypassResult.SslResponseMessage = ssl;
-                    bypassResult.Status = DnsBypassResult.BypassStatus.Successful;
+                    bypassResult.Status = BypassResult.BypassStatus.Successful;
                 }
             }
             return bypassResult;
