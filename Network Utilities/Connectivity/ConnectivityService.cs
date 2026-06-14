@@ -24,10 +24,11 @@ namespace Network_Utilities.Connectivity
 
         public async Task<PingResult> PingHostAsync(IPAddress dns, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             List<PingReply> replyList = new List<PingReply>();
             for (int i = 0; i < SentPacketCount; i++)
             {
-                cancellationToken.ThrowIfCancellationRequested();
                 PingReply reply = await GetPing(dns);
                 replyList.Add(reply);
             }

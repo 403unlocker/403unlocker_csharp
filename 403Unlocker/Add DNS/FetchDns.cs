@@ -20,22 +20,16 @@ namespace _403Unlocker.Add_DNS
         {
             //https://www.getflix.com.au/setup/dns-servers/
             //https://www.publicdns.xyz
-            HtmlDocument htmlDocument = new HtmlDocument();
-            HttpResponseMessage response = await HttpService.SendRequestAsync(url);
 
-            using (Stream stream = await response.Content.ReadAsStreamAsync())
-            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                string html = await reader.ReadToEndAsync();
-                htmlDocument.LoadHtml(html);
-            }
+            HtmlDocument htmlDocument = new HtmlDocument();
+            HttpResult response = await HttpService.SendRequestAsync(url);
+            htmlDocument.LoadHtml(await response.ReadHtmlResponseAsync());
 
             HtmlNode table = ParseToTable(htmlDocument);
 
             var rows = ExtractRows(table);
 
             List<DnsInfo> dnsInfos = ExtractDnsInfos(rows);
-
             DnsConfig dnsConfig = new DnsConfig(dnsInfos);
             return dnsConfig;
         }

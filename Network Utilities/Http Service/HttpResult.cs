@@ -4,15 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Network_Utilities.DNS_Testing.ByPass
+namespace Network_Utilities.Http_Service
 {
-    public class DnsBypassResult
+    public class HttpResult
     {
-        public enum BypassStatus
+        public enum HttpStatus
         {
             UnknownError = 0,
 
@@ -26,18 +25,20 @@ namespace Network_Utilities.DNS_Testing.ByPass
             HttpConnectionClosedByServer = 405
         }
 
-        public SslStream SslResponseMessage { get; internal set; }
+        public HttpResponseMessage HttpResponseMessage { get; internal set; }
 
         public double Latency { get; internal set; }
-        public BypassStatus Status { get; internal set; }
 
-        public async Task<string> ReadHtmlResponseAsync(SslStream ssl)
+        public HttpStatusCode Status { get => HttpResponseMessage.StatusCode; }
+        public bool IsSuccessful { get => HttpResponseMessage.IsSuccessStatusCode; }
+
+        public async Task<string> ReadHtmlResponseAsync()
         {
-            using (StreamReader reader = new StreamReader(ssl, Encoding.UTF8))
+            using (Stream stream = await HttpResponseMessage.Content.ReadAsStreamAsync())
+            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
             {
                 return await reader.ReadToEndAsync();
             }
         }
-        
     }
 }

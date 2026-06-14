@@ -1,62 +1,64 @@
 using DnsClient;
+using Network_Utilities.DNS_Testing.Resolver;
 using Network_Utilities.Http_Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
 using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Security.Policy;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Network_Utilities.DNS_Testing.Resolver;
+using static System.Net.WebRequestMethods;
 
 namespace Network_Utilities.DNS_Testing.ByPass
 {
-    public class DnsBypassService
+    public static class DnsBypassService
     {
-        public async Task<DnsBypassResult> TestAsync(IPAddress dns, Uri uri)
+        private static string HttpRequestHeader(Uri uri)
         {
-            DnsBypassResult result = new DnsBypassResult();
-            DateTime start = DateTime.Now;
-            TimeSpan end = DateTime.Now - start;
+            return $"GET / HTTP/1.1\r\n" +
+                   $"Host: {uri.Host}\r\n" +
+                   "User-Agent: Mozilla/5.0\r\n" +
+                   "Accept: text/html\r\n" +
+                   "Connection: close\r\n\r\n";
+        }
 
-            List<string> resolvedIP = await DnsResolverService.ResolveHostAsync(dns, uri);
-            try
+        public async static Task<DnsBypassResult> SendRequestAsync(IPAddress dns, Uri uri, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            DnsBypassResult bypassResult = new DnsBypassResult();
+            DateTime now;
+            DateTime end;
+
+            using (TcpClient tcp = new TcpClient())
             {
-                Uri newUri = new Uri($"https://{resolvedIP[0]}:443");
-                HttpResponseMessage httpResponse = await HttpService.SendRequestAsync(uri);
+                now = DateTime.Now;
+
+                DnsResolverResult resolverResult = await DnsResolverService.ResolveHostAsync(dns, uri);
+                await tcp.ConnectAsync(resolverResult.IPv4.First(), uri.Port); // TCP Handshake
+
+                using (SslStream ssl = new SslStream(tcp.GetStream(), false, (sender, cert, chain, errors) => true)) // Create TLS/SSL stream
+                {
+                    
+                    await ssl.AuthenticateAsClientAsync(uri.Host); // TLS Handshake + SNI
+
+                    byte[] requestBytes = Encoding.ASCII.GetBytes(HttpRequestHeader(uri));
+
+                    await ssl.WriteAsync(requestBytes, 0, requestBytes.Length); // HTTP request goes over TLS
+                    await ssl.FlushAsync();
+                    end = DateTime.Now;
+                    bypassResult.Latency = (end - now).TotalMilliseconds;
+                    bypassResult.SslResponseMessage = ssl;
+                    bypassResult.Status = DnsBypassResult.BypassStatus.Successful;
+                }
             }
-            catch (Exception error)
-            {
-                end = DateTime.Now - start;
-                result.Latency = resolvedIP.Count > 0 ? end.Milliseconds : -1;
-
-                if (error is DnsResponseException)
-                {
-                    if (error.InnerException is OperationCanceledException)
-                    {
-                        result.Status = DnsBypassResult.BypassStatus.DnsResolveTimedOut;
-                    }
-                    else if (error.InnerException is SocketException)
-                    {
-                        result.Status = DnsBypassResult.BypassStatus.HttpConnectionClosedByServer;
-                    }
-                    else
-                    {
-                        result.Status = DnsBypassResult.BypassStatus.DnsResolveFailed;
-                    }
-                }
-                else  if (error is TaskCanceledException)
-                {
-                    result.Status = DnsBypassResult.BypassStatus.HttpConnectionTimedOut;
-                }
-                else if (error is HttpRequestException)
-                {
-                    result.Status = DnsBypassResult.BypassStatus.HttpConnectionFailed;
-
-                }
-                result.Status = DnsBypassResult.BypassStatus.UnknownError;
-            }
-
-            return result;
+            return bypassResult;
         }
     }
 }
