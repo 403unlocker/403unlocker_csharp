@@ -28,7 +28,7 @@
 - Download & Install [403Unlocker](https://github.com/ALiMoradzade/403unlocker/releases)
 
 
-## Comparison: 403unlocker v1.0.0-alpha vs v2.1.0
+## Comparison: 403unlocker v1.0.0-alpha vs 403Unlocker v2.1.0
 
 ### 403unlocker (v1.0.0-alpha) – Ping Test Running
 ![image](https://github.com/user-attachments/assets/2b7c2f4a-c495-408f-8a46-f9d27a839c89)
