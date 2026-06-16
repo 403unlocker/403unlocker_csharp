@@ -8,53 +8,35 @@ using System.Threading.Tasks;
 
 namespace Network_Utilities.Connectivity
 {
-    public class ConnectivityService
+    public static class ConnectivityService
     {
-        public int SentPacketCount { get; } 
-        public int PacketSize { get; } 
-        public int Timeout { get; } 
-
-
-        public ConnectivityService()
-        {
-            SentPacketCount = ConnectivitySettings.PacketCount;
-            PacketSize = ConnectivitySettings.PacketSize;
-            Timeout = ConnectivitySettings.TimeoutInMiliSeconds;
-        }
-
-        public async Task<PingResult> PingHostAsync(IPAddress dns, CancellationToken cancellationToken)
+        public async static Task<PingResult> PingHostAsync(IPAddress dns, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             List<PingReply> replyList = new List<PingReply>();
-            for (int i = 0; i < SentPacketCount; i++)
+            for (int i = 0; i < ConnectivitySettings.PacketCount; i++)
             {
-                PingReply reply = await GetPing(dns);
-                replyList.Add(reply);
+                using (Ping pingSender = new Ping())
+                {
+                    PingReply reply = await pingSender.SendPingAsync(dns, ConnectivitySettings.TimeoutInMiliSeconds, new byte[ConnectivitySettings.PacketSize]);
+                    replyList.Add(reply);
+                }
             }
 
             return SetValues(replyList);
         }
 
-        private PingResult SetValues(List<PingReply> replyList)
+        private static PingResult SetValues(List<PingReply> replyList)
         {
             var successfulReplies = replyList.Where(reply => reply.Status == IPStatus.Success);
             PingResult pingResult = new PingResult()
             {
-                Sent = SentPacketCount,
+                Sent = ConnectivitySettings.PacketCount,
                 Received = successfulReplies.Count(),
                 Latency = successfulReplies.Count() > 0 ? successfulReplies.Average(reply => reply.RoundtripTime) : -1,
             };
             return pingResult;
-        }
-
-        private async Task<PingReply> GetPing(IPAddress dns)
-        {
-            using (Ping pingSender = new Ping())
-            {
-                PingReply reply = await pingSender.SendPingAsync(dns, Timeout, new byte[PacketSize]);
-                return reply;
-            }
         }
     }
 }

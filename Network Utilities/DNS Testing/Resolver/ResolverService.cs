@@ -3,15 +3,19 @@ using DnsClient.Protocol;
 using Network_Utilities.DNS_Testing.ByPass;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Network_Utilities.DNS_Testing.Resolver
 {
     public static class ResolverService
     {
+        private static Stopwatch stopwatch = new Stopwatch();
+        
         private static LookupClientOptions CreateLookupOptions(IPAddress dns)
         {
             LookupClientOptions lookupClientOptions = new LookupClientOptions()
@@ -30,41 +34,34 @@ namespace Network_Utilities.DNS_Testing.Resolver
         {
             LookupClientOptions options = CreateLookupOptions(dns);
             LookupClient lookup = new LookupClient(options);
-
             ResolverResult resolverResult = new ResolverResult();
-            DateTime now = DateTime.Now;
-            DateTime end;
+
             try
             {
+                stopwatch.Restart();
                 IDnsQueryResponse response = await lookup.QueryAsync(uri.Host, QueryType.A);
-                end = DateTime.Now;
+                stopwatch.Stop();
 
                 resolverResult.IPv4 = response.Answers
                                   .OfType<ARecord>()
                                   .Select(x => x.Address)
                                   .ToArray();
+
+                if (resolverResult.IPv4.Length == 0) resolverResult.Status = ResolverResult.ResolverStatus.NoIpReturned;
             }
             catch (Exception error)
             {
-                end = DateTime.Now;
+                stopwatch.Stop();
 
                 if (error is DnsResponseException)
                 {
-                    if (error.InnerException is OperationCanceledException)
-                    {
-                        resolverResult.Status = ResolverResult.ResolverStatus.TimedOut;
-                    }
-                    else
-                    {
-                        resolverResult.Status = ResolverResult.ResolverStatus.Failed;
-                    }
+                    if (error.InnerException is OperationCanceledException) resolverResult.Status = ResolverResult.ResolverStatus.TimedOut;
+                    else resolverResult.Status = ResolverResult.ResolverStatus.Failed;
                 }
-                resolverResult.Status = ResolverResult.ResolverStatus.TimedOut;
+                else resolverResult.Status = ResolverResult.ResolverStatus.Failed;
             }
 
-            if (resolverResult.IPv4.Length == 0) resolverResult.Status = ResolverResult.ResolverStatus.NoIpReturned;
-
-            resolverResult.Latency = (end - now).TotalMilliseconds;
+            resolverResult.Latency = stopwatch.ElapsedMilliseconds;
             return resolverResult;
         }
     }

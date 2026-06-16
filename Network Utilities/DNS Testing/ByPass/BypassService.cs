@@ -3,6 +3,7 @@ using Network_Utilities.DNS_Testing.Resolver;
 using Network_Utilities.Http_Service;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,6 +21,8 @@ namespace Network_Utilities.DNS_Testing.ByPass
 {
     public static class BypassService
     {
+        private static Stopwatch stopwatch = new Stopwatch();
+
         private static string HttpRequestHeader(Uri uri)
         {
             return $"GET / HTTP/1.1\r\n" +
@@ -33,8 +36,6 @@ namespace Network_Utilities.DNS_Testing.ByPass
         {
             cancellationToken.ThrowIfCancellationRequested();
             BypassResult bypassResult = new BypassResult();
-            DateTime now;
-            DateTime end;
 
             using (TcpClient tcp = new TcpClient())
             {
@@ -45,15 +46,16 @@ namespace Network_Utilities.DNS_Testing.ByPass
 
                 using (SslStream ssl = new SslStream(tcp.GetStream(), false, (sender, cert, chain, errors) => true)) // Create TLS/SSL stream
                 {
-                    
+                    stopwatch.Start();
                     await ssl.AuthenticateAsClientAsync(uri.Host); // TLS Handshake + SNI
 
                     byte[] requestBytes = Encoding.ASCII.GetBytes(HttpRequestHeader(uri));
 
                     await ssl.WriteAsync(requestBytes, 0, requestBytes.Length); // HTTP request goes over TLS
                     await ssl.FlushAsync();
-                    end = DateTime.Now;
-                    bypassResult.Latency = (end - now).TotalMilliseconds;
+                    stopwatch.Stop();
+
+                    bypassResult.Latency = stopwatch.ElapsedMilliseconds;
                     bypassResult.SslResponseMessage = ssl;
                     bypassResult.Status = BypassResult.BypassStatus.Successful;
                 }
