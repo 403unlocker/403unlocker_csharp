@@ -43,7 +43,7 @@ namespace _403Unlocker.Find_DNS
 
         private bool IsAllOctetsValid()
         {
-            return !Octets.All(textBox => !string.IsNullOrEmpty(textBox.Text)) && 
+            return Octets.Any(textBox => !string.IsNullOrEmpty(textBox.Text)) && 
                 Octets.Where(textBox => !string.IsNullOrEmpty(textBox.Text)).All(textBox => int.Parse(textBox.Text) < 255);
         }
 
@@ -156,7 +156,7 @@ namespace _403Unlocker.Find_DNS
             mainForm.isTabelChangedFlag = false;
             SetResultVisible(true);
 
-            foundList = mainForm.FindDnsByIPv4(textBoxOctet1.Text, textBoxOctet2.Text, textBoxOctet3.Text, textBoxOctet4.Text);
+            foundList = mainForm.FindDnsByIPv4(Octets.Select(textBox => textBox.Text).ToArray());
             if (foundList.Length == 0)
             {
                 ResultNotFound();

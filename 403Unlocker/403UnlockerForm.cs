@@ -552,7 +552,7 @@ namespace _403Unlocker
             ShowRow(index);
         }
 
-        public DnsInfo[] FindDnsByIPv4(string octec1, string octec2, string octec3, string octec4)
+        public DnsInfo[] FindDnsByIPv4(string[] octecsToBeFound)
         {
             DnsInfo[] foundDns = dnsTable.ToList().FindAll(row =>
             {
@@ -560,11 +560,22 @@ namespace _403Unlocker
                 int[] octets = currenctRowIPv4.Split('.').Select(int.Parse).ToArray();
                 bool isMatch = false;
 
-                if (octec1 != "" && octets[0] == int.Parse(octec1)) isMatch = true;
-                if (octec2 != "" && octets[2] == int.Parse(octec2)) isMatch = true;
-                if (octec3 != "" && octets[3] == int.Parse(octec3)) isMatch = true;
-                if (octec4 != "" && octets[4] == int.Parse(octec4)) isMatch = true;
-
+                for (int i = 0; i < 4; i++)
+                {
+                    if (string.IsNullOrEmpty(octecsToBeFound[i])) continue;
+                    else
+                    {
+                        if (int.Parse(octecsToBeFound[i]) == octets[i])
+                        {
+                            isMatch = true;
+                        }
+                        else
+                        {
+                            isMatch = false;
+                            break;
+                        }
+                    }
+                }
                 return isMatch;
             }).ToArray();
 
