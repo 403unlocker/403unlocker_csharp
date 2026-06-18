@@ -21,7 +21,7 @@ namespace _403Unlocker.File
             }
         };
 
-        public async static Task<string> ReadFileAsync(string path)
+        public async static Task<string> ReadTextAsync(string path)
         {
             string text;
             using (StreamReader streamReader = new StreamReader(path))
@@ -31,7 +31,7 @@ namespace _403Unlocker.File
             return text;
         }
 
-        public async static Task WriteFileAsync(string path, string text)
+        public async static Task WriteTextAsync(string path, string text)
         {
             using (StreamWriter streamWriter = new StreamWriter(path))
             {
@@ -41,7 +41,7 @@ namespace _403Unlocker.File
 
         public async static Task<T> ReadJsonAsync<T>(string path)
         {
-            string json = await ReadFileAsync(path);
+            string json = await ReadTextAsync(path);
             T result = JsonConvert.DeserializeObject<T>(json, jsonSettings);
             return result;
         }
@@ -49,7 +49,7 @@ namespace _403Unlocker.File
         public async static Task WriteJsonAsync(string path, object value)
         {
             string json = JsonConvert.SerializeObject(value, Formatting.Indented, jsonSettings);
-            await WriteFileAsync(path, json);
+            await WriteTextAsync(path, json);
         }
     }
 }
