@@ -14,7 +14,7 @@ namespace _403Unlocker.Add_DNS
 {
     internal static class FetchDns
     {
-        private static readonly Uri url = new Uri("https://www.publicdns.xyz");
+        private static readonly Uri url = new Uri("https://publicdns.xyz");
 
         public async static Task<DnsConfig> ScrapDnsServersAsync()
         {
@@ -23,7 +23,8 @@ namespace _403Unlocker.Add_DNS
 
             HtmlDocument htmlDocument = new HtmlDocument();
             HttpResult response = await HttpService.SendRequestAsync(url);
-            htmlDocument.LoadHtml(await response.ReadHtmlResponseAsync());
+
+            htmlDocument.LoadHtml(response.HttpResponseContent);
 
             HtmlNode table = ParseToTable(htmlDocument);
 
@@ -62,8 +63,8 @@ namespace _403Unlocker.Add_DNS
             // convert it to usable list for app
             var dnsInfosList = minedDns.SelectMany(dnsInfo => new DnsInfo[]
             {
-                new DnsInfo(IPAddress.Parse(dnsInfo.ElementAt(1)),dnsInfo.ElementAt(0)),
-                new DnsInfo(IPAddress.Parse(dnsInfo.ElementAt(2)),dnsInfo.ElementAt(0))
+                new DnsInfo(IPAddress.Parse(dnsInfo.ElementAt(1)), dnsInfo.ElementAt(0)),
+                new DnsInfo(IPAddress.Parse(dnsInfo.ElementAt(2)), dnsInfo.ElementAt(0))
             })
             // removes empty DNS
             .Where(dnsInfo => !string.IsNullOrEmpty(dnsInfo.IPv4.ToString())).ToList();
