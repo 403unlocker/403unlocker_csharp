@@ -105,7 +105,7 @@ namespace _403Unlocker
 
         private static DialogResult MessageBoxDnsAddScraperError()
         {
-            var r = MessageBox.Show("",//Data.DnsScraper.Errors.Message,
+            var r = MessageBox.Show("Please, try again later",
                                     "Somthing went wrong",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
@@ -444,8 +444,16 @@ namespace _403Unlocker
 
         private async void addPublicdnsxyzDNSsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            try
+            {
             DnsConfig dnsConfig = await FetchDns.ScrapDnsServersAsync();
             AddToTable(dnsConfig.IPv4_Servers);
+        }
+            catch (TaskCanceledException)
+            {
+                MessageBoxDnsAddScraperError();
+                return;
+            }
         }
 
         private void addCustomDNSToolStripMenuItem_Click(object sender, EventArgs e)
