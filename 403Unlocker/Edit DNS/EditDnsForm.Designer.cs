@@ -39,18 +39,23 @@ namespace _403Unlocker.Edit_DNS
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOctet1 = new System.Windows.Forms.TextBox();
             this.textBoxProvider = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxOctet4
             // 
             this.textBoxOctet4.BackColor = System.Drawing.Color.White;
             this.textBoxOctet4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxOctet4.ContextMenuStrip = this.contextMenuStrip1;
             this.textBoxOctet4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOctet4.ForeColor = System.Drawing.Color.Black;
             this.textBoxOctet4.Location = new System.Drawing.Point(196, 12);
@@ -66,6 +71,7 @@ namespace _403Unlocker.Edit_DNS
             // 
             this.textBoxOctet3.BackColor = System.Drawing.Color.White;
             this.textBoxOctet3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxOctet3.ContextMenuStrip = this.contextMenuStrip1;
             this.textBoxOctet3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOctet3.ForeColor = System.Drawing.Color.Black;
             this.textBoxOctet3.Location = new System.Drawing.Point(157, 12);
@@ -81,6 +87,7 @@ namespace _403Unlocker.Edit_DNS
             // 
             this.textBoxOctet2.BackColor = System.Drawing.Color.White;
             this.textBoxOctet2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxOctet2.ContextMenuStrip = this.contextMenuStrip1;
             this.textBoxOctet2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOctet2.ForeColor = System.Drawing.Color.Black;
             this.textBoxOctet2.Location = new System.Drawing.Point(118, 12);
@@ -139,6 +146,7 @@ namespace _403Unlocker.Edit_DNS
             // 
             this.textBoxOctet1.BackColor = System.Drawing.Color.White;
             this.textBoxOctet1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxOctet1.ContextMenuStrip = this.contextMenuStrip1;
             this.textBoxOctet1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxOctet1.ForeColor = System.Drawing.Color.Black;
             this.textBoxOctet1.Location = new System.Drawing.Point(79, 12);
@@ -154,7 +162,7 @@ namespace _403Unlocker.Edit_DNS
             // 
             this.textBoxProvider.BackColor = System.Drawing.Color.White;
             this.textBoxProvider.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxProvider.ContextMenuStrip = this.contextMenuStrip1;
+            this.textBoxProvider.ContextMenuStrip = this.contextMenuStrip2;
             this.textBoxProvider.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxProvider.ForeColor = System.Drawing.Color.Black;
             this.textBoxProvider.Location = new System.Drawing.Point(79, 40);
@@ -162,20 +170,6 @@ namespace _403Unlocker.Edit_DNS
             this.textBoxProvider.Name = "textBoxProvider";
             this.textBoxProvider.Size = new System.Drawing.Size(382, 22);
             this.textBoxProvider.TabIndex = 24;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pasteToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(103, 26);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // label5
             // 
@@ -207,6 +201,42 @@ namespace _403Unlocker.Edit_DNS
             this.label3.TabIndex = 29;
             this.label3.Text = ".";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(103, 48);
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pasteToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(181, 48);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click_1);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem1
+            // 
+            this.pasteToolStripMenuItem1.Name = "pasteToolStripMenuItem1";
+            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(102, 22);
+            this.pasteToolStripMenuItem1.Text = "Paste";
+            this.pasteToolStripMenuItem1.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
             // EditDnsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,6 +261,7 @@ namespace _403Unlocker.Edit_DNS
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit DNS";
             this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,6 +282,9 @@ namespace _403Unlocker.Edit_DNS
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
     }
 }
