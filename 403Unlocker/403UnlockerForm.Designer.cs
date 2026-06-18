@@ -69,7 +69,11 @@ namespace _403Unlocker
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPv4AddressesListTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dNSListJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPv4AddressesListTextToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dNSListJSONToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,8 +81,8 @@ namespace _403Unlocker
             this.about403UnlockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.websiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogJson = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialogJson = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelTotalDNSRecords = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabelTargetHost = new System.Windows.Forms.ToolStripLabel();
@@ -86,6 +90,8 @@ namespace _403Unlocker
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.openFileDialogText = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogText = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -447,27 +453,59 @@ namespace _403Unlocker
             // 
             // importToolStripMenuItem
             // 
+            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iPv4AddressesListTextToolStripMenuItem,
+            this.dNSListJSONToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // iPv4AddressesListTextToolStripMenuItem
+            // 
+            this.iPv4AddressesListTextToolStripMenuItem.Name = "iPv4AddressesListTextToolStripMenuItem";
+            this.iPv4AddressesListTextToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.iPv4AddressesListTextToolStripMenuItem.Text = "IPv4 Addresses List (Text)";
+            this.iPv4AddressesListTextToolStripMenuItem.Click += new System.EventHandler(this.importIPv4AddressesListTextToolStripMenuItem_Click);
+            // 
+            // dNSListJSONToolStripMenuItem
+            // 
+            this.dNSListJSONToolStripMenuItem.Name = "dNSListJSONToolStripMenuItem";
+            this.dNSListJSONToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.dNSListJSONToolStripMenuItem.Text = "DNS List (JSON)";
+            this.dNSListJSONToolStripMenuItem.Click += new System.EventHandler(this.importDNSListJSONToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
+            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iPv4AddressesListTextToolStripMenuItem1,
+            this.dNSListJSONToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // iPv4AddressesListTextToolStripMenuItem1
+            // 
+            this.iPv4AddressesListTextToolStripMenuItem1.Name = "iPv4AddressesListTextToolStripMenuItem1";
+            this.iPv4AddressesListTextToolStripMenuItem1.Size = new System.Drawing.Size(205, 22);
+            this.iPv4AddressesListTextToolStripMenuItem1.Text = "IPv4 Addresses List (Text)";
+            this.iPv4AddressesListTextToolStripMenuItem1.Click += new System.EventHandler(this.exportIPv4AddressesListTextToolStripMenuItem1_Click);
+            // 
+            // dNSListJSONToolStripMenuItem1
+            // 
+            this.dNSListJSONToolStripMenuItem1.Name = "dNSListJSONToolStripMenuItem1";
+            this.dNSListJSONToolStripMenuItem1.Size = new System.Drawing.Size(205, 22);
+            this.dNSListJSONToolStripMenuItem1.Text = "DNS List (JSON)";
+            this.dNSListJSONToolStripMenuItem1.Click += new System.EventHandler(this.exportDNSListJSONToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(107, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -509,15 +547,15 @@ namespace _403Unlocker
             this.websiteToolStripMenuItem.Text = "Website";
             this.websiteToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
             // 
-            // saveFileDialog1
+            // saveFileDialogJson
             // 
-            this.saveFileDialog1.Filter = "JSON Files|*.json";
-            this.saveFileDialog1.Title = "Hit save and make it stay!";
+            this.saveFileDialogJson.Filter = "JSON Files|*.json";
+            this.saveFileDialogJson.Title = "Export DNS List";
             // 
-            // openFileDialog1
+            // openFileDialogJson
             // 
-            this.openFileDialog1.Filter = "JSON Files|*.json|Text Files|*.txt";
-            this.openFileDialog1.Title = "Don\'t worry, I won\'t peek!😜";
+            this.openFileDialogJson.Filter = "JSON Files|*.json";
+            this.openFileDialogJson.Title = "Import DNS List";
             // 
             // toolStrip2
             // 
@@ -575,6 +613,16 @@ namespace _403Unlocker
             this.toolStripLabel3.Text = "Failed: 00";
             this.toolStripLabel3.Visible = false;
             // 
+            // openFileDialogText
+            // 
+            this.openFileDialogText.Filter = "Text Files|*.txt";
+            this.openFileDialogText.Title = "Import IPv4 List";
+            // 
+            // saveFileDialogText
+            // 
+            this.saveFileDialogText.Filter = "Text Files|*.txt";
+            this.saveFileDialogText.Title = "Export IPv4 List";
+            // 
             // _403UnlockerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -623,8 +671,8 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripButton toolStripButtonClearAll;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogJson;
+        private System.Windows.Forms.OpenFileDialog openFileDialogJson;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -662,6 +710,12 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem dNSListJSONToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iPv4AddressesListTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dNSListJSONToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem iPv4AddressesListTextToolStripMenuItem1;
+        private System.Windows.Forms.OpenFileDialog openFileDialogText;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogText;
     }
 }
 

@@ -178,7 +178,7 @@ namespace _403Unlocker
         {
             Configuration.Settings.Save();
 
-            await SaveAsJsonFile(pathTable);
+            await SaveAsJson(pathTable);
 
             if (WindowState == FormWindowState.Normal)
             {
@@ -253,11 +253,45 @@ namespace _403Unlocker
         #endregion
 
         #region Table Methods
-        private async Task ImportFileToTable(string path)
+        private async Task ImportJsonToTable(string path)
         {
+            int newCount = 0;
+            int duplicationCount = 0;
+
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
-            (int newCount, int duplicationCount) = AddToTable(result.IPv4_Servers);
+            (newCount, duplicationCount) = AddToTable(result.IPv4_Servers);
             MessageBoxShowAddToTableResult(newCount, duplicationCount);
+        }
+
+        private async Task ImportTextToTable(string path)
+        {
+            int newCount = 0;
+            int duplicationCount = 0;
+
+            string text = await FileManager.ReadTextAsync(path);
+            string[] ipv4List = text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            List<DnsInfo> dnsList = ipv4List.Select(ipv4 =>
+            {
+                return new DnsInfo(IPAddress.Parse(ipv4), "");
+            }
+            ).ToList();
+
+            (newCount, duplicationCount) = AddToTable(dnsList);
+            MessageBoxShowAddToTableResult(newCount, duplicationCount);
+        }
+
+        private async Task SaveAsJson(string path)
+        {
+            DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
+            await FileManager.WriteJsonAsync(path, dnsConfig);
+        }
+
+        private async Task SaveAsText(string path)
+        {
+            DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
+            string[] ipv4List = dnsConfig.IPv4_Servers.Select(dns => dns.IPv4.ToString()).ToArray();
+            string text = string.Join("\r\n", ipv4List);
+            await FileManager.WriteTextAsync(path, text);
         }
 
         private void ReloadTable()
@@ -274,12 +308,6 @@ namespace _403Unlocker
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
             AddToTable(result.IPv4_Servers);
-        }
-
-        private async Task SaveAsJsonFile(string path)
-        {
-            DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
-            await FileManager.WriteJsonAsync(path, dnsConfig);
         }
 
         private (int, int) AddToTable(DnsInfo dnsInfo)
@@ -348,26 +376,35 @@ namespace _403Unlocker
         #endregion
 
         #region File Tab
-        private async void importToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void importIPv4AddressesListTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialogText.ShowDialog() == DialogResult.OK)
             {
-                string fileExtension = Path.GetExtension(openFileDialog1.SafeFileName);
-                if (fileExtension == ".json")
-                {
-                    await ImportFileToTable(openFileDialog1.FileName);
-                }
-                else if (fileExtension == ".txt")
-                {
-                }
+                await ImportTextToTable(openFileDialogText.FileName);
             }
         }
 
-        private async void exportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+        private async void importDNSListJSONToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                await SaveAsJsonFile(saveFileDialog1.FileName);
+            if (openFileDialogJson.ShowDialog() == DialogResult.OK)
+                {
+                await ImportJsonToTable(openFileDialogJson.FileName);
+                }
+        }
+
+        private async void exportIPv4AddressesListTextToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogText.ShowDialog() == DialogResult.OK)
+                {
+                await SaveAsText(saveFileDialogText.FileName);
+                }
+            }
+
+        private async void exportDNSListJSONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogJson.ShowDialog() == DialogResult.OK)
+            {
+                await SaveAsJson(saveFileDialogJson.FileName);
             }
         }
 
@@ -402,7 +439,7 @@ namespace _403Unlocker
         #region Add DNS
         private async void add403UnlockerDefaultDNSsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await ImportFileToTable("DefaultDns.json");
+            await ImportJsonToTable("DefaultDns.json");
         }
 
         private async void addPublicdnsxyzDNSsToolStripMenuItem_Click(object sender, EventArgs e)
