@@ -33,7 +33,7 @@ namespace _403Unlocker.Data_Models
         public string ByPass { get; set; }
 
         [JsonConstructor]
-        public DnsInfo(IPAddress ipv4, string provider)
+        public DnsInfo(IPAddress ipv4, string provider = "")
         {
             this.ipv4 = ipv4;
             this.provider = provider;
