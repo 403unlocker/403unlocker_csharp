@@ -258,11 +258,6 @@ namespace _403Unlocker.Find_DNS
             textBoxOctet2.Text = octets[1];
             textBoxOctet3.Text = octets[2];
             textBoxOctet4.Text = octets[3];
-
-            MessageBox.Show("The IPv4 address was pasted successfully",
-                            "IPv4 Address Pasted",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
         }
     }
 }
