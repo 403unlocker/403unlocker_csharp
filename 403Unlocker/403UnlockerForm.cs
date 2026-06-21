@@ -255,21 +255,14 @@ namespace _403Unlocker
         #endregion
 
         #region Table Methods
-        private async Task ImportJsonToTable(string path)
+        private async Task<(int, int)> ImportJsonToTable(string path)
         {
-            int newCount = 0;
-            int duplicationCount = 0;
-
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
-            (newCount, duplicationCount) = AddToTable(result.IPv4_Servers);
-            MessageBoxShowAddToTableResult(newCount, duplicationCount);
+            return AddToTable(result.IPv4_Servers);
         }
 
-        private async Task ImportTextToTable(string path)
+        private async Task<(int, int)> ImportTextToTable(string path)
         {
-            int newCount = 0;
-            int duplicationCount = 0;
-
             string text = await FileManager.ReadTextAsync(path);
             string[] ipv4List = text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             List<DnsInfo> dnsList = ipv4List.Select(ipv4 =>
@@ -278,8 +271,7 @@ namespace _403Unlocker
             }
             ).ToList();
 
-            (newCount, duplicationCount) = AddToTable(dnsList);
-            MessageBoxShowAddToTableResult(newCount, duplicationCount);
+           return AddToTable(dnsList);
         }
 
         private async Task SaveAsJson(string path)
@@ -382,7 +374,10 @@ namespace _403Unlocker
         {
             if (openFileDialogText.ShowDialog() == DialogResult.OK)
             {
-                await ImportTextToTable(openFileDialogText.FileName);
+                int newCount = 0;
+                int duplicationCount = 0;
+                (newCount, duplicationCount) = await ImportTextToTable(openFileDialogText.FileName);
+                MessageBoxShowAddToTableResult(newCount, duplicationCount);
             }
         }
 
@@ -390,7 +385,10 @@ namespace _403Unlocker
             {
             if (openFileDialogJson.ShowDialog() == DialogResult.OK)
                 {
-                await ImportJsonToTable(openFileDialogJson.FileName);
+                int newCount = 0;
+                int duplicationCount = 0;
+                (newCount, duplicationCount) = await ImportJsonToTable(openFileDialogJson.FileName);
+                MessageBoxShowAddToTableResult(newCount, duplicationCount);
                 }
         }
 
@@ -441,7 +439,10 @@ namespace _403Unlocker
         #region Add DNS
         private async void add403UnlockerDefaultDNSsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await ImportJsonToTable("DefaultDns.json");
+            int newCount = 0;
+            int duplicationCount = 0;
+            (newCount, duplicationCount) = await ImportJsonToTable("DefaultDns.json");
+            MessageBoxShowAddToTableResult(newCount, duplicationCount);
         }
 
         private async void addPublicdnsxyzDNSsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -449,7 +450,11 @@ namespace _403Unlocker
             try
             {
             DnsConfig dnsConfig = await FetchDns.ScrapDnsServersAsync();
-            AddToTable(dnsConfig.IPv4_Servers);
+                
+                int newCount = 0;
+                int duplicationCount = 0;
+                (newCount, duplicationCount) = AddToTable(dnsConfig.IPv4_Servers);
+                MessageBoxShowAddToTableResult(newCount, duplicationCount);
         }
             catch (TaskCanceledException)
             {
@@ -466,6 +471,11 @@ namespace _403Unlocker
                 {
                     DnsInfo dnsInfo = new DnsInfo(form.IPv4, form.Provider);
                     AddToTable(dnsInfo);
+
+                    int newCount = 0;
+                    int duplicationCount = 0;
+                    (newCount, duplicationCount) = AddToTable(dnsInfo);
+                    MessageBoxShowAddToTableResult(newCount, duplicationCount);
 
                     int lastIndex = dnsTable.Count - 1;
                     ShowRow(lastIndex);
