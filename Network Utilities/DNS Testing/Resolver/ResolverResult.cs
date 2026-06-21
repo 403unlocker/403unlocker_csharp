@@ -11,16 +11,23 @@ namespace Network_Utilities.DNS_Testing.Resolver
     {
         public enum ResolverStatus
         {
-            UnknownError = 0,
+            Resolution_not_started,
+            Resolved_successfully,
+            Resolve_unknown_error,
 
-            ResolvedSuccessful = 1,
-
-            Failed = 100,
-            TimedOut = 101,
-            NoIpReturned = 102,
+            Resolution_failed,
+            Resolution_timeout,
+            Resolved_but_no_IP_returned,
         }
 
-        public IPAddress[] IPv4 { get; internal set; } = Array.Empty<IPAddress>();
+        public ResolverResult()
+        {
+            IPv4 = Array.Empty<IPAddress>();
+            Status = ResolverStatus.Resolution_not_started;
+            Latency = 0;
+        }
+
+        public IPAddress[] IPv4 { get; internal set; }
         public double Latency { get; internal set; }
         public ResolverStatus Status { get; internal set; }
     }

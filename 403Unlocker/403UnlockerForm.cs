@@ -28,6 +28,9 @@ using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using _403Unlocker.Bypass_Hostname;
 using _403Unlocker.Find_DNS;
+using Network_Utilities.Http_Service;
+using System.Net.Http;
+using System.Net.Sockets;
 
 namespace _403Unlocker
 {
@@ -53,7 +56,7 @@ namespace _403Unlocker
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridView1.Columns["PacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridView1.Columns["PacketLoss"].HeaderText = "Packet Loss";
-            dataGridView1.Columns["ByPass"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["ByPass"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView1.Columns["ByPass"].HeaderText = "Bypass";
         }
 
@@ -149,6 +152,15 @@ namespace _403Unlocker
                                     MessageBoxIcon.Information);
             return r;
         }
+
+        private static DialogResult MessageBoxIsReachableWithoutDns(string uri)
+        {
+            var r = MessageBox.Show($"This hostname \'{uri}\' can be reached without resolving it through the selected DNS server",
+                                     "Hostname Accessible",
+                                     MessageBoxButtons.OK,
+                                     MessageBoxIcon.Warning);
+            return r;
+        }
         #endregion
 
         #region Form Events
@@ -210,7 +222,6 @@ namespace _403Unlocker
             toolStripBypass.Enabled = !isChecking;
             toolStripButtonApplyDns.Enabled = !isChecking;
 
-            toolStrip2.Enabled = !isChecking;
             toolStrip3.Enabled = !isChecking;
         }
 
@@ -235,6 +246,16 @@ namespace _403Unlocker
             toolStripLabel2.Visible = state;
             toolStripSeparator5.Visible = state;
             toolStripLabel3.Visible = state;
+        }
+
+        private void SetTargetHostname(string hostname)
+        {
+            toolStripLabelTargetHost.Text = $"Target Host: {hostname}";
+        }
+
+        private void SetTargetHostnameVisible(bool visible)
+        {
+            toolStripLabelTargetHost.Visible = visible;
         }
 
         private void toolStripButtonCancelTask_Click(object sender, EventArgs e)
@@ -338,7 +359,7 @@ namespace _403Unlocker
             dnsTable.Clear();
         }
 
-        private void ResetTableResults()
+        private void ResetDnsResults()
         {
             foreach (var dns in dnsTable)
             {
@@ -363,7 +384,9 @@ namespace _403Unlocker
             else isTabelChangedFlag = true;
 
             if (sortBindingFlag) return;
+
             SetCheckStatisticsVisible(false);
+            SetTargetHostnameVisible(false);
             toolStripLabelTargetHost.Visible = false;
             toolStripLabelTotalDNSRecords.Text = $"Total DNS Records: {dataGridView1.RowCount}";
         }
@@ -382,23 +405,23 @@ namespace _403Unlocker
         }
 
         private async void importDNSListJSONToolStripMenuItem_Click(object sender, EventArgs e)
-            {
+        {
             if (openFileDialogJson.ShowDialog() == DialogResult.OK)
-                {
+            {
                 int newCount = 0;
                 int duplicationCount = 0;
                 (newCount, duplicationCount) = await ImportJsonToTable(openFileDialogJson.FileName);
                 MessageBoxShowAddToTableResult(newCount, duplicationCount);
-                }
+            }
         }
 
         private void exportIPv4AddressesListTextToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (saveFileDialogText.ShowDialog() == DialogResult.OK)
-                {
+            {
                 SaveAsText(saveFileDialogText.FileName);
-                }
             }
+        }
 
         private void exportDNSListJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -449,13 +472,13 @@ namespace _403Unlocker
         {
             try
             {
-            DnsConfig dnsConfig = await FetchDns.ScrapDnsServersAsync();
+                DnsConfig dnsConfig = await FetchDns.ScrapDnsServersAsync();
                 
                 int newCount = 0;
                 int duplicationCount = 0;
                 (newCount, duplicationCount) = AddToTable(dnsConfig.IPv4_Servers);
                 MessageBoxShowAddToTableResult(newCount, duplicationCount);
-        }
+            }
             catch (TaskCanceledException)
             {
                 MessageBoxDnsAddScraperError();
@@ -470,7 +493,6 @@ namespace _403Unlocker
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     DnsInfo dnsInfo = new DnsInfo(form.IPv4, form.Provider);
-                    AddToTable(dnsInfo);
 
                     int newCount = 0;
                     int duplicationCount = 0;
@@ -672,43 +694,38 @@ namespace _403Unlocker
         #region By Pass
         private async void toolStripBypass_Click(object sender, EventArgs e)
         {
-          
-         
-            BypassHostnameForm form = new BypassHostnameForm();
-            
-                foreach (var dns in dnsTable)
+            string uri;
+            using (BypassHostnameForm form = new BypassHostnameForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK) return;
+
+                uri = form.Hostname;
+            }
+
+            try
+            {
+                HttpResult httpResult = await HttpService.SendRequestAsync(new Uri(uri));
+                if (httpResult.IsSuccessful)
                 {
-                    try
-                    {
-                        //List<string> resolvedIP = await DnsResolverService.ResolveHostAsync(dns, new Uri("https://www.lenovo.com:443"));
-                        DnsBypassService dnsBypassService = new DnsBypassService();
-                        DnsBypassResult bypassResult = await dnsBypassService.TestAsync(dns.IPv4, new Uri("https://www.lenovo.com:443"), cancellationToken.Token);
-
-                        dns.Latency = $"{bypassResult.Latency:F0}ms";
-                        dns.ByPass = bypassResult.Status.ToString();
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        dns.Latency = "Canceled";
-                    }
-                    finally
-                    {
-                        RefreshTable();
-                    }
+                    MessageBoxIsReachableWithoutDns(uri);
+                    return;
                 }
-            
-        }
-        #endregion
+            }
+            catch (Exception)
+            {
+            }
 
-        #region Ping
-        private async void toolStripPing_Click(object sender, EventArgs e)
-        {
+            SemaphoreSlim semaphore = new SemaphoreSlim(4);
             cancellationToken = new CancellationTokenSource();
-            ResetTableResults();
+
+            ResetDnsResults();
+            RefreshTable();
+
             ResetProgressBar(dnsTable.Count);
             SetCheckingState(true);
 
-            SemaphoreSlim semaphore = new SemaphoreSlim(4);
+            SetTargetHostname(uri);
+            SetTargetHostnameVisible(true);
 
             await Task.WhenAll(
                 dnsTable.Select(async dns =>
@@ -717,14 +734,21 @@ namespace _403Unlocker
 
                     try
                     {
-                        ConnectivityService connectivityService = new ConnectivityService();
-                        PingResult pingResult = await connectivityService.PingHostAsync(dns.IPv4, cancellationToken.Token);
-                        dns.Latency = $"{pingResult.Latency:F0}ms";
-                        dns.PacketLoss = $"{pingResult.PacketLoss:F0}%";
+                        BypassResult bypassResult = await BypassService.BypassTestAsync(dns.IPv4, uri,443, cancellationToken.Token);
+                        dns.Latency = $"{bypassResult.Latency:F0}ms";
+                        dns.ByPass = $"{(int)bypassResult.Status} – {bypassResult.Status}";
                     }
-                    catch (OperationCanceledException)
+                    catch (Exception error)
                     {
-                        dns.Latency = "Canceled";
+                        if (error is OperationCanceledException && error.Message == "The operation was canceled.") dns.ByPass = "Canceled by user";
+                        else if (error is TimeoutException) dns.ByPass = error.Message;
+                        else if (error is UriFormatException) dns.ByPass = error.Message;
+                        else if (error is InvalidDataException) dns.ByPass = error.Message;
+                        else if (error is IOException exception && exception.InnerException is SocketException) dns.ByPass = "Socket Closed";
+                        else if (error is InvalidOperationException) dns.ByPass = "Invalid Operation";
+                        else throw error;
+
+                        dns.Latency = "-1ms";
                     }
                     finally
                     {
@@ -735,6 +759,63 @@ namespace _403Unlocker
                     RefreshProgressBarLabel();
                 })
             );
+
+            SetCheckingState(false);
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                SetCheckStatisticsVisible(false);
+                ResetCheckStatistics();
+                return;
+            }
+            SetCheckStatisticsVisible(true);
+            RefreshCheckStatistics();
+        }
+        #endregion
+
+        #region Ping
+        private async void toolStripPing_Click(object sender, EventArgs e)
+        {
+            SemaphoreSlim semaphore = new SemaphoreSlim(4);
+            cancellationToken = new CancellationTokenSource();
+
+            ResetDnsResults();
+            RefreshTable();
+
+            ResetProgressBar(dnsTable.Count);
+            SetCheckingState(true);
+
+            SetTargetHostnameVisible(false);
+
+            await Task.WhenAll(
+                dnsTable.Select(async dns =>
+                {
+                    await semaphore.WaitAsync();
+
+                    try
+                    {
+                        PingResult pingResult = await ConnectivityService.PingHostAsync(dns.IPv4, cancellationToken.Token);
+                        dns.Latency = $"{pingResult.Latency:F0}ms";
+                        dns.PacketLoss = $"{pingResult.PacketLoss:F0}%";
+                    }
+                    catch (Exception error)
+                    {
+                        if (error is OperationCanceledException)
+                        {
+                            if (error.Message == "The operation was canceled.") dns.PacketLoss = "Canceled by user";
+                        }
+                        dns.Latency = "-1ms";
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                        RefreshTable();
+                    }
+                    toolStripProgressBarDns.Value++;
+                    RefreshProgressBarLabel();
+                })
+            );
+
             SetCheckingState(false);
 
             if (cancellationToken.IsCancellationRequested)
@@ -755,7 +836,9 @@ namespace _403Unlocker
             NetworkInterfaceConfigurationForm form = new NetworkInterfaceConfigurationForm(IPAddress.Parse(selectedDns));
             form.ShowDialog();
         }
-
         #endregion
+
+
+        
     }
 }

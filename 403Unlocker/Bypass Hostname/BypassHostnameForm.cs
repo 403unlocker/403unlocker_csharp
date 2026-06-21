@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Clipboard_Manager;
 
 namespace _403Unlocker.Bypass_Hostname
 {
@@ -16,21 +17,19 @@ namespace _403Unlocker.Bypass_Hostname
         public BypassHostnameForm()
         {
             InitializeComponent();
+
+            AcceptButton = buttonOK;
         }
+
+        public string Hostname { get => textBoxHostname.Text; }
 
         public static bool IsHostNameValid(string hostname)
         {
-            if (Regex.IsMatch(hostname, @"^(?!www\.)([^\W_]{1}[a-zA-Z\d\-]*){1}(\.[^\W_]{1}[a-zA-Z\d\-]*){0,60}(\.[a-z]+){1}$"))
+            if (Regex.IsMatch(hostname, @"^[A-Za-z0-9]{1}(?:[A-Za-z0-9-]*[A-Za-z0-9]{1})?(?:\.[A-Za-z0-9]{1}(?:[A-Za-z0-9-]*[A-Za-z0-9]{1})?)*\.[A-Za-z]{2,63}$"))
             {
                 return true;
             }
             return false;
-        }
-
-        private void textBox1_Validated(object sender, EventArgs e)
-        {
-
-
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -42,6 +41,17 @@ namespace _403Unlocker.Bypass_Hostname
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxHostname.Text) || !IsHostNameValid(textBoxHostname.Text)) buttonOK.Enabled = false;
+            else buttonOK.Enabled = true;
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBoxHostname.Paste();
         }
     }
 }

@@ -45,11 +45,11 @@
     <Compile Include="Connectivity\ConnectivityService.cs" />
     <Compile Include="Connectivity\ConnectivitySettings.cs" />
     <Compile Include="Connectivity\PingResult.cs" />
-    <Compile Include="DNS Testing\ByPass\DnsBypassResult.cs" />
-    <Compile Include="DNS Testing\ByPass\DnsBypassService.cs" />
-    <Compile Include="DNS Testing\Resolver\DnsResolverResult.cs" />
-    <Compile Include="DNS Testing\Resolver\DnsResolverService.cs" />
-    <Compile Include="DNS Testing\Resolver\DnsResolverSettings.cs" />
+    <Compile Include="DNS Testing\ByPass\BypassResult.cs" />
+    <Compile Include="DNS Testing\ByPass\BypassService.cs" />
+    <Compile Include="DNS Testing\Resolver\ResolverResult.cs" />
+    <Compile Include="DNS Testing\Resolver\ResolverService.cs" />
+    <Compile Include="DNS Testing\Resolver\ResolverSettings.cs" />
     <Compile Include="Http Service\HttpResult.cs" />
     <Compile Include="Http Service\HttpService.cs" />
     <Compile Include="Http Service\HttpSettings.cs" />
