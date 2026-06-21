@@ -22,6 +22,8 @@ namespace _403Unlocker.Find_DNS
         {
             InitializeComponent();
 
+            AcceptButton = buttonFind;
+
             mainForm = form;
             SetFindAndClearButtonsEnable(false);
         }

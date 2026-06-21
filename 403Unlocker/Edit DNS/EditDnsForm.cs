@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace _403Unlocker.Edit_DNS
         public EditDnsForm(IPAddress ipv4, string provider)
         {
             InitializeComponent();
+
+            AcceptButton = buttonOK;
 
             string[] octets = ipv4.ToString().Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
             textBoxOctet1.Text = octets[0];
@@ -50,10 +53,48 @@ namespace _403Unlocker.Edit_DNS
             return !Octets.Any(textBox => string.IsNullOrEmpty(textBox.Text)) && Octets.All(textBox => int.Parse(textBox.Text) < 255);
         }
 
-        private void MoveToOctet(TextBox octet)
+        private void MoveToNextOctet(TextBox octet)
         {
-            octet.Focus();
-            octet.SelectAll();
+            switch (octet.Name)
+            {
+                case "textBoxOctet1":
+                    MoveToTextBox(textBoxOctet2, true);
+                    break;
+                case "textBoxOctet2":
+                    MoveToTextBox(textBoxOctet3, true);
+                    break;
+                case "textBoxOctet3":
+                    MoveToTextBox(textBoxOctet4, true);
+                    break;
+                case "textBoxOctet4":
+                    SystemSounds.Exclamation.Play();
+                    break;
+            }
+        }
+
+        private void MoveToPreviousOctet(TextBox octet)
+        {
+            switch (octet.Name)
+            {
+                case "textBoxOctet1":
+                    SystemSounds.Exclamation.Play();
+                    break;
+                case "textBoxOctet2":
+                    MoveToTextBox(textBoxOctet1, false);
+                    break;
+                case "textBoxOctet3":
+                    MoveToTextBox(textBoxOctet2, false);
+                    break;
+                case "textBoxOctet4":
+                    MoveToTextBox(textBoxOctet3, false);
+                    break;
+            }
+        }
+
+        private void MoveToTextBox(TextBox Octet, bool selectAllText)
+        {
+            Octet.Focus();
+            if (selectAllText) Octet.SelectAll();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -69,27 +110,20 @@ namespace _403Unlocker.Edit_DNS
 
         private void textBoxOctets_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '\b') return;
-
             TextBox textBox = sender as TextBox;
-            if (e.KeyChar == '.')
+
+            if (e.KeyChar == '\b')
+            {
+                if (string.IsNullOrEmpty(textBox.Text))
+                {
+                    e.Handled = true;
+                    MoveToPreviousOctet(textBox);
+                }
+            }
+            else if (e.KeyChar == '.')
             {
                 e.Handled = true;
-                switch (textBox.Name)
-                {
-                    case "textBoxOctet1":
-                        MoveToOctet(textBoxOctet2);
-                        break;
-                    case "textBoxOctet2":
-                        MoveToOctet(textBoxOctet3);
-                        break;
-                    case "textBoxOctet3":
-                        MoveToOctet(textBoxOctet4);
-                        break;
-                    case "textBoxOctet4":
-                        textBoxProvider.Focus();
-                        break;
-                }
+                MoveToNextOctet(textBox);
             }
             else if (!char.IsDigit(e.KeyChar))
             {
@@ -97,24 +131,15 @@ namespace _403Unlocker.Edit_DNS
             }
         }
 
-        private void textBoxOctets_Validated(object sender, EventArgs e)
+        private void textBoxOctets_TextChanged(object sender, EventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if (string.IsNullOrEmpty(textBox.Text))
-            {
-                textBox.BackColor = Color.White;
-            }
+            if (string.IsNullOrEmpty(textBox.Text)) textBox.BackColor = Color.White;
             else
             {
                 int n = int.Parse(textBox.Text);
-                if (n > 254)
-                {
-                    textBox.BackColor = Color.Red;
-                }
-                else
-                {
-                    textBox.BackColor = Color.White;
-                }
+                if (n > 254) textBox.BackColor = Color.Red;
+                else textBox.BackColor = Color.White;
             }
 
             buttonOK.Enabled = IsAllOctetsValid() ? true : false;

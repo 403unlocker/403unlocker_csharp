@@ -31,6 +31,9 @@ namespace _403Unlocker.Edit_DNS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditDnsForm));
             this.textBoxOctet4 = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxOctet3 = new System.Windows.Forms.TextBox();
             this.textBoxOctet2 = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -39,14 +42,11 @@ namespace _403Unlocker.Edit_DNS
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOctet1 = new System.Windows.Forms.TextBox();
             this.textBoxProvider = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -64,8 +64,30 @@ namespace _403Unlocker.Edit_DNS
             this.textBoxOctet4.ShortcutsEnabled = false;
             this.textBoxOctet4.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet4.TabIndex = 23;
+            this.textBoxOctet4.TextChanged += new System.EventHandler(this.textBoxOctets_TextChanged);
             this.textBoxOctet4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
-            this.textBoxOctet4.Validated += new System.EventHandler(this.textBoxOctets_Validated);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(103, 48);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem1
+            // 
+            this.pasteToolStripMenuItem1.Name = "pasteToolStripMenuItem1";
+            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(102, 22);
+            this.pasteToolStripMenuItem1.Text = "Paste";
+            this.pasteToolStripMenuItem1.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // textBoxOctet3
             // 
@@ -80,8 +102,8 @@ namespace _403Unlocker.Edit_DNS
             this.textBoxOctet3.ShortcutsEnabled = false;
             this.textBoxOctet3.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet3.TabIndex = 22;
+            this.textBoxOctet3.TextChanged += new System.EventHandler(this.textBoxOctets_TextChanged);
             this.textBoxOctet3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
-            this.textBoxOctet3.Validated += new System.EventHandler(this.textBoxOctets_Validated);
             // 
             // textBoxOctet2
             // 
@@ -96,8 +118,8 @@ namespace _403Unlocker.Edit_DNS
             this.textBoxOctet2.ShortcutsEnabled = false;
             this.textBoxOctet2.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet2.TabIndex = 21;
+            this.textBoxOctet2.TextChanged += new System.EventHandler(this.textBoxOctets_TextChanged);
             this.textBoxOctet2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
-            this.textBoxOctet2.Validated += new System.EventHandler(this.textBoxOctets_Validated);
             // 
             // buttonCancel
             // 
@@ -155,8 +177,8 @@ namespace _403Unlocker.Edit_DNS
             this.textBoxOctet1.ShortcutsEnabled = false;
             this.textBoxOctet1.Size = new System.Drawing.Size(30, 22);
             this.textBoxOctet1.TabIndex = 20;
+            this.textBoxOctet1.TextChanged += new System.EventHandler(this.textBoxOctets_TextChanged);
             this.textBoxOctet1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOctets_KeyPress);
-            this.textBoxOctet1.Validated += new System.EventHandler(this.textBoxOctets_Validated);
             // 
             // textBoxProvider
             // 
@@ -170,6 +192,20 @@ namespace _403Unlocker.Edit_DNS
             this.textBoxProvider.Name = "textBoxProvider";
             this.textBoxProvider.Size = new System.Drawing.Size(382, 22);
             this.textBoxProvider.TabIndex = 24;
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pasteToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(103, 26);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click_1);
             // 
             // label5
             // 
@@ -200,42 +236,6 @@ namespace _403Unlocker.Edit_DNS
             this.label3.Size = new System.Drawing.Size(11, 16);
             this.label3.TabIndex = 29;
             this.label3.Text = ".";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem1});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(103, 48);
-            // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pasteToolStripMenuItem});
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(181, 48);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click_1);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // pasteToolStripMenuItem1
-            // 
-            this.pasteToolStripMenuItem1.Name = "pasteToolStripMenuItem1";
-            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(102, 22);
-            this.pasteToolStripMenuItem1.Text = "Paste";
-            this.pasteToolStripMenuItem1.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // EditDnsForm
             // 
