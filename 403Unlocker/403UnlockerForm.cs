@@ -176,11 +176,11 @@ namespace _403Unlocker
             tableBindingFlag = false;
         }
 
-        private async void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Configuration.Settings.Save();
 
-            await SaveAsJson(pathTable);
+            SaveAsJson(pathTable);
 
             if (WindowState == FormWindowState.Normal)
             {
@@ -274,18 +274,18 @@ namespace _403Unlocker
            return AddToTable(dnsList);
         }
 
-        private async Task SaveAsJson(string path)
+        private void SaveAsJson(string path)
         {
             DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
-            await FileManager.WriteJsonAsync(path, dnsConfig);
+            FileManager.WriteJsonAsync(path, dnsConfig);
         }
 
-        private async Task SaveAsText(string path)
+        private void SaveAsText(string path)
         {
             DnsConfig dnsConfig = new DnsConfig(dnsTable.ToList());
             string[] ipv4List = dnsConfig.IPv4_Servers.Select(dns => dns.IPv4.ToString()).ToArray();
             string text = string.Join("\r\n", ipv4List);
-            await FileManager.WriteTextAsync(path, text);
+            FileManager.WriteTextAsync(path, text);
         }
 
         private void ReloadTable()
@@ -392,19 +392,19 @@ namespace _403Unlocker
                 }
         }
 
-        private async void exportIPv4AddressesListTextToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void exportIPv4AddressesListTextToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (saveFileDialogText.ShowDialog() == DialogResult.OK)
                 {
-                await SaveAsText(saveFileDialogText.FileName);
+                SaveAsText(saveFileDialogText.FileName);
                 }
             }
 
-        private async void exportDNSListJSONToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exportDNSListJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialogJson.ShowDialog() == DialogResult.OK)
             {
-                await SaveAsJson(saveFileDialogJson.FileName);
+                SaveAsJson(saveFileDialogJson.FileName);
             }
         }
 
