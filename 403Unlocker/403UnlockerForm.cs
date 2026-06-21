@@ -90,7 +90,8 @@ namespace _403Unlocker
             var r = MessageBox.Show("Are you sure about that?",
                                     "We are clearing",
                                     MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question);
+                                    MessageBoxIcon.Question,
+                                    MessageBoxDefaultButton.Button2);
             return r;
         }
 
@@ -117,7 +118,8 @@ namespace _403Unlocker
             var r = MessageBox.Show($"Are you sure you want to delete {selectedDns} DNS?",
                                     "Confirm Delete",
                                     MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question);
+                                    MessageBoxIcon.Question,
+                                    MessageBoxDefaultButton.Button2);
             return r;
         }
         
