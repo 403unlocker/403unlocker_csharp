@@ -73,7 +73,7 @@ namespace _403Unlocker.Configuration
                     BypassTcpConnectTimeoutInMilliSeconds = Convert.ToInt32(registryKey.GetValue("BypassTcpConnectTimeoutInMilliSeconds"));
                     BypassTlsHandshakeTimeoutInMilliSeconds = Convert.ToInt32(registryKey.GetValue("BypassTlsHandshakeTimeoutInMilliSeconds"));
 
-                    ScraperHttpRequestTimeoutInMiliSeconds = Convert.ToUInt16(registryKey.GetValue("HttpRequestTimeoutInMiliSeconds"));
+                    ScraperHttpRequestTimeoutInMiliSeconds = Convert.ToUInt16(registryKey.GetValue("ScraperHttpRequestTimeoutInMiliSeconds"));
                     
                     NetworkAdapterAutoSelection = Convert.ToBoolean
                         (
