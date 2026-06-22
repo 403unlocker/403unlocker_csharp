@@ -30,8 +30,14 @@ namespace _403Unlocker.Add_DNS
 
             var rows = ExtractRows(table);
 
-            List<DnsInfo> dnsInfos = ExtractDnsInfos(rows);
-            DnsConfig dnsConfig = new DnsConfig(dnsInfos);
+            rows = rows.Skip(1).ToArray(); // removes table title
+
+            rows = RemoveIPv6(rows);
+
+            string[][] ipv4 = TrimIPv4(rows);
+
+            DnsInfo[][] dnsInfos = ConvertToDnsInfo(ipv4);
+            DnsConfig dnsConfig = new DnsConfig(dnsInfos.SelectMany(dns => dns).ToList());
             return dnsConfig;
         }
 
@@ -41,33 +47,65 @@ namespace _403Unlocker.Add_DNS
             return table;
         }
 
-        private static IEnumerable<IEnumerable<HtmlNode>> ExtractRows(HtmlNode htmlNode)
+        private static HtmlNode[][] ExtractRows(HtmlNode htmlNode)
         {
-            HtmlNodeCollection rows = htmlNode.SelectNodes(".//tr"); // get rows of table
-            
-            var customizedRows = rows.Select(row => row.ChildNodes.Where(cell => cell.Name != "#text")); // data preprocessing rows
-            customizedRows = customizedRows.Where(x => x.Count() == 3); // removes second row (IPv6)
-            customizedRows = customizedRows.Skip(1); // removes table title
+            HtmlNodeCollection rows = htmlNode.SelectNodes(".//tr");
+
+            HtmlNode[][] customizedRows = rows.Select
+            (
+                row => row.ChildNodes.Where
+                    (
+                        cell => cell.Name != "#text"
+                    ).ToArray()
+            ).ToArray();
+
             return customizedRows;
         }
 
-        private static List<DnsInfo> ExtractDnsInfos(IEnumerable<IEnumerable<HtmlNode>> rows)
+        private static HtmlNode[][] RemoveIPv6(HtmlNode[][] rows)
         {
-            // removes non-letter in cells e.g. \n \t
-            var minedDns = rows.Select(row => row.Select(
-                                                     cell => string.Concat(
-                                                                   cell.InnerText.Where(
-                                                                       character => !char.IsControl(character)
-                                                                       ))));
+            HtmlNode[][] removedIPv6 =  rows.Where(x => x.Count() == 3).ToArray();
+            return removedIPv6;
+        }
 
-            // convert it to usable list for app
-            var dnsInfosList = minedDns.SelectMany(dnsInfo => new DnsInfo[]
+        private static string[][] TrimIPv4(HtmlNode[][] rows)
+        {
+            var minedDns = rows.Select
+            (
+                row => row.Select
+                (
+                    cell => string.Concat
+                    (
+                        cell.InnerText.Where
+                        (
+                            c => !char.IsControl(c)
+                        )
+                    )
+                ).ToArray()
+            ).ToArray();
+
+            return minedDns;
+        }
+
+        private static DnsInfo[][] ConvertToDnsInfo(string[][] minedDns)
+        {
+            DnsInfo[][] dnsInfosList = minedDns.Select(dnsInfo =>
             {
-                new DnsInfo(IPAddress.Parse(dnsInfo.ElementAt(1)), dnsInfo.ElementAt(0)),
-                new DnsInfo(IPAddress.Parse(dnsInfo.ElementAt(2)), dnsInfo.ElementAt(0))
-            })
-            // removes empty DNS
-            .Where(dnsInfo => !string.IsNullOrEmpty(dnsInfo.IPv4.ToString())).ToList();
+                string provider = dnsInfo[0];
+                string primary = dnsInfo[1];
+                string secondary = dnsInfo[2];
+
+                List<DnsInfo> dnsInfos = new List<DnsInfo>();
+                if (!string.IsNullOrEmpty(primary))
+                {
+                    dnsInfos.Add(new DnsInfo(IPAddress.Parse(primary), provider));
+                }
+                if (!string.IsNullOrEmpty(secondary))
+                {
+                    dnsInfos.Add(new DnsInfo(IPAddress.Parse(secondary), provider));
+                }
+                return dnsInfos.ToArray();
+            }).ToArray();
 
             return dnsInfosList;
         }
