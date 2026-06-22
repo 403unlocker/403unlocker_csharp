@@ -758,7 +758,7 @@ namespace _403Unlocker
             SetTargetHostname(uri);
             SetTargetHostnameVisible(true);
 
-            SemaphoreSlim semaphore = new SemaphoreSlim(4);
+            SemaphoreSlim semaphore = new SemaphoreSlim(Configuration.Settings.MaxParallelRequests);
             await Task.WhenAll(
                 dnsTable.Select(async dns =>
                 {
@@ -807,7 +807,7 @@ namespace _403Unlocker
             BeginCheck();
             SetTargetHostnameVisible(false);
 
-            SemaphoreSlim semaphore = new SemaphoreSlim(4);
+            SemaphoreSlim semaphore = new SemaphoreSlim(Configuration.Settings.MaxParallelRequests);
             await Task.WhenAll(
                 dnsTable.Select(async dns =>
                 {

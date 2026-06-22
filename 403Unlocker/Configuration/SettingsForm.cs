@@ -32,6 +32,8 @@ namespace _403Unlocker.Configuration
             numericUpDownTlsHandshakeTimeout.Value = Settings.BypassTlsHandshakeTimeoutInMilliSeconds;
 
             numericUpDownScraperHttpRequestTimeout.Value = (decimal)Settings.ScraperHttpRequestTimeoutInMiliSeconds;
+
+            numericUpDownMaxParallelRequests.Value = Settings.MaxParallelRequests;
         }
 
         private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -48,6 +50,8 @@ namespace _403Unlocker.Configuration
                 Settings.BypassTlsHandshakeTimeoutInMilliSeconds = Convert.ToInt32(numericUpDownTlsHandshakeTimeout.Value);
 
                 Settings.ScraperHttpRequestTimeoutInMiliSeconds = Convert.ToDouble(numericUpDownScraperHttpRequestTimeout.Value);
+
+                Settings.MaxParallelRequests = Convert.ToInt32(numericUpDownMaxParallelRequests.Value);
             }
         }
 
@@ -65,7 +69,5 @@ namespace _403Unlocker.Configuration
         {
             isChanged = true;
         }
-
-        
     }
 }

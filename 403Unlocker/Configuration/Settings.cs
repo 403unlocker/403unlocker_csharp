@@ -56,6 +56,8 @@ namespace _403Unlocker.Configuration
 
         public static bool NetworkAdapterAutoSelection { get; set; } = true;
 
+        public static int MaxParallelRequests { get; set; } = 5;
+
         public static void Load()
         {
             using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(path, writable: false))
@@ -80,6 +82,8 @@ namespace _403Unlocker.Configuration
                               )
                               .First()
                         );
+
+                    MaxParallelRequests = Convert.ToInt32(registryKey.GetValue("MaxParallelRequests"));
                 }
             }
         }
@@ -100,6 +104,8 @@ namespace _403Unlocker.Configuration
                 key.SetValue("ScraperHttpRequestTimeoutInMiliSeconds", ScraperHttpRequestTimeoutInMiliSeconds, RegistryValueKind.QWord);
 
                 key.SetValue("NetworkAdapterAutoSelection", new byte[] { Convert.ToByte(NetworkAdapterAutoSelection) }, RegistryValueKind.Binary);
+
+                key.SetValue("MaxParallelRequests", MaxParallelRequests, RegistryValueKind.DWord);
             }
         }
     }

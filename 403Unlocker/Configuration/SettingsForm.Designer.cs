@@ -53,6 +53,9 @@ namespace _403Unlocker.Configuration
             this.numericUpDownTlsHandshakeTimeout = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxParallelRequests = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDnsResolveTimeout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScraperHttpRequestTimeout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPingTimeout)).BeginInit();
@@ -60,6 +63,7 @@ namespace _403Unlocker.Configuration
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPingPacketSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTcpConnectTimeout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTlsHandshakeTimeout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxParallelRequests)).BeginInit();
             this.SuspendLayout();
             // 
             // label13
@@ -67,7 +71,7 @@ namespace _403Unlocker.Configuration
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(286, 293);
+            this.label13.Location = new System.Drawing.Point(286, 345);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(62, 13);
             this.label13.TabIndex = 44;
@@ -127,9 +131,9 @@ namespace _403Unlocker.Configuration
             0,
             0});
             this.numericUpDownDnsResolveTimeout.Name = "numericUpDownDnsResolveTimeout";
-            this.numericUpDownDnsResolveTimeout.ReadOnly = true;
             this.numericUpDownDnsResolveTimeout.Size = new System.Drawing.Size(55, 20);
-            this.numericUpDownDnsResolveTimeout.TabIndex = 36;
+            this.numericUpDownDnsResolveTimeout.TabIndex = 4;
+            this.numericUpDownDnsResolveTimeout.ThousandsSeparator = true;
             this.numericUpDownDnsResolveTimeout.Value = new decimal(new int[] {
             2000,
             0,
@@ -141,10 +145,10 @@ namespace _403Unlocker.Configuration
             // 
             this.buttonCancel.BackColor = System.Drawing.SystemColors.Window;
             this.buttonCancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancel.Location = new System.Drawing.Point(269, 342);
+            this.buttonCancel.Location = new System.Drawing.Point(269, 394);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(79, 23);
-            this.buttonCancel.TabIndex = 38;
+            this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -154,7 +158,7 @@ namespace _403Unlocker.Configuration
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(12, 290);
+            this.label8.Location = new System.Drawing.Point(12, 342);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(207, 16);
             this.label8.TabIndex = 35;
@@ -169,7 +173,7 @@ namespace _403Unlocker.Configuration
             0,
             0,
             0});
-            this.numericUpDownScraperHttpRequestTimeout.Location = new System.Drawing.Point(225, 290);
+            this.numericUpDownScraperHttpRequestTimeout.Location = new System.Drawing.Point(225, 342);
             this.numericUpDownScraperHttpRequestTimeout.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -181,9 +185,9 @@ namespace _403Unlocker.Configuration
             0,
             0});
             this.numericUpDownScraperHttpRequestTimeout.Name = "numericUpDownScraperHttpRequestTimeout";
-            this.numericUpDownScraperHttpRequestTimeout.ReadOnly = true;
             this.numericUpDownScraperHttpRequestTimeout.Size = new System.Drawing.Size(55, 20);
-            this.numericUpDownScraperHttpRequestTimeout.TabIndex = 34;
+            this.numericUpDownScraperHttpRequestTimeout.TabIndex = 7;
+            this.numericUpDownScraperHttpRequestTimeout.ThousandsSeparator = true;
             this.numericUpDownScraperHttpRequestTimeout.Value = new decimal(new int[] {
             3000,
             0,
@@ -195,10 +199,10 @@ namespace _403Unlocker.Configuration
             // 
             this.buttonOK.BackColor = System.Drawing.SystemColors.Window;
             this.buttonOK.ForeColor = System.Drawing.Color.Black;
-            this.buttonOK.Location = new System.Drawing.Point(184, 342);
+            this.buttonOK.Location = new System.Drawing.Point(184, 394);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(79, 23);
-            this.buttonOK.TabIndex = 37;
+            this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -268,9 +272,9 @@ namespace _403Unlocker.Configuration
             0,
             0});
             this.numericUpDownPingTimeout.Name = "numericUpDownPingTimeout";
-            this.numericUpDownPingTimeout.ReadOnly = true;
             this.numericUpDownPingTimeout.Size = new System.Drawing.Size(55, 20);
-            this.numericUpDownPingTimeout.TabIndex = 30;
+            this.numericUpDownPingTimeout.TabIndex = 3;
+            this.numericUpDownPingTimeout.ThousandsSeparator = true;
             this.numericUpDownPingTimeout.Value = new decimal(new int[] {
             10000,
             0,
@@ -306,7 +310,7 @@ namespace _403Unlocker.Configuration
             0});
             this.numericUpDownPingPacketCount.Name = "numericUpDownPingPacketCount";
             this.numericUpDownPingPacketCount.Size = new System.Drawing.Size(31, 20);
-            this.numericUpDownPingPacketCount.TabIndex = 29;
+            this.numericUpDownPingPacketCount.TabIndex = 1;
             this.numericUpDownPingPacketCount.Value = new decimal(new int[] {
             5,
             0,
@@ -335,9 +339,8 @@ namespace _403Unlocker.Configuration
             0,
             0});
             this.numericUpDownPingPacketSize.Name = "numericUpDownPingPacketSize";
-            this.numericUpDownPingPacketSize.ReadOnly = true;
             this.numericUpDownPingPacketSize.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDownPingPacketSize.TabIndex = 28;
+            this.numericUpDownPingPacketSize.TabIndex = 2;
             this.numericUpDownPingPacketSize.Value = new decimal(new int[] {
             32,
             0,
@@ -377,9 +380,9 @@ namespace _403Unlocker.Configuration
             0,
             0});
             this.numericUpDownTcpConnectTimeout.Name = "numericUpDownTcpConnectTimeout";
-            this.numericUpDownTcpConnectTimeout.ReadOnly = true;
             this.numericUpDownTcpConnectTimeout.Size = new System.Drawing.Size(55, 20);
-            this.numericUpDownTcpConnectTimeout.TabIndex = 46;
+            this.numericUpDownTcpConnectTimeout.TabIndex = 4;
+            this.numericUpDownTcpConnectTimeout.ThousandsSeparator = true;
             this.numericUpDownTcpConnectTimeout.Value = new decimal(new int[] {
             5000,
             0,
@@ -429,9 +432,9 @@ namespace _403Unlocker.Configuration
             0,
             0});
             this.numericUpDownTlsHandshakeTimeout.Name = "numericUpDownTlsHandshakeTimeout";
-            this.numericUpDownTlsHandshakeTimeout.ReadOnly = true;
             this.numericUpDownTlsHandshakeTimeout.Size = new System.Drawing.Size(55, 20);
-            this.numericUpDownTlsHandshakeTimeout.TabIndex = 49;
+            this.numericUpDownTlsHandshakeTimeout.TabIndex = 5;
+            this.numericUpDownTlsHandshakeTimeout.ThousandsSeparator = true;
             this.numericUpDownTlsHandshakeTimeout.Value = new decimal(new int[] {
             5000,
             0,
@@ -460,11 +463,60 @@ namespace _403Unlocker.Configuration
             this.label15.TabIndex = 52;
             this.label15.Text = "Bypass:";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(212, 293);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(62, 13);
+            this.label16.TabIndex = 55;
+            this.label16.Text = "Miliseconds";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.Location = new System.Drawing.Point(12, 290);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(148, 16);
+            this.label17.TabIndex = 54;
+            this.label17.Text = "Max Parallel Requests: ";
+            // 
+            // numericUpDownMaxParallelRequests
+            // 
+            this.numericUpDownMaxParallelRequests.BackColor = System.Drawing.SystemColors.Window;
+            this.numericUpDownMaxParallelRequests.ForeColor = System.Drawing.Color.Black;
+            this.numericUpDownMaxParallelRequests.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxParallelRequests.Location = new System.Drawing.Point(166, 290);
+            this.numericUpDownMaxParallelRequests.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxParallelRequests.Name = "numericUpDownMaxParallelRequests";
+            this.numericUpDownMaxParallelRequests.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDownMaxParallelRequests.TabIndex = 6;
+            this.numericUpDownMaxParallelRequests.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 377);
+            this.ClientSize = new System.Drawing.Size(360, 429);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.numericUpDownMaxParallelRequests);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.numericUpDownTlsHandshakeTimeout);
@@ -504,6 +556,7 @@ namespace _403Unlocker.Configuration
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPingPacketSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTcpConnectTimeout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTlsHandshakeTimeout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxParallelRequests)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -534,5 +587,8 @@ namespace _403Unlocker.Configuration
         private System.Windows.Forms.NumericUpDown numericUpDownTlsHandshakeTimeout;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxParallelRequests;
     }
 }
