@@ -1,4 +1,4 @@
-using Network_Utilities.Connectivity;
+using Network_Utilities.Ping;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,5 +1,5 @@
 using Microsoft.Win32;
-using Network_Utilities.Connectivity;
+using Network_Utilities.Ping;
 using Network_Utilities.DNS_Testing.Resolver;
 using Network_Utilities.Http_Service;
 using Registry_Manager;
@@ -19,58 +19,28 @@ namespace _403Unlocker.Configuration
 
         public static int PacketCount
         {
-            get
-            {
-                return ConnectivitySettings.PacketCount;
-            }
-            set
-            {
-                ConnectivitySettings.PacketCount = value;
-            }
+            get => PingSettings.PacketCount;
+            set => PingSettings.PacketCount = value;
         }
         public static ushort PacketSize
         {
-            get
-            {
-                return ConnectivitySettings.PacketSize;
-            }
-            set
-            {
-                ConnectivitySettings.PacketSize = value;
-            }
+            get => PingSettings.PacketSize;
+            set => PingSettings.PacketSize = value;
         }
         public static int PacketTimeoutInMiliSeconds
         {
-            get
-            {
-                return ConnectivitySettings.TimeoutInMiliSeconds;
-            }
-            set
-            {
-                ConnectivitySettings.TimeoutInMiliSeconds = value;
-            }
+            get => PingSettings.TimeoutInMiliSeconds;
+            set => PingSettings.TimeoutInMiliSeconds = value;
         }
         public static double DnsResolveTimeoutInMilliSeconds
         {
-            get
-            {
-                return ResolverSettings.TimeoutInMilliSeconds;
-            }
-            set
-            {
-                ResolverSettings.TimeoutInMilliSeconds = value;
-            }
+            get => ResolverSettings.TimeoutInMilliSeconds;
+            set => ResolverSettings.TimeoutInMilliSeconds = value;
         }
         public static double HttpRequestTimeoutInMiliSeconds
         {
-            get
-            {
-                return HttpSettings.TimeoutInMilliseconds;
-            }
-            set
-            {
-                HttpSettings.TimeoutInMilliseconds = value;
-            }
+            get => HttpSettings.TimeoutInMilliseconds;
+            set => HttpSettings.TimeoutInMilliseconds = value;
         }
 
         public static bool NetworkAdapterAutoSelection { get; set; } = true;

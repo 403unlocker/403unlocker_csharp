@@ -6,20 +6,20 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Network_Utilities.Connectivity
+namespace Network_Utilities.Ping
 {
-    public static class ConnectivityService
+    public static class PingService
     {
         public async static Task<PingResult> PingHostAsync(IPAddress dns, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             List<PingReply> replyList = new List<PingReply>();
-            for (int i = 0; i < ConnectivitySettings.PacketCount; i++)
+            for (int i = 0; i < PingSettings.PacketCount; i++)
             {
-                using (Ping pingSender = new Ping())
+                using (System.Net.NetworkInformation.Ping pingSender = new System.Net.NetworkInformation.Ping())
                 {
-                    PingReply reply = await pingSender.SendPingAsync(dns, ConnectivitySettings.TimeoutInMiliSeconds, new byte[ConnectivitySettings.PacketSize]);
+                    PingReply reply = await pingSender.SendPingAsync(dns, PingSettings.TimeoutInMiliSeconds, new byte[PingSettings.PacketSize]);
                     replyList.Add(reply);
                 }
             }
@@ -32,7 +32,7 @@ namespace Network_Utilities.Connectivity
             var successfulReplies = replyList.Where(reply => reply.Status == IPStatus.Success);
             PingResult pingResult = new PingResult()
             {
-                Sent = ConnectivitySettings.PacketCount,
+                Sent = PingSettings.PacketCount,
                 Received = successfulReplies.Count(),
                 Latency = successfulReplies.Count() > 0 ? successfulReplies.Average(reply => reply.RoundtripTime) : -1,
             };

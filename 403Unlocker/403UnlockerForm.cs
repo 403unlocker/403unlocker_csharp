@@ -5,7 +5,7 @@ using _403Unlocker.File;
 using _403Unlocker.Network_Interface_Configuration;
 using _403Unlocker.Properties;
 using Clipboard_Manager;
-using Network_Utilities.Connectivity;
+using Network_Utilities.Ping;
 using Network_Utilities.DNS_Testing.ByPass;
 using Network_Utilities.DNS_Testing.Resolver;
 using QR_Code_Generator;
@@ -794,7 +794,7 @@ namespace _403Unlocker
 
                     try
                     {
-                        PingResult pingResult = await ConnectivityService.PingHostAsync(dns.IPv4, cancellationToken.Token);
+                        PingResult pingResult = await PingService.PingHostAsync(dns.IPv4, cancellationToken.Token);
                         dns.Latency = $"{pingResult.Latency:F0}ms";
                         dns.PacketLoss = $"{pingResult.PacketLoss:F0}%";
                     }

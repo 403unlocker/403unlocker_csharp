@@ -1,7 +1,7 @@
 
-namespace Network_Utilities.Connectivity
+namespace Network_Utilities.Ping
 {
-    public static class ConnectivitySettings
+    public static class PingSettings
     {
         public static int PacketCount { get; set; } = 1;
         public static ushort PacketSize { get; set; } = 32;

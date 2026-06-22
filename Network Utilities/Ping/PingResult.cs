@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Network_Utilities.Connectivity
+namespace Network_Utilities.Ping
 {
     public class PingResult
     {

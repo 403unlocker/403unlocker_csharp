@@ -42,9 +42,9 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connectivity\ConnectivityService.cs" />
-    <Compile Include="Connectivity\ConnectivitySettings.cs" />
-    <Compile Include="Connectivity\PingResult.cs" />
+    <Compile Include="Ping\PingService.cs" />
+    <Compile Include="Ping\PingSettings.cs" />
+    <Compile Include="Ping\PingResult.cs" />
     <Compile Include="DNS Testing\ByPass\BypassResult.cs" />
     <Compile Include="DNS Testing\ByPass\BypassService.cs" />
     <Compile Include="DNS Testing\ByPass\BypassSettings.cs" />
