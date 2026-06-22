@@ -40,11 +40,12 @@ namespace _403Unlocker.Bypass_Hostname
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBoxHostname
             // 
+            this.textBoxHostname.ContextMenuStrip = this.contextMenuStrip1;
             this.textBoxHostname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxHostname.Location = new System.Drawing.Point(76, 12);
-            this.textBoxHostname.Name = "textBox1";
+            this.textBoxHostname.Name = "textBoxHostname";
             this.textBoxHostname.Size = new System.Drawing.Size(237, 22);
             this.textBoxHostname.TabIndex = 0;
             this.textBoxHostname.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -70,6 +71,7 @@ namespace _403Unlocker.Bypass_Hostname
             // 
             // buttonOK
             // 
+            this.buttonOK.Enabled = false;
             this.buttonOK.Location = new System.Drawing.Point(157, 57);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
@@ -92,12 +94,12 @@ namespace _403Unlocker.Bypass_Hostname
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pasteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(103, 26);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
