@@ -206,7 +206,39 @@ namespace _403Unlocker
         #endregion
 
         #region Progress Bar Methods
-        private void SetCheckingState(bool isChecking)
+        private void IncrementProgressBar()
+        {
+            toolStripProgressBarDns.Value++;
+            RefreshProgressBarLabel();
+        }
+
+        private void BeginCheck()
+        {
+            cancellationToken = new CancellationTokenSource();
+            SetCancelEnabled(true);
+
+            ResetDnsResults();
+            RefreshTable();
+
+            ResetProgressBar(dnsTable.Count);
+            SetTestingState(true);
+        }
+
+        private void EndCheck()
+        {
+            SetTestingState(false);
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                SetCheckStatisticsVisible(false);
+                ResetCheckStatistics();
+                return;
+            }
+            SetCheckStatisticsVisible(true);
+            RefreshCheckStatistics();
+        }
+
+        private void SetTestingState(bool isChecking)
         {
             toolStripProgressBarDns.Visible = isChecking;
             toolStripButtonCancelTask.Visible = isChecking;
@@ -227,7 +259,6 @@ namespace _403Unlocker
 
         private void RefreshCheckStatistics()
         {
-            SetCheckStatisticsVisible(true);
             int failedCount = dnsTable.Count(dns => int.Parse(dns.Latency.Replace("ms", "")) == -1);
             int successCount = dnsTable.Count(dns => int.Parse(dns.Latency.Replace("ms", "")) != -1);
             toolStripLabel2.Text = $"Success: {successCount}";
@@ -258,9 +289,16 @@ namespace _403Unlocker
             toolStripLabelTargetHost.Visible = visible;
         }
 
+        private void SetCancelEnabled(bool state)
+        {
+            toolStripButtonCancelTask.Text = state ? "Cancel" : "Canceling";
+            toolStripButtonCancelTask.Enabled = state;
+        }
+
         private void toolStripButtonCancelTask_Click(object sender, EventArgs e)
         {
             cancellationToken.Cancel();
+            SetCancelEnabled(false);
         }
 
         private void ResetProgressBar(int maxValue)
@@ -715,18 +753,12 @@ namespace _403Unlocker
             {
             }
 
-            SemaphoreSlim semaphore = new SemaphoreSlim(4);
-            cancellationToken = new CancellationTokenSource();
-
-            ResetDnsResults();
-            RefreshTable();
-
-            ResetProgressBar(dnsTable.Count);
-            SetCheckingState(true);
+            BeginCheck();
 
             SetTargetHostname(uri);
             SetTargetHostnameVisible(true);
 
+            SemaphoreSlim semaphore = new SemaphoreSlim(4);
             await Task.WhenAll(
                 dnsTable.Select(async dns =>
                 {
@@ -740,11 +772,17 @@ namespace _403Unlocker
                     }
                     catch (Exception error)
                     {
-                        if (error is OperationCanceledException && error.Message == "The operation was canceled.") dns.ByPass = "Canceled by user";
+                        if (error is OperationCanceledException)
+                        {
+                            if (error.Message == "The operation was canceled.") dns.ByPass = "Canceled by user";
+                        }
                         else if (error is TimeoutException) dns.ByPass = error.Message;
                         else if (error is UriFormatException) dns.ByPass = error.Message;
                         else if (error is InvalidDataException) dns.ByPass = error.Message;
-                        else if (error is IOException exception && exception.InnerException is SocketException) dns.ByPass = "Socket Closed";
+                        else if (error is IOException exception)
+                        {
+                            if (exception.InnerException is SocketException) dns.ByPass = "Socket Closed";
+                        }
                         else if (error is InvalidOperationException) dns.ByPass = "Invalid Operation";
                         else throw error;
 
@@ -754,39 +792,22 @@ namespace _403Unlocker
                     {
                         semaphore.Release();
                         RefreshTable();
+                        IncrementProgressBar();
                     }
-                    toolStripProgressBarDns.Value++;
-                    RefreshProgressBarLabel();
                 })
             );
 
-            SetCheckingState(false);
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                SetCheckStatisticsVisible(false);
-                ResetCheckStatistics();
-                return;
-            }
-            SetCheckStatisticsVisible(true);
-            RefreshCheckStatistics();
+            EndCheck();
         }
         #endregion
 
         #region Ping
         private async void toolStripPing_Click(object sender, EventArgs e)
         {
-            SemaphoreSlim semaphore = new SemaphoreSlim(4);
-            cancellationToken = new CancellationTokenSource();
-
-            ResetDnsResults();
-            RefreshTable();
-
-            ResetProgressBar(dnsTable.Count);
-            SetCheckingState(true);
-
+            BeginCheck();
             SetTargetHostnameVisible(false);
 
+            SemaphoreSlim semaphore = new SemaphoreSlim(4);
             await Task.WhenAll(
                 dnsTable.Select(async dns =>
                 {
@@ -810,22 +831,12 @@ namespace _403Unlocker
                     {
                         semaphore.Release();
                         RefreshTable();
+                        IncrementProgressBar();
                     }
-                    toolStripProgressBarDns.Value++;
-                    RefreshProgressBarLabel();
                 })
             );
 
-            SetCheckingState(false);
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                SetCheckStatisticsVisible(false);
-                ResetCheckStatistics();
-                return;
-            }
-            SetCheckStatisticsVisible(true);
-            RefreshCheckStatistics();
+            EndCheck();
         }
         #endregion
 
