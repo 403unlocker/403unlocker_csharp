@@ -1,7 +1,7 @@
 
 namespace Network_Utilities.Connectivity
 {
-    public class ConnectivitySettings
+    public static class ConnectivitySettings
     {
         public static int PacketCount { get; set; } = 1;
         public static ushort PacketSize { get; set; } = 32;

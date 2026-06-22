@@ -13,8 +13,6 @@ namespace Network_Utilities.Http_Service
 {
     public static class HttpService
     {
-        private static Stopwatch stopwatch = new Stopwatch();
-
         private static HttpClientHandler CreateHttpHandler()
         {
             HttpClientHandler handler = new HttpClientHandler()
@@ -25,18 +23,18 @@ namespace Network_Utilities.Http_Service
             return handler;
         }
 
-        private async static Task<HttpResult> SetValues(HttpResponseMessage httpRequestMessage)
+        private async static Task SetValues(HttpResult httpResult, HttpResponseMessage httpRequestMessage)
         {
-            HttpResult httpResult = new HttpResult();
-
             httpResult.HttpResponseMessage = httpRequestMessage;
             httpResult.HttpResponseContent = await httpResult.ReadHtmlResponseAsync();
-            httpResult.Latency = stopwatch.ElapsedMilliseconds;
-            return httpResult;
         }
 
         public async static Task<HttpResult> SendRequestAsync(Uri uri)
         {
+            HttpResult httpResult = new HttpResult();
+
+            Stopwatch stopwatch = new Stopwatch();
+
             using (HttpClient client = new HttpClient(CreateHttpHandler()))
             {
                 client.Timeout = TimeSpan.FromMilliseconds(HttpSettings.TimeoutInMilliseconds);
@@ -49,11 +47,14 @@ namespace Network_Utilities.Http_Service
                 client.DefaultRequestHeaders.Host = uri.Host;
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0");
 
-                stopwatch.Restart();
+                stopwatch.Start();
                 HttpResponseMessage httpResponseMessage = await client.GetAsync(uri);
                 stopwatch.Stop();
 
-                return await SetValues(httpResponseMessage);
+                await SetValues(httpResult, httpResponseMessage);
+
+                httpResult.Latency = stopwatch.ElapsedMilliseconds;
+                return httpResult;
             }
         }
     }

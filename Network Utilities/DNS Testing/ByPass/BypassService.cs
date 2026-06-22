@@ -23,8 +23,6 @@ namespace Network_Utilities.DNS_Testing.ByPass
 {
     public static class BypassService
     {
-        private static Stopwatch stopwatch = new Stopwatch();
-
         private static string HttpRequestHeaders(string uri)
         {
             List<string> httpRequestHeader = new List<string>();
@@ -38,11 +36,11 @@ namespace Network_Utilities.DNS_Testing.ByPass
 
             return string.Join("\r\n", httpRequestHeader);
         }
-
+      
         private async static Task<TcpClient> ConnectTcpAsync(TcpClient tcp, IPAddress[] resolvedIP, int port, CancellationToken cancellationToken)
         {
             Task tcpHandshake = tcp.ConnectAsync(resolvedIP, port);
-            if (await Task.WhenAny(tcpHandshake, Task.Delay(5000, cancellationToken)) != tcpHandshake)
+            if (await Task.WhenAny(tcpHandshake, Task.Delay(BypassSettings.TcpConnectTimeoutInMilliSeconds, cancellationToken)) != tcpHandshake)
             {
                 tcp.Close();
                 throw new TimeoutException("TCP handshake timeout");
@@ -53,7 +51,7 @@ namespace Network_Utilities.DNS_Testing.ByPass
         private async static Task AuthenticateTlsAsync(SslStream ssl, string uri, CancellationToken cancellationToken)
         {
             Task tlsHandshake = ssl.AuthenticateAsClientAsync(uri);
-            if (await Task.WhenAny(tlsHandshake, Task.Delay(5000, cancellationToken)) != tlsHandshake)
+            if (await Task.WhenAny(tlsHandshake, Task.Delay(BypassSettings.TlsHandshakeTimeoutInMilliSeconds, cancellationToken)) != tlsHandshake)
             {
                 ssl.Close();
                 throw new TimeoutException("TLS handshaked timeout");
@@ -64,14 +62,14 @@ namespace Network_Utilities.DNS_Testing.ByPass
         {
             byte[] requestBytes = Encoding.ASCII.GetBytes(HttpRequestHeaders(uri));
             Task writeRequestTask = ssl.WriteAsync(requestBytes, 0, requestBytes.Length);
-            if (await Task.WhenAny(writeRequestTask, Task.Delay(2000, cancellationToken)) != writeRequestTask)
+            if (await Task.WhenAny(writeRequestTask, Task.Delay(BypassSettings.HttpWriteTimeoutInMilliSeconds, cancellationToken)) != writeRequestTask)
             {
                 ssl.Close();
                 throw new TimeoutException("Timed out while sending the HTTP request");
             }
 
             Task flushStreamTask = ssl.FlushAsync();
-            if (await Task.WhenAny(flushStreamTask, Task.Delay(2000, cancellationToken)) != flushStreamTask)
+            if (await Task.WhenAny(flushStreamTask, Task.Delay(BypassSettings.HttpFlushTimeoutInMilliSeconds, cancellationToken)) != flushStreamTask)
             {
                 ssl.Close();
                 throw new TimeoutException("Timedout while flushing the TLS stream");
@@ -83,7 +81,7 @@ namespace Network_Utilities.DNS_Testing.ByPass
             using (StreamReader reader = new StreamReader(sslStream, Encoding.UTF8))
             {
                 Task<string> readResponseTask = reader.ReadToEndAsync();
-                if (await Task.WhenAny(readResponseTask, Task.Delay(2000, cancellationToken)) != readResponseTask)
+                if (await Task.WhenAny(readResponseTask, Task.Delay(BypassSettings.HttpReadTimeoutInMilliSeconds, cancellationToken)) != readResponseTask)
                 {
                     reader.Close();
                     throw new TimeoutException("Timed out while reading the HTTP response");
@@ -111,13 +109,10 @@ namespace Network_Utilities.DNS_Testing.ByPass
             }
         }
 
-        private static BypassResult SetValues(string httpResponse)
+        private static void SetValues(BypassResult bypassResult, string httpResponse)
         {
-            BypassResult bypassResult = new BypassResult();
-
             bypassResult.HttpResponse = httpResponse.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             bypassResult.Status = (HttpStatusCode)int.Parse(bypassResult.HttpResponse[0].Split(' ')[1]);
-            return bypassResult;
         }
 
         private static async Task<IPAddress[]> ResolveOrThrow(IPAddress dns, string uri)
@@ -131,13 +126,17 @@ namespace Network_Utilities.DNS_Testing.ByPass
         public async static Task<BypassResult> BypassTestAsync(IPAddress dns, string uri, int port, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            stopwatch.Restart();
+
+            BypassResult bypassResult = new BypassResult();
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             IPAddress[] resolvedIPs = await ResolveOrThrow(dns, uri);
             string response = await GetHttpResponseAsync(resolvedIPs, uri, port, cancellationToken);
-            BypassResult bypassResult = SetValues(response);
+            SetValues(bypassResult, response);
 
-            while (300 < (int)bypassResult.Status && (int)bypassResult.Status < 399)
+            while (300 <= (int)bypassResult.Status && (int)bypassResult.Status < 400)
             {
                 string location = bypassResult.HttpResponse.First(httpHeader => httpHeader.StartsWith("Location:", StringComparison.OrdinalIgnoreCase));
                 string redirectionUri = location.Replace("Location: ", "");
@@ -146,15 +145,15 @@ namespace Network_Utilities.DNS_Testing.ByPass
                    )
                 {
                     redirectionUri = result.Host;
+
                     IPAddress[] redirectionResolvedIPs = await ResolveOrThrow(dns, redirectionUri);
                     string redirectionResponse = await GetHttpResponseAsync(redirectionResolvedIPs, redirectionUri, port, cancellationToken);
-                    bypassResult = SetValues(redirectionResponse);
+                    SetValues(bypassResult, redirectionResponse);
                 }
                 else throw new UriFormatException("Invalid redirection URI format");
             }
-
             stopwatch.Stop();
-            
+
             bypassResult.Latency = stopwatch.ElapsedMilliseconds;
             return bypassResult;
         }
