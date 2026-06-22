@@ -22,26 +22,32 @@ namespace _403Unlocker.Configuration
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            numericUpDownPacketCount.Value = Settings.PacketCount;
-            numericUpDownPacketSize.Value = Settings.PacketSize;
-            numericUpDownPacketTimeout.Value = Settings.PacketTimeoutInMiliSeconds;
+            numericUpDownPingPacketCount.Value = Settings.PacketCount;
+            numericUpDownPingPacketSize.Value = Settings.PacketSize;
+            numericUpDownPingTimeout.Value = Settings.PacketTimeoutInMiliSeconds;
 
             numericUpDownDnsResolveTimeout.Value = (decimal)Settings.DnsResolveTimeoutInMilliSeconds;
 
-            numericUpDownHttpRequestTimeout.Value = (decimal)Settings.HttpRequestTimeoutInMiliSeconds;
+            numericUpDownTcpConnectTimeout.Value = Settings.BypassTcpConnectTimeoutInMilliSeconds;
+            numericUpDownTlsHandshakeTimeout.Value = Settings.BypassTlsHandshakeTimeoutInMilliSeconds;
+
+            numericUpDownScraperHttpRequestTimeout.Value = (decimal)Settings.ScraperHttpRequestTimeoutInMiliSeconds;
         }
 
         private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (isChanged)
             {
-                Settings.PacketCount = Convert.ToInt32(numericUpDownPacketCount.Value);
-                Settings.PacketSize = Convert.ToUInt16(numericUpDownPacketSize.Value);
-                Settings.PacketTimeoutInMiliSeconds = Convert.ToInt32(numericUpDownPacketTimeout.Value);
+                Settings.PacketCount = Convert.ToInt32(numericUpDownPingPacketCount.Value);
+                Settings.PacketSize = Convert.ToUInt16(numericUpDownPingPacketSize.Value);
+                Settings.PacketTimeoutInMiliSeconds = Convert.ToInt32(numericUpDownPingTimeout.Value);
 
                 Settings.DnsResolveTimeoutInMilliSeconds = Convert.ToDouble(numericUpDownDnsResolveTimeout.Value);
 
-                Settings.HttpRequestTimeoutInMiliSeconds = Convert.ToDouble(numericUpDownHttpRequestTimeout.Value);
+                Settings.BypassTcpConnectTimeoutInMilliSeconds = Convert.ToInt32(numericUpDownTcpConnectTimeout.Value);
+                Settings.BypassTlsHandshakeTimeoutInMilliSeconds = Convert.ToInt32(numericUpDownTlsHandshakeTimeout.Value);
+
+                Settings.ScraperHttpRequestTimeoutInMiliSeconds = Convert.ToDouble(numericUpDownScraperHttpRequestTimeout.Value);
             }
         }
 

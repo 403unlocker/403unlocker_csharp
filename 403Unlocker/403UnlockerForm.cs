@@ -691,7 +691,7 @@ namespace _403Unlocker
         }
         #endregion
 
-        #region By Pass
+        #region Bypass
         private async void toolStripBypass_Click(object sender, EventArgs e)
         {
             string uri;

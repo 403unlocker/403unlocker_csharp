@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Network_Utilities.DNS_Testing.ByPass;
 
 namespace _403Unlocker.Configuration
 {
@@ -37,7 +38,17 @@ namespace _403Unlocker.Configuration
             get => ResolverSettings.TimeoutInMilliSeconds;
             set => ResolverSettings.TimeoutInMilliSeconds = value;
         }
-        public static double HttpRequestTimeoutInMiliSeconds
+        public static int BypassTcpConnectTimeoutInMilliSeconds
+        {
+            get => BypassSettings.TcpConnectTimeoutInMilliSeconds;
+            set => BypassSettings.TcpConnectTimeoutInMilliSeconds = value;
+        }
+        public static int BypassTlsHandshakeTimeoutInMilliSeconds
+        {
+            get => BypassSettings.TlsHandshakeTimeoutInMilliSeconds;
+            set => BypassSettings.TlsHandshakeTimeoutInMilliSeconds = value;
+        }
+        public static double ScraperHttpRequestTimeoutInMiliSeconds
         {
             get => HttpSettings.TimeoutInMilliseconds;
             set => HttpSettings.TimeoutInMilliseconds = value;
@@ -57,13 +68,17 @@ namespace _403Unlocker.Configuration
 
                     DnsResolveTimeoutInMilliSeconds = Convert.ToUInt16(registryKey.GetValue("DnsResolveTimeoutInMilliSeconds"));
 
-                    HttpRequestTimeoutInMiliSeconds = Convert.ToUInt16(registryKey.GetValue("HttpRequestTimeoutInMiliSeconds"));
+                    BypassTcpConnectTimeoutInMilliSeconds = Convert.ToInt32(registryKey.GetValue("BypassTcpConnectTimeoutInMilliSeconds"));
+                    BypassTlsHandshakeTimeoutInMilliSeconds = Convert.ToInt32(registryKey.GetValue("BypassTlsHandshakeTimeoutInMilliSeconds"));
+
+                    ScraperHttpRequestTimeoutInMiliSeconds = Convert.ToUInt16(registryKey.GetValue("HttpRequestTimeoutInMiliSeconds"));
                     
                     NetworkAdapterAutoSelection = Convert.ToBoolean
                         (
                               (
                                     (byte[])registryKey.GetValue("NetworkAdapterAutoSelection")
-                              ).First()
+                              )
+                              .First()
                         );
                 }
             }
@@ -79,7 +94,10 @@ namespace _403Unlocker.Configuration
 
                 key.SetValue("DnsResolveTimeoutInMilliSeconds", DnsResolveTimeoutInMilliSeconds, RegistryValueKind.QWord);
 
-                key.SetValue("HttpRequestTimeoutInMiliSeconds", HttpRequestTimeoutInMiliSeconds, RegistryValueKind.QWord);
+                key.SetValue("BypassTcpConnectTimeoutInMilliSeconds", BypassTcpConnectTimeoutInMilliSeconds, RegistryValueKind.DWord);
+                key.SetValue("BypassTlsHandshakeTimeoutInMilliSeconds", BypassTlsHandshakeTimeoutInMilliSeconds, RegistryValueKind.DWord);
+
+                key.SetValue("ScraperHttpRequestTimeoutInMiliSeconds", ScraperHttpRequestTimeoutInMiliSeconds, RegistryValueKind.QWord);
 
                 key.SetValue("NetworkAdapterAutoSelection", new byte[] { Convert.ToByte(NetworkAdapterAutoSelection) }, RegistryValueKind.Binary);
             }

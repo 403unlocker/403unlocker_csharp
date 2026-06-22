@@ -10,8 +10,8 @@ namespace Network_Utilities.DNS_Testing.ByPass
     {
         public static int TcpConnectTimeoutInMilliSeconds { get; set; } = 5000;
         public static int TlsHandshakeTimeoutInMilliSeconds { get; set; } = 5000;
-        public static int HttpWriteTimeoutInMilliSeconds { get; set; } = 2000;
-        public static int HttpFlushTimeoutInMilliSeconds { get; set; } = 2000;
-        public static int HttpReadTimeoutInMilliSeconds { get; set; } = 2000;
+        public static int HttpWriteTimeoutInMilliSeconds { get; } = 2000;
+        public static int HttpFlushTimeoutInMilliSeconds { get; } = 2000;
+        public static int HttpReadTimeoutInMilliSeconds { get; } = 2000;
     }
 }
