@@ -25,7 +25,6 @@ namespace _403Unlocker.Find_DNS
             AcceptButton = buttonFind;
 
             mainForm = form;
-            SetFindAndClearButtonsEnable(false);
         }
 
         private void SetFindAndClearButtonsEnable(bool visible)
@@ -60,6 +59,7 @@ namespace _403Unlocker.Find_DNS
         {
             labelResult.Text = "DNS Not Found";
         }
+
         private void textBoxProvider_TextChanged(object sender, EventArgs e)
         {
             isTextBoxChangedFlag = true;
@@ -68,6 +68,7 @@ namespace _403Unlocker.Find_DNS
             else SetFindAndClearButtonsEnable(true);
 
             SetResultVisible(false);
+            SetPreviousAndNextVisible(false);
             ResetIndex();
         }
 
@@ -78,6 +79,7 @@ namespace _403Unlocker.Find_DNS
 
             foundList = mainForm.FindDnsByProvider(textBoxProvider.Text);
             SetResultVisible(true);
+            
             if (foundList.Length == 0)
             {
                 ResultNotFound();

@@ -155,7 +155,6 @@ namespace _403Unlocker.Find_DNS
         {
             isIPv4ChangedFlag = true;
 
-
             TextBox octet = sender as TextBox;
             if (string.IsNullOrEmpty(octet.Text)) octet.BackColor = Color.White;
             else
@@ -178,9 +177,10 @@ namespace _403Unlocker.Find_DNS
         {
             isIPv4ChangedFlag = false;
             mainForm.isTabelChangedFlag = false;
-            SetResultVisible(true);
 
             foundList = mainForm.FindDnsByIPv4(Octets.Select(textBox => textBox.Text).ToArray());
+            SetResultVisible(true);
+
             if (foundList.Length == 0)
             {
                 ResultNotFound();
