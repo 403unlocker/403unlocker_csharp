@@ -61,6 +61,15 @@ namespace _403Unlocker
         }
 
         #region Message Boxes
+        private static DialogResult MessageBoxIPv4ImportFailed(Exception error)
+        {
+            var r = MessageBox.Show(error.Message,
+                                    "IPv4 Import Failed",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+            return r;
+        }
+
         private static DialogResult MessageBoxShowAddToTableResult(int newCount, int duplicationCount)
         {
             if (newCount > 0) return MessageBoxDnsAddedSuccessful(newCount, duplicationCount);
@@ -323,12 +332,23 @@ namespace _403Unlocker
         private async Task<(int, int)> ImportTextToTable(string path)
         {
             string text = await FileManager.ReadTextAsync(path);
-            string[] ipv4List = text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            List<DnsInfo> dnsList = ipv4List.Select(ipv4 =>
+            string[] ipList = text.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+            List<DnsInfo> dnsList = new List<DnsInfo>();
+            foreach (string ip in ipList)
             {
-                return new DnsInfo(IPAddress.Parse(ipv4), "");
+                if (IPAddress.TryParse(text, out IPAddress ipv4) && ipv4.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    dnsList.Add(new DnsInfo(ipv4, ""));
+                }
+                else if (IPAddress.TryParse(text, out IPAddress ipv6) && ipv6.AddressFamily == AddressFamily.InterNetworkV6)
+                {
+                    throw new FormatException($"The selected file contains an IPv6 address ({ip})\nOnly IPv4 addresses can be imported");
+                }
+                else
+                {
+                    throw new FormatException("The selected file contains invalid entries\nOnly files containing IPv4 addresses can be imported");
             }
-            ).ToList();
+            }
 
            return AddToTable(dnsList);
         }
@@ -437,8 +457,18 @@ namespace _403Unlocker
             {
                 int newCount = 0;
                 int duplicationCount = 0;
+                try
+                {
                 (newCount, duplicationCount) = await ImportTextToTable(openFileDialogText.FileName);
                 MessageBoxShowAddToTableResult(newCount, duplicationCount);
+            }
+                catch (Exception error)
+                {
+                    if (error is FormatException)
+                    {
+                        MessageBoxIPv4ImportFailed(error);
+                    }
+        }
             }
         }
 
