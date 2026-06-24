@@ -71,7 +71,7 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonFind_Click(object sender, EventArgs e)
         {
-            mainForm.isTabelChangedFlag = false;
+            mainForm.isTableChangesAppliedToFind = false;
 
             foundList = mainForm.FindDnsByProvider(textBoxProvider.Text);
             SetResultVisible(true);
@@ -98,7 +98,7 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
-            if (mainForm.isTabelChangedFlag)
+            if (mainForm.isTableChangesAppliedToFind)
             {
                 SetResultVisible(false);
                 SetPreviousAndNextVisible(false);
@@ -113,7 +113,7 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            if (mainForm.isTabelChangedFlag)
+            if (mainForm.isTableChangesAppliedToFind)
             {
                 SetResultVisible(false);
                 SetPreviousAndNextVisible(false);

@@ -43,7 +43,7 @@ namespace _403Unlocker
         private CancellationTokenSource cancellationToken;
         private bool sortBindingFlag = false;
         private bool tableBindingFlag = false;
-        public bool isTabelChangedFlag = false;
+        public bool isTableChangesAppliedToFind = false;
 
         public _403UnlockerForm()
         {
@@ -458,8 +458,8 @@ namespace _403Unlocker
 
         private void dataGridViewTotalDNSRecords_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            if (sortBindingFlag || tableBindingFlag) isTabelChangedFlag = false;
-            else isTabelChangedFlag = true;
+            if (sortBindingFlag || tableBindingFlag) isTableChangesAppliedToFind = false;
+            else isTableChangesAppliedToFind = true;
 
             if (sortBindingFlag) return;
 
