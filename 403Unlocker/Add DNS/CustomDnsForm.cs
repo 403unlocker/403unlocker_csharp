@@ -138,6 +138,7 @@ namespace _403Unlocker.Add_DNS
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (Octets.All(textBox => string.IsNullOrEmpty(textBox.Text))) return;
             ClipboardManager.CopyToClipboard(string.Join(".", Octets.Select(textBox => textBox.Text)));
         }
 
