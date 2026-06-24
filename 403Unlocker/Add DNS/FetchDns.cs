@@ -52,9 +52,9 @@ namespace _403Unlocker.Add_DNS
                             if (node != null)
                             {
                                 string text = node.InnerText;
-                                if (IPAddress.TryParse(text, out IPAddress ip) && ip.AddressFamily == AddressFamily.InterNetwork)
+                                if (IPAddress.TryParse(text, out IPAddress ipv4) && ipv4.AddressFamily == AddressFamily.InterNetwork)
                                 {
-                                    dnsInfos.Add(new DnsInfo(ip, provider));
+                                    dnsInfos.Add(new DnsInfo(ipv4, provider));
                                 }
                             }
                         }
