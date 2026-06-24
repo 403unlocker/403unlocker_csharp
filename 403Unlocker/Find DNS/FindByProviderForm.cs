@@ -14,7 +14,6 @@ namespace _403Unlocker.Find_DNS
     public partial class FindByProviderForm : Form
     {
         private _403UnlockerForm mainForm;
-        private bool isTextBoxChangedFlag = true;
         private DnsInfo[] foundList;
         private int currentIndex = 0;
 
@@ -62,8 +61,6 @@ namespace _403Unlocker.Find_DNS
 
         private void textBoxProvider_TextChanged(object sender, EventArgs e)
         {
-            isTextBoxChangedFlag = true;
-           
             if (string.IsNullOrEmpty(textBoxProvider.Text)) SetFindAndClearButtonsEnable(false);
             else SetFindAndClearButtonsEnable(true);
 
@@ -74,7 +71,6 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonFind_Click(object sender, EventArgs e)
         {
-            isTextBoxChangedFlag = false;
             mainForm.isTabelChangedFlag = false;
 
             foundList = mainForm.FindDnsByProvider(textBoxProvider.Text);
@@ -102,10 +98,11 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
-            if (isTextBoxChangedFlag || mainForm.isTabelChangedFlag)
+            if (mainForm.isTabelChangedFlag)
             {
-                ResetIndex();
                 SetResultVisible(false);
+                SetPreviousAndNextVisible(false);
+                ResetIndex();
                 return;
             }
             currentIndex--;
@@ -116,10 +113,11 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            if (isTextBoxChangedFlag || mainForm.isTabelChangedFlag)
+            if (mainForm.isTabelChangedFlag)
             {
-                ResetIndex();
                 SetResultVisible(false);
+                SetPreviousAndNextVisible(false);
+                ResetIndex();
                 return;
             }
             currentIndex++;

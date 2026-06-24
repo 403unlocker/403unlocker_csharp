@@ -18,7 +18,6 @@ namespace _403Unlocker.Find_DNS
     public partial class FindByIPv4Form : Form
     {
         private _403UnlockerForm mainForm;
-        private bool isIPv4ChangedFlag = true;
         private DnsInfo[] foundList;
         private int currentIndex = 0;
 
@@ -153,8 +152,6 @@ namespace _403Unlocker.Find_DNS
 
         private void textBoxOctets_TextChanged(object sender, EventArgs e)
         {
-            isIPv4ChangedFlag = true;
-
             TextBox octet = sender as TextBox;
             if (string.IsNullOrEmpty(octet.Text)) octet.BackColor = Color.White;
             else
@@ -175,7 +172,6 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonFind_Click(object sender, EventArgs e)
         {
-            isIPv4ChangedFlag = false;
             mainForm.isTabelChangedFlag = false;
 
             foundList = mainForm.FindDnsByIPv4(Octets.Select(textBox => textBox.Text).ToArray());
@@ -206,10 +202,11 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
-            if (isIPv4ChangedFlag || mainForm.isTabelChangedFlag)
+            if (mainForm.isTabelChangedFlag)
             {
-                ResetIndex();
                 SetResultVisible(false);
+                SetPreviousAndNextVisible(false);
+                ResetIndex();
                 return;
             }
             currentIndex--;
@@ -220,10 +217,11 @@ namespace _403Unlocker.Find_DNS
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            if (isIPv4ChangedFlag || mainForm.isTabelChangedFlag)
+            if (mainForm.isTabelChangedFlag)
             {
-                ResetIndex();
                 SetResultVisible(false);
+                SetPreviousAndNextVisible(false);
+                ResetIndex();
                 return;
             }
             currentIndex++;
