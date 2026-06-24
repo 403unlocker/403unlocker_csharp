@@ -35,7 +35,8 @@ namespace _403Unlocker
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.add403UnlockerDefaultDNSsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addPublicdnsxyzDNSsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addDNSsfromOnlineSource = new System.Windows.Forms.ToolStripMenuItem();
+            this.publicDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCustomDNSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.sortIPv4AscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,7 +124,7 @@ namespace _403Unlocker
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.add403UnlockerDefaultDNSsToolStripMenuItem,
-            this.addPublicdnsxyzDNSsToolStripMenuItem,
+            this.addDNSsfromOnlineSource,
             this.addCustomDNSToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -139,13 +140,21 @@ namespace _403Unlocker
             this.add403UnlockerDefaultDNSsToolStripMenuItem.Text = "Add 403Unlocker Default DNSs";
             this.add403UnlockerDefaultDNSsToolStripMenuItem.Click += new System.EventHandler(this.add403UnlockerDefaultDNSsToolStripMenuItem_Click);
             // 
-            // addPublicdnsxyzDNSsToolStripMenuItem
+            // addDNSsfromOnlineSource
             // 
-            this.addPublicdnsxyzDNSsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addPublicdnsxyzDNSsToolStripMenuItem.Image")));
-            this.addPublicdnsxyzDNSsToolStripMenuItem.Name = "addPublicdnsxyzDNSsToolStripMenuItem";
-            this.addPublicdnsxyzDNSsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.addPublicdnsxyzDNSsToolStripMenuItem.Text = "Add Publicdns.xyz DNSs";
-            this.addPublicdnsxyzDNSsToolStripMenuItem.Click += new System.EventHandler(this.addPublicdnsxyzDNSsToolStripMenuItem_Click);
+            this.addDNSsfromOnlineSource.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.publicDNSToolStripMenuItem});
+            this.addDNSsfromOnlineSource.Image = ((System.Drawing.Image)(resources.GetObject("addDNSsfromOnlineSource.Image")));
+            this.addDNSsfromOnlineSource.Name = "addDNSsfromOnlineSource";
+            this.addDNSsfromOnlineSource.Size = new System.Drawing.Size(236, 22);
+            this.addDNSsfromOnlineSource.Text = "Add DNSs from Online Source";
+            // 
+            // publicDNSToolStripMenuItem
+            // 
+            this.publicDNSToolStripMenuItem.Name = "publicDNSToolStripMenuItem";
+            this.publicDNSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.publicDNSToolStripMenuItem.Text = "Public DNS";
+            this.publicDNSToolStripMenuItem.Click += new System.EventHandler(this.publicDNSToolStripMenuItem_Click);
             // 
             // addCustomDNSToolStripMenuItem
             // 
@@ -666,7 +675,7 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem add403UnlockerDefaultDNSsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addPublicdnsxyzDNSsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addDNSsfromOnlineSource;
         private System.Windows.Forms.ToolStripMenuItem addCustomDNSToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButtonClearAll;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
@@ -716,6 +725,7 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem iPv4AddressesListTextToolStripMenuItem1;
         private System.Windows.Forms.OpenFileDialog openFileDialogText;
         private System.Windows.Forms.SaveFileDialog saveFileDialogText;
+        private System.Windows.Forms.ToolStripMenuItem publicDNSToolStripMenuItem;
     }
 }
 

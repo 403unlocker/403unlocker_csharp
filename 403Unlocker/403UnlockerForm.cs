@@ -1,4 +1,5 @@
 using _403Unlocker.Add_DNS;
+using _403Unlocker.Add_DNS.Online_Source;
 using _403Unlocker.Edit_DNS;
 using _403Unlocker.Data_Models;
 using _403Unlocker.File;
@@ -31,6 +32,7 @@ using _403Unlocker.Find_DNS;
 using Network_Utilities.Http_Service;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Net.WebSockets;
 
 namespace _403Unlocker
 {
@@ -120,6 +122,24 @@ namespace _403Unlocker
         {
             var r = MessageBox.Show("Please, try again later",
                                     "Somthing went wrong",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+            return r;
+        }
+
+        private static DialogResult MessageBoxDnsAddScraperHttpRequestTimeout()
+        {
+            var r = MessageBox.Show("The DNS list could not be downloaded because the request timed out\nPlease try again later",
+                                    "Request Timed Out",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+            return r;
+        }
+
+        private static DialogResult MessageBoxDnsAddScraperNoInternet()
+        {
+            var r = MessageBox.Show("Unable to connect to the Internet\nPlease, check your network connection and try again",
+                                    "No Internet Connection",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
             return r;
@@ -347,7 +367,7 @@ namespace _403Unlocker
                 else
                 {
                     throw new FormatException("The selected file contains invalid entries\nOnly files containing IPv4 addresses can be imported");
-            }
+                }
             }
 
            return AddToTable(dnsList);
@@ -459,16 +479,16 @@ namespace _403Unlocker
                 int duplicationCount = 0;
                 try
                 {
-                (newCount, duplicationCount) = await ImportTextToTable(openFileDialogText.FileName);
-                MessageBoxShowAddToTableResult(newCount, duplicationCount);
-            }
+                    (newCount, duplicationCount) = await ImportTextToTable(openFileDialogText.FileName);
+                    MessageBoxShowAddToTableResult(newCount, duplicationCount);
+                }
                 catch (Exception error)
                 {
                     if (error is FormatException)
                     {
                         MessageBoxIPv4ImportFailed(error);
                     }
-        }
+                }
             }
         }
 
@@ -536,21 +556,38 @@ namespace _403Unlocker
             MessageBoxShowAddToTableResult(newCount, duplicationCount);
         }
 
-        private async void addPublicdnsxyzDNSsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void publicDNSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            using (ScraperForm form = new ScraperForm(ScraperForm.Hostname.publicdns))
             {
-                DnsConfig dnsConfig = await FetchDns.ScrapDnsServersAsync();
-                
-                int newCount = 0;
-                int duplicationCount = 0;
-                (newCount, duplicationCount) = AddToTable(dnsConfig.IPv4_Servers);
-                MessageBoxShowAddToTableResult(newCount, duplicationCount);
-            }
-            catch (TaskCanceledException)
-            {
-                MessageBoxDnsAddScraperError();
-                return;
+                var r = form.ShowDialog();
+                if (r == DialogResult.OK)
+                {
+                    DnsConfig dnsConfig = form.result;
+
+                    int newCount = 0;
+                    int duplicationCount = 0;
+                    (newCount, duplicationCount) = AddToTable(dnsConfig.IPv4_Servers);
+                    MessageBoxShowAddToTableResult(newCount, duplicationCount);
+                }
+                else if (r == DialogResult.Abort)
+                {
+                    if (form.error is TaskCanceledException)
+                    {
+                        MessageBoxDnsAddScraperHttpRequestTimeout();
+                    }
+                    else if (form.error is HttpRequestException exception)
+                    {
+                        if (exception.InnerException is WebException)
+                        {
+                            MessageBoxDnsAddScraperNoInternet();
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxDnsAddScraperError();
+                    }
+                }
             }
         }
 

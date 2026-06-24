@@ -76,13 +76,19 @@
     <Compile Include="Add DNS\CustomDnsForm.Designer.cs">
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Add DNS\Online Source\ScraperForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add DNS\Online Source\ScraperForm.Designer.cs">
+      <DependentUpon>ScraperForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Edit DNS\EditDnsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Edit DNS\EditDnsForm.Designer.cs">
       <DependentUpon>EditDnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Add DNS\FetchDns.cs" />
+    <Compile Include="Add DNS\Online Source\FetchDns.cs" />
     <Compile Include="Bypass Hostname\BypassHostnameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Add DNS\CustomDnsForm.resx">
       <DependentUpon>CustomDnsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Add DNS\Online Source\ScraperForm.resx">
+      <DependentUpon>ScraperForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Edit DNS\EditDnsForm.resx">
       <DependentUpon>EditDnsForm.cs</DependentUpon>

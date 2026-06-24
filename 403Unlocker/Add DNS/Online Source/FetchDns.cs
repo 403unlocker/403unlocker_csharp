@@ -10,26 +10,26 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace _403Unlocker.Add_DNS
+namespace _403Unlocker.Add_DNS.Online_Source
 {
     internal static class FetchDns
     {
         //https://www.getflix.com.au/setup/dns-servers/
-        //https://www.publicdns.xyz
-
-        private static readonly Uri url = new Uri("https://publicdns.xyz");
-
-        public async static Task<DnsConfig> ScrapDnsServersAsync()
+        public async static Task<DnsConfig> ScrapPublicDnsAsync()
         {
+            Uri uri = new Uri("https://publicdns.xyz");
+
             List<DnsInfo> dnsInfos = new List<DnsInfo>();
 
-            HtmlDocument htmlDocument = new HtmlDocument();
-            HttpResult response = await HttpService.SendRequestAsync(url);
+            HtmlAgilityPack.HtmlDocument htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            HttpResult response = await HttpService.SendRequestAsync(uri);
             htmlDocument.LoadHtml(response.HttpResponseContent);
 
             HtmlNode table = htmlDocument.DocumentNode.SelectSingleNode("//table");
@@ -52,9 +52,9 @@ namespace _403Unlocker.Add_DNS
                             if (node != null)
                             {
                                 string text = node.InnerText;
-                                if (IPAddress.TryParse(text, out IPAddress ipv4) && ipv4.AddressFamily == AddressFamily.InterNetwork)
+                                if (IPAddress.TryParse(text, out IPAddress ip) && ip.AddressFamily == AddressFamily.InterNetwork)
                                 {
-                                    dnsInfos.Add(new DnsInfo(ipv4, provider));
+                                    dnsInfos.Add(new DnsInfo(ip, provider));
                                 }
                             }
                         }
