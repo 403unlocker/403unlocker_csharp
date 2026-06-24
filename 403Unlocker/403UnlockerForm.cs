@@ -245,18 +245,11 @@ namespace _403Unlocker
         {
             cancellationToken = new CancellationTokenSource();
             SetCancelEnabled(true);
-
-            ResetDnsResults();
-            RefreshTable();
-
             ResetProgressBar(dnsTable.Count);
-            SetTestingState(true);
         }
 
         private void EndCheck()
         {
-            SetTestingState(false);
-
             if (cancellationToken.IsCancellationRequested)
             {
                 SetCheckStatisticsVisible(false);
@@ -437,14 +430,24 @@ namespace _403Unlocker
             dnsTable.Clear();
         }
 
-        private void ResetDnsResults()
+        private void ResetDnsResultsForPing()
         {
             foreach (var dns in dnsTable)
             {
                 dns.Latency = "";
                 dns.PacketLoss = "";
+            }
+            RefreshTable();
+        }
+
+        private void ResetDnsResultsForBypass()
+        {
+            foreach (var dns in dnsTable)
+            {
+                dns.Latency = "";
                 dns.ByPass = "";
             }
+            RefreshTable();
         }
 
         private void ShowRow(int index)
@@ -807,12 +810,16 @@ namespace _403Unlocker
                 uri = form.Hostname;
             }
 
+            toolStripLabelProgressBar.Visible = true;
+            toolStripLabelProgressBar.Text = "Checking direct access to hostname...";
+
             try
             {
-                HttpResult httpResult = await HttpService.SendRequestAsync(new Uri(uri));
+                HttpResult httpResult = await HttpService.SendRequestAsync(new Uri($"https://{uri}:443"));
                 if (httpResult.IsSuccessful)
                 {
                     MessageBoxIsReachableWithoutDns(uri);
+                    toolStripLabelProgressBar.Visible = false;
                     return;
                 }
             }
@@ -821,6 +828,8 @@ namespace _403Unlocker
             }
 
             BeginCheck();
+            SetTestingState(true);
+            ResetDnsResultsForBypass();
 
             SetTargetHostname(uri);
             SetTargetHostnameVisible(true);
@@ -864,6 +873,7 @@ namespace _403Unlocker
                 })
             );
 
+            SetTestingState(false);
             EndCheck();
         }
         #endregion
@@ -872,6 +882,9 @@ namespace _403Unlocker
         private async void toolStripPing_Click(object sender, EventArgs e)
         {
             BeginCheck();
+            SetTestingState(true);
+            ResetDnsResultsForPing();
+
             SetTargetHostnameVisible(false);
 
             SemaphoreSlim semaphore = new SemaphoreSlim(Configuration.Settings.MaxParallelRequests);
@@ -903,6 +916,7 @@ namespace _403Unlocker
                 })
             );
 
+            SetTestingState(false);
             EndCheck();
         }
         #endregion

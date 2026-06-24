@@ -24,7 +24,7 @@ namespace _403Unlocker.Add_DNS.Online_Source
         //https://www.getflix.com.au/setup/dns-servers/
         public async static Task<DnsConfig> ScrapPublicDnsAsync()
         {
-            Uri uri = new Uri("https://publicdns.xyz");
+            Uri uri = new Uri("https://publicdns.xyz:443");
 
             List<DnsInfo> dnsInfos = new List<DnsInfo>();
 
