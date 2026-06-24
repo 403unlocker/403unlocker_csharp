@@ -231,6 +231,7 @@ namespace _403Unlocker.Find_DNS
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (Octets.All(textBox => string.IsNullOrEmpty(textBox.Text))) return;
             ClipboardManager.CopyToClipboard(string.Join(".", Octets.Select(textBox => textBox.Text)));
         }
 
@@ -243,13 +244,11 @@ namespace _403Unlocker.Find_DNS
                 octets.Any(octet => octet.Any(c => !char.IsDigit(c))) ||
                 octets.Any(octet => int.Parse(octet) > 254))
             {
-
                 MessageBox.Show("The clipboard does not contain a valid IPv4 address",
                                "Invalid IPv4 Address",
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Warning);
                 return;
-
             }
 
             textBoxOctet1.Text = octets[0];

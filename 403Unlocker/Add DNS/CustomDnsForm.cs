@@ -146,14 +146,17 @@ namespace _403Unlocker.Add_DNS
             string ipv4ToBePaste = ClipboardManager.PasteFromClipboard();
             string[] octets = ipv4ToBePaste.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (!octets.All(octet => octet.All(c => char.IsDigit(c)) && int.Parse(octet) < 255))
+            if (octets.Length < 4 ||
+                octets.Any(octet => octet.Any(c => !char.IsDigit(c))) ||
+                octets.Any(octet => int.Parse(octet) > 254))
             {
                 MessageBox.Show("The clipboard does not contain a valid IPv4 address",
                                "Invalid IPv4 Address",
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Warning);
+                return;
             }
-         
+
             textBoxOctet1.Text = octets[0];
             textBoxOctet2.Text = octets[1];
             textBoxOctet3.Text = octets[2];

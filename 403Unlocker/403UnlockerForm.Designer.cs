@@ -316,13 +316,13 @@ namespace _403Unlocker
             this.toolStripSeparator3,
             this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(154, 126);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 148);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editToolStripMenuItem.Image")));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -334,7 +334,7 @@ namespace _403Unlocker
             this.allFieldsCSVToolStripMenuItem});
             this.copyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripMenuItem.Image")));
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             // 
             // iPv4AddressToolStripMenuItem
@@ -364,7 +364,7 @@ namespace _403Unlocker
             this.iPv4ToolStripMenuItem});
             this.shareQRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shareQRCodeToolStripMenuItem.Image")));
             this.shareQRCodeToolStripMenuItem.Name = "shareQRCodeToolStripMenuItem";
-            this.shareQRCodeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.shareQRCodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.shareQRCodeToolStripMenuItem.Text = "Share QR Code";
             // 
             // iPv4ToolStripMenuItem
@@ -378,7 +378,7 @@ namespace _403Unlocker
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // findToolStripMenuItem
             // 
@@ -387,33 +387,33 @@ namespace _403Unlocker
             this.byProviderToolStripMenuItem});
             this.findToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("findToolStripMenuItem.Image")));
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.findToolStripMenuItem.Text = "Find";
             // 
             // byIPv4ToolStripMenuItem
             // 
             this.byIPv4ToolStripMenuItem.Name = "byIPv4ToolStripMenuItem";
-            this.byIPv4ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.byIPv4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.byIPv4ToolStripMenuItem.Text = "by IPv4";
             this.byIPv4ToolStripMenuItem.Click += new System.EventHandler(this.findByIPv4ToolStripMenuItem_Click);
             // 
             // byProviderToolStripMenuItem
             // 
             this.byProviderToolStripMenuItem.Name = "byProviderToolStripMenuItem";
-            this.byProviderToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.byProviderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.byProviderToolStripMenuItem.Text = "by Provider";
             this.byProviderToolStripMenuItem.Click += new System.EventHandler(this.findByProviderToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
