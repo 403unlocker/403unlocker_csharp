@@ -127,6 +127,26 @@ namespace _403Unlocker.Find_DNS
             labelResult.Text = "DNS Not Found";
         }
 
+        private void ResetFindResults()
+        {
+            SetResultVisible(false);
+            SetPreviousAndNextVisible(false);
+            ResetIndex();
+        }
+
+        private void Next()
+        {
+            currentIndex++;
+            currentIndex %= foundList.Length;
+        }
+
+        private void Previous()
+        {
+            currentIndex--;
+            if (currentIndex < 0) currentIndex += foundList.Length;
+            currentIndex %= foundList.Length;
+        }
+
         private void textBoxOctets_KeyPress(object sender, KeyPressEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -165,9 +185,7 @@ namespace _403Unlocker.Find_DNS
             if (Octets.All(textBox => string.IsNullOrEmpty(textBox.Text)) || !IsAllOctetsValid()) SetFindAndClearButtonsEnable(false);
             else SetFindAndClearButtonsEnable(true);
 
-            SetResultVisible(false);
-            SetPreviousAndNextVisible(false);
-            ResetIndex();
+            ResetFindResults();
         }
 
         private void buttonFind_Click(object sender, EventArgs e)
@@ -200,32 +218,25 @@ namespace _403Unlocker.Find_DNS
             }
         }
 
-        private void buttonPrevious_Click(object sender, EventArgs e)
-        {
-            if (mainForm.isTableChangesAppliedToFind)
-            {
-                SetResultVisible(false);
-                SetPreviousAndNextVisible(false);
-                ResetIndex();
-                return;
-            }
-            currentIndex--;
-            if (currentIndex < 0) currentIndex += foundList.Length;
-            currentIndex %= foundList.Length;
-            UpdateResultAndShow();
-        }
-
         private void buttonNext_Click(object sender, EventArgs e)
         {
             if (mainForm.isTableChangesAppliedToFind)
             {
-                SetResultVisible(false);
-                SetPreviousAndNextVisible(false);
-                ResetIndex();
+                ResetFindResults();
                 return;
             }
-            currentIndex++;
-            currentIndex %= foundList.Length;
+            Next();
+            UpdateResultAndShow();
+        }
+
+        private void buttonPrevious_Click(object sender, EventArgs e)
+        {
+            if (mainForm.isTableChangesAppliedToFind)
+            {
+                ResetFindResults();
+                return;
+            }
+            Previous();
             UpdateResultAndShow();
         }
 
