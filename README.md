@@ -22,10 +22,10 @@
 ## Installation
 ### For Windows 7
 1. ِDownload & install [.Net Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-offline-installer)
-2. Download & Install [403Unlocker](https://github.com/ALiMoradzade/403unlocker/releases)
+2. Download & Install [403Unlocker](https://github.com/403unlocker/403unlocker_csharp/releases)
 
 ### For Windows 10 & 11
-- Download & Install [403Unlocker](https://github.com/ALiMoradzade/403unlocker/releases)
+- Download & Install [403Unlocker](https://github.com/403unlocker/403unlocker_csharp/releases)
 
 
 ## Comparison: 403unlocker v1.0.0-alpha vs 403Unlocker v2.1.0
