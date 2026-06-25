@@ -16,7 +16,7 @@ namespace _403Unlocker.Data_Models
         private IPAddress ipv4;
         private string provider;
 
-        [JsonConverter(typeof(IPAddressConverter))]
+        [JsonConverter(typeof(IPv4AddressConverter))]
         [JsonProperty("IPv4")]
         public IPAddress IPv4 { get => ipv4; set => ipv4 = value; }
 

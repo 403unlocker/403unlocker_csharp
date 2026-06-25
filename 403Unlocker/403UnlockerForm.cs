@@ -1,14 +1,18 @@
 using _403Unlocker.Add_DNS;
 using _403Unlocker.Add_DNS.Online_Source;
-using _403Unlocker.Edit_DNS;
+using _403Unlocker.Bypass_Hostname;
 using _403Unlocker.Data_Models;
+using _403Unlocker.Edit_DNS;
 using _403Unlocker.File;
+using _403Unlocker.Find_DNS;
 using _403Unlocker.Network_Interface_Configuration;
 using _403Unlocker.Properties;
 using Clipboard_Manager;
-using Network_Utilities.Ping;
 using Network_Utilities.DNS_Testing.ByPass;
 using Network_Utilities.DNS_Testing.Resolver;
+using Network_Utilities.Http_Service;
+using Network_Utilities.Ping;
+using Newtonsoft.Json;
 using QR_Code_Generator;
 using Registry_Manager;
 using System;
@@ -19,6 +23,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Net.WebSockets;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Policy;
@@ -27,12 +34,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using _403Unlocker.Bypass_Hostname;
-using _403Unlocker.Find_DNS;
-using Network_Utilities.Http_Service;
-using System.Net.Http;
-using System.Net.Sockets;
-using System.Net.WebSockets;
 
 namespace _403Unlocker
 {
@@ -501,8 +502,19 @@ namespace _403Unlocker
             {
                 int newCount = 0;
                 int duplicationCount = 0;
-                (newCount, duplicationCount) = await ImportJsonToTable(openFileDialogJson.FileName);
-                MessageBoxShowAddToTableResult(newCount, duplicationCount);
+                try
+                {
+                    (newCount, duplicationCount) = await ImportJsonToTable(openFileDialogJson.FileName);
+                    MessageBoxShowAddToTableResult(newCount, duplicationCount);
+                }
+                catch (Exception error)
+                {
+                    if (error is JsonSerializationException)
+                    {
+                        MessageBoxIPv4ImportFailed(error);
+                    }
+                }
+                
             }
         }
 

@@ -17,7 +17,7 @@ namespace _403Unlocker.File
         {
             Converters =
             {
-                new IPAddressConverter()
+                new IPv4AddressConverter()
             }
         };
 

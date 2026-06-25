@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network Utilities", "Networ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QR Code Generator", "QR Code Generator\QR Code Generator.csproj", "{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "403Unlocker Installer", "403Unlocker Installer\403Unlocker Installer.vdproj", "{A4F9DA24-8D15-01E0-743A-8B60230C7762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,8 @@ Global
 		{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B20AF7A-2198-4E3D-9F7E-8CCE7F3902F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4F9DA24-8D15-01E0-743A-8B60230C7762}.Debug|Any CPU.ActiveCfg = Debug
+		{A4F9DA24-8D15-01E0-743A-8B60230C7762}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -104,7 +104,7 @@
     </Compile>
     <Compile Include="Data Models\DnsConfig.cs" />
     <Compile Include="Data Models\DnsInfo.cs" />
-    <Compile Include="Data Models\IPAddressConverter.cs" />
+    <Compile Include="Data Models\IPv4AddressConverter.cs" />
     <Compile Include="File\FileManager.cs" />
     <Compile Include="Find DNS\FindByIPv4Form.cs">
       <SubType>Form</SubType>
