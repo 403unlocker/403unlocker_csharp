@@ -239,10 +239,14 @@ namespace _403Unlocker
             cancellationToken = new CancellationTokenSource();
             SetCancelEnabled(true);
             ResetProgressBar(dnsTable.Count);
+
+            SetTestingState(true);
         }
 
         private void EndCheck()
         {
+            SetTestingState(false);
+
             if (cancellationToken.IsCancellationRequested)
             {
                 SetCheckStatisticsVisible(false);
@@ -832,7 +836,6 @@ namespace _403Unlocker
             }
 
             BeginCheck();
-            SetTestingState(true);
 
             ResetDnsResultsForBypass();
 
@@ -878,7 +881,6 @@ namespace _403Unlocker
                 })
             );
 
-            SetTestingState(false);
             EndCheck();
         }
         #endregion
@@ -887,7 +889,6 @@ namespace _403Unlocker
         private async void toolStripPing_Click(object sender, EventArgs e)
         {
             BeginCheck();
-            SetTestingState(true);
 
             ResetDnsResultsForPing();
 
@@ -922,7 +923,6 @@ namespace _403Unlocker
                 })
             );
 
-            SetTestingState(false);
             EndCheck();
         }
         #endregion
