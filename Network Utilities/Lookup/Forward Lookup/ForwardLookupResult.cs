@@ -3,9 +3,9 @@ using System.Net;
 
 namespace Network_Utilities.Lookup.Forward_Lookup
 {
-    public class ResolverResult
+    public class ForwardLookupResult
     {
-        public enum ResolverStatus
+        public enum ForwardLookupStatus
         {
             Resolution_not_started,
             Resolved_successfully,
@@ -16,15 +16,15 @@ namespace Network_Utilities.Lookup.Forward_Lookup
             Resolved_but_no_IP_returned,
         }
 
-        public ResolverResult()
+        public ForwardLookupResult()
         {
             IPv4 = Array.Empty<IPAddress>();
-            Status = ResolverStatus.Resolution_not_started;
+            Status = ForwardLookupStatus.Resolution_not_started;
             Latency = 0;
         }
 
         public IPAddress[] IPv4 { get; internal set; }
         public double Latency { get; internal set; }
-        public ResolverStatus Status { get; internal set; }
+        public ForwardLookupStatus Status { get; internal set; }
     }
 }

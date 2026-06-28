@@ -48,9 +48,9 @@
     <Compile Include="Bypass Testing\BypassResult.cs" />
     <Compile Include="Bypass Testing\BypassService.cs" />
     <Compile Include="Bypass Testing\BypassSettings.cs" />
-    <Compile Include="Lookup\Forward Lookup\ResolverResult.cs" />
-    <Compile Include="Lookup\Forward Lookup\ResolverService.cs" />
-    <Compile Include="Lookup\Forward Lookup\ResolverSettings.cs" />
+    <Compile Include="Lookup\Forward Lookup\ForwardLookupResult.cs" />
+    <Compile Include="Lookup\Forward Lookup\ForwardLookupService.cs" />
+    <Compile Include="Lookup\Forward Lookup\ForwardLookupSettings.cs" />
     <Compile Include="Http Service\HttpResult.cs" />
     <Compile Include="Http Service\HttpService.cs" />
     <Compile Include="Http Service\HttpSettings.cs" />

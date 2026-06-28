@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Network_Utilities.Lookup.Forward_Lookup
 {
-    public static class ResolverService
+    public static class ForwardLookupService
     {
         private static LookupClientOptions CreateLookupOptions(IPAddress dns)
         {
@@ -17,43 +17,43 @@ namespace Network_Utilities.Lookup.Forward_Lookup
                 ContinueOnDnsError = false,
                 UseCache = false,
                 UseTcpOnly = false,
-                Timeout = TimeSpan.FromMilliseconds(ResolverSettings.TimeoutInMilliSeconds),
+                Timeout = TimeSpan.FromMilliseconds(ForwardLookupSettings.TimeoutInMilliSeconds),
                 ThrowDnsErrors = true,
                 Retries = 0
             };
             return lookupClientOptions;
         }
 
-        public async static Task<ResolverResult> ResolveHostAsync(IPAddress dns, string uri)
+        public async static Task<ForwardLookupResult> ForwardLookupHostAsync(IPAddress dns, string uri)
         {
             LookupClientOptions options = CreateLookupOptions(dns);
             LookupClient lookup = new LookupClient(options);
 
-            ResolverResult resolverResult = new ResolverResult();
+            ForwardLookupResult forwardLookupResult = new ForwardLookupResult();
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             try
             {
                 IDnsQueryResponse response = await lookup.QueryAsync(uri, QueryType.A);
-                resolverResult.IPv4 = response.Answers
+                forwardLookupResult.IPv4 = response.Answers
                                   .OfType<ARecord>()
                                   .Select(x => x.Address)
                                   .ToArray();
 
-                if (resolverResult.IPv4.Length == 0) resolverResult.Status = ResolverResult.ResolverStatus.Resolved_but_no_IP_returned;
+                if (forwardLookupResult.IPv4.Length == 0) forwardLookupResult.Status = ForwardLookupResult.ForwardLookupStatus.Resolved_but_no_IP_returned;
                 
-                resolverResult.Status = ResolverResult.ResolverStatus.Resolved_successfully;
+                forwardLookupResult.Status = ForwardLookupResult.ForwardLookupStatus.Resolved_successfully;
             }
             catch (DnsResponseException error)
             {
-                if (error.InnerException is OperationCanceledException) resolverResult.Status = ResolverResult.ResolverStatus.Resolution_timeout;
-                else resolverResult.Status = ResolverResult.ResolverStatus.Resolution_failed;
+                if (error.InnerException is OperationCanceledException) forwardLookupResult.Status = ForwardLookupResult.ForwardLookupStatus.Resolution_timeout;
+                else forwardLookupResult.Status = ForwardLookupResult.ForwardLookupStatus.Resolution_failed;
             }
             stopwatch.Stop();
 
-            resolverResult.Latency = stopwatch.ElapsedMilliseconds;
-            return resolverResult;
+            forwardLookupResult.Latency = stopwatch.ElapsedMilliseconds;
+            return forwardLookupResult;
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Network_Utilities.Lookup.Bypass_Testing;
+using Network_Utilities.Bypass_Testing;
 
 namespace _403Unlocker.Configuration
 {
@@ -35,8 +35,8 @@ namespace _403Unlocker.Configuration
         }
         public static double DnsResolveTimeoutInMilliSeconds
         {
-            get => ResolverSettings.TimeoutInMilliSeconds;
-            set => ResolverSettings.TimeoutInMilliSeconds = value;
+            get => ForwardLookupSettings.TimeoutInMilliSeconds;
+            set => ForwardLookupSettings.TimeoutInMilliSeconds = value;
         }
         public static int BypassTcpConnectTimeoutInMilliSeconds
         {

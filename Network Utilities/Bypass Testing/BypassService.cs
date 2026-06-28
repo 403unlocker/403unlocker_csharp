@@ -111,10 +111,10 @@ namespace Network_Utilities.Bypass_Testing
 
         private static async Task<IPAddress[]> ResolveOrThrow(IPAddress dns, string uri)
         {
-            ResolverResult result = await ResolverService.ResolveHostAsync(dns, uri);
+            ForwardLookupResult forwardLookupResult = await ForwardLookupService.ForwardLookupHostAsync(dns, uri);
 
-            if (result.IPv4.Length == 0) throw new InvalidDataException(result.Status.ToString().Replace('_', ' '));
-            return result.IPv4;
+            if (forwardLookupResult.IPv4.Length == 0) throw new InvalidDataException(forwardLookupResult.Status.ToString().Replace('_', ' '));
+            return forwardLookupResult.IPv4;
         }
 
         public async static Task<BypassResult> BypassTestAsync(IPAddress dns, string uri, int port, CancellationToken cancellationToken)
