@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Network_Utilities.DNS_Testing.Resolver
+namespace Network_Utilities.Lookup.Forward_Lookup
 {
     public class ResolverResult
     {

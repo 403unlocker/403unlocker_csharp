@@ -45,12 +45,12 @@
     <Compile Include="Ping\PingService.cs" />
     <Compile Include="Ping\PingSettings.cs" />
     <Compile Include="Ping\PingResult.cs" />
-    <Compile Include="DNS Testing\ByPass\BypassResult.cs" />
-    <Compile Include="DNS Testing\ByPass\BypassService.cs" />
-    <Compile Include="DNS Testing\ByPass\BypassSettings.cs" />
-    <Compile Include="DNS Testing\Resolver\ResolverResult.cs" />
-    <Compile Include="DNS Testing\Resolver\ResolverService.cs" />
-    <Compile Include="DNS Testing\Resolver\ResolverSettings.cs" />
+    <Compile Include="Bypass Testing\BypassResult.cs" />
+    <Compile Include="Bypass Testing\BypassService.cs" />
+    <Compile Include="Bypass Testing\BypassSettings.cs" />
+    <Compile Include="Lookup\Forward Lookup\ResolverResult.cs" />
+    <Compile Include="Lookup\Forward Lookup\ResolverService.cs" />
+    <Compile Include="Lookup\Forward Lookup\ResolverSettings.cs" />
     <Compile Include="Http Service\HttpResult.cs" />
     <Compile Include="Http Service\HttpService.cs" />
     <Compile Include="Http Service\HttpSettings.cs" />
@@ -60,6 +60,8 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Lookup\Reverse Lookup\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

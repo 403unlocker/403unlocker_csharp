@@ -6,10 +6,8 @@ using _403Unlocker.Edit_DNS;
 using _403Unlocker.File;
 using _403Unlocker.Find_DNS;
 using _403Unlocker.Network_Interface_Configuration;
-using _403Unlocker.Properties;
 using Clipboard_Manager;
-using Network_Utilities.DNS_Testing.ByPass;
-using Network_Utilities.DNS_Testing.Resolver;
+using Network_Utilities.Bypass_Testing;
 using Network_Utilities.Http_Service;
 using Network_Utilities.Ping;
 using Newtonsoft.Json;
@@ -25,15 +23,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
-using System.Net.WebSockets;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace _403Unlocker
 {
@@ -841,6 +833,7 @@ namespace _403Unlocker
 
             BeginCheck();
             SetTestingState(true);
+
             ResetDnsResultsForBypass();
 
             SetTargetHostname(uri);
@@ -895,6 +888,7 @@ namespace _403Unlocker
         {
             BeginCheck();
             SetTestingState(true);
+
             ResetDnsResultsForPing();
 
             SetTargetHostnameVisible(false);

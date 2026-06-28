@@ -1,16 +1,12 @@
 using DnsClient;
 using DnsClient.Protocol;
-using Network_Utilities.DNS_Testing.ByPass;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace Network_Utilities.DNS_Testing.Resolver
+namespace Network_Utilities.Lookup.Forward_Lookup
 {
     public static class ResolverService
     {

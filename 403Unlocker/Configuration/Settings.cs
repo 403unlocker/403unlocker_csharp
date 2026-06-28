@@ -1,6 +1,6 @@
 using Microsoft.Win32;
 using Network_Utilities.Ping;
-using Network_Utilities.DNS_Testing.Resolver;
+using Network_Utilities.Lookup.Forward_Lookup;
 using Network_Utilities.Http_Service;
 using Registry_Manager;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Network_Utilities.DNS_Testing.ByPass;
+using Network_Utilities.Lookup.Bypass_Testing;
 
 namespace _403Unlocker.Configuration
 {

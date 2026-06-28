@@ -1,5 +1,5 @@
 using DnsClient;
-using Network_Utilities.DNS_Testing.Resolver;
+using Network_Utilities.Lookup.Forward_Lookup;
 using Network_Utilities.Http_Service;
 using System;
 using System.Collections.Generic;
@@ -7,19 +7,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.NetworkInformation;
 using System.Net.Security;
 using System.Net.Sockets;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography;
-using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
-namespace Network_Utilities.DNS_Testing.ByPass
+namespace Network_Utilities.Bypass_Testing
 {
     public static class BypassService
     {

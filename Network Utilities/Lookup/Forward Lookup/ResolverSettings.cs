@@ -1,5 +1,5 @@
 
-namespace Network_Utilities.DNS_Testing.Resolver
+namespace Network_Utilities.Lookup.Forward_Lookup
 {
     public static class ResolverSettings
     {
