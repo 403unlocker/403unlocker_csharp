@@ -9,6 +9,7 @@ using _403Unlocker.Network_Interface_Configuration;
 using Clipboard_Manager;
 using Network_Utilities.Bypass_Testing;
 using Network_Utilities.Http_Service;
+using Network_Utilities.Lookup.Reverse_Lookup;
 using Network_Utilities.Ping;
 using Newtonsoft.Json;
 using QR_Code_Generator;
@@ -539,10 +540,9 @@ namespace _403Unlocker
                     else if (error is FormatException)
                     {
                         MessageBoxIPv4ImportFailed(error);
-                }
+                    }
                     else throw error;
-            }
-        }
+                }
             }
         }
 
@@ -717,14 +717,16 @@ namespace _403Unlocker
         #region Right Click
         private void iPv4AddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string selectedDns = dataGridView1.SelectedRows[0].Cells["IPv4"].Value.ToString();
-            ClipboardManager.CopyToClipboard(selectedDns);
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
+            ClipboardManager.CopyToClipboard(selectedDns.IPv4.ToString());
         }
 
         private void providerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string selectedProvider = dataGridView1.SelectedRows[0].Cells["Provider"].Value.ToString();
-            ClipboardManager.CopyToClipboard(selectedProvider);
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
+            ClipboardManager.CopyToClipboard(selectedDns.Provider);
         }
 
         private void allFieldsCSVToolStripMenuItem_Click(object sender, EventArgs e)
@@ -739,36 +741,34 @@ namespace _403Unlocker
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string selectedDns = dataGridView1.SelectedRows[0].Cells["IPv4"].Value.ToString();
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
 
-            if (MessageBoxDnsDeleteChoice(selectedDns) == DialogResult.Yes)
+            if (MessageBoxDnsDeleteChoice(selectedDns.IPv4.ToString()) == DialogResult.Yes)
             {
-                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
                 RemoveAtTable(selectedRowIndex);
             }
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var selectedDns = dataGridView1.SelectedRows[0];
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
 
-            IPAddress ipv4 = IPAddress.Parse(selectedDns.Cells["IPv4"].Value.ToString());
-            string provider = selectedDns.Cells["Provider"].Value.ToString();
-
-            EditDnsForm form = new EditDnsForm(ipv4, provider);
+            EditDnsForm form = new EditDnsForm(selectedDns.IPv4, selectedDns.Provider);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                dnsTable[selectedRowIndex].IPv4 = form.IPv4;
-                dnsTable[selectedRowIndex].Provider = form.Provider;
+                selectedDns.IPv4 = form.IPv4;
+                selectedDns.Provider = form.Provider;
                 RefreshTable();
             }
         }
 
         private void generateIPv4QRCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string selectedDns = dataGridView1.SelectedRows[0].Cells["IPv4"].Value.ToString();
-            QrCodeGeneratorForm form = new QrCodeGeneratorForm(selectedDns);
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
+            QrCodeGeneratorForm form = new QrCodeGeneratorForm(selectedDns.IPv4.ToString());
             form.ShowDialog();
         }
 
@@ -778,7 +778,6 @@ namespace _403Unlocker
             int index = dnsTable.IndexOf(foundDns);
             ShowRow(index);
         }
-
         public DnsInfo[] FindDnsByIPv4(string[] octecsToBeFound)
         {
             DnsInfo[] foundDns = dnsTable.ToList().FindAll(row =>
@@ -1153,6 +1152,6 @@ namespace _403Unlocker
         }
         #endregion
 
-
+        
     }
 }
