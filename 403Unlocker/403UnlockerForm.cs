@@ -817,6 +817,138 @@ namespace _403Unlocker
             FindByProviderForm form = new FindByProviderForm(this);
             form.Show(this);
         }
+
+        private async void pingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
+            try
+            {
+                PingResult pingResult = await PingService.PingHostAsync(selectedDns.IPv4);
+                selectedDns.Latency = $"{pingResult.Latency:F0}ms";
+                selectedDns.PingPacketLoss = $"{pingResult.PacketLoss:F0}%";
+            }
+            catch (Exception error)
+            {
+                if (error is OperationCanceledException)
+                {
+                    if (error.Message == "The operation was canceled.") selectedDns.PingPacketLoss = "Canceled by user";
+                }
+                selectedDns.Latency = "-1ms";
+            }
+            finally
+            {
+                RefreshTable();
+            }
+        }
+
+        private async void bypassToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string uri;
+            using (BypassHostnameForm form = new BypassHostnameForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK) return;
+
+                uri = form.Hostname;
+            }
+
+            try
+            {
+                toolStripLabelProgressBar.Visible = true;
+                toolStripLabelProgressBar.Text = "Checking direct access to hostname...";
+
+                HttpResult httpResult = await HttpService.SendRequestAsync(new Uri($"https://{uri}:443"));
+                if (httpResult.IsSuccessful)
+                {
+                    MessageBoxIsReachableWithoutDns(uri);
+                    toolStripLabelProgressBar.Visible = false;
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
+            try
+            {
+                BypassResult bypassResult = await BypassService.BypassTestAsync(selectedDns.IPv4, uri, 443);
+                selectedDns.Latency = $"{bypassResult.Latency:F0}ms";
+                selectedDns.Bypass = $"{(int)bypassResult.Status} – {bypassResult.Status}";
+            }
+            catch (Exception error)
+            {
+                if (error is OperationCanceledException)
+                {
+                    if (error.Message == "The operation was canceled.") selectedDns.Bypass = "Canceled by user";
+                }
+                else if (error is TimeoutException) selectedDns.Bypass = error.Message;
+                else if (error is UriFormatException) selectedDns.Bypass = error.Message;
+                else if (error is InvalidDataException) selectedDns.Bypass = error.Message;
+                else if (error is IOException exception)
+                {
+                    if (exception.InnerException is SocketException) selectedDns.Bypass = "Socket Closed";
+                }
+                else if (error is InvalidOperationException) selectedDns.Bypass = "Invalid Operation";
+                else throw error;
+
+                selectedDns.Latency = "-1ms";
+            }
+            finally
+            {
+                RefreshTable();
+            }
+        }
+
+        private async void nSLookupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            DnsInfo selectedDns = dnsTable[selectedRowIndex];
+
+            try
+            {
+                ReverseLookupResult reverseLookupResult = await ReverseLookupService.ReverseLookupHostAsync(selectedDns.IPv4);
+
+                selectedDns.Latency = $"{reverseLookupResult.Latency:F0}ms";
+                selectedDns.NsLookup = string.IsNullOrEmpty(reverseLookupResult.Hostname) ?
+                                           $"{reverseLookupResult.Status.ToString().Replace('_', ' ')}" :
+                                           reverseLookupResult.Hostname;
+            }
+            catch (Exception error)
+            {
+                if (error is OperationCanceledException)
+                {
+                    if (error.Message == "The operation was canceled.") selectedDns.NsLookup = "Canceled by user";
+                }
+                selectedDns.Latency = "-1ms";
+            }
+            finally
+            {
+                RefreshTable();
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0) SetContextMenuStripEnable(true);
+            else SetContextMenuStripEnable(false);
+        }
+
+        private void SetContextMenuStripEnable(bool state)
+        {
+            editToolStripMenuItem.Enabled=state;
+            
+            copyToolStripMenuItem.Enabled = state;
+         
+            deleteToolStripMenuItem.Enabled = state;
+            
+            pingToolStripMenuItem.Enabled = state;
+            bypassToolStripMenuItem.Enabled = state;
+            nSLookupToolStripMenuItem.Enabled = state;
+
+            shareQRCodeToolStripMenuItem.Enabled = state;
+        }
         #endregion
 
         #region Bypass
