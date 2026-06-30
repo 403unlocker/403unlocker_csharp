@@ -58,15 +58,6 @@ namespace _403Unlocker
         }
 
         #region Message Boxes
-        private static DialogResult MessageBoxIPv4ImportFailed()
-        {
-            var r = MessageBox.Show("",
-                                    "IPv4 Import Failed",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-            return r;
-        }
-
         private static DialogResult MessageBoxIPv4ImportFailed(Exception error)
         {
             var r = MessageBox.Show(error.Message,
@@ -974,6 +965,50 @@ namespace _403Unlocker
         }
         #endregion
 
+        #region Ping
+        private async void toolStripPing_Click(object sender, EventArgs e)
+        {
+            BeginCheck();
+
+            ResetDnsResultsForPing();
+
+            SetTargetHostnameVisible(false);
+
+            SemaphoreSlim semaphore = new SemaphoreSlim(Configuration.Settings.MaxParallelRequests);
+            await Task.WhenAll(
+                dnsTable.Select(async dns =>
+                {
+                    await semaphore.WaitAsync();
+
+                    try
+                    {
+                        PingResult pingResult = await PingService.PingHostAsync(dns.IPv4, cancellationToken.Token);
+                        dns.Latency = $"{pingResult.Latency:F0}ms";
+                        dns.PingPacketLoss = $"{pingResult.PacketLoss:F0}%";
+                    }
+                    catch (Exception error)
+                    {
+                        if (error is OperationCanceledException)
+                        {
+                            if (error.Message == "The operation was canceled.") dns.PingPacketLoss = "Canceled by user";
+                        }
+                        else throw error;
+
+                        dns.Latency = "-1ms";
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                        RefreshTable();
+                        IncrementProgressBar();
+                    }
+                })
+            );
+
+            EndCheck();
+        }
+        #endregion
+
         #region Bypass
         private async void toolStripBypass_Click(object sender, EventArgs e)
         {
@@ -1017,7 +1052,7 @@ namespace _403Unlocker
 
                     try
                     {
-                        BypassResult bypassResult = await BypassService.BypassTestAsync(dns.IPv4, uri,443, cancellationToken.Token);
+                        BypassResult bypassResult = await BypassService.BypassTestAsync(dns.IPv4, uri, 443, cancellationToken.Token);
                         dns.Latency = $"{bypassResult.Latency:F0}ms";
                         dns.Bypass = $"{(int)bypassResult.Status} – {bypassResult.Status}";
                     }
@@ -1035,50 +1070,6 @@ namespace _403Unlocker
                             if (exception.InnerException is SocketException) dns.Bypass = "Socket Closed";
                         }
                         else if (error is InvalidOperationException) dns.Bypass = "Invalid Operation";
-                        else throw error;
-
-                        dns.Latency = "-1ms";
-                    }
-                    finally
-                    {
-                        semaphore.Release();
-                        RefreshTable();
-                        IncrementProgressBar();
-                    }
-                })
-            );
-
-            EndCheck();
-        }
-        #endregion
-
-        #region Ping
-        private async void toolStripPing_Click(object sender, EventArgs e)
-        {
-            BeginCheck();
-
-            ResetDnsResultsForPing();
-
-            SetTargetHostnameVisible(false);
-
-            SemaphoreSlim semaphore = new SemaphoreSlim(Configuration.Settings.MaxParallelRequests);
-            await Task.WhenAll(
-                dnsTable.Select(async dns =>
-                {
-                    await semaphore.WaitAsync();
-
-                    try
-                    {
-                        PingResult pingResult = await PingService.PingHostAsync(dns.IPv4, cancellationToken.Token);
-                        dns.Latency = $"{pingResult.Latency:F0}ms";
-                        dns.PingPacketLoss = $"{pingResult.PacketLoss:F0}%";
-                    }
-                    catch (Exception error)
-                    {
-                        if (error is OperationCanceledException)
-                        {
-                            if (error.Message == "The operation was canceled.") dns.PingPacketLoss = "Canceled by user";
-                        }
                         else throw error;
 
                         dns.Latency = "-1ms";
