@@ -57,6 +57,15 @@ namespace _403Unlocker
         }
 
         #region Message Boxes
+        private static DialogResult MessageBoxIPv4ImportFailed()
+        {
+            var r = MessageBox.Show("",
+                                    "IPv4 Import Failed",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+            return r;
+        }
+
         private static DialogResult MessageBoxIPv4ImportFailed(Exception error)
         {
             var r = MessageBox.Show(error.Message,
@@ -338,6 +347,11 @@ namespace _403Unlocker
         private async Task<(int, int)> ImportJsonToTable(string path)
         {
             DnsConfig result = await FileManager.ReadJsonAsync<DnsConfig>(path);
+            if (result.IPv4_Servers is null)
+            {
+                throw new FormatException($"The selected file contains invalid entries\nOnly files containing IPv4 addresses can be imported");
+            }
+
             return AddToTable(result.IPv4_Servers);
         }
 
@@ -500,6 +514,7 @@ namespace _403Unlocker
                     {
                         MessageBoxIPv4ImportFailed(error);
                     }
+                    else throw error;
                 }
             }
         }
@@ -521,8 +536,13 @@ namespace _403Unlocker
                     {
                         MessageBoxIPv4ImportFailed(error);
                     }
+                    else if (error is FormatException)
+                    {
+                        MessageBoxIPv4ImportFailed(error);
                 }
-                
+                    else throw error;
+            }
+        }
             }
         }
 
@@ -834,6 +854,8 @@ namespace _403Unlocker
                 {
                     if (error.Message == "The operation was canceled.") selectedDns.PingPacketLoss = "Canceled by user";
                 }
+                else throw error;
+
                 selectedDns.Latency = "-1ms";
             }
             finally
@@ -921,6 +943,8 @@ namespace _403Unlocker
                 {
                     if (error.Message == "The operation was canceled.") selectedDns.NsLookup = "Canceled by user";
                 }
+                else throw error;
+
                 selectedDns.Latency = "-1ms";
             }
             finally
@@ -1056,6 +1080,8 @@ namespace _403Unlocker
                         {
                             if (error.Message == "The operation was canceled.") dns.PingPacketLoss = "Canceled by user";
                         }
+                        else throw error;
+
                         dns.Latency = "-1ms";
                     }
                     finally
@@ -1101,6 +1127,8 @@ namespace _403Unlocker
                         {
                             if (error.Message == "The operation was canceled.") dns.NsLookup = "Canceled by user";
                         }
+                        else throw error;
+
                         dns.Latency = "-1ms";
                     }
                     finally
