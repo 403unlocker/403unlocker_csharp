@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Network_Utilities.Lookup.Forward_Lookup
@@ -24,8 +25,10 @@ namespace Network_Utilities.Lookup.Forward_Lookup
             return lookupClientOptions;
         }
 
-        public async static Task<ForwardLookupResult> ForwardLookupHostAsync(IPAddress dns, string uri)
+        public async static Task<ForwardLookupResult> ForwardLookupHostAsync(IPAddress dns, string uri, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             LookupClientOptions options = CreateLookupOptions(dns);
             LookupClient lookup = new LookupClient(options);
 

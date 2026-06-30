@@ -1,6 +1,7 @@
 using DnsClient;
-using Network_Utilities.Lookup.Forward_Lookup;
 using Network_Utilities.Http_Service;
+using Network_Utilities.Lookup.Forward_Lookup;
+using Network_Utilities.Ping;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -109,12 +110,17 @@ namespace Network_Utilities.Bypass_Testing
             bypassResult.Status = (HttpStatusCode)int.Parse(bypassResult.HttpResponse[0].Split(' ')[1]);
         }
 
-        private static async Task<IPAddress[]> ResolveOrThrow(IPAddress dns, string uri)
+        private static async Task<IPAddress[]> ResolveOrThrow(IPAddress dns, string uri, CancellationToken cancellationToken)
         {
-            ForwardLookupResult forwardLookupResult = await ForwardLookupService.ForwardLookupHostAsync(dns, uri);
+            ForwardLookupResult forwardLookupResult = await ForwardLookupService.ForwardLookupHostAsync(dns, uri, cancellationToken);
 
             if (forwardLookupResult.IPv4.Length == 0) throw new InvalidDataException(forwardLookupResult.Status.ToString().Replace('_', ' '));
             return forwardLookupResult.IPv4;
+        }
+
+        public async static Task<BypassResult> BypassTestAsync(IPAddress dns, string uri, int port)
+        {
+            return await BypassTestAsync(dns, uri, port, CancellationToken.None);
         }
 
         public async static Task<BypassResult> BypassTestAsync(IPAddress dns, string uri, int port, CancellationToken cancellationToken)
@@ -126,7 +132,7 @@ namespace Network_Utilities.Bypass_Testing
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            IPAddress[] resolvedIPs = await ResolveOrThrow(dns, uri);
+            IPAddress[] resolvedIPs = await ResolveOrThrow(dns, uri, cancellationToken);
             string response = await GetHttpResponseAsync(resolvedIPs, uri, port, cancellationToken);
             SetValues(bypassResult, response);
 
@@ -140,7 +146,7 @@ namespace Network_Utilities.Bypass_Testing
                 {
                     redirectionUri = result.Host;
 
-                    IPAddress[] redirectionResolvedIPs = await ResolveOrThrow(dns, redirectionUri);
+                    IPAddress[] redirectionResolvedIPs = await ResolveOrThrow(dns, redirectionUri, cancellationToken);
                     string redirectionResponse = await GetHttpResponseAsync(redirectionResolvedIPs, redirectionUri, port, cancellationToken);
                     SetValues(bypassResult, redirectionResponse);
                 }

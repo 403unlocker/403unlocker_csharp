@@ -49,10 +49,11 @@ namespace _403Unlocker
             dataGridView1.Columns["IPv4"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Provider"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["Latency"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridView1.Columns["PacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridView1.Columns["PacketLoss"].HeaderText = "Packet Loss";
-            dataGridView1.Columns["ByPass"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView1.Columns["ByPass"].HeaderText = "Bypass";
+            dataGridView1.Columns["PingPacketLoss"].HeaderText = "Ping Packet Loss";
+            dataGridView1.Columns["PingPacketLoss"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridView1.Columns["Bypass"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView1.Columns["NsLookup"].HeaderText = "NS Lookup";
+            dataGridView1.Columns["NsLookup"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
         }
 
         #region Message Boxes
@@ -194,8 +195,8 @@ namespace _403Unlocker
 
             if (!formSettings.Exists)
             {
-                formSettings.FormSize = new Size(686, 471);
-                formSettings.FormLocation = new Point(457, 190);
+                formSettings.FormSize = new Size(825, 470);
+                formSettings.FormLocation = new Point(387, 191);
                 formSettings.FormWindowState = FormWindowState.Normal;
                 formSettings.Write();
             }
@@ -269,8 +270,9 @@ namespace _403Unlocker
 
             toolStripDropDownButton1.Enabled = !isChecking;
             toolStripDropDownButton2.Enabled = !isChecking;
-            toolStripPing.Enabled = !isChecking;
-            toolStripBypass.Enabled = !isChecking;
+            toolStripButtonPing.Enabled = !isChecking;
+            toolStripButtonNslookup.Enabled = !isChecking;
+            toolStripButtonBypass.Enabled = !isChecking;
             toolStripButtonApplyDns.Enabled = !isChecking;
 
             toolStrip3.Enabled = !isChecking;
@@ -432,7 +434,7 @@ namespace _403Unlocker
             foreach (var dns in dnsTable)
             {
                 dns.Latency = "";
-                dns.PacketLoss = "";
+                dns.PingPacketLoss = "";
             }
             RefreshTable();
         }
@@ -442,7 +444,17 @@ namespace _403Unlocker
             foreach (var dns in dnsTable)
             {
                 dns.Latency = "";
-                dns.ByPass = "";
+                dns.Bypass = "";
+            }
+            RefreshTable();
+        }
+
+        private void ResetDnsResultsForNsLookup()
+        {
+            foreach (var dns in dnsTable)
+            {
+                dns.Latency = "";
+                dns.NsLookup = "";
             }
             RefreshTable();
         }
@@ -818,11 +830,11 @@ namespace _403Unlocker
                 uri = form.Hostname;
             }
 
-            toolStripLabelProgressBar.Visible = true;
-            toolStripLabelProgressBar.Text = "Checking direct access to hostname...";
-
             try
             {
+                toolStripLabelProgressBar.Visible = true;
+                toolStripLabelProgressBar.Text = "Checking direct access to hostname...";
+
                 HttpResult httpResult = await HttpService.SendRequestAsync(new Uri($"https://{uri}:443"));
                 if (httpResult.IsSuccessful)
                 {
@@ -852,22 +864,22 @@ namespace _403Unlocker
                     {
                         BypassResult bypassResult = await BypassService.BypassTestAsync(dns.IPv4, uri,443, cancellationToken.Token);
                         dns.Latency = $"{bypassResult.Latency:F0}ms";
-                        dns.ByPass = $"{(int)bypassResult.Status} – {bypassResult.Status}";
+                        dns.Bypass = $"{(int)bypassResult.Status} – {bypassResult.Status}";
                     }
                     catch (Exception error)
                     {
                         if (error is OperationCanceledException)
                         {
-                            if (error.Message == "The operation was canceled.") dns.ByPass = "Canceled by user";
+                            if (error.Message == "The operation was canceled.") dns.Bypass = "Canceled by user";
                         }
-                        else if (error is TimeoutException) dns.ByPass = error.Message;
-                        else if (error is UriFormatException) dns.ByPass = error.Message;
-                        else if (error is InvalidDataException) dns.ByPass = error.Message;
+                        else if (error is TimeoutException) dns.Bypass = error.Message;
+                        else if (error is UriFormatException) dns.Bypass = error.Message;
+                        else if (error is InvalidDataException) dns.Bypass = error.Message;
                         else if (error is IOException exception)
                         {
-                            if (exception.InnerException is SocketException) dns.ByPass = "Socket Closed";
+                            if (exception.InnerException is SocketException) dns.Bypass = "Socket Closed";
                         }
-                        else if (error is InvalidOperationException) dns.ByPass = "Invalid Operation";
+                        else if (error is InvalidOperationException) dns.Bypass = "Invalid Operation";
                         else throw error;
 
                         dns.Latency = "-1ms";
@@ -904,13 +916,58 @@ namespace _403Unlocker
                     {
                         PingResult pingResult = await PingService.PingHostAsync(dns.IPv4, cancellationToken.Token);
                         dns.Latency = $"{pingResult.Latency:F0}ms";
-                        dns.PacketLoss = $"{pingResult.PacketLoss:F0}%";
+                        dns.PingPacketLoss = $"{pingResult.PacketLoss:F0}%";
                     }
                     catch (Exception error)
                     {
                         if (error is OperationCanceledException)
                         {
-                            if (error.Message == "The operation was canceled.") dns.PacketLoss = "Canceled by user";
+                            if (error.Message == "The operation was canceled.") dns.PingPacketLoss = "Canceled by user";
+                        }
+                        dns.Latency = "-1ms";
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                        RefreshTable();
+                        IncrementProgressBar();
+                    }
+                })
+            );
+
+            EndCheck();
+        }
+        #endregion
+
+        #region NS Lookup
+        private async void toolStripButtonNslookup_Click(object sender, EventArgs e)
+        {
+            BeginCheck();
+
+            ResetDnsResultsForNsLookup();
+
+            SetTargetHostnameVisible(false);
+
+            SemaphoreSlim semaphore = new SemaphoreSlim(Configuration.Settings.MaxParallelRequests);
+            await Task.WhenAll(
+                dnsTable.Select(async dns =>
+                {
+                    await semaphore.WaitAsync();
+
+                    try
+                    {
+                        ReverseLookupResult reverseLookupResult = await ReverseLookupService.ReverseLookupHostAsync(dns.IPv4, cancellationToken.Token);
+                        
+                        dns.Latency = $"{reverseLookupResult.Latency:F0}ms";
+                        dns.NsLookup = string.IsNullOrEmpty(reverseLookupResult.Hostname) ?
+                                       $"{reverseLookupResult.Status.ToString().Replace('_', ' ')}" :
+                                       reverseLookupResult.Hostname;
+                    }
+                    catch (Exception error)
+                    {
+                        if (error is OperationCanceledException)
+                        {
+                            if (error.Message == "The operation was canceled.") dns.NsLookup = "Canceled by user";
                         }
                         dns.Latency = "-1ms";
                     }
@@ -937,6 +994,5 @@ namespace _403Unlocker
         #endregion
 
 
-        
     }
 }

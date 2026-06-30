@@ -42,6 +42,9 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lookup\Reverse Lookup\ReverseLookupResult.cs" />
+    <Compile Include="Lookup\Reverse Lookup\ReverseLookupService.cs" />
+    <Compile Include="Lookup\Reverse Lookup\ReverseLookupSettings.cs" />
     <Compile Include="Ping\PingService.cs" />
     <Compile Include="Ping\PingSettings.cs" />
     <Compile Include="Ping\PingResult.cs" />
@@ -60,8 +63,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Lookup\Reverse Lookup\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -43,8 +43,9 @@ namespace _403Unlocker
             this.sortIPv4DescToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortLatencyAscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripPing = new System.Windows.Forms.ToolStripButton();
-            this.toolStripBypass = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPing = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonBypass = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNslookup = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonApplyDns = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancelTask = new System.Windows.Forms.ToolStripButton();
@@ -57,14 +58,19 @@ namespace _403Unlocker
             this.iPv4AddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.providerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allFieldsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shareQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byIPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byProviderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bypassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nSLookupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.shareQRCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonClearAll = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -107,8 +113,9 @@ namespace _403Unlocker
             this.toolStripDropDownButton1,
             this.toolStripDropDownButton2,
             this.toolStripSeparator6,
-            this.toolStripPing,
-            this.toolStripBypass,
+            this.toolStripButtonPing,
+            this.toolStripButtonBypass,
+            this.toolStripButtonNslookup,
             this.toolStripSeparator7,
             this.toolStripButtonApplyDns,
             this.toolStripButtonCancelTask,
@@ -116,7 +123,7 @@ namespace _403Unlocker
             this.toolStripProgressBarDns});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(670, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(809, 25);
             this.toolStrip1.TabIndex = 26;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -205,25 +212,35 @@ namespace _403Unlocker
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripPing
+            // toolStripButtonPing
             // 
-            this.toolStripPing.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripPing.Image = ((System.Drawing.Image)(resources.GetObject("toolStripPing.Image")));
-            this.toolStripPing.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripPing.Name = "toolStripPing";
-            this.toolStripPing.Size = new System.Drawing.Size(35, 22);
-            this.toolStripPing.Text = "Ping";
-            this.toolStripPing.Click += new System.EventHandler(this.toolStripPing_Click);
+            this.toolStripButtonPing.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonPing.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPing.Image")));
+            this.toolStripButtonPing.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPing.Name = "toolStripButtonPing";
+            this.toolStripButtonPing.Size = new System.Drawing.Size(35, 22);
+            this.toolStripButtonPing.Text = "Ping";
+            this.toolStripButtonPing.Click += new System.EventHandler(this.toolStripPing_Click);
             // 
-            // toolStripBypass
+            // toolStripButtonBypass
             // 
-            this.toolStripBypass.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripBypass.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBypass.Image")));
-            this.toolStripBypass.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripBypass.Name = "toolStripBypass";
-            this.toolStripBypass.Size = new System.Drawing.Size(47, 22);
-            this.toolStripBypass.Text = "Bypass";
-            this.toolStripBypass.Click += new System.EventHandler(this.toolStripBypass_Click);
+            this.toolStripButtonBypass.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonBypass.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBypass.Image")));
+            this.toolStripButtonBypass.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonBypass.Name = "toolStripButtonBypass";
+            this.toolStripButtonBypass.Size = new System.Drawing.Size(47, 22);
+            this.toolStripButtonBypass.Text = "Bypass";
+            this.toolStripButtonBypass.Click += new System.EventHandler(this.toolStripBypass_Click);
+            // 
+            // toolStripButtonNslookup
+            // 
+            this.toolStripButtonNslookup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonNslookup.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNslookup.Image")));
+            this.toolStripButtonNslookup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNslookup.Name = "toolStripButtonNslookup";
+            this.toolStripButtonNslookup.Size = new System.Drawing.Size(69, 22);
+            this.toolStripButtonNslookup.Text = "NS Lookup";
+            this.toolStripButtonNslookup.Click += new System.EventHandler(this.toolStripButtonNslookup_Click);
             // 
             // toolStripSeparator7
             // 
@@ -301,7 +318,7 @@ namespace _403Unlocker
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(670, 333);
+            this.dataGridView1.Size = new System.Drawing.Size(809, 332);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewTotalDNSRecords_DataBindingComplete);
             // 
@@ -310,13 +327,16 @@ namespace _403Unlocker
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
             this.copyToolStripMenuItem,
-            this.shareQRCodeToolStripMenuItem,
+            this.deleteToolStripMenuItem,
             this.toolStripSeparator2,
             this.findToolStripMenuItem,
             this.toolStripSeparator3,
-            this.deleteToolStripMenuItem});
+            this.testToolStripMenuItem,
+            this.toolStripSeparator8,
+            this.shareQRCodeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(154, 126);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(154, 154);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
             // 
@@ -358,22 +378,13 @@ namespace _403Unlocker
             this.allFieldsCSVToolStripMenuItem.Text = "All Fields (CSV)";
             this.allFieldsCSVToolStripMenuItem.Click += new System.EventHandler(this.allFieldsCSVToolStripMenuItem_Click);
             // 
-            // shareQRCodeToolStripMenuItem
+            // deleteToolStripMenuItem
             // 
-            this.shareQRCodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iPv4ToolStripMenuItem});
-            this.shareQRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shareQRCodeToolStripMenuItem.Image")));
-            this.shareQRCodeToolStripMenuItem.Name = "shareQRCodeToolStripMenuItem";
-            this.shareQRCodeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.shareQRCodeToolStripMenuItem.Text = "Share QR Code";
-            // 
-            // iPv4ToolStripMenuItem
-            // 
-            this.iPv4ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("iPv4ToolStripMenuItem.Image")));
-            this.iPv4ToolStripMenuItem.Name = "iPv4ToolStripMenuItem";
-            this.iPv4ToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
-            this.iPv4ToolStripMenuItem.Text = "IPv4";
-            this.iPv4ToolStripMenuItem.Click += new System.EventHandler(this.generateIPv4QRCodeToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -409,22 +420,68 @@ namespace _403Unlocker
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(150, 6);
             // 
-            // deleteToolStripMenuItem
+            // testToolStripMenuItem
             // 
-            this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pingToolStripMenuItem,
+            this.bypassToolStripMenuItem,
+            this.nSLookupToolStripMenuItem});
+            this.testToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("testToolStripMenuItem.Image")));
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.testToolStripMenuItem.Text = "Test";
+            // 
+            // pingToolStripMenuItem
+            // 
+            this.pingToolStripMenuItem.Name = "pingToolStripMenuItem";
+            this.pingToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.pingToolStripMenuItem.Text = "Ping";
+            this.pingToolStripMenuItem.Click += new System.EventHandler(this.pingToolStripMenuItem_Click);
+            // 
+            // bypassToolStripMenuItem
+            // 
+            this.bypassToolStripMenuItem.Name = "bypassToolStripMenuItem";
+            this.bypassToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.bypassToolStripMenuItem.Text = "Bypass";
+            this.bypassToolStripMenuItem.Click += new System.EventHandler(this.bypassToolStripMenuItem_Click);
+            // 
+            // nSLookupToolStripMenuItem
+            // 
+            this.nSLookupToolStripMenuItem.Name = "nSLookupToolStripMenuItem";
+            this.nSLookupToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.nSLookupToolStripMenuItem.Text = "NS Lookup";
+            this.nSLookupToolStripMenuItem.Click += new System.EventHandler(this.nSLookupToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(150, 6);
+            // 
+            // shareQRCodeToolStripMenuItem
+            // 
+            this.shareQRCodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iPv4ToolStripMenuItem});
+            this.shareQRCodeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shareQRCodeToolStripMenuItem.Image")));
+            this.shareQRCodeToolStripMenuItem.Name = "shareQRCodeToolStripMenuItem";
+            this.shareQRCodeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.shareQRCodeToolStripMenuItem.Text = "Share QR Code";
+            // 
+            // iPv4ToolStripMenuItem
+            // 
+            this.iPv4ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("iPv4ToolStripMenuItem.Image")));
+            this.iPv4ToolStripMenuItem.Name = "iPv4ToolStripMenuItem";
+            this.iPv4ToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+            this.iPv4ToolStripMenuItem.Text = "IPv4";
+            this.iPv4ToolStripMenuItem.Click += new System.EventHandler(this.generateIPv4QRCodeToolStripMenuItem_Click);
             // 
             // toolStrip3
             // 
             this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonClearAll});
-            this.toolStrip3.Location = new System.Drawing.Point(0, 407);
+            this.toolStrip3.Location = new System.Drawing.Point(0, 406);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(670, 25);
+            this.toolStrip3.Size = new System.Drawing.Size(809, 25);
             this.toolStrip3.TabIndex = 28;
             this.toolStrip3.Text = "toolStrip2";
             // 
@@ -445,7 +502,7 @@ namespace _403Unlocker
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(670, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(809, 24);
             this.menuStrip1.TabIndex = 30;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -576,9 +633,9 @@ namespace _403Unlocker
             this.toolStripLabel2,
             this.toolStripSeparator5,
             this.toolStripLabel3});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 382);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 381);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(670, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(809, 25);
             this.toolStrip2.TabIndex = 31;
             this.toolStrip2.Text = "toolStrip3";
             // 
@@ -636,7 +693,7 @@ namespace _403Unlocker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 432);
+            this.ClientSize = new System.Drawing.Size(809, 431);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
@@ -703,8 +760,8 @@ namespace _403Unlocker
         private System.Windows.Forms.ToolStripMenuItem sortIPv4AscToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortIPv4DescToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortLatencyAscToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripPing;
-        private System.Windows.Forms.ToolStripButton toolStripBypass;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPing;
+        private System.Windows.Forms.ToolStripButton toolStripButtonBypass;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem shareQRCodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iPv4ToolStripMenuItem;
@@ -726,6 +783,12 @@ namespace _403Unlocker
         private System.Windows.Forms.OpenFileDialog openFileDialogText;
         private System.Windows.Forms.SaveFileDialog saveFileDialogText;
         private System.Windows.Forms.ToolStripMenuItem publicDNSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonNslookup;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bypassToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nSLookupToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }
 

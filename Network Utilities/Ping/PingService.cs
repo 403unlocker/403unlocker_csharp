@@ -10,6 +10,11 @@ namespace Network_Utilities.Ping
 {
     public static class PingService
     {
+        public async static Task<PingResult> PingHostAsync(IPAddress dns)
+        {
+            return await PingHostAsync(dns, CancellationToken.None);
+        }
+
         public async static Task<PingResult> PingHostAsync(IPAddress dns, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();

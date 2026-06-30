@@ -26,11 +26,14 @@ namespace _403Unlocker.Data_Models
         [JsonProperty("Latency")]
         public string Latency { get; set; }
 
-        [JsonProperty("PacketLoss")]
-        public string PacketLoss { get; set; }
+        [JsonProperty("PingPacketLoss")]
+        public string PingPacketLoss { get; set; }
 
-        [JsonProperty("ByPass")]
-        public string ByPass { get; set; }
+        [JsonProperty("Bypass")]
+        public string Bypass { get; set; }
+
+        [JsonProperty("NsLookup")]
+        public string NsLookup { get; set; }
 
         [JsonConstructor]
         public DnsInfo(IPAddress ipv4, string provider = "")
