@@ -96,6 +96,8 @@ namespace _403Unlocker.Add_DNS.Online_Source
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ScraperForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Loading";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ScraperForm_FormClosed);

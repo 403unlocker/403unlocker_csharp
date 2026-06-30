@@ -160,8 +160,10 @@ namespace _403Unlocker.Network_Interface_Configuration
             this.Controls.Add(this.labelSelectedDns);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "NetworkInterfaceConfigurationForm";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Network Interface Config";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NetworkInterfaceConfigurationForm_FormClosed);

@@ -760,7 +760,7 @@ namespace _403Unlocker
             int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
             DnsInfo selectedDns = dnsTable[selectedRowIndex];
             QrCodeGeneratorForm form = new QrCodeGeneratorForm(selectedDns.IPv4.ToString());
-            form.ShowDialog();
+            form.ShowDialog(this);
         }
 
 
